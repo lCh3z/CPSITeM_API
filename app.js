@@ -1242,18 +1242,74 @@ app.delete('/imgProduct/:id_prod', (req,res)=>{
 //////////////////////////////////////////////////////////////////////
 
 app.get('/cuppons',(req,res)=>{
-
+  const cuppons = [{
+    id : 'XMAS',
+    discount : 10,
+    start : Date.now(),
+    end : Date.now(),
+    description : 'Descripcion'
+  },{
+    id : 'XMAS2',
+    discount : 5,
+    start : Date.now(),
+    end : Date.now(),
+    description : 'Descripcion'
+  }]
+  const json = {
+    response : 'OK',
+    data : cuppons
+  }
+  res.send(json)
 })
 app.get('/cuppon/:id',(req,res)=>{
-
+  const cuppon = {
+    id : 'XMAS',
+    discount : 10,
+    start : Date.now(),
+    end : Date.now(),
+    description : 'Descripcion'
+  }
+  const json = {
+    response : 'OK',
+    data : cuppon
+  }
+  res.send(json)
 })
 app.patch('/cuppon/:id',(req,res)=>{
-
+  const cuppon = {
+    id : req.param('id'),
+    discount : req.param('discount'),
+    start : req.param('start'),
+    end : req.param('end'),
+    description : req.param('description')
+  }
+  const json = {
+    response : 'OK',
+    data : cuppon,
+    message : `Se actualizó correctamente ${req.param('id')}`
+  }
+  res.send(json)
 })
 app.post('/cuppon',(req,res)=>{
-
+  const cuppon = {
+    id : req.param('id'),
+    discount : req.param('discount'),
+    start : req.param('start'),
+    end : req.param('end'),
+    description : req.param('description')
+  }
+  const json = {
+    response : 'OK',
+    data : cuppon,
+    message : `Se insertó correctamente ${req.param('id')}`
+  }
+  res.send(json)
 })
 app.delete('/cuppon/:id',(req,res)=>{
-
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la orden ${req.param('id')}`
+  }
+  res.send(json)
 })
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
