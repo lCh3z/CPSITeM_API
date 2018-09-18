@@ -934,4 +934,191 @@ app.delete('/statService/:id',(req,res)=>{
   res.send(json)
 })
 
+
+app.get('/notifications', (req, res) =>{
+  const notifications = [{
+    id : 1,
+    title : 'Servicio finalizado',
+    cont : 'Ya estuvo',
+    id_user : 2,
+    date : Date.now(),
+    prog : ('prog'),
+    status : false
+  },
+  {
+    id : 3,
+    title : 'Servicio finalizado 2131 ',
+    cont : 'Ya estuvo 213',
+    id_user : 2,
+    date : Date.now(),
+    prog : ('prog'),
+    status : false
+  }];
+  const json = {
+    response : 'OK',
+    data : notifications
+  }
+
+  res.send(json)
+})
+
+app.get('/notification/:id', (req, res) =>{
+  const notification = {
+    id : req.param('id'),
+    title : 'Servicio finalizado',
+    cont : 'Ya estuvo',
+    id_user : 2,
+    date : Date.now(),
+    prog : ('prog'),
+    status : false
+  }
+
+  const json = {
+    response : 'OK',
+    data : notification
+  }
+
+  res.send(json)
+})
+
+app.post('/notification', (req, res) => {
+  const notification = {
+    title : req.param('title'),
+    cont : req.param('cont'),
+    id_user : req.param('id_user'),
+    date : req.param('date'),
+    prog : req.param('prog'),
+    status : req.param('status')
+  }
+
+  // Validar entrada
+
+  //Insertar en Client
+
+  //Insertar en Emails
+
+  const json = {
+    response : 'OK',
+    message : `Insertado la notificación ${req.param('name')}`
+  }
+
+  res.send(json)
+})
+app.delete('/notification/:id', (req, res) =>{
+  const product = [{
+    id : req.param('id')
+  }];
+
+  const json = {
+    response : 'OK',
+    message : `Se elimino a ${req.param('id')}`
+  }
+
+  res.send(json)
+})
+
+app.patch('/notification/:id', (req, res) => {
+  const notification = {
+    id : req.param('id'),
+    title : req.param('title'),
+    cont : req.param('cont'),
+    id_user : req.param('id_user'),
+    date : req.param('date'),
+    prog : req.param('prog'),
+    status : req.param('status')
+  }
+  //Validaciones
+
+  //SQL
+
+  const json = {
+    response : 'OK',
+    message : `Modificada la notificación ${req.param('id')}`
+  }
+
+  res.send(json)
+})
+
+
+app.get('/newslists', (req, res) =>{
+  const newslists = [{
+    email : 'miclo@velka.com',
+    status : true
+  },
+  {
+    email : 'cruz@candelaria',
+    status : true
+  }];
+  const json = {
+    response : 'OK',
+    data : newslists
+  }
+
+  res.send(json)
+})
+
+app.get('/newslist/:email', (req, res) =>{
+  const newslist = {
+    email : req.param('email'),
+    status : false,
+  }
+
+  const json = {
+    response : 'OK',
+    data : newslist
+  }
+
+  res.send(json)
+})
+
+app.post('/newslist', (req, res) => {
+  const newslist = {
+    email : req.param('email'),
+    status : req.param('status')
+  }
+
+  // Validar entrada
+
+  //Insertar en Client
+
+  //Insertar en Emails
+
+  const json = {
+    response : 'OK',
+    message : `Insertado el elemento ${req.param('email')}`
+  }
+
+  res.send(json)
+})
+
+app.delete('/newslist/:email', (req, res) =>{
+  const newslist = [{
+    email : req.param('email')
+  }];
+
+  const json = {
+    response : 'OK',
+    message : `Se elimino a ${req.param('email')}`
+  }
+
+  res.send(json)
+})
+
+app.patch('/newslist/:email', (req, res) => {
+  const newslist = {
+    email : req.param('email'),
+    status : req.param('status')
+  }
+  //Validaciones
+
+  //SQL
+
+  const json = {
+    response : 'OK',
+    message : `Modificado el elemento ${req.param('email')}`
+  }
+
+  res.send(json)
+})
+
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
