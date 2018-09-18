@@ -854,4 +854,84 @@ app.delete('/order/:id',(req,res)=>{
   }
   res.send(json)
 })
+//////////////////////////////////////////////////////////////////////
+app.get('/statServices',(req,res)=>{
+  const statServices = [{
+    id : 1,
+    id_service : 1,
+    title : 'titulo',
+    description : 'Descripcion',
+    materials : 'materiales usados',
+    observations : 'observaciones'
+  },{
+    id : 2,
+    id_service : 2,
+    title : 'titulo',
+    description : 'Descripcion',
+    materials : 'materiales usados',
+    observations : 'observaciones'
+  }]
+  const json = {
+    response : 'OK',
+    data : statServices
+  }
+  res.send(json)
+})
+app.get('/statService/:id',(req,res)=>{
+  const statService = {
+    id : req.param('id'),
+    id_service : 1,
+    title : 'titulo',
+    description : 'Descripcion',
+    materials : 'materiales usados',
+    observations : 'observaciones'
+  }
+  const json = {
+    response : 'OK',
+    data : statService
+  }
+  res.send(json)
+})
+app.patch('/statService/:id',(req,res)=>{
+  const statService = {
+    id : req.param('id'),
+    id_service : req.param('id_service'),
+    title : req.param('title'),
+    description : req.param('description'),
+    materials : req.param('materials'),
+    observations : req.param('observations')
+  }
+  const json = {
+    response : 'OK',
+    data : statService,
+    message : `Se actualizó correctamente a ${req.param('id')}`
+
+  }
+  res.send(json)
+})
+app.post('/statService',(req,res)=>{
+  const statService = {
+    id : req.param('id'),
+    id_service : req.param('id_service'),
+    title : req.param('title'),
+    description : req.param('description'),
+    materials : req.param('materials'),
+    observations : req.param('observations')
+  }
+  const json = {
+    response : 'OK',
+    data : statService,
+    message : `Se insertó correctamente a ${req.param('id')}`
+
+  }
+  res.send(json)
+})
+app.delete('/statService/:id',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la orden ${req.param('id_order')}`
+  }
+  res.send(json)
+})
+
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
