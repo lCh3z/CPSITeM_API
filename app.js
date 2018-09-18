@@ -933,5 +933,63 @@ app.delete('/statService/:id',(req,res)=>{
   }
   res.send(json)
 })
+//////////////////////////////////////////////////////////////////////
 
+app.get('/imgStatServs', (req,res)=>{
+  const imgStatServs = [{
+    id_stat_serv : 1,
+    photo : 'IMAGEN O FOTO'
+  },{
+    id_stat_serv : 2,
+    photo : 'IMAGEN O FOTO'
+  }]
+  const json = {
+    response : 'OK',
+    data : imgStatServs
+  }
+  res.send(json)
+})
+
+app.get('/imgStatServ/:id_stat_serv', (req,res)=>{
+  const imgStatServ = {
+    id_stat_serv : req.param('id_stat_serv'),
+    photo : 'IMAGEN O FOTO'
+  }
+  const json = {
+    response : 'OK',
+    data : imgStatServ
+  }
+  res.send(json)
+})
+app.patch('/imgStatServ/:id', (req,res)=>{
+  const imgStatServ = {
+    id_stat_serv : req.param('id_stat_serv'),
+    photo : req.param('photo')
+  }
+  const json = {
+    response : 'OK',
+    data : imgStatServ,
+    message : `Se actualizó correctamente a ${req.param('id_stat_serv')}`
+  }
+  res.send(json)
+})
+app.post('/imgStatServ', (req,res)=>{
+  const imgStatServ = {
+    id_stat_serv : req.param('id_stat_serv'),
+    photo : req.param('photo')
+  }
+  const json = {
+    response : 'OK',
+    data : imgStatServ,
+    message : `Se insertó correctamente a ${req.param('id_stat_serv')}`
+  }
+  res.send(json)
+})
+app.delete('/imgStatServ/:id_stat_serv', (req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la orden ${req.param('id_stat_serv')}`
+  }
+  res.send(json)
+})
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
