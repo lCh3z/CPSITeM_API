@@ -47,7 +47,6 @@ app.get('/clients', (req, res) =>{
   const json = {
     response : 'OK',
     data : clients
-
   }
 
   res.send(json)
@@ -95,7 +94,7 @@ app.post('/client', (req, res) => {
 
   const json = {
     response : 'OK',
-    data : 'Se insertó correctamente'
+    message : 'Se insertó correctamente'
   }
 
   res.send(json)
@@ -107,7 +106,7 @@ app.delete('/client/:id', (req, res) =>{
 
   const json = {
     response : 'OK',
-    data : `'Se elimino a ${req.param('id')}`
+    message : `Se elimino a ${req.param('id')}`
   }
 
   res.send(json)
@@ -230,7 +229,7 @@ app.patch('/user/:id', (req, res) => {
 
   const json = {
     response : 'OK',
-    message :  `Se actualizó correctamente a ${req.param('name')}`
+    message : `Se actualizó correctamente a ${req.param('name')}`
   }
 
   res.send(json)
@@ -262,7 +261,7 @@ app.post('/user', (req, res) => {
 
   const json = {
     response : 'OK',
-    message :  `Se insertó correctamente a ${req.param('name')}`
+    message : `Se insertó correctamente a ${req.param('name')}`
   }
 
   res.send(json)
@@ -335,7 +334,7 @@ app.post('/listEmail', (req, res) =>{
   }
   const json = {
     response : 'OK',
-    message :  = `Se insertó correctamente ${req.param('id')}`
+    message : `Se insertó correctamente ${req.param('id')}`
   }
 
   res.send(json)
@@ -473,5 +472,128 @@ app.delete('/cart/:id',(req,res)=>{
   res.send(json)
 })
 
+app.get('/products', (req, res) =>{
+  const products = [{
+    id : 1,
+    id_cat : 1,
+    name : 'Pancho',
+    price : 12312,
+    status : 4,
+    discount : 12312,
+    inventory : 12,
+    description : 'Está chido',
+    specs : 'Tiene pantalla',
+    min_quan : 15,
+    date : Date.now()
+  },
+  {
+    id : 2,
+    id_cat : 2,
+    name : 'MARIO',
+    price : 12312,
+    status : 4,
+    discount : 12312,
+    inventory : 12,
+    description : 'Está chido',
+    specs : 'Tiene pantalla',
+    min_quan : 15,
+    date : Date.now()
+  }];
+  const json = {
+    response : 'OK',
+    data : products
+
+  }
+
+  res.send(json)
+})
+
+app.get('/product/:id', (req, res) =>{
+  const product = {
+    id : 1,
+    id_cat : 1,
+    name : 'Pancho',
+    price : 12312,
+    status : 4,
+    discount : 12312,
+    inventory : 12,
+    description : 'Está chido',
+    specs : 'Tiene pantalla',
+    min_quan : 15,
+    date : Date.now()
+  }
+
+  const json = {
+    response : 'OK',
+    data : product
+  }
+
+  res.send(json)
+})
+app.post('/product', (req, res) => {
+  const product = {
+    id_cat : req.param('id_cat'),
+    name : req.param('name'),
+    price : req.param('name'),
+    status : req.param('status'),
+    discount : req.param('discount'),
+    inventory : req.param('inventory'),
+    description : req.param('description'),
+    specs : req.param('specs'),
+    min_quan : req.param('min_quan'),
+    date : req.param('date')
+  }
+
+  // Validar entrada
+
+  //Insertar en Client
+
+  //Insertar en Emails
+
+  const json = {
+    response : 'OK',
+    message : `Insertado el producto ${req.param('name')}`
+  }
+
+  res.send(json)
+})
+app.delete('/product/:id', (req, res) =>{
+  const product = [{
+    id : req.param('id')
+  }];
+
+  const json = {
+    response : 'OK',
+    message : `Se elimino a ${req.param('id')}`
+  }
+
+  res.send(json)
+})
+
+app.patch('/product/:id', (req, res) => {
+  const product = {
+    id : req.param('id'),
+    id_cat : req.param('id_cat'),
+    name : req.param('name'),
+    price : req.param('name'),
+    status : req.param('status'),
+    discount : req.param('discount'),
+    inventory : req.param('inventory'),
+    description : req.param('description'),
+    specs : req.param('specs'),
+    min_quan : req.param('min_quan'),
+    date : req.param('date')
+  }
+  //Validaciones
+
+  //SQL
+
+  const json = {
+    response : 'OK',
+    message : `Modificado el producto ${req.param('name')}`
+  }
+
+  res.send(json)
+})
 
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
