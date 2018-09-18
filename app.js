@@ -1312,4 +1312,64 @@ app.delete('/cuppon/:id',(req,res)=>{
   }
   res.send(json)
 })
+
+app.get('/payments',(req,res)=>{
+  const payments = [{
+    id_client : 1,
+    account : 'cuenta',
+    token : 'token'
+  },{
+    id_client : 2,
+    account : 'cuenta',
+    token : 'token'
+  }]
+  const json = {
+    response : 'OK',
+    data : payments
+  }
+  res.send(json)
+})
+app.get('/payment/:id_client',(req,res)=>{
+  const payment = {
+    id_client : 1,
+    account : 'cuenta',
+    token : 'token'
+  }
+  const json = {
+    response : 'OK',
+    data : payment
+  }
+  res.send(json)
+})
+app.post('/payment',(req,res)=>{
+  const payment = {
+    id_client : req.param('id_client'),
+    account : req.param('account'),
+    token : req.param('token')
+  }
+  const json = {
+    response : 'OK',
+    data : payment
+  }
+  res.send(json)
+})
+app.patch('/payment/:id_client',(req,res)=>{
+  const payment = {
+    id_client : req.param('id_client'),
+    account : req.param('account'),
+    token : req.param('token')
+  }
+  const json = {
+    response : 'OK',
+    data : payment
+  }
+  res.send(json)
+})
+app.delete('/payment/:id_client',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó el pago ${req.param('id_client')}`
+  }
+  res.send(json)
+})
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
