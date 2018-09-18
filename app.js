@@ -3,8 +3,6 @@ const app = express()
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-// Clients
-
 app.get('/clients', (req, res) =>{
   const clients = [{
     id :1,
@@ -49,6 +47,7 @@ app.get('/clients', (req, res) =>{
   const json = {
     response : 'OK',
     data : clients
+
   }
 
   res.send(json)
@@ -108,8 +107,9 @@ app.delete('/client/:id', (req, res) =>{
 
   const json = {
     response : 'OK',
-    message : `'Se elimino a ${req.param('id')}`
+    data : `'Se elimino a ${req.param('id')}`
   }
+
   res.send(json)
 })
 
@@ -205,7 +205,7 @@ app.get('/user/:id', (req, res) =>{
   res.send(json)
 })
 
-app.patch('/user', (req, res) => {
+app.patch('/user/:id', (req, res) => {
   const user = {
     photo : req.param('photo'),
     name : req.param('name'),
@@ -230,7 +230,7 @@ app.patch('/user', (req, res) => {
 
   const json = {
     response : 'OK',
-    message : `Se actualizó correctamente a ${req.param('name')}`
+    message :  `Se actualizó correctamente a ${req.param('name')}`
   }
 
   res.send(json)
@@ -262,7 +262,7 @@ app.post('/user', (req, res) => {
 
   const json = {
     response : 'OK',
-    message : `Se insertó correctamente a ${req.param('name')}`
+    message :  `Se insertó correctamente a ${req.param('name')}`
   }
 
   res.send(json)
@@ -277,7 +277,7 @@ app.delete('/user/:id', (req, res) => {
 
   const json = {
     response : 'OK',
-    data : `Se deshabilitó al usuario ${req.param('id')}`
+    message : `Se deshabilitó al usuario ${req.param('id')}`
   }
 
   res.send(json)
@@ -307,15 +307,13 @@ app.get('/listEmail/:id', (req, res) =>{
   }]
   const json = {
     response : 'OK',
-    data : [
-      data = listEmail
-    ]
+    data : listEmail
   }
   res.send(json)
 })
 
-app.patch('/listEmail', (req, res) =>{
-  const lsitEmail = {
+app.patch('/listEmail/:id', (req, res) =>{
+  const listEmail = {
     id : req.param('id'),
     id_user : req.param('id_user'),
     email : req.param('email')
@@ -323,7 +321,8 @@ app.patch('/listEmail', (req, res) =>{
 
   const json = {
     response : 'OK',
-    message : `Se actualizó correctamente ${req.param('id')}`
+    data : listEmail,
+    message: `Se actualizó correctamente ${req.param('id')}`
   }
   res.send(json)
 })
@@ -336,7 +335,7 @@ app.post('/listEmail', (req, res) =>{
   }
   const json = {
     response : 'OK',
-    status : `Se insertó correctamente ${req.param('id')}`
+    message :  = `Se insertó correctamente ${req.param('id')}`
   }
 
   res.send(json)
@@ -344,7 +343,7 @@ app.post('/listEmail', (req, res) =>{
 app.delete('/listEmail/:id', (req, res)=>{
   const json = {
     response : 'OK',
-    status : `Se deshabilitó lista de email ${req.param('id')}`
+    message :  `Se deshabilitó lista de email ${req.param('id')}`
   }
   res.send(json)
 })
@@ -367,11 +366,11 @@ app.get('/wishlists',(req,res)=>{
   res.send(json)
 })
 
-app.get('/wishlist/:id_user', (req, res) => {
-  const wishlist = {
+app.get('/wishlist/:id_user', (req, res)=>{
+  const wishlist = [{
     id_user : req.param('id_user'),
     id_product : 1,
-  }
+  }]
   const json = {
     response : 'OK',
     data : wishlist
@@ -403,6 +402,7 @@ app.delete('/wishlist/:id_user', (req, res)=>{
   res.send(json)
 })
 
+
 //////////////////////////////////////////////////////////////////////
 app.get('/carts', (req, res)=>{
   const carts =[{
@@ -418,6 +418,7 @@ app.get('/carts', (req, res)=>{
     response : 'OK',
     data : carts
   }
+  res.send(carts)
 })
 app.get('/cart/:id', (req, res)=>{
   const cart =[{
@@ -433,8 +434,44 @@ app.get('/cart/:id', (req, res)=>{
     response : 'OK',
     data : cart
   }
+  res.send(cart)
 })
 
+app.patch('/cart/:id', (req, res) =>{
+  const cart = {
+    id : req.param('id'),
+    id_product : req.param('id_product'),
+    quantity : req.param('quantity')
+  }
+  const json = {
+    response : 'OK',
+    data : cart,
+    message : `Se actualizó correctamente a ${req.param('id')}`
+  }
+  res.send(cart)
+})
+app.post('/cart',(req, res)=>{
+  const cart = {
+    id : req.param('id'),
+    id_product : req.param('id_product'),
+    quantity : req.param('quantity')
+  }
+  const json = {
+    response : 'OK',
+    data : cart,
+    message : `Se insertó correctamente a ${req.param('id')}`
+  }
+  res.send(cart)
+})
+
+app.delete('/cart/:id',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó al usuario ${req.param('id')}`
+
+  }
+  res.send(json)
+})
 
 
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
