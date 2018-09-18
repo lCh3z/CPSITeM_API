@@ -335,7 +335,7 @@ app.post('/listEmail', (req, res) =>{
   }
   const json = {
     response : 'OK',
-    message :  = `Se insertó correctamente ${req.param('id')}`
+    message : `Se insertó correctamente ${req.param('id')}`
   }
 
   res.send(json)
@@ -531,7 +531,7 @@ app.patch('/order/:id', (req, res)=>{
   }
   res.send(json)
 })
-app.post('/order/:id', (req, res)=>{
+app.post('/order/', (req, res)=>{
   const order = {
     id : req.param('id'),
     id_user : req.param('id_user'),
@@ -596,10 +596,10 @@ app.get('/listProd/:id_order', (req,res)=>{
 app.patch('/listProd/:id_order',(req,res)=>{
   const listProd = {
     id_order :  req.param('id_order'),
-    id_product : 1,
-    quantity : 7,
-    price : 12000,
-    date : Date.now()
+    id_product : req.param('id_product'),
+    quantity : req.param('quantity'),
+    price : req.param('price'),
+    date : req.param('date')
   }
   const json = {
     response : 'OK',
@@ -608,13 +608,13 @@ app.patch('/listProd/:id_order',(req,res)=>{
   }
   res.send(json)
 })
-app.post('/listProd/:id_order',(req,res)=>{
+app.post('/listProd/',(req,res)=>{
   const listProd = {
     id_order :  req.param('id_order'),
-    id_product : 1,
-    quantity : 7,
-    price : 12000,
-    date : Date.now()
+    id_product : req.param('id_product'),
+    quantity : req.param('quantity'),
+    price : req.param('price'),
+    date : req.param('date')
   }
   const json = {
     response : 'OK',
@@ -633,18 +633,125 @@ app.delete('listProd/:id_order',(req,res)=>{
 })
 //////////////////////////////////////////////////////////////////////
 app.get('/services',(req,res)=>{
+  const services = [{
+    id : 1,
+    id_seller : 1,
+    id_client : 1,
+    hospital : 'Hospital 46',
+    status : 1,
+    date :  Date.now(),
+    type   : 'tipo',
+    equipment : 'Equipo bueno',
+    model : 'modelo 1',
+    serial : 'serial 123',
+    location : 'location',
+    contract : 1,
+    description : 'Descripcion del servicio',
+    voucher : 'voucher del servicio'
+  },{
+    id : 2,
+    id_seller : 1,
+    id_client : 1,
+    hospital : 'Hospital 46',
+    status : 1,
+    date :  Date.now(),
+    type   : 'tipo',
+    equipment : 'Equipo bueno',
+    model : 'modelo 2',
+    serial : 'serial 546',
+    location : 'Ubicacion',
+    contract : 1,
+    description : 'Descripcion del servicio y detalla',
+    voucher : 'voucher del servicio'
+  }]
 
+  const json = {
+    response : 'OK',
+    data : services
+  }
+  res.send(json)
 })
 app.get('/service/:id',(req,res)=>{
+  const service = [{
+    id : req.param('id'),
+    id_seller : 1,
+    id_client : 1,
+    hospital : 'Hospital 46',
+    status : 1,
+    date :  Date.now(),
+    type   : 'tipo',
+    equipment : 'Equipo bueno',
+    model : 'modelo 1',
+    serial : 'serial 123',
+    location : 'location',
+    contract : 1,
+    description : 'Descripcion del servicio',
+    voucher : 'voucher del servicio'
+  }]
 
+  const json = {
+    response : 'OK',
+    data : service
+  }
+  res.send(json)
 })
 app.patch('/service/:id',(req,res)=>{
+  const service = [{
+    id : req.param('id'),
+    id_seller : req.param('id_seller'),
+    id_client : req.param('id_client'),
+    hospital : req.param('hospital'),
+    status : req.param('status'),
+    date :  req.param('date'),
+    type   : req.param('type'),
+    equipment : req.param('equipment'),
+    model : req.param('model'),
+    serial : req.param('serial'),
+    location : req.param('loscation'),
+    contract : req.param('contract'),
+    description : req.param('description'),
+    voucher : req.param('voucher')
+  }]
 
+  const json = {
+    response : 'OK',
+    data : service,
+    message : `Se actualizó correctamente ${req.param('id')}`
+
+  }
+  res.send(json)
 })
-app.post('/service/:id',(req,res)=>{
+app.post('/service',(req,res)=>{
+  const service = [{
+    id : req.param('id'),
+    id_seller : req.param('id_seller'),
+    id_client : req.param('id_client'),
+    hospital : req.param('hospital'),
+    status : req.param('status'),
+    date :  req.param('date'),
+    type   : req.param('type'),
+    equipment : req.param('equipment'),
+    model : req.param('model'),
+    serial : req.param('serial'),
+    location : req.param('loscation'),
+    contract : req.param('contract'),
+    description : req.param('description'),
+    voucher : req.param('voucher')
+  }]
 
+  const json = {
+    response : 'OK',
+    data : service,
+    message : `Se insertó correctamente ${req.param('id')}`
+
+  }
+  res.send(json)
 })
 app.delete('/service/:id',(req,res)=>{
-  
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó el servicio ${req.param('id')}`
+  }
+  res.send(json)
 })
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
