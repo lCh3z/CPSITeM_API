@@ -1216,7 +1216,7 @@ app.patch('/imgProduct/:id_prod', (req,res)=>{
   const json = {
     response : 'OK',
     data : imgProduct,
-    message : `Se actualizó correctamente a ${req.param('id_prod')}`
+    message : `Se actualizó correctamente ${req.param('id_prod')}`
   }
   res.send(json)
 })
@@ -1228,15 +1228,32 @@ app.post('/imgProduct', (req,res)=>{
   const json = {
     response : 'OK',
     data : imgProduct,
-    message : `Se insertó correctamente a ${req.param('id_prod')}`
+    message : `Se insertó correctamente ${req.param('id_prod')}`
   }
   res.send(json)
 })
 app.delete('/imgProduct/:id_prod', (req,res)=>{
   const json = {
     response : 'OK',
-    message : `Se deshabilitó la orden ${req.param('id_prod')}`
+    message : `Se deshabilitó  ${req.param('id_prod')}`
   }
   res.send(json)
+})
+//////////////////////////////////////////////////////////////////////
+
+app.get('/cuppons',(req,res)=>{
+
+})
+app.get('/cuppon/:id',(req,res)=>{
+
+})
+app.patch('/cuppon/:id',(req,res)=>{
+
+})
+app.post('/cuppon',(req,res)=>{
+
+})
+app.delete('/cuppon/:id',(req,res)=>{
+
 })
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
