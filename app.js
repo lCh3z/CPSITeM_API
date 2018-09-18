@@ -372,12 +372,10 @@ app.get('/wishlists',(req,res)=>{
   const wishlists = [{
     id_user : 1,
     id_product : 1,
-    cantidad : 5
 
   },{
     id_user : 2,
     id_product : 1,
-    cantidad : 3
   }]
 
   const json = {
@@ -391,7 +389,6 @@ app.get('/wishlist/:id_user', (res, req)=>{
   const wishlist = [{
     id_user : req.param('id_user'),
     id_product : 1,
-    cantidad : 5
   }]
   const json = {
     response : 'OK',
