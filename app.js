@@ -46,7 +46,7 @@ app.get('/clients', (req, res) =>{
   }];
   const json = {
     response : 'OK',
-    data : [clients]
+    data : clients
 
   }
 
@@ -76,9 +76,7 @@ app.get('/client/:id', (req, res) =>{
 
   const json = {
     response : 'OK',
-    data : [
-      data = client
-      ]
+    data : client
   }
 
   res.send(json)
@@ -97,9 +95,7 @@ app.post('/client', (req, res) => {
 
   const json = {
     response : 'OK',
-    data : [
-      status = 'Se insertó correctamente'
-    ]
+    data : 'Se insertó correctamente'
   }
 
   res.send(json)
@@ -111,9 +107,7 @@ app.delete('/client/:id', (req, res) =>{
 
   const json = {
     response : 'OK',
-    data : [
-      status = `'Se elimino a ${req.param('id')}`
-      ]
+    data : `'Se elimino a ${req.param('id')}`
   }
 
   res.send(json)
@@ -182,7 +176,7 @@ app.get('/users', (req, res) =>{
   }]
   const json = {
     response : 'OK',
-    data :[users]
+    data : users
   }
   res.send(json)
 })
@@ -206,9 +200,7 @@ app.get('/user/:id', (req, res) =>{
   }]
   const json = {
     response : 'OK',
-    data :[
-      data = user
-    ]
+    data : user
   }
   res.send(json)
 })
@@ -238,9 +230,7 @@ app.patch('/user/:id', (req, res) => {
 
   const json = {
     response : 'OK',
-    data : [
-      status = `Se actualizó correctamente a ${req.param('name')}`
-    ]
+    message :  `Se actualizó correctamente a ${req.param('name')}`
   }
 
   res.send(json)
@@ -272,9 +262,7 @@ app.post('/user', (req, res) => {
 
   const json = {
     response : 'OK',
-    data : [
-      status = `Se insertó correctamente a ${req.param('name')}`
-    ]
+    message :  `Se insertó correctamente a ${req.param('name')}`
   }
 
   res.send(json)
@@ -289,9 +277,7 @@ app.delete('/user/:id', (req, res) => {
 
   const json = {
     response : 'OK',
-    data : [
-      status = `Se deshabilitó al usuario ${req.param('id')}`
-    ]
+    message : `Se deshabilitó al usuario ${req.param('id')}`
   }
 
   res.send(json)
@@ -309,7 +295,7 @@ app.get('/listEmails', (req, res) =>{
   }]
   const json = {
     response : 'OK',
-    data : [listEmail]
+    data : listEmail
   }
   res.send(json)
 })
@@ -321,9 +307,7 @@ app.get('/listEmail/:id', (req, res) =>{
   }]
   const json = {
     response : 'OK',
-    data : [
-      data = listEmail
-    ]
+    data : listEmail
   }
   res.send(json)
 })
@@ -339,7 +323,7 @@ app.patch('/listEmail/:id', (req, res) =>{
     response : 'OK',
     data : listEmail,
     message: `Se actualizó correctamente ${req.param('id')}`
-    }
+  }
   res.send(json)
 })
 
@@ -351,9 +335,7 @@ app.post('/listEmail', (req, res) =>{
   }
   const json = {
     response : 'OK',
-    data : [
-      status = `Se insertó correctamente ${req.param('id')}`
-    ]
+    message :  = `Se insertó correctamente ${req.param('id')}`
   }
 
   res.send(json)
@@ -361,9 +343,8 @@ app.post('/listEmail', (req, res) =>{
 app.delete('/listEmail/:id', (req, res)=>{
   const json = {
     response : 'OK',
-    data : [
-      status = `Se deshabilitó lista de email ${req.param('id')}`
-    ]}
+    message :  `Se deshabilitó lista de email ${req.param('id')}`
+  }
   res.send(json)
 })
 
@@ -380,7 +361,7 @@ app.get('/wishlists',(req,res)=>{
 
   const json = {
     response : 'OK',
-    data : [wishlists]
+    data : wishlists
   }
   res.send(json)
 })
@@ -392,10 +373,36 @@ app.get('/wishlist/:id_user', (req, res)=>{
   }]
   const json = {
     response : 'OK',
-    data : [wishlist]
+    data : wishlist
   }
   res.send(json)
 })
+
+app.post('/wishlist', (res, req)=>{
+  const wishlist = {
+    id_user : req.param('id_user'),
+    id_product : req.param('id_product'),
+  }
+  const json = {
+    response : 'OK',
+    message : `Insertado el articulo ${req.param('id_product')} para ${req.param('id_user')}`
+  }
+  res.send(json)
+})
+
+app.delete('/wishlist/:id_user', (req, res)=>{
+  const wishlist = {
+    id_user : req.param('id_user'),
+    id_product : req.param('id_product'),
+  }
+  const json = {
+    response : 'OK',
+    message : `Eliminado el articulo ${req.param('id_product')} para ${req.param('id_user')}`
+  }
+  res.send(json)
+})
+
+
 //////////////////////////////////////////////////////////////////////
 app.get('/carts', (req, res)=>{
   const carts =[{
