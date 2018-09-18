@@ -472,106 +472,6 @@ app.delete('/cart/:id',(req,res)=>{
   res.send(json)
 })
 
-<<<<<<< HEAD
-//////////////////////////////////////////////////////////////////////
-app.get('/orders', (req,res)=>{
-  const orders = [{
-    id : 1,
-    id_user : 1,
-    id_address : 1,
-    id_payment : 1,
-    id_cuppon : 'XMAS',
-    date : Date.now(),
-    status : 1
-  },{
-    id : 2,
-    id_user : 2,
-    id_address : 2,
-    id_payment : 2,
-    id_cuppon : 'XMAS',
-    date : Date.now(),
-    status : 1
-  }]
-  const json = {
-    response : 'OK',
-    data : orders
-  }
-  res.send(json)
-})
-app.get('/order/:id', (req,res)=>{
-  const order = {
-    id : req.param('id'),
-    id_user : 1,
-    id_address : 1,
-    id_payment : 1,
-    id_cuppon : 'XMAS',
-    date : Date.now(),
-    status : 1
-  }
-  const json = {
-    response : 'OK',
-    data : order
-  }
-  res.send(json)
-})
-app.patch('/order/:id', (req, res)=>{
-  const order = {
-    id : req.param('id'),
-    id_user : req.param('id_user'),
-    id_address : req.param('id_address'),
-    id_payment : req.param('id_payment'),
-    id_cuppon : req.param('id_cuppon'),
-    date : Date.now(),
-    status : req.param('status')
-  }
-  const json = {
-    response : 'OK',
-    data : order,
-    message : `Se actualizó correctamente a ${req.param('id')}`
-  }
-  res.send(json)
-})
-app.post('/order/', (req, res)=>{
-  const order = {
-    id : req.param('id'),
-    id_user : req.param('id_user'),
-    id_address : req.param('id_address'),
-    id_payment : req.param('id_payment'),
-    id_cuppon : req.param('id_cuppon'),
-    date : Date.now(),
-    status : req.param('status')
-  }
-  const json = {
-    response : 'OK',
-    data : order,
-    message : `Se insertó correctamente a ${req.param('id')}`
-  }
-  res.send(json)
-})
-
-app.delete('order/:id',(req,res)=>{
-  const json = {
-    response : 'OK',
-    message : `Se deshabilitó la orden ${req.param('id')}`
-  }
-  res.send(json)
-})
-//////////////////////////////////////////////////////////////////////
-app.get('/listProds', (req,res)=>{
-  const listProds = [{
-    id_order :  1,
-    id_product : 1,
-    quantity : 7,
-    price : 12000,
-    date : Date.now()
-
-  },{
-    id_order :  2,
-    id_product : 2,
-    quantity : 2,
-    price : 60000,
-    date : Date.now()
-=======
 app.get('/products', (req, res) =>{
   const products = [{
     id : 1,
@@ -693,15 +593,6 @@ app.patch('/product/:id', (req, res) => {
     message : `Modificado el producto ${req.param('name')}`
   }
 
-  res.send(json)
-})
->>>>>>> dev
-
-  }]
-  const json = {
-    response : 'OK',
-    data : listProds
-  }
   res.send(json)
 })
 app.get('/listProd/:id_order', (req,res)=>{
@@ -876,6 +767,90 @@ app.delete('/service/:id',(req,res)=>{
   const json = {
     response : 'OK',
     message : `Se deshabilitó el servicio ${req.param('id')}`
+  }
+  res.send(json)
+})
+//////////////////////////////////////////////////////////////////////
+app.get('/orders',(req,res)=>{
+  const orders = [{
+    id : 1,
+    id_user : 1,
+    id_address : 1,
+    id_payment :1,
+    id_cuppon : 'XMAS',
+    date : Date.now(),
+    status :1
+  },{
+    id : 2,
+    id_user : 2,
+    id_address : 2,
+    id_payment :2,
+    id_cuppon : 'XMAS',
+    date : Date.now(),
+    status :1
+  }]
+  const json = {
+    response : 'OK',
+    data : orders
+  }
+  res.send(json)
+})
+app.get('/order/:id',(req,res)=>{
+  const order = {
+    id : 1,
+    id_user : 1,
+    id_address : 1,
+    id_payment :1,
+    id_cuppon : 'XMAS',
+    date : Date.now(),
+    status :1
+  }
+  const json = {
+    response : 'OK',
+    data : order
+  }
+  res.send(json)
+})
+app.patch('/order/:id',(req,res)=>{
+  const order = {
+    id : req.param('id'),
+    id_user : req.param('id_user'),
+    id_address : req.param('id_address'),
+    id_payment :req.param('id_payment'),
+    id_cuppon : req.param('id_cuppon'),
+    date : req.param('date'),
+    status : req.param('status')
+  }
+  const json = {
+    response : 'OK',
+    data : order,
+    message : `Se actualizó correctamente ${req.param('id')}`
+
+  }
+  res.send(json)
+})
+app.post('/order',(req,res)=>{
+  const order = {
+    id : req.param('id'),
+    id_user : req.param('id_user'),
+    id_address : req.param('id_address'),
+    id_payment :req.param('id_payment'),
+    id_cuppon : req.param('id_cuppon'),
+    date : req.param('date'),
+    status : req.param('status')
+  }
+  const json = {
+    response : 'OK',
+    data : order,
+    message : `Se insertó correctamente ${req.param('id')}`
+
+  }
+  res.send(json)
+})
+app.delete('/order/:id',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la orden ${req.param('id')}`
   }
   res.send(json)
 })
