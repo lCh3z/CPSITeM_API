@@ -296,6 +296,141 @@ app.delete('/user/:id', (req, res) => {
 
   res.send(json)
 })
+//////////////////////////////////////////////////////////////////////
+app.get('/listEmails', (req, res) =>{
+  const listEmail = [{
+    id : 1,
+    id_user : 1,
+    email : 'primer@gmail.com'
+  },{
+    id : 1,
+    id_user : 2,
+    email : 'segundo@gmail.com'
+  }]
+  const json = {
+    response : 'OK',
+    data : [listEmail]
+  }
+  res.send(json)
+})
+app.get('/listEmail/:id', (req, res) =>{
+  const listEmail = [{
+    id : req.param('id'),
+    id_user : 1,
+    email : 'primer@gmail.com'
+  }]
+  const json = {
+    response : 'OK',
+    data : [
+      data = listEmail
+    ]
+  }
+  res.send(json)
+})
+
+app.patch('/listEmail', (req, res) =>{
+  const lsitEmail = {
+    id : req.param('id'),
+    id_user : req.param('id_user'),
+    email : req.param('email')
+  }
+
+  const json = {
+    response : 'OK',
+    data :[
+      status = `Se actualizó correctamente ${req.param('id')}`
+    ]}
+  res.send(json)
+})
+
+app.post('/listEmail', (req, res) =>{
+  const lsitEmail = {
+    id : req.param('id'),
+    id_user : req.param('id_user'),
+    email : req.param('email')
+  }
+  const json = {
+    response : 'OK',
+    data : [
+      status = `Se insertó correctamente ${req.param('id')}`
+    ]
+  }
+
+  res.send(json)
+})
+app.delete('/listEmail/:id', (req, res)=>{
+  const json = {
+    response : 'OK',
+    data : [
+      status = `Se deshabilitó lista de email ${req.param('id')}`
+    ]}
+  res.send(json)
+})
+
+//////////////////////////////////////////////////////////////////////
+app.get('/wishlists',(req,res)=>{
+  const wishlists = [{
+    id_user : 1,
+    id_product : 1,
+    cantidad : 5
+
+  },{
+    id_user : 2,
+    id_product : 1,
+    cantidad : 3
+  }]
+
+  const json = {
+    response : 'OK',
+    data : [wishlists]
+  }
+  res.send(json)
+})
+
+app.get('/wishlist/:id_user', (res, req)=>{
+  const wishlist = [{
+    id_user : req.param('id_user'),
+    id_product : 1,
+    cantidad : 5
+  }]
+  const json = {
+    response : 'OK',
+    data : [wishlist]
+  }
+  res.send(json)
+})
+//////////////////////////////////////////////////////////////////////
+app.get('/carts', (req, res)=>{
+  const carts =[{
+    id : 1,
+    id_product : 1,
+    quantity : 5
+  },{
+    id : 1,
+    id_product : 2,
+    quantity : 2
+  }]
+  const json = {
+    response : 'OK',
+    data : [carts]
+  }
+})
+app.get('/cart/:id', (req, res)=>{
+  const cart =[{
+    id : req.param('id'),
+    id_product : 1,
+    quantity : 5
+  },{
+    id : 1,
+    id_product : 2,
+    quantity : 2
+  }]
+  const json = {
+    response : 'OK',
+    data : [cart]
+  }
+})
+
 
 
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
