@@ -950,7 +950,6 @@ app.get('/imgStatServs', (req,res)=>{
   res.send(json)
 })
 
-<<<<<<< HEAD
 app.get('/imgStatServ/:id_stat_serv', (req,res)=>{
   const imgStatServ = {
     id_stat_serv : req.param('id_stat_serv'),
@@ -962,7 +961,7 @@ app.get('/imgStatServ/:id_stat_serv', (req,res)=>{
   }
   res.send(json)
 })
-app.patch('/imgStatServ/:id', (req,res)=>{
+app.patch('/imgStatServ/:id_stat_serv', (req,res)=>{
   const imgStatServ = {
     id_stat_serv : req.param('id_stat_serv'),
     photo : req.param('photo')
@@ -993,7 +992,7 @@ app.delete('/imgStatServ/:id_stat_serv', (req,res)=>{
   }
   res.send(json)
 })
-=======
+
 
 app.get('/notifications', (req, res) =>{
   const notifications = [{
@@ -1181,5 +1180,63 @@ app.patch('/newslist/:email', (req, res) => {
   res.send(json)
 })
 
->>>>>>> dev
+//////////////////////////////////////////////////////////////////////
+
+app.get('/imgProducts', (req,res)=>{
+  const imgProducts = [{
+    id_prod : 1,
+    photo : 'IMAGEN O FOTO'
+  },{
+    id_prod : 2,
+    photo : 'IMAGEN O FOTO'
+  }]
+  const json = {
+    response : 'OK',
+    data : imgProducts
+  }
+  res.send(json)
+})
+
+app.get('/imgProduct/:id_prod', (req,res)=>{
+  const imgProduct = {
+    id_prod : req.param('id_prod'),
+    photo : 'IMAGEN O FOTO'
+  }
+  const json = {
+    response : 'OK',
+    data : imgProduct
+  }
+  res.send(json)
+})
+app.patch('/imgProduct/:id_prod', (req,res)=>{
+  const imgProduct = {
+    id_prod : req.param('id_prod'),
+    photo : req.param('photo')
+  }
+  const json = {
+    response : 'OK',
+    data : imgProduct,
+    message : `Se actualizó correctamente a ${req.param('id_prod')}`
+  }
+  res.send(json)
+})
+app.post('/imgProduct', (req,res)=>{
+  const imgProduct = {
+    id_prod : req.param('id_prod'),
+    photo : req.param('photo')
+  }
+  const json = {
+    response : 'OK',
+    data : imgProduct,
+    message : `Se insertó correctamente a ${req.param('id_prod')}`
+  }
+  res.send(json)
+})
+app.delete('/imgProduct/:id_prod', (req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la orden ${req.param('id_prod')}`
+  }
+  res.send(json)
+})
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
