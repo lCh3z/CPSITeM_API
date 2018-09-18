@@ -1263,7 +1263,7 @@ app.get('/cuppons',(req,res)=>{
 })
 app.get('/cuppon/:id',(req,res)=>{
   const cuppon = {
-    id : 'XMAS',
+    id : req.param('id'),
     discount : 10,
     start : Date.now(),
     end : Date.now(),
