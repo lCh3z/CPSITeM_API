@@ -213,7 +213,7 @@ app.get('/user/:id', (req, res) =>{
   res.send(json)
 })
 
-app.patch('/user', (req, res) => {
+app.patch('/user/:id', (req, res) => {
   const user = {
     photo : req.param('photo'),
     name : req.param('name'),
@@ -328,8 +328,8 @@ app.get('/listEmail/:id', (req, res) =>{
   res.send(json)
 })
 
-app.patch('/listEmail', (req, res) =>{
-  const lsitEmail = {
+app.patch('/listEmail/:id', (req, res) =>{
+  const listEmail = {
     id : req.param('id'),
     id_user : req.param('id_user'),
     email : req.param('email')
@@ -337,9 +337,9 @@ app.patch('/listEmail', (req, res) =>{
 
   const json = {
     response : 'OK',
-    data :[
-      status = `Se actualizó correctamente ${req.param('id')}`
-    ]}
+    data : listEmail,
+    message: `Se actualizó correctamente ${req.param('id')}`
+    }
   res.send(json)
 })
 
@@ -385,7 +385,7 @@ app.get('/wishlists',(req,res)=>{
   res.send(json)
 })
 
-app.get('/wishlist/:id_user', (res, req)=>{
+app.get('/wishlist/:id_user', (req, res)=>{
   const wishlist = [{
     id_user : req.param('id_user'),
     id_product : 1,
@@ -409,8 +409,9 @@ app.get('/carts', (req, res)=>{
   }]
   const json = {
     response : 'OK',
-    data : [carts]
+    data : carts
   }
+  res.send(carts)
 })
 app.get('/cart/:id', (req, res)=>{
   const cart =[{
@@ -424,10 +425,46 @@ app.get('/cart/:id', (req, res)=>{
   }]
   const json = {
     response : 'OK',
-    data : [cart]
+    data : cart
   }
+  res.send(cart)
 })
 
+app.patch('/cart/:id', (req, res) =>{
+  const cart = {
+    id : req.param('id'),
+    id_product : req.param('id_product'),
+    quantity : req.param('quantity')
+  }
+  const json = {
+    response : 'OK',
+    data : cart,
+    message : `Se actualizó correctamente a ${req.param('id')}`
+  }
+  res.send(cart)
+})
+app.post('/cart',(req, res)=>{
+  const cart = {
+    id : req.param('id'),
+    id_product : req.param('id_product'),
+    quantity : req.param('quantity')
+  }
+  const json = {
+    response : 'OK',
+    data : cart,
+    message : `Se insertó correctamente a ${req.param('id')}`
+  }
+  res.send(cart)
+})
+
+app.delete('/cart/:id',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó al usuario ${req.param('id')}`
+
+  }
+  res.send(json)
+})
 
 
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
