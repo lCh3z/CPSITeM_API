@@ -1372,4 +1372,62 @@ app.delete('/payment/:id_client',(req,res)=>{
   }
   res.send(json)
 })
+
+app.get('/configurations',(req,res)=>{
+  const configurations = [{
+    label : 'label',
+    value : 'valor'
+  },{
+    label : 'labelDos',
+    value : 'valorDos'
+  }]
+  const json = {
+    response : 'OK',
+    data : configurations
+  }
+  res.send(json)
+})
+app.get('/configuration/:label',(req,res)=>{
+  const configuration = {
+    label : req.param('label'),
+    value : 'valor'
+  }
+  const json = {
+    response : 'OK',
+    data : configuration
+  }
+  res.send(json)
+})
+app.patch('/configuration/:label',(req,res)=>{
+  const configuration = {
+    label : req.param('label'),
+    value : req.param('value')
+  }
+  const json = {
+    response : 'OK',
+    data : configuration,
+    message : `Se actualizó correctamente ${req.param('label')}`
+  }
+  res.send(json)
+})
+app.post('/configuration',(req,res)=>{
+  const configuration = {
+    label : req.param('label'),
+    value : req.param('value')
+  }
+  const json = {
+    response : 'OK',
+    data : configuration,
+    message : `Se insertó correctamente ${req.param('label')}`
+
+  }
+  res.send(json)
+})
+app.delete('/configuration/:label',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la configuracion ${req.param('label')}`
+  }
+  res.send(json)
+})
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
