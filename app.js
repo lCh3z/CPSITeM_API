@@ -1039,7 +1039,6 @@ app.patch('/notification/:id', (req, res) => {
   res.send(json)
 })
 
-
 app.get('/newslists', (req, res) =>{
   const newslists = [{
     email : 'miclo@velka.com',
@@ -1116,6 +1115,242 @@ app.patch('/newslist/:email', (req, res) => {
   const json = {
     response : 'OK',
     message : `Modificado el elemento ${req.param('email')}`
+  }
+
+  res.send(json)
+})
+
+
+app.get('/categories', (req, res) =>{
+  const categories = [{
+    id : 1,
+    name : 'Ventiladores',
+    description : 'Aquí podrás encontrar',
+    photo : 'foto.jpg',
+    date : Date.now(),
+    status : true
+  },
+  {
+    id : 2,
+    name : 'Ventiladores 2112',
+    description : 'Aquí   pod2erás enc1e2 ontrar',
+    photo : 'foto.jpg',
+    date : Date.now(),
+    status : true
+  }];
+  const json = {
+    response : 'OK',
+    data : categories
+  }
+
+  res.send(json)
+})
+
+app.get('/category/:id', (req, res) =>{
+  const category = {
+    id : 1,
+    name : 'Ventiladores',
+    description : 'Aquí podrás encontrar',
+    photo : 'foto.jpg',
+    date : Date.now(),
+    status : true
+  }
+
+  const json = {
+    response : 'OK',
+    data : category
+  }
+
+  res.send(json)
+})
+
+app.post('/category', (req, res) => {
+  const category = {
+    name : req.param('name'),
+    description : req.param('description'),
+    photo : req.param('photo'),
+    date : Date.now(),
+    status : req.param('status')
+  }
+
+  // Validar entrada
+
+  //Insertar en Client
+
+  //Insertar en Emails
+
+  const json = {
+    response : 'OK',
+    message : `Insertado el elemento ${req.param('name')}`
+  }
+
+  res.send(json)
+})
+
+app.delete('/category/:id', (req, res) =>{
+  const category = {
+    id : req.param('id')
+  };
+
+  const json = {
+    response : 'OK',
+    message : `Se elimino a ${req.param('id')}`
+  }
+
+  res.send(json)
+})
+
+app.patch('/category/:id', (req, res) => {
+  const category = {
+    id : req.param('id'),
+    name : req.param('name'),
+    description : req.param('description'),
+    photo : req.param('photo'),
+    date : Date.now(),
+    status : req.param('status')
+  }
+  //Validaciones
+
+  //SQL
+
+  const json = {
+    response : 'OK',
+    message : `Modificado el elemento ${req.param('id')}`
+  }
+
+  res.send(json)
+})
+
+
+app.get('/addresses', (req, res) =>{
+  const addresses = [{
+    id : req.param('id'),
+    id_client : 112121, //Get Account ID
+    name : 'Hospital G e e1pe.',
+    street : 'calle eva',
+    colony : 'asda',
+    city :  'gld',
+    state : 'asda',
+    date : Date.now(),
+    out_numb : 12,
+    int_num : 0,
+    zip_code : 24323,
+    phone : '+51 33 33212233',
+    email : 'paco@aguilar.com'
+  },
+  {
+    id : req.param('id'),
+    id_client : 1231, //Get Account ID
+    name : 'Hospital Gpe.',
+    street : 'calle eva',
+    colony : 'asda',
+    city :  'gld',
+    state : 'asda',
+    date : Date.now(),
+    out_numb : 12,
+    int_num : 0,
+    zip_code : 24323,
+    phone : '+52 33 33234233',
+    email : 'paco@aguilar.com'
+  }];
+  const json = {
+    response : 'OK',
+    data : addresses
+  }
+
+  res.send(json)
+})
+
+app.get('/address/:id', (req, res) =>{
+  const address = {
+    id : req.param('id'),
+    id_client : 1231, //Get Account ID
+    name : 'Hospital Gpe.',
+    street : 'calle eva',
+    colony : 'asda',
+    city :  'gld',
+    state : 'asda',
+    date : Date.now(),
+    out_numb : 12,
+    int_num : 0,
+    zip_code : 24323,
+    phone : '+52 33 33234233',
+    email : 'paco@aguilar.com'
+  }
+
+  const json = {
+    response : 'OK',
+    data : address
+  }
+
+  res.send(json)
+})
+
+app.post('/address', (req, res) => {
+  const address = {
+    id_client : req.param('id_client'), //Get Account ID
+    name : req.param('name'),
+    street : req.param('street'),
+    colony : req.param('colony'),
+    city :  req.param('city'),
+    state : req.param('state'),
+    date : Date.now(),
+    out_numb : req.param('out_numb'),
+    int_num : req.param('int_num'),
+    zip_code : req.param('zip_code'),
+    phone : req.param('zone') + ' ' + req.param('phone'),
+    email : req.param('email')
+  }
+
+  // Validar entrada
+
+  //Insertar en Client
+
+  //Insertar en Emails
+
+  const json = {
+    response : 'OK',
+    message : `Insertada la dirección ${req.param('name')}`
+  }
+
+  res.send(json)
+})
+app.delete('/address/:id', (req, res) =>{
+  const address = [{
+    id : req.param('id')
+  }];
+
+  const json = {
+    response : 'OK',
+    message : `Se elimino a ${req.param('id')}`
+  }
+
+  res.send(json)
+})
+
+app.patch('/address/:id', (req, res) => {
+  const address = {
+    id : req.param('id'),
+    id_client : req.param('id_client'), //Get Account ID
+    name : req.param('name'),
+    street : req.param('street'),
+    colony : req.param('colony'),
+    city :  req.param('city'),
+    state : req.param('state'),
+    date : Date.now(),
+    out_numb : req.param('out_numb'),
+    int_num : req.param('int_num'),
+    zip_code : req.param('zip_code'),
+    phone : req.param('phone'),
+    email : req.param('email')
+  }
+  //Validaciones
+
+  //SQL
+
+  const json = {
+    response : 'OK',
+    message : `Modificada la dirección ${req.param('id')}`
   }
 
   res.send(json)
