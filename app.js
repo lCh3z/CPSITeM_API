@@ -933,6 +933,65 @@ app.delete('/statService/:id',(req,res)=>{
   }
   res.send(json)
 })
+//////////////////////////////////////////////////////////////////////
+
+app.get('/imgStatServs', (req,res)=>{
+  const imgStatServs = [{
+    id_stat_serv : 1,
+    photo : 'IMAGEN O FOTO'
+  },{
+    id_stat_serv : 2,
+    photo : 'IMAGEN O FOTO'
+  }]
+  const json = {
+    response : 'OK',
+    data : imgStatServs
+  }
+  res.send(json)
+})
+
+app.get('/imgStatServ/:id_stat_serv', (req,res)=>{
+  const imgStatServ = {
+    id_stat_serv : req.param('id_stat_serv'),
+    photo : 'IMAGEN O FOTO'
+  }
+  const json = {
+    response : 'OK',
+    data : imgStatServ
+  }
+  res.send(json)
+})
+app.patch('/imgStatServ/:id_stat_serv', (req,res)=>{
+  const imgStatServ = {
+    id_stat_serv : req.param('id_stat_serv'),
+    photo : req.param('photo')
+  }
+  const json = {
+    response : 'OK',
+    data : imgStatServ,
+    message : `Se actualizó correctamente a ${req.param('id_stat_serv')}`
+  }
+  res.send(json)
+})
+app.post('/imgStatServ', (req,res)=>{
+  const imgStatServ = {
+    id_stat_serv : req.param('id_stat_serv'),
+    photo : req.param('photo')
+  }
+  const json = {
+    response : 'OK',
+    data : imgStatServ,
+    message : `Se insertó correctamente a ${req.param('id_stat_serv')}`
+  }
+  res.send(json)
+})
+app.delete('/imgStatServ/:id_stat_serv', (req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la orden ${req.param('id_stat_serv')}`
+  }
+  res.send(json)
+})
 
 
 app.get('/notifications', (req, res) =>{
@@ -1119,7 +1178,6 @@ app.patch('/newslist/:email', (req, res) => {
 
   res.send(json)
 })
-
 
 app.get('/categories', (req, res) =>{
   const categories = [{
@@ -1353,6 +1411,320 @@ app.patch('/address/:id', (req, res) => {
     message : `Modificada la dirección ${req.param('id')}`
   }
 
+  res.send(json)
+})
+
+
+//////////////////////////////////////////////////////////////////////
+
+app.get('/imgProducts', (req,res)=>{
+  const imgProducts = [{
+    id_prod : 1,
+    photo : 'IMAGEN O FOTO'
+  },{
+    id_prod : 2,
+    photo : 'IMAGEN O FOTO'
+  }]
+  const json = {
+    response : 'OK',
+    data : imgProducts
+  }
+  res.send(json)
+})
+
+app.get('/imgProduct/:id_prod', (req,res)=>{
+  const imgProduct = {
+    id_prod : req.param('id_prod'),
+    photo : 'IMAGEN O FOTO'
+  }
+  const json = {
+    response : 'OK',
+    data : imgProduct
+  }
+  res.send(json)
+})
+app.patch('/imgProduct/:id_prod', (req,res)=>{
+  const imgProduct = {
+    id_prod : req.param('id_prod'),
+    photo : req.param('photo')
+  }
+  const json = {
+    response : 'OK',
+    data : imgProduct,
+    message : `Se actualizó correctamente ${req.param('id_prod')}`
+  }
+  res.send(json)
+})
+app.post('/imgProduct', (req,res)=>{
+  const imgProduct = {
+    id_prod : req.param('id_prod'),
+    photo : req.param('photo')
+  }
+  const json = {
+    response : 'OK',
+    data : imgProduct,
+    message : `Se insertó correctamente ${req.param('id_prod')}`
+  }
+  res.send(json)
+})
+app.delete('/imgProduct/:id_prod', (req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó  ${req.param('id_prod')}`
+  }
+  res.send(json)
+})
+//////////////////////////////////////////////////////////////////////
+
+app.get('/cuppons',(req,res)=>{
+  const cuppons = [{
+    id : 'XMAS',
+    discount : 10,
+    start : Date.now(),
+    end : Date.now(),
+    description : 'Descripcion'
+  },{
+    id : 'XMAS2',
+    discount : 5,
+    start : Date.now(),
+    end : Date.now(),
+    description : 'Descripcion'
+  }]
+  const json = {
+    response : 'OK',
+    data : cuppons
+  }
+  res.send(json)
+})
+app.get('/cuppon/:id',(req,res)=>{
+  const cuppon = {
+    id : req.param('id'),
+    discount : 10,
+    start : Date.now(),
+    end : Date.now(),
+    description : 'Descripcion'
+  }
+  const json = {
+    response : 'OK',
+    data : cuppon
+  }
+  res.send(json)
+})
+app.patch('/cuppon/:id',(req,res)=>{
+  const cuppon = {
+    id : req.param('id'),
+    discount : req.param('discount'),
+    start : req.param('start'),
+    end : req.param('end'),
+    description : req.param('description')
+  }
+  const json = {
+    response : 'OK',
+    data : cuppon,
+    message : `Se actualizó correctamente ${req.param('id')}`
+  }
+  res.send(json)
+})
+app.post('/cuppon',(req,res)=>{
+  const cuppon = {
+    id : req.param('id'),
+    discount : req.param('discount'),
+    start : req.param('start'),
+    end : req.param('end'),
+    description : req.param('description')
+  }
+  const json = {
+    response : 'OK',
+    data : cuppon,
+    message : `Se insertó correctamente ${req.param('id')}`
+  }
+  res.send(json)
+})
+app.delete('/cuppon/:id',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la orden ${req.param('id')}`
+  }
+  res.send(json)
+})
+
+app.get('/payments',(req,res)=>{
+  const payments = [{
+    id_client : 1,
+    account : 'cuenta',
+    token : 'token'
+  },{
+    id_client : 2,
+    account : 'cuenta',
+    token : 'token'
+  }]
+  const json = {
+    response : 'OK',
+    data : payments
+  }
+  res.send(json)
+})
+app.get('/payment/:id_client',(req,res)=>{
+  const payment = {
+    id_client : 1,
+    account : 'cuenta',
+    token : 'token'
+  }
+  const json = {
+    response : 'OK',
+    data : payment
+  }
+  res.send(json)
+})
+app.post('/payment',(req,res)=>{
+  const payment = {
+    id_client : req.param('id_client'),
+    account : req.param('account'),
+    token : req.param('token')
+  }
+  const json = {
+    response : 'OK',
+    data : payment
+  }
+  res.send(json)
+})
+app.patch('/payment/:id_client',(req,res)=>{
+  const payment = {
+    id_client : req.param('id_client'),
+    account : req.param('account'),
+    token : req.param('token')
+  }
+  const json = {
+    response : 'OK',
+    data : payment
+  }
+  res.send(json)
+})
+app.delete('/payment/:id_client',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó el pago ${req.param('id_client')}`
+  }
+  res.send(json)
+})
+
+app.get('/configurations',(req,res)=>{
+  const configurations = [{
+    label : 'label',
+    value : 'valor'
+  },{
+    label : 'labelDos',
+    value : 'valorDos'
+  }]
+  const json = {
+    response : 'OK',
+    data : configurations
+  }
+  res.send(json)
+})
+app.get('/configuration/:label',(req,res)=>{
+  const configuration = {
+    label : req.param('label'),
+    value : 'valor'
+  }
+  const json = {
+    response : 'OK',
+    data : configuration
+  }
+  res.send(json)
+})
+app.patch('/configuration/:label',(req,res)=>{
+  const configuration = {
+    label : req.param('label'),
+    value : req.param('value')
+  }
+  const json = {
+    response : 'OK',
+    data : configuration,
+    message : `Se actualizó correctamente ${req.param('label')}`
+  }
+  res.send(json)
+})
+app.post('/configuration',(req,res)=>{
+  const configuration = {
+    label : req.param('label'),
+    value : req.param('value')
+  }
+  const json = {
+    response : 'OK',
+    data : configuration,
+    message : `Se insertó correctamente ${req.param('label')}`
+
+  }
+  res.send(json)
+})
+app.delete('/configuration/:label',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la configuracion ${req.param('label')}`
+  }
+  res.send(json)
+})
+
+app.get('/sections',(req,res)=>{
+  const section = [{
+    id : 1,
+    type : 1,
+    status : true
+  },{
+    id : 2,
+    type : 1,
+    status : false
+  }]
+  const json = {
+    response : 'OK',
+    data : section
+  }
+  res.send(json)
+})
+app.get('/section/:id',(req,res)=>{
+  const section = {
+    id : req.param('id'),
+    type : 1,
+    status : true
+  }
+  const json = {
+    response : 'OK',
+    data : section
+  }
+  res.send(json)
+})
+app.post('/section',(req,res)=>{
+  const section = {
+    id : req.param('id'),
+    type : req.param('type'),
+    status : req.param('status')
+  }
+  const json = {
+    response : 'OK',
+    data : section,
+    message : `Se insertó correctamente ${req.param('id')}`
+  }
+  res.send(json)
+})
+app.patch('/section/:id',(req,res)=>{
+  const section = {
+    id : req.param('id'),
+    type : req.param('type'),
+    status : req.param('status')
+  }
+  const json = {
+    response : 'OK',
+    data : section,
+    message : `Se actualizó correctamente ${req.param('id')}`
+  }
+  res.send(json)
+})
+app.delete('/section/:id',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la seccion ${req.param('id')}`
+  }
   res.send(json)
 })
 
