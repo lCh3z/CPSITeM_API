@@ -1312,4 +1312,184 @@ app.delete('/cuppon/:id',(req,res)=>{
   }
   res.send(json)
 })
+
+app.get('/payments',(req,res)=>{
+  const payments = [{
+    id_client : 1,
+    account : 'cuenta',
+    token : 'token'
+  },{
+    id_client : 2,
+    account : 'cuenta',
+    token : 'token'
+  }]
+  const json = {
+    response : 'OK',
+    data : payments
+  }
+  res.send(json)
+})
+app.get('/payment/:id_client',(req,res)=>{
+  const payment = {
+    id_client : 1,
+    account : 'cuenta',
+    token : 'token'
+  }
+  const json = {
+    response : 'OK',
+    data : payment
+  }
+  res.send(json)
+})
+app.post('/payment',(req,res)=>{
+  const payment = {
+    id_client : req.param('id_client'),
+    account : req.param('account'),
+    token : req.param('token')
+  }
+  const json = {
+    response : 'OK',
+    data : payment
+  }
+  res.send(json)
+})
+app.patch('/payment/:id_client',(req,res)=>{
+  const payment = {
+    id_client : req.param('id_client'),
+    account : req.param('account'),
+    token : req.param('token')
+  }
+  const json = {
+    response : 'OK',
+    data : payment
+  }
+  res.send(json)
+})
+app.delete('/payment/:id_client',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó el pago ${req.param('id_client')}`
+  }
+  res.send(json)
+})
+
+app.get('/configurations',(req,res)=>{
+  const configurations = [{
+    label : 'label',
+    value : 'valor'
+  },{
+    label : 'labelDos',
+    value : 'valorDos'
+  }]
+  const json = {
+    response : 'OK',
+    data : configurations
+  }
+  res.send(json)
+})
+app.get('/configuration/:label',(req,res)=>{
+  const configuration = {
+    label : req.param('label'),
+    value : 'valor'
+  }
+  const json = {
+    response : 'OK',
+    data : configuration
+  }
+  res.send(json)
+})
+app.patch('/configuration/:label',(req,res)=>{
+  const configuration = {
+    label : req.param('label'),
+    value : req.param('value')
+  }
+  const json = {
+    response : 'OK',
+    data : configuration,
+    message : `Se actualizó correctamente ${req.param('label')}`
+  }
+  res.send(json)
+})
+app.post('/configuration',(req,res)=>{
+  const configuration = {
+    label : req.param('label'),
+    value : req.param('value')
+  }
+  const json = {
+    response : 'OK',
+    data : configuration,
+    message : `Se insertó correctamente ${req.param('label')}`
+
+  }
+  res.send(json)
+})
+app.delete('/configuration/:label',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la configuracion ${req.param('label')}`
+  }
+  res.send(json)
+})
+
+app.get('/sections',(req,res)=>{
+  const section = [{
+    id : 1,
+    type : 1,
+    status : true
+  },{
+    id : 2,
+    type : 1,
+    status : false
+  }]
+  const json = {
+    response : 'OK',
+    data : section
+  }
+  res.send(json)
+})
+app.get('/section/:id',(req,res)=>{
+  const section = {
+    id : req.param('id'),
+    type : 1,
+    status : true
+  }
+  const json = {
+    response : 'OK',
+    data : section
+  }
+  res.send(json)
+})
+app.post('/section',(req,res)=>{
+  const section = {
+    id : req.param('id'),
+    type : req.param('type'),
+    status : req.param('status')
+  }
+  const json = {
+    response : 'OK',
+    data : section,
+    message : `Se insertó correctamente ${req.param('id')}`
+  }
+  res.send(json)
+})
+app.patch('/section/:id',(req,res)=>{
+  const section = {
+    id : req.param('id'),
+    type : req.param('type'),
+    status : req.param('status')
+  }
+  const json = {
+    response : 'OK',
+    data : section,
+    message : `Se actualizó correctamente ${req.param('id')}`
+  }
+  res.send(json)
+})
+app.delete('/section/:id',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la seccion ${req.param('id')}`
+  }
+  res.send(json)
+})
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
