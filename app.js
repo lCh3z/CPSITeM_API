@@ -1430,4 +1430,66 @@ app.delete('/configuration/:label',(req,res)=>{
   }
   res.send(json)
 })
+
+app.get('/sections',(req,res)=>{
+  const section = [{
+    id : 1,
+    type : 1,
+    status : true
+  },{
+    id : 2,
+    type : 1,
+    status : false
+  }]
+  const json = {
+    response : 'OK',
+    data : section
+  }
+  res.send(json)
+})
+app.get('/section/:id',(req,res)=>{
+  const section = {
+    id : req.param('id'),
+    type : 1,
+    status : true
+  }
+  const json = {
+    response : 'OK',
+    data : section
+  }
+  res.send(json)
+})
+app.post('/section',(req,res)=>{
+  const section = {
+    id : req.param('id'),
+    type : req.param('type'),
+    status : req.param('status')
+  }
+  const json = {
+    response : 'OK',
+    data : section,
+    message : `Se insertó correctamente ${req.param('id')}`
+  }
+  res.send(json)
+})
+app.patch('/section/:id',(req,res)=>{
+  const section = {
+    id : req.param('id'),
+    type : req.param('type'),
+    status : req.param('status')
+  }
+  const json = {
+    response : 'OK',
+    data : section,
+    message : `Se actualizó correctamente ${req.param('id')}`
+  }
+  res.send(json)
+})
+app.delete('/section/:id',(req,res)=>{
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la seccion ${req.param('id')}`
+  }
+  res.send(json)
+})
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
