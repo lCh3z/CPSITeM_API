@@ -1731,4 +1731,94 @@ app.delete('/section/:id',(req,res)=>{
   res.send(json)
 })
 
+////////////////////
+
+app.get('/confSection', (req, res) =>{
+  const conf = [{
+    id : 1,
+    photo : 'foto1.png',
+    title : 'titulo1',
+    subtitle : 'subtitulo1',
+    type : 1,
+    description : 'descripcion1',
+  },
+  {
+    id : 2,
+    photo : 'foto2.png',
+    title : 'titulo2',
+    subtitle : 'subtitulo2',
+    type : 2,
+    description : 'descripcion2',
+  }];
+
+  const json = {
+    response : 'OK',
+    data : conf
+  }
+  res.send(json)
+})
+
+app.get('/confSection/:id', (req,res) => {
+const conf = [{
+  id : req.param('id'),
+  photo : 'foto.png',
+  title : 'titulo1',
+  subtitle : 'subtitulo1',
+  type : 1,
+  description : 'descripcion1',
+}];
+
+const json = {
+  response : 'OK',
+  data : conf
+}
+
+res.send(json)
+})
+
+app.post('/confSection', (req,res) =>{
+  const conf = {
+    id : req.param('id'),
+    photo : req.param('photo'),
+    title : req.param('title'),
+    subtitle : req.param('subtitle'),
+    type : req.param('type'),
+    description : req.param('description'),
+  }
+const json = {
+  response : 'OK',
+  data : conf,
+  message : `Se inserto correctamente ${req.param('id')}`
+}
+res.send(json)
+})
+
+app.patch('/confSection/:id', (req,res) =>{
+  const conf = {
+    id : req.param('id'),
+    photo : req.param('photo'),
+    title : req.param('title'),
+    subtitle : req.param('subtitle'),
+    type : req.param('type'),
+    description : req.param('description'),
+  }
+  const json = {
+    response : 'OK',
+    data : conf,
+    message : `Se actualizó correctamente ${req.param('id')}`
+  }
+  res.send(json)
+})
+
+app.delete('/confSection/:id', (req,res) =>{
+  const conf = {
+    id : req.param('id')
+  }
+  const json = {
+    response : 'OK',
+    message : `Se deshabilitó la configuracion ${req.param('id')}`
+  }
+  res.send(json)
+})
+
 app.listen(5555, () => console.log('Example app listening on port 5555!'))
