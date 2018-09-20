@@ -97,7 +97,7 @@ class clientCtrl{
     let id = Number(req.params.id);
     let data = this.data.find(el => el.id === id);
     data = {
-      id : req.param('id') === undefined ? self.data[id-1].id : req.param('id'),
+      id : req.param('id'),
       name : req.param('name') === undefined ? self.data[id-1].name : req.param('name'),
       photo : req.param('photo') === undefined ? self.data[id-1].photo : req.param('photo'),
       sec_name : req.param('sec_name') === undefined ? self.data[id-1].sec_name : req.param('sec_name'),
