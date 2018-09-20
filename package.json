@@ -18,6 +18,13 @@
   "homepage": "https://github.com/lCh3z/CPSITeM_API#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+<<<<<<< HEAD
+    "dotenv": "^6.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+=======
+>>>>>>> 8ab6a908a194edb831811b66cb938719a0bdfc11
     "express": "^4.16.3"
   },
   "devDependencies": {
