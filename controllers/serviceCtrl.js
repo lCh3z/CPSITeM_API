@@ -12,7 +12,7 @@ class serviceCtrl{
       model : 'GT-90', //varchar (32)
       serial : '1290', //varchar (16)
       location : 'La cima', //varchar (25)
-      contract : 12 //integer
+      contract : 12, //integer
       description : 'Esta bien freson', //varchar (6000)
       voucher : 'no', //varchar (124)
     },
@@ -28,7 +28,7 @@ class serviceCtrl{
       model : 'GT-1012', //varchar (32)
       serial : '1291', //varchar (16)
       location : 'Puerta de Hierro', //varchar (25)
-      contract : 13 //integer
+      contract : 13, //integer
       description : 'Lo mas cool', //varchar (6000)
       voucher : 'nose', //varchar (124)
     }
@@ -58,18 +58,18 @@ class serviceCtrl{
     const lastId = this.data[this.data.length -1].id;
     const data = {
       id: lastId +1,
-      id_seller : req.param('id_seller')
-      id_client : req.param('id_client')
+      id_seller : req.param('id_seller'),
+      id_client : req.param('id_client'),
       hospital : 'Puerta de Hierro', //varchar (84)
       status : 1, //tinyint
-      date :  req.param('date')
-      type : req.param('type')
-      equipment : req.param('equipment')
-      model : req.param('model')
-      serial : req.param('serial')
-      location : req.param('location')
-      contract : req.param('contract')
-      description : req.param('description')
+      date :  req.param('date'),
+      type : req.param('type'),
+      equipment : req.param('equipment'),
+      model : req.param('model'),
+      serial : req.param('serial'),
+      location : req.param('location'),
+      contract : req.param('contract'),
+      description : req.param('description'),
       voucher : req.param('voucher')
     };
     this.data.push(data);

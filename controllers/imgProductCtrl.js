@@ -32,8 +32,8 @@ class imgProductCtrl{
   }
   create(req, res){
     const data = {
-      id_prod : req.param('id_prod');
-      photo : req.param('photo');
+      id_prod : req.param('id_prod'),
+      photo : req.param('photo')
     };
     this.data.push(data);
     const json = {
@@ -48,7 +48,7 @@ class imgProductCtrl{
     let data = this.data.find(el => el.id_prod === id);
     data = {
       id_prod : Number(req.param('id_prod')),
-      photo : req.param('photo') === undefined ? self.data[id-1].photo : req.param('photo');
+      photo : req.param('photo') === undefined ? self.data[id-1].photo : req.param('photo')
     };
     this.data[Number(req.params.id_prod) -1] = data;
     const json = {

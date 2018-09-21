@@ -25,7 +25,7 @@ class configurationCtrl{
   create(req, res){
     const lastId = this.data[this.data.length -1].id;
     const data = {
-      id : lastId +1;
+      id : lastId +1,
       label: req.param('label'),
       value: req.param('value'),
     };

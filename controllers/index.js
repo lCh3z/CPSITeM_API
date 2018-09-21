@@ -1,7 +1,7 @@
 exports.clientCtrl = require('./clientCtrl');
 exports.userCtrl = require('./userCtrl');
 exports.listEmailCtrl = require('./listEmailCtrl');
-exports.wishlistCtrl = require('./wishlistCtrl');
+exports.wishListCtrl = require('./wishListCtrl');
 exports.cartCtrl = require('./cartCtrl');
 exports.orderCtrl = require('./orderCtrl');
 exports.listProdCtrl = require('./listProdCtrl');

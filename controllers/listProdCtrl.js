@@ -63,9 +63,9 @@ class listProdCtrl{
   }
   delete(req, res){
     const data = this.data.find(el => el.id_order === Number(req.params.id_order));
-    this.data.splice(this.data.indexOf(data),, 1);
+    this.data.splice(this.data.indexOf(data), 1);
     const json = {
-      response : 'OK';
+      response : 'OK',
       data : data
     };
     res.status(201).send(json);

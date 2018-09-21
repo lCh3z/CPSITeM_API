@@ -66,7 +66,7 @@ class listEmailCtrl{
     const data = this.data.find(el => el.id === Number(req.params.id));
     this.data.splice(this.data.indexOf(data), 1);
     const json = {
-      response : 'OK';
+      response : 'OK',
       data : data
     };
     res.status(201).send(json);
