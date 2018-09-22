@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-const mysql = require('mysql');
 
 const express = require('express');
 
@@ -17,21 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Load routes into app
 app.use(router);
-
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-});
-db.connect();
-
-db.query('select * from _Client_;', (err, rows, fields) => {
-  if (err) throw err;
-  console.log('The solution is: ', rows);
-});
-
-db.end();
 
 app.get('/users', (req, res) =>{
   const users = [{
