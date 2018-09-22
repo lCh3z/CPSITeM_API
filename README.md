@@ -1,6 +1,6 @@
-#Plan de proyecto
+# Plan de proyecto
 
-##Definición del problema
+## Definición del problema
 
 La empresa CPSITeM solicita que un equipo de desarrollo se encargue de crear un sitio web que les permita realizar las siguientes actividades:
  - **Gestión de inventario**
@@ -10,26 +10,26 @@ La empresa CPSITeM solicita que un equipo de desarrollo se encargue de crear un 
 Ya que actualmente cuentan con un sitio web muy básico que no les permite realizar las operaciones antes mencionadas de manera cómoda y eficiente.
 
 
-##Objetivo
+## Objetivo
 
 Diseñar y construir una aplicación web que permita a la empresa gestionar su inventario, realizar ventas de productos en línea, administrar los servicios que proporcionan, así como permitirle a sus trabajadores tener una interacción más accesible y detallada con los clientes en lo referente a los servicios que estos solicitan.
 
 
-##Alcance
+## Alcance
 
 Se pretende que para la tercera semana de diciembre la aplicación permita al personal administrativo gestionar su inventario y personal. Así como al usuario hacer sus compran en línea y solicitar servicios a la empresa.
 
 
-##Viabilidad
+## Viabilidad
 El proyecto reúne las características y condiciones que aseguran el alcance de sus objetivos. Además, sus componentes están enmarcados dentro de un esquema estructurado que hacen al proyecto viable de realizar.
 
 
-##Justificación
+## Justificación
 
 Por medio del desarrollo de la plataforma web se logrará una mejora notable en la gestión del inventario y los servicios pertenecientes a CPSITeM. El cliente tendría que ser capaz de recibir una actualización constante sobre nuevos productos y el estatus de los servicios que solicita desde el sitio web.
 
 
-##Riesgos de desarrollo
+## Riesgos de desarrollo
 
  - Malas estimaciones de tiempo para la realización de actividades relacionadas al plan de trabajo.
  - Alguna especificación del proyecto podría necesitar cambios y/o mejoras en la etapa de desarrollo.
@@ -38,7 +38,7 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
  - Falta de conocimiento sobre los requerimientos del cliente que se hayan omitido durante la etapa de recolección de información.
 
 
-##Propuesta de recursos
+## Propuesta de recursos
 
  - Software gratuito para el desarrollo de la aplicación web.
  - Seguimiento de estándares en el desarrollo para evitar conflictos en la unificación de los componentes de la aplicación.
