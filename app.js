@@ -31,6 +31,7 @@ db.query('select * from _Client_;', (err, rows, fields) => {
   console.log('The solution is: ', rows);
 });
 
+db.end();
 
 app.get('/users', (req, res) =>{
   const users = [{
