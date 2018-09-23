@@ -1,1 +1,1 @@
-exports.ClientMdl = require('./clientMdl');
+exports.UserMdl = require('./userMdl');

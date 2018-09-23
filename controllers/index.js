@@ -1,4 +1,4 @@
-exports.clientCtrl = require('./clientCtrl');
+exports.userCtrl = require('./userCtrl');
 exports.workerCtrl = require('./workerCtrl');
 exports.listEmailCtrl = require('./listEmailCtrl');
 exports.wishListCtrl = require('./wishListCtrl');

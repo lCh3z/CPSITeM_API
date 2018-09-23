@@ -1,8 +1,8 @@
 const db = require('../db');
-const { ClientMdl } = require('../models');
+const { UserMdl } = require('../models');
 
 
-class ClientCtrl {
+class UserCtrl {
   constructor() {
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
@@ -15,14 +15,14 @@ class ClientCtrl {
   processResult(data) {
     const result = [];
     data.forEach((res) => {
-      result.push(new ClientMdl(res));
+      result.push(new UserMdl(res));
     });
     return result;
   }
 
   async getAll(req, res) {
-    let data = await db.getAll('_Client_', ['id', 'photo', 'name', 'sec_name', 'pat_surname', 'mat_surname', 'company', 'rfc', 'cfdi', 'country', 'lada', 'phone', 'status', 'main_email'], '', '', '');
-    // this.data = await db.getAll('_Client_', ['name', 'sec_name'],
+    let data = await db.getAll('_User_', ['id', 'photo', 'name', 'sec_name', 'pat_surname', 'mat_surname', 'company', 'rfc', 'cfdi', 'country', 'lada', 'phone', 'status', 'main_email'], '', '', '');
+    // this.data = await db.getAll('_User_', ['name', 'sec_name'],
     // [{ attr: 'id', oper: '<', val: 5 },
     // { logic: 'and', attr: 'name', oper: '=', val: 'Mario' }],
     // { by: 'name', asc: false }, { start: 0, quant: 2 }); //Example with filters, order and limit
@@ -43,7 +43,7 @@ class ClientCtrl {
   }
 
   async get(req, res) {
-    let data = await db.get('_Client_', ['id', 'photo', 'name', 'sec_name', 'pat_surname', 'mat_surname', 'company', 'rfc', 'cfdi', 'country', 'lada', 'phone', 'status', 'main_email'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    let data = await db.get('_User_', ['id', 'photo', 'name', 'sec_name', 'pat_surname', 'mat_surname', 'company', 'rfc', 'cfdi', 'country', 'lada', 'phone', 'status', 'main_email'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
     data = this.processResult(data);
     let json;
     if (data.length === 0) {
@@ -62,9 +62,9 @@ class ClientCtrl {
   }
 
   async create(req, res) {
-    const newClient = new ClientMdl({...req.body});
+    const newUser = new UserMdl({...req.body});
 
-    const result = await newClient.save();
+    const result = await newUser.save();
 
     const json = {
       response: 'OK',
@@ -80,10 +80,10 @@ class ClientCtrl {
   }
 
   async update(req, res) {
-    const Client = new ClientMdl(req.body);
-    Client.id = req.param('id');
+    const User = new UserMdl(req.body);
+    User.id = req.param('id');
 
-    const result = await Client.save();
+    const result = await User.save();
 
     const json = {
       response: 'OK',
@@ -102,11 +102,11 @@ class ClientCtrl {
   }
 
   async delete(req, res) {
-    const Client = new ClientMdl({
+    const User = new UserMdl({
       id: Number(req.param('id')),
     });
 
-    const result = await Client.delete();
+    const result = await User.delete();
 
     const json = {
       response: 'OK',
@@ -125,4 +125,4 @@ class ClientCtrl {
   }
 }
 
-module.exports = new ClientCtrl();
+module.exports = new UserCtrl();
