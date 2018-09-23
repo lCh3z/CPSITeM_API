@@ -27,37 +27,22 @@ class UserCtrl {
     // { logic: 'and', attr: 'name', oper: '=', val: 'Mario' }],
     // { by: 'name', asc: false }, { start: 0, quant: 2 }); //Example with filters, order and limit
     data = this.processResult(data);
-    let json;
+
     if (data.length === 0) {
-      json = {
-        response: 'OK',
-        data: [{ message: 'No existen elementos que cumplan con lo solicitado' }],
-      };
-      res.status(400).send(json);
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
     } else {
-      json = {
-        data,
-      };
-      res.status(200).send(json);
+      res.status(200).send({ data });
     }
   }
 
   async get(req, res) {
     let data = await db.get('_User_', ['id', 'photo', 'name', 'sec_name', 'pat_surname', 'mat_surname', 'company', 'rfc', 'cfdi', 'country', 'lada', 'phone', 'status', 'main_email'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
     data = this.processResult(data);
-    let json;
+
     if (data.length === 0) {
-      json = {
-        response: 'OK',
-        error: 'No se encontró el elemento solicitado',
-      };
-      res.status(4004).send(json);
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
     } else {
-      json = {
-        response: 'OK',
-        data,
-      };
-      res.status(200).send(json);
+      res.status(200).send({ data });
     }
   }
 
@@ -66,16 +51,10 @@ class UserCtrl {
 
     const result = await newUser.save();
 
-    const json = {
-      response: 'OK',
-    };
-
-    if(result == 0){
-      json.message = 'Registrado correctamente';
-      res.status(201).send(json);
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
     } else if (result === 1) {
-      json.error = 'No se pudo registrar';
-      res.status(400).send(json);
+      res.status(400).send({ error: 'No se pudo registrar' });
     }
   }
 
@@ -85,19 +64,12 @@ class UserCtrl {
 
     const result = await User.save();
 
-    const json = {
-      response: 'OK',
-    };
-
-    if(result == 0){
-      json.message = 'Actualizado correctamente';
-      res.status(200).send(json);
+    if(result === 0){
+      res.status(200).send({ error: 'Actualizado correctamente' });
     } else if (result === 1) {
-      json.message = 'Registrado correctamente';
-      res.status(201).send(json);
+      res.status(201).send({ error: 'Registrado correctamente'});
     } else if (result === 2) {
-      json.error = 'No existe el elemento a actualizar';
-      res.status(404).send(json);
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
     }
   }
 
@@ -108,19 +80,13 @@ class UserCtrl {
 
     const result = await User.delete();
 
-    const json = {
-      response: 'OK',
-    };
 
-    if(result == 0){
-      json.message = 'Eliminado correctamente';
-      res.status(200).send(json);
+    if(result === 0){
+      res.status(200).send({ error: 'Eliminado correctamente' });
     } else if (result === 1) {
-      json.error = 'No se pudo eliminar';
-      res.status(400).send(json);
+      res.status(400).send({ error: 'No se pudo eliminar' });
     } else if (result === 2) {
-      json.error = 'No existe el elemento a eliminar';
-      res.status(404).send(json);
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
     }
   }
 }
