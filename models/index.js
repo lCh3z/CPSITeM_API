@@ -1,1 +1,5 @@
-exports.UserMdl = require('./userMdl');
+const UserMdl = require('./userMdl');
+
+module.exports = {
+  UserMdl,
+}
