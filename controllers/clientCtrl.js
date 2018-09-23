@@ -13,7 +13,7 @@ class clientCtrl {
   }
 
   processResult(data) {
-    let result = [];
+    const result = [];
     data.forEach((res) => {
       result.push(new ClientMdl(res));
     });
@@ -21,89 +21,111 @@ class clientCtrl {
   }
 
   async getAll(req, res) {
-    this.data = await db.getAll('_Client_');
-    this.data = this.processResult(this.data);
-    const json = {
-      response: 'OK',
-      data: this.data,
-    };
-    res.send(json);
+    let data = await db.getAll('_Client_', ['*'], '', '', '');
+    // this.data = await db.getAll('_Client_', ['name', 'sec_name'],
+    // [{ attr: 'id', oper: '<', val: 5 },
+    // { logic: 'and', attr: 'name', oper: '=', val: 'Mario' }],
+    // { by: 'name', asc: false }, { start: 0, quant: 2 }); //Example with filters, order and limit
+    data = this.processResult(data);
+    let json;
+    if (data.length === 0) {
+      json = {
+        response: 'OK',
+        data: [{ message: 'No se encontraron clientes' }],
+      };
+    } else {
+      json = {
+        response: 'OK',
+        data,
+      };
+    }
+
+    res.status(201).send(json);
   }
 
   async get(req, res) {
-    this.data = await db.get('_Client_', req.params.id);
-    this.data = this.processResult(this.data);
-    const json = {
-      response: 'OK',
-      data: this.data,
-    };
-    res.send(json);
+    let data = await db.get('_Client_', ['*'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    data = this.processResult(data);
+    let json;
+    if (data.length === 0) {
+      json = {
+        response: 'OK',
+        data: [{ message: 'No se encontró el cliente' }],
+      };
+    } else {
+      json = {
+        response: 'OK',
+        data,
+      };
+    }
 
+    res.status(201).send(json);
   }
 
-  create(req, res) {
-    const data = {
-      name : req.param('name'),
-      photo : req.param('photo'),
-      sec_name : req.param('sec_name'),
-      pat_surname : req.param('mat_surname'),
-      mat_surname : req.param('mat_surname'),
-      company : req.param('company'),
-      rfc : req.param('rfc'),
-      cfdi : req.param('cfdi'),
-      phone : req.param('phone'),
-      business_name : req.param('business_name'),
-      status : req.param('status'),
-      list_email : req.param('list_email'),
-      cdu : req.param('cdu'),
-      main_email : req.param('main_email')
-    };
-    this.data = db.create('_Client_', data);
+  async create(req, res) {
+    const newClient = new ClientMdl({
+      name: req.body.name,
+      photo: req.body.photo,
+      sec_name: req.body.sec_name,
+      pat_surname: req.body.mat_surname,
+      mat_surname: req.body.mat_surname,
+      company: req.body.company,
+      rfc: req.body.rfc,
+      cfdi: req.body.cfdi,
+      phone: req.body.phone,
+      status: req.body.status,
+      cdu: req.body.cdu,
+      main_email: req.body.email,
+    });
+
+    const data = await newClient.save();
+
     const json = {
-      response : 'OK',
-      data : this.data,
+      response: 'OK',
+      data,
     };
     res.status(201).send(json);
-
   }
 
   async update(req, res) {
-    const self = this;
-    const data = {
-      id : Number(req.param('id')),
-      name : req.param('name') === undefined ? 'Missing' : req.param('name'),
-      photo : req.param('photo') === undefined ? 'Missing' : req.param('photo'),
-      sec_name : req.param('sec_name') === undefined ? 'Missing' : req.param('sec_name'),
-      pat_surname : req.param('mat_surname') === undefined ? 'Missing' : req.param('pat_surname'),
-      mat_surname : req.param('mat_surname') === undefined ? 'Missing' : req.param('mat_surname'),
-      company : req.param('company') === undefined ? 'Missing' : req.param('company'),
-      rfc : req.param('rfc') === undefined ? 'Missing' : req.param('rfc'),
-      cfdi : req.param('cfdi') === undefined ? 'Missing' : req.param('cfdi'),
-      phone : req.param('phone') === undefined ? 'Missing' : req.param('phone'),
-      business_name : req.param('business_name') === undefined ? 'Missing' : req.param('business_name'),
-      status : req.param('status') === undefined ? false : req.param('status'),
-      list_email : req.param('list_email') === undefined ? 'Missing' : req.param('list_email'),
-      cdu : req.param('cdu') === undefined ? 'Missing' : req.param('cdu'),
-      main_email : req.param('main_email') === undefined ? 'Missing' : req.param('main_email'),
-    };
-    this.data = await db.update('_Client_', data);
+    const Client = new ClientMdl({
+      id: Number(req.param('id')),
+      name: req.body.name,
+      photo: req.body.photo,
+      sec_name: req.body.sec_name,
+      pat_surname: req.body.mat_surname,
+      mat_surname: req.body.mat_surname,
+      company: req.body.company,
+      rfc: req.body.rfc,
+      cfdi: req.body.cfdi,
+      phone: req.body.phone,
+      status: req.body.status,
+      cdu: req.body.cdu,
+      main_email: req.body.email,
+    });
+
+    const data = await Client.save();
+
     const json = {
-      response : 'OK',
-      data : this.data,
+      response: 'OK',
+      data,
     };
     res.status(201).send(json);
   }
 
-  delete(req, res) {
-    const data = {
-      id: req.param('id'),
-    }
-    this.data = db.delete('_Client_', data);
+  async delete(req, res) {
+    const Client = new ClientMdl({
+      id: Number(req.param('id')),
+    });
+
+    const data = await Client.delete();
+
     const json = {
-      response : 'OK',
-      data : this.data
+      response: 'OK',
+      data,
     };
     res.status(201).send(json);
   }
 }
+
 module.exports = new clientCtrl();
