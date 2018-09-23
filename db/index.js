@@ -8,7 +8,12 @@ class DB {
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
     });
-
+    this.getAll = this.getAll.bind(this);
+    this.get = this.get.bind(this);
+    this.create = this.create.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
+    this.destructor = this.destructor.bind(this);
     this.con.connect();
   }
 
