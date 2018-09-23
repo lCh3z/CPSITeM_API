@@ -69,14 +69,12 @@ class DB {
     return new Promise((resolve, reject) => {
       let base = 'UPDATE ?? SET ? ';
       let extra = '';
-      console.log(post);
       const adds = [table, post];
       filters.forEach((i, index) => {
         if (index !== 0) extra += `${i.logic} `;
         extra += `${this.con.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} ${this.con.escape(i.val)} `;
       });
       base += `WHERE ${extra} ;`;
-      console.log(base);
       this.con.query(base, adds, (err, rows) => {
         if (err) return reject(err);
         return resolve(rows);
@@ -93,7 +91,6 @@ class DB {
         extra += `${this.con.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} ${this.con.escape(i.val)} `;
       });
       base += `WHERE ${extra} ;`;
-      console.log(base);
       this.con.query(base, table, (err, rows) => {
         if (err) return reject(err);
         return resolve(rows);
