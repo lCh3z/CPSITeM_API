@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const middlewares = require('../middlewares')
+
 const userRouter = require('./userR');
 const workerRouter = require('./workerR');
 const listEmailRouter = require('./listEmailR');
@@ -21,7 +23,7 @@ const configurationRouter = require('./configurationR');
 const sectionRouter = require('./sectionR');
 const confSectionRouter = require('./confSectionR');
 
- router.get('/', (req, res) => res.send('ExpressJS 101 API'));
+router.get('/', middlewares.addDate, (req, res) => { res.status(200).send('Hola mundo!'); });
 
 router.use('/user', userRouter);
 router.use('/worker',workerRouter);

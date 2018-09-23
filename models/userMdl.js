@@ -11,6 +11,7 @@ class UserMdl {
     this.company = args.company;
     this.rfc = args.rfc;
     this.cfdi = args.cfdi;
+    this.type = args.type;
     this.country = args.country;
     this.lada = args.lada;
     this.phone = args.phone;
