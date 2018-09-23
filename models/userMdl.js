@@ -1,6 +1,6 @@
 const db = require('../db');
 
-class ClientMdl {
+class UserMdl {
   constructor(args) {
     this.id = args.id;
     this.photo = args.photo;
@@ -21,7 +21,7 @@ class ClientMdl {
   processResult(data) {
     const result = [];
     data.forEach((res) => {
-      result.push(new ClientMdl(res));
+      result.push(new UserMdl(res));
     });
     return result;
   }
@@ -29,19 +29,19 @@ class ClientMdl {
   async save() {
     // Object.keys(this).forEach(key => this[key] === undefined && key !== 'sec_name' && key !== 'photo' && key !== 'company' && delete this[key]);
     Object.keys(this).forEach(key => this[key] === undefined && delete this[key]);
-    if (this.id !== undefined && this.processResult(await db.get('_Client_', 'id', [{ attr: 'id', oper: '=', val: this.id }])).length !== 0) return this.update();
-    if (await db.create('_Client_', this)) return 0;
+    if (this.id !== undefined && this.processResult(await db.get('_User_', 'id', [{ attr: 'id', oper: '=', val: this.id }])).length !== 0) return this.update();
+    if (await db.create('_User_', this)) return 0;
     return 1;
   }
 
   async update() {
-    if (this.id !== undefined && await db.update('_Client_', this, [{ attr: 'id', oper: '=', val: this.id }])) return 0;
+    if (this.id !== undefined && await db.update('_User_', this, [{ attr: 'id', oper: '=', val: this.id }])) return 0;
     return 1;
   }
 
   async delete() {
-    if (this.id !== undefined && this.processResult(await db.get('_Client_', 'id', [{ attr: 'id', oper: '=', val: this.id }])).length !== 0) {
-      if (this.id !== undefined && await db.delete('_Client_', [{ attr: 'id', oper: '=', val: this.id }]) !== undefined) return 0;
+    if (this.id !== undefined && this.processResult(await db.get('_User_', 'id', [{ attr: 'id', oper: '=', val: this.id }])).length !== 0) {
+      if (this.id !== undefined && await db.delete('_User_', [{ attr: 'id', oper: '=', val: this.id }]) !== undefined) return 0;
       return 1;
     }
     return 2;
@@ -60,4 +60,4 @@ class ClientMdl {
   }
 }
 
-module.exports = ClientMdl;
+module.exports = UserMdl;

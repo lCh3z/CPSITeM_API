@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const clientRouter = require('./clientR');
 const userRouter = require('./userR');
+const workerRouter = require('./workerR');
 const listEmailRouter = require('./listEmailR');
 const wishListRouter = require('./wishListR');
 const cartRouter = require('./cartR');
@@ -23,8 +23,8 @@ const confSectionRouter = require('./confSectionR');
 
  router.get('/', (req, res) => res.send('ExpressJS 101 API'));
 
-router.use('/client', clientRouter);
-router.use('/user',userRouter);
+router.use('/user', userRouter);
+router.use('/worker',workerRouter);
 router.use('/listEmail',listEmailRouter);
 router.use('/wishlist',wishListRouter);
 router.use('/cart',cartRouter);
