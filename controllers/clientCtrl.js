@@ -2,7 +2,7 @@ const db = require('../db');
 const { ClientMdl } = require('../models');
 
 
-class clientCtrl {
+class ClientCtrl {
   constructor() {
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
@@ -21,7 +21,7 @@ class clientCtrl {
   }
 
   async getAll(req, res) {
-    let data = await db.getAll('_Client_', ['*'], '', '', '');
+    let data = await db.getAll('_Client_', ['id', 'photo', 'name', 'sec_name', 'pat_surname', 'mat_surname', 'company', 'rfc', 'cfdi', 'country', 'lada', 'phone', 'status', 'main_email'], '', '', '');
     // this.data = await db.getAll('_Client_', ['name', 'sec_name'],
     // [{ attr: 'id', oper: '<', val: 5 },
     // { logic: 'and', attr: 'name', oper: '=', val: 'Mario' }],
@@ -31,86 +31,74 @@ class clientCtrl {
     if (data.length === 0) {
       json = {
         response: 'OK',
-        data: [{ message: 'No se encontraron clientes' }],
+        data: [{ message: 'No existen elementos que cumplan con lo solicitado' }],
       };
+      res.status(400).send(json);
     } else {
       json = {
-        response: 'OK',
         data,
       };
+      res.status(200).send(json);
     }
-
-    res.status(201).send(json);
   }
 
   async get(req, res) {
-    let data = await db.get('_Client_', ['*'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    let data = await db.get('_Client_', ['id', 'photo', 'name', 'sec_name', 'pat_surname', 'mat_surname', 'company', 'rfc', 'cfdi', 'country', 'lada', 'phone', 'status', 'main_email'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
     data = this.processResult(data);
     let json;
     if (data.length === 0) {
       json = {
         response: 'OK',
-        data: [{ message: 'No se encontró el cliente' }],
+        error: 'No se encontró el elemento solicitado',
       };
+      res.status(4004).send(json);
     } else {
       json = {
         response: 'OK',
         data,
       };
+      res.status(200).send(json);
     }
-
-    res.status(201).send(json);
   }
 
   async create(req, res) {
-    const newClient = new ClientMdl({
-      name: req.body.name,
-      photo: req.body.photo,
-      sec_name: req.body.sec_name,
-      pat_surname: req.body.mat_surname,
-      mat_surname: req.body.mat_surname,
-      company: req.body.company,
-      rfc: req.body.rfc,
-      cfdi: req.body.cfdi,
-      phone: req.body.phone,
-      status: req.body.status,
-      cdu: req.body.cdu,
-      main_email: req.body.email,
-    });
+    const newClient = new ClientMdl({...req.body});
 
-    const data = await newClient.save();
+    const result = await newClient.save();
 
     const json = {
       response: 'OK',
-      data,
     };
-    res.status(201).send(json);
+
+    if(result == 0){
+      json.message = 'Registrado correctamente';
+      res.status(201).send(json);
+    } else if (result === 1) {
+      json.error = 'No se pudo registrar';
+      res.status(400).send(json);
+    }
   }
 
   async update(req, res) {
-    const Client = new ClientMdl({
-      id: Number(req.param('id')),
-      name: req.body.name,
-      photo: req.body.photo,
-      sec_name: req.body.sec_name,
-      pat_surname: req.body.mat_surname,
-      mat_surname: req.body.mat_surname,
-      company: req.body.company,
-      rfc: req.body.rfc,
-      cfdi: req.body.cfdi,
-      phone: req.body.phone,
-      status: req.body.status,
-      cdu: req.body.cdu,
-      main_email: req.body.email,
-    });
+    const Client = new ClientMdl(req.body);
+    Client.id = req.param('id');
 
-    const data = await Client.save();
+    const result = await Client.save();
 
     const json = {
       response: 'OK',
-      data,
     };
-    res.status(201).send(json);
+
+    if(result == 0){
+      json.message = 'Actualizado correctamente';
+      res.status(200).send(json);
+    } else if (result === 1) {
+      json.message = 'Registrado correctamente';
+      res.status(201).send(json);
+    } else if (result === 2) {
+      json.error = 'No existe el elemento a actualizar';
+      res.status(404).send(json);
+    }
   }
 
   async delete(req, res) {
@@ -118,14 +106,23 @@ class clientCtrl {
       id: Number(req.param('id')),
     });
 
-    const data = await Client.delete();
+    const result = await Client.delete();
 
     const json = {
       response: 'OK',
-      data,
     };
-    res.status(201).send(json);
+
+    if(result == 0){
+      json.message = 'Eliminado correctamente';
+      res.status(200).send(json);
+    } else if (result === 1) {
+      json.error = 'No se pudo eliminar';
+      res.status(400).send(json);
+    } else if (result === 2) {
+      json.error = 'No existe el elemento a eliminar';
+      res.status(404).send(json);
+    }
   }
 }
 
-module.exports = new clientCtrl();
+module.exports = new ClientCtrl();
