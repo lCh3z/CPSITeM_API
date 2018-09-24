@@ -5,7 +5,7 @@ router.get('/', listProdCtrl.getAll);
 
 router.post('/', listProdCtrl.create);
 
-router.patch('/:id', listProdCtrl.update);
+router.patch('/:id_order', listProdCtrl.update);
 
-router.delete('/:id', listProdCtrl.delete);
+router.delete('/:id_order', listProdCtrl.delete);
 module.exports = router;

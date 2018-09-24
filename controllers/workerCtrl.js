@@ -1,7 +1,7 @@
 const db = require('../db');
-const { ServiceMdl } = require('../models');
+const { WorkerMdl } = require('../models');
 
-class serviceCtrl{
+class workerCtrl{
   constructor(){
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
@@ -10,16 +10,17 @@ class serviceCtrl{
     this.delete = this.delete.bind(this);
     this.processResult = this.processResult.bind(this);
   }
+
   processResult(data) {
     const result = [];
     data.forEach((res) => {
-      result.push(new ServiceMdl(res));
+      result.push(new WorkerMdl(res));
     });
     return result;
   }
 
   async getAll(req, res){
-    let data = await db.getAll('_Service_', ['id', 'id_seller', 'id_user', 'hospital', 'status', 'date', 'type', 'equipment', 'model', 'serial_', 'location', 'contract', 'description', 'voucher'], '', '', '');
+    let data = await db.getAll('_Worker_', ['id_user', 'position', 'depart'], '', '', '');
     data = this.processResult(data);
     if (data.length === 0) {
       res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
@@ -29,7 +30,7 @@ class serviceCtrl{
   }
 
   async get(req, res){
-    let data = await db.get('_Service_', ['id', 'id_seller', 'id_user', 'hospital', 'status', 'date', 'type', 'equipment', 'model', 'serial_', 'location', 'contract', 'description', 'voucher'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    let data = await db.get('_Worker_', ['id_user', 'position', 'depart'], [{ attr: 'id_user', oper: '=', val: Number(req.param('id_user')) }]);
     data = this.processResult(data);
     if (data.length === 0) {
       res.status(404).send({ error: 'No se encontró el elemento solicitado' });
@@ -39,9 +40,9 @@ class serviceCtrl{
   }
 
   async create(req, res){
-    const newService = new ServiceMdl(req.body);
+    const newWorker = new WorkerMdl(req.body);
 
-    const result = await newService.save();
+    const result = await newWorker.save();
 
     if(result === 0){
       res.status(201).send({ message: 'Registrado correctamente' });
@@ -50,10 +51,10 @@ class serviceCtrl{
     }
   }
   async update(req, res){
-    const Service = new ServiceMdl(req.body);
-    Service.id = req.param('id');
+    const Worker = new WorkerMdl(req.body);
+    Worker.id_user = req.param('id_user');
 
-    const result = await Service.save();
+    const result = await Worker.save();
 
     if(result === 0){
       res.status(200).send({ message: 'Actualizado correctamente' });
@@ -65,11 +66,11 @@ class serviceCtrl{
   }
 
   async delete(req, res){
-    const Service = new ServiceMdl({
-      id: Number(req.param('id')),
+    const Worker = new WorkerMdl({
+      id_user: Number(req.param('id_user')),
     });
 
-    const result = await Service.delete();
+    const result = await Worker.delete();
 
     if(result === 0){
       res.status(200).send({ message: 'Eliminado correctamente' });
@@ -81,4 +82,4 @@ class serviceCtrl{
   }
 }
 
-module.exports = new serviceCtrl();
+module.exports = new workerCtrl();

@@ -5,8 +5,8 @@ router.get('/', wishListCtrl.getAll);
 
 router.post('/', wishListCtrl.create);
 
-router.patch('/:id', wishListCtrl.update);
+router.patch('/:id_user', wishListCtrl.update);
 
-router.delete('/:id', wishListCtrl.delete);
+router.delete('/:id_user', wishListCtrl.delete);
 
 module.exports = router;
