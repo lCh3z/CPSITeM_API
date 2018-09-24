@@ -1,7 +1,6 @@
 const db = require('../db');
 const { WorkerMdl } = require('../models');
 
-
 class workerCtrl{
   constructor(){
     this.getAll = this.getAll.bind(this);
@@ -23,53 +22,32 @@ class workerCtrl{
   async getAll(req, res){
     let data = await db.getAll('_Worker_', ['id_user', 'position', 'depart'], '', '', '');
     data = this.processResult(data);
-    let json;
     if (data.length === 0) {
-      json = {
-        response: 'OK',
-        data: [{ message: 'No existen elementos que cumplan con lo solicitado' }],
-      };
-      res.status(400).send(json);
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
     } else {
-      json = {
-        data,
-      };
-      res.status(200).send(json);
+      res.status(200).send({ data });
     }
   }
+
   async get(req, res){
-    let data = await db.getAll('_Worker_',['id_user','position','depart'],[{ attr: 'id_user', oper: '=', val: Number(req.param('id_user')) }]);
+    let data = await db.get('_Worker_', ['id_user', 'position', 'depart'], [{ attr: 'id_user', oper: '=', val: Number(req.param('id_user')) }]);
     data = this.processResult(data);
-    let json;
     if (data.length === 0) {
-      json = {
-        response: 'OK',
-        error: 'No se encontró el elemento solicitado',
-      };
-      res.status(4004).send(json);
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
     } else {
-      json = {
-        response: 'OK',
-        data,
-      };
-      res.status(200).send(json);
+      res.status(200).send({ data });
     }
   }
+
   async create(req, res){
     const newWorker = new WorkerMdl(req.body);
 
     const result = await newWorker.save();
 
-    const json = {
-      response: 'OK',
-    };
-
-    if(result == 0){
-      json.message = 'Registrado correctamente';
-      res.status(201).send(json);
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
     } else if (result === 1) {
-      json.error = 'No se pudo registrar';
-      res.status(400).send(json);
+      res.status(400).send({ error: 'No se pudo registrar' });
     }
   }
   async update(req, res){
@@ -78,21 +56,15 @@ class workerCtrl{
 
     const result = await Worker.save();
 
-    const json = {
-      response: 'OK',
-    };
-
-    if(result == 0){
-      json.message = 'Actualizado correctamente';
-      res.status(200).send(json);
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
     } else if (result === 1) {
-      json.message = 'Registrado correctamente';
-      res.status(201).send(json);
+      res.status(201).send({ message: 'Registrado correctamente'});
     } else if (result === 2) {
-      json.error = 'No existe el elemento a actualizar';
-      res.status(404).send(json);
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
     }
   }
+
   async delete(req, res){
     const Worker = new WorkerMdl({
       id_user: Number(req.param('id_user')),
@@ -100,19 +72,12 @@ class workerCtrl{
 
     const result = await Worker.delete();
 
-    const json = {
-      response: 'OK',
-    };
-
-    if(result == 0){
-      json.message = 'Eliminado correctamente';
-      res.status(200).send(json);
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
     } else if (result === 1) {
-      json.error = 'No se pudo eliminar';
-      res.status(400).send(json);
+      res.status(400).send({ error: 'No se pudo eliminar' });
     } else if (result === 2) {
-      json.error = 'No existe el elemento a eliminar';
-      res.status(404).send(json);
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
     }
   }
 }
