@@ -1,15 +1,17 @@
 const router = require('express').Router();
-const clientRouter = require('./clientR');
+const middlewares = require('../middlewares')
+
 const userRouter = require('./userR');
+const workerRouter = require('./workerR');
 const listEmailRouter = require('./listEmailR');
-const wishlistRouter = require('./wishlistR');
+const wishListRouter = require('./wishListR');
 const cartRouter = require('./cartR');
 const orderRouter = require('./orderR');
 const listProdRouter = require('./listProdR');
 const serviceRouter = require('./serviceR');
 const productRouter = require('./productR');
 const notificationRouter = require('./notificationR');
-const newslistRouter = require('./newslistR');
+const newsListRouter = require('./newsListR');
 const statServiceRouter = require('./statServiceR');
 const imgStatServRouter = require('./imgStatServiceR');
 const categoryRouter = require('./categoryR');
@@ -21,19 +23,19 @@ const configurationRouter = require('./configurationR');
 const sectionRouter = require('./sectionR');
 const confSectionRouter = require('./confSectionR');
 
- router.get('/', (req, res) => res.send('ExpressJS 101 API'));
+router.get('/', middlewares.addDate, (req, res) => { res.status(200).send('Hola mundo!'); });
 
-router.use('/client', clientRouter);
-router.use('/user',userRouter);
+router.use('/user', userRouter);
+router.use('/worker',workerRouter);
 router.use('/listEmail',listEmailRouter);
-router.use('/wishlist',wishlistRouter);
+router.use('/wishlist',wishListRouter);
 router.use('/cart',cartRouter);
 router.use('/order',orderRouter);
 router.use('/listProd',listProdRouter);
 router.use('/service',serviceRouter);
 router.use('/product',productRouter);
 router.use('/notification',notificationRouter);
-router.use('/newsList',newslistRouter);
+router.use('/newsList',newsListRouter);
 router.use('/statService',statServiceRouter);
 router.use('/imgStatServ',imgStatServRouter);
 router.use('/category',categoryRouter);
