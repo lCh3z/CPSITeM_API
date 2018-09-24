@@ -1,5 +1,5 @@
 const db = require('../db');
-const { ProductCtrl } = require('../models');
+const { ProductMdl } = require('../models');
 
 class productCtrl{
   constructor(){
@@ -14,7 +14,7 @@ class productCtrl{
   processResult(data) {
     const result = [];
     data.forEach((res) => {
-      result.push(new ProductCtrl(res));
+      result.push(new ProductMdl(res));
     });
     return result;
   }
@@ -40,7 +40,7 @@ class productCtrl{
   }
 
   async create(req, res){
-    const newProduct = new ProductCtrl(req.body);
+    const newProduct = new ProductMdl(req.body);
 
     const result = await newProduct.save();
 
@@ -51,7 +51,7 @@ class productCtrl{
     }
   }
   async update(req, res){
-    const Product = new ProductCtrl(req.body);
+    const Product = new ProductMdl(req.body);
     Product.id = req.param('id');
 
     const result = await Product.save();
@@ -66,7 +66,7 @@ class productCtrl{
   }
 
   async delete(req, res){
-    const Product = new ProductCtrl({
+    const Product = new ProductMdl({
       id: Number(req.param('id')),
     });
 

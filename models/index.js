@@ -6,7 +6,8 @@ const CartMdl = require('./cartMdl');
 const OrderMdl = require('./orderMdl');
 const ListProdMdl = require('./listProdMdl');
 const ServiceMdl = require('./serviceMdl');
-const ProductCtrl = require('./productCtrl');
+const ProductMdl = require('./productCtrl');
+const SectionMdl = require('./sectionCtrl');
 
 
 module.exports = {
@@ -18,5 +19,6 @@ module.exports = {
   OrderMdl,
   ListProdMdl,
   ServiceMdl,
-  ProductCtrl,
+  ProductMdl,
+  SectionMdl,
 }
