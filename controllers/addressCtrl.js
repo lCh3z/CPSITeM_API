@@ -57,7 +57,7 @@ class addressCtrl{
   create(req, res){
     const lastId = this.data[this.data.length - 1].id;
     const data = {
-      id : lastId +1;
+      id : lastId +1,
       id_client : req.param('id_client'),
       name : req.param('name'),
       street : req.param('street'),
@@ -111,7 +111,7 @@ class addressCtrl{
     const data = this.data.find(el => el.id === Number(req.params.id));
     this.data.splice(this.data.indexOf(data), 1);
     const json = {
-      response : 'OK';
+      response : 'OK',
       data : data
     };
     res.status(201).send(json);

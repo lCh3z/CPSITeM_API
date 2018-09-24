@@ -1,75 +1,82 @@
+const db = require('../db');
+const { ListEmailMdl } = require('../models');
+
 class listEmailCtrl{
   constructor(){
-    this.data = [{
-      id : 1,
-      id_user : 1,
-      email : 'primer@gmail.com'
-    },
-    {
-      id : 2,
-      id_user : 2,
-      email : 'seg@gmail.com'
-    }];
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.processResult = this.processResult.bind(this);
   }
-  getAll(req, res){
-    const json = {
-      response : 'OK',
-      data : this.data
-    };
-    res.send(json);
-  }
-  get(req, res){
-    const data = this.data.find(el => el.id === Number(req.params.id));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.send(json);
-  }
-  create(req, res){
-    const lastId = this.data[this.data.length -1].id;
-    const data = {
-      id : lastId +1,
-      id_user : Number(req.param('id_user')),
-      email : req.param('email'),
-    };
-    this.data.push(data);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
-  }
-  update(req, res){
-    let self = this;
-    let id = Number(req.params.id);
-    let data = this.data.find(el => el.id === id);
-    data = {
-      id: Number(req.param('id')),
-      id_user: Number(req.param('id_user')),
-      email: req.param('email') === undefined ? self.data[id-1].email : req.param('email'),
-    };
-    this.data[Number(req.params.id) -1] = data;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
 
+  processResult(data) {
+    const result = [];
+    data.forEach((res) => {
+      result.push(new ListEmailMdl(res));
+    });
+    return result;
   }
-  delete(req, res){
-    const data = this.data.find(el => el.id === Number(req.params.id));
-    this.data.splice(this.data.indexOf(data), 1);
-    const json = {
-      response : 'OK';
-      data : data
-    };
-    res.status(201).send(json);
+
+  async getAll(req, res){
+    let data = await db.getAll('_ListEmail_', ['id_user', 'email', 'status'], '', '', '');
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
+    } else {
+      res.status(200).send({ data });
+    }
+  }
+
+  async get(req, res){
+    let data = await db.getAll('_ListEmail_',['id_user','email','status'],[{ attr: 'id_user', oper: '=', val: Number(req.param('id_user')) }]);
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
+    } else {
+      res.status(200).send({ data });
+    }
+  }
+  async create(req, res){
+    const newListEmail = new ListEmailMdl(req.body);
+
+    const result = await newListEmail.save();
+
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo registrar' });
+    }
+  }
+  async update(req, res){
+    const ListEmail = new ListEmailMdl(req.body);
+    ListEmail.id_user = req.param('id_user');
+
+    const result = await ListEmail.save();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
+    } else if (result === 1) {
+      res.status(201).send({ message: 'Registrado correctamente'});
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    }
+  }
+  async delete(req, res){
+    const ListEmail = new ListEmailMdl({
+      id_user: Number(req.param('id_user')),
+    });
+
+    const result = await ListEmail.delete();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo eliminar' });
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    }
   }
 }
 

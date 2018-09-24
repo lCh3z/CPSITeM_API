@@ -63,7 +63,7 @@ class categoryCtrl{
       id : Number(req.param('id')),
       name : req.param('name') === undefined ? self.data[id-1].name : req.param('name'),
       description : req.param('description') === undefined ? self.data[id-1].description : req.param('description'),
-      photo : req.param('photo') === undefined ? self.data.[id-1].photo : req.param('photo'),
+      photo : req.param('photo') === undefined ? self.data[id-1].photo : req.param('photo'),
       date : req.param('date') === undefined ? self.data[id-1].date : req.param('date'),
       status : req.param('status') === undefined ? self.data[id-1].status : req.param('status'),
     };

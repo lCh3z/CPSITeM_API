@@ -47,8 +47,8 @@ class newsListCtrl{
     let id = req.params;
     let data = this.data.find(el => el.email === id.email);
     data = {
-      email : req.param('email') === undefined ? self.data[self.data.indexOf(id)].email : req.param('email');
-      status : req.param('status') === undefined ? self.data[self.data.indexOf(id)].status : req.param('status');
+      email : req.param('email') === undefined ? self.data[self.data.indexOf(id)].email : req.param('email'),
+      status : req.param('status') === undefined ? self.data[self.data.indexOf(id)].status : req.param('status')
     };
     this.data[this.data.indexOf(id)] = data;
     const json = {
