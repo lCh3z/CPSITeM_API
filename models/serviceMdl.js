@@ -2,7 +2,7 @@ const db = require('../db');
 
 class ServiceMdl {
   constructor(args) {
-    this.id =  args.id;
+    this.id = args.id;
     this.id_seller = args.id_seller;
     this.id_user = args.id_user;
     this.hospital = args.hospital;
@@ -25,7 +25,7 @@ class ServiceMdl {
     });
     return result;
   }
-  
+
   async save() {
     Object.keys(this).forEach(key => this[key] === undefined && delete this[key]);
     if (this.id !== undefined && this.processResult(await db.get('_Service_', 'id', [{ attr: 'id', oper: '=', val: this.id }])).length !== 0) return this.update();
