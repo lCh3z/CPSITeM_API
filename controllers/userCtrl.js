@@ -65,9 +65,9 @@ class UserCtrl {
     const result = await User.save();
 
     if(result === 0){
-      res.status(200).send({ error: 'Actualizado correctamente' });
+      res.status(200).send({ message: 'Actualizado correctamente' });
     } else if (result === 1) {
-      res.status(201).send({ error: 'Registrado correctamente'});
+      res.status(201).send({ message: 'Registrado correctamente'});
     } else if (result === 2) {
       res.status(404).send({ error: 'No existe el elemento a actualizar' });
     }
@@ -82,7 +82,7 @@ class UserCtrl {
 
 
     if(result === 0){
-      res.status(200).send({ error: 'Eliminado correctamente' });
+      res.status(200).send({ message: 'Eliminado correctamente' });
     } else if (result === 1) {
       res.status(400).send({ error: 'No se pudo eliminar' });
     } else if (result === 2) {

@@ -1,91 +1,84 @@
+const db = require('../db');
+const { OrderMdl } = require('../models');
+
 class orderCtrl{
   constructor(){
-    this.data = [{
-      id : 1,
-      id_user : 1,
-      id_address : 1,
-      id_payment :1,
-      id_cuppon : 'XMAS',
-      date : Date.now(),
-      status : 1,
-    },
-    {
-      id : 2,
-      id_user : 2,
-      id_address : 2,
-      id_payment :2,
-      id_cuppon : 'ZMAS',
-      date : Date.now(),
-      status : 1,
-    },
-  ];
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.processResult = this.processResult.bind(this);
   }
-  getAll(req, res){
-    const json = {
-      response : 'OK',
-      data : this.data
-    };
-    res.send(json);
+
+  processResult(data) {
+    const result = [];
+    data.forEach((res) => {
+      result.push(new OrderMdl(res));
+    });
+    return result;
   }
-  get(req, res){
-    const data = this.data.find(el => el.id === Number(req.params.id));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.send(json);
+
+  async getAll(req, res){
+    let data = await db.getAll('_Order_', ['id', 'id_user', 'id_address', 'id_payment', 'id_cuppon', 'date', 'status'], '', '', '');
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
+    } else {
+      res.status(200).send({ data });
+    }
   }
-  create(req, res){
-    const lastId = this.data[this.data.length -1].id;
-    const data = {
-      id: lastId +1,
-      id_user: req.param('id_user'),
-      id_address: req.param('id_address'),
-      id_payment:req.param('id_payment'),
-      id_cuppon: req.param('id_cuppon'),
-      date: req.param('date'),
-      status: req.param('status'),
-    };
-    this.data.push(data);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async get(req, res){
+    let data = await db.get('_Order_', ['id', 'id_user', 'id_address', 'id_payment', 'id_cuppon', 'date', 'status'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
+    } else {
+      res.status(200).send({ data });
+    }
   }
-  update(req, res){
-    let self = this;
-    let id = Number(req.params.id);
-    let data = this.data.find(el => el.id === id);
-    data = {
+
+  async create(req, res){
+    const newOrder = new OrderMdl(req.body);
+
+    const result = await newOrder.save();
+
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo registrar' });
+    }
+  }
+  async update(req, res){
+    const Order = new OrderMdl(req.body);
+    Order.id = req.param('id');
+
+    const result = await Order.save();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
+    } else if (result === 1) {
+      res.status(201).send({ message: 'Registrado correctamente'});
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    }
+  }
+
+  async delete(req, res){
+    const Order = new OrderMdl({
       id: Number(req.param('id')),
-      id_user: req.param('id_user') === undefined ? self.data[id-1].id_user : req.param('id_user'),
-      id_address: req.param('id_address') === undefined ? self.data[id-1].id_address : req.param('id_address'),
-      id_payment:req.param('id_payment') === undefined ? self.data[id-1].id_payment : req.param('id_payment'),
-      id_cuppon: req.param('id_cuppon') === undefined ? self.data[id-1].id_cuppon : req.param('id_cuppon'),
-      date: req.param('date') === undefined ? self.data[id-1].date : req.param('date'),
-      status: req.param('status') === undefined ? self.data[id-1].status : req.param('status'),
-    };
-    this.data[Number(req.params.id) -1] = data;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
-  }
-  delete(req, res){
-    this.data[Number(req.params.id) -1].status = 0;
-    const data = this.data.find(el => el.id === Number(req.params.id));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+    });
+
+    const result = await Order.delete();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo eliminar' });
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    }
   }
 }
 

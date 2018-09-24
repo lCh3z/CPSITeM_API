@@ -1,75 +1,84 @@
+const db = require('../db');
+const { WorkerMdl } = require('../models');
+
 class workerCtrl{
   constructor(){
-    this.data = [{
-      id_user: 1, //integer
-      position : 'donde sea', //varchar (32)
-      depart : 'ventas', //varchar(32)
-    },
-    {
-      id_user: 1, //integer
-      position : 'es pedro', //varchar (32)
-      depart : 'ventas', //varchar(32)
-    }
-  ];
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.processResult = this.processResult.bind(this);
   }
-  getAll(req, res){
-    const json = {
-      response : 'OK',
-      data : this.data
-    };
-    res.send(json);
+
+  processResult(data) {
+    const result = [];
+    data.forEach((res) => {
+      result.push(new WorkerMdl(res));
+    });
+    return result;
   }
-  get(req, res){
-    const data = this.data.find(el => el.id_user === Number(req.params.id_user));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.send(json);
+
+  async getAll(req, res){
+    let data = await db.getAll('_Worker_', ['id_user', 'position', 'depart'], '', '', '');
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
+    } else {
+      res.status(200).send({ data });
+    }
   }
-  create(req, res){
-    const lastId = this.data[this.data.length - 1].id_user;
-    const data = {
-      id_user: lastId + 1,
-      position : req.param('position'),
-      depart : req.param('depart'),
-    };
-    this.data.push(data);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async get(req, res){
+    let data = await db.get('_Worker_', ['id_user', 'position', 'depart'], [{ attr: 'id_user', oper: '=', val: Number(req.param('id_user')) }]);
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
+    } else {
+      res.status(200).send({ data });
+    }
   }
-  update(req, res){
-    let self = this;
-    let id = Number(req.params.id);
-    let data = this.data.find(el => el.id === id);
-    data = {
-      id : Number(req.param('id_user')),
-      position : req.param('position') === undefined ? self.data[id-1].position: req.param('position'),
-      depart : req.param('depart') === undefined ? self.data[id-1].depart : req.param('depart'),
-    };
-    this.data[Number(req.params.id) - 1] = data;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async create(req, res){
+    const newWorker = new WorkerMdl(req.body);
+
+    const result = await newWorker.save();
+
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo registrar' });
+    }
   }
-  delete(req, res){
-    this.data[Number(req.params.id_user) - 1].status = 0;
-    const data = this.data.find(el => el.id === Number(req.params.id_user));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+  async update(req, res){
+    const Worker = new WorkerMdl(req.body);
+    Worker.id_user = req.param('id_user');
+
+    const result = await Worker.save();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
+    } else if (result === 1) {
+      res.status(201).send({ message: 'Registrado correctamente'});
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    }
+  }
+
+  async delete(req, res){
+    const Worker = new WorkerMdl({
+      id_user: Number(req.param('id_user')),
+    });
+
+    const result = await Worker.delete();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo eliminar' });
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    }
   }
 }
 

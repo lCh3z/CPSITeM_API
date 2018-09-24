@@ -1,62 +1,73 @@
+const db = require('../db');
+const { WishListMdl } = require('../models');
+
 class wishListCtrl{
   constructor(){
-    this.data = [{
-      id_user : 1, //integer
-      id_product : 1, //integer
-    },
-    {
-      id_user : 2, //integer
-      id_product : 2, //integer
-    }
-  ];
     this.getAll = this.getAll.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.processResult = this.processResult.bind(this);
   }
-  getAll(req, res){
-    const json = {
-      response : 'OK',
-      data : this.data
-    };
-    res.send(json);
-  }
-  create(req, res){
-    const data = {
-      id_user: Number(req.param('id_user')),
-      id_product: Number(req.param('id_product')),
-    };
-    this.data.push(data);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
-  }
-  update(req, res){
-    let self = this;
-    let id = Number(req.params.id_order);
-    let data = this.data.find(el => el.id_order === id);
-    data = {
-      id_user: req.param('id_user') === undefined ? self.data[id-1].id_user : Number(req.param('id_userr')),
-      id_product: req.param('id_product') === undefined ? self.data[id-1].id_product : Number(req.param('id_product')),
-    };
-    this.data[Number(req.params.id_order) -1] = data;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
 
+  processResult(data) {
+    const result = [];
+    data.forEach((res) => {
+      result.push(new WishListMdl(res));
+    });
+    return result;
   }
-  delete(req, res){
-    const data = this.data.find(el => el.id_order === Number(req.params.id_order));
-    this.data.splice(this.data.indexOf(data), 1);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async getAll(req, res){
+    let data = await db.getAll('_WishList_', ['id_user', 'id_product'], '', '', '');
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
+    } else {
+      res.status(200).send({ data });
+    }
+  }
+  
+  async create(req, res){
+    const newWishList = new WishListMdl(req.body);
+
+    const result = await newWishList.save();
+
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo registrar' });
+    }
+  }
+  async update(req, res){
+    const WishList = new WishListMdl(req.body);
+    WishList.id_user   = req.param('id_user');
+
+    const result = await WishList.save();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
+    } else if (result === 1) {
+      res.status(201).send({ message: 'Registrado correctamente'});
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    }
+  }
+
+  async delete(req, res){
+    const WishList = new WishListMdl({
+      id_user  : Number(req.param('id_user')),
+    });
+
+    const result = await WishList.delete();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo eliminar' });
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    }
   }
 }
 
