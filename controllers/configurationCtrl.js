@@ -59,20 +59,27 @@ class configurationCtrl {
   }
 
   async populate(req, res) {
-    if(Number(req.param('num')) > 0) {
-      const result = await Factory.createUser(req.body, Number(req.param('num')));
+    if (Number(req.param('num')) > 0) {
+      let result = 1;
+      if (req.param('table') === '_User_') { result = await Factory.createUser(req.body, Number(req.param('num'))); }
+      else if (req.param('table') === '_Order_') { result = await Factory.createOrder(req.body, Number(req.param('num'))); }
+      else if (req.param('table') === '_Service_') { result = await Factory.createService(req.body, Number(req.param('num'))); }
+      else if (req.param('table') === '_Product_') { result = await Factory.createProduct(req.body, Number(req.param('num'))); }
+      else if (req.param('table') === '_Notification_') { result = await Factory.createNotification(req.body, Number(req.param('num'))); }
+      else if (req.param('table') === '_StatService_') { result = await Factory.createStatService(req.body, Number(req.param('num'))); }
+      else if (req.param('table') === '_ImgStatService_') { result = await Factory.createImgStatService(req.body, Number(req.param('num'))); }
+      else if (req.param('table') === '_Category_') { result = await Factory.createCategory(req.body, Number(req.param('num'))); }
+      else if (req.param('table') === '_ImgProduct_') { result = await Factory.createImgProduct(req.body, Number(req.param('num'))); }
+      else if (req.param('table') === '_Address_') { result = await Factory.createAddress(req.body, Number(req.param('num'))); }
+      else if (req.param('table') === '_Payment_') { result = await Factory.createPayment(req.body, Number(req.param('num'))); }
+      else if (req.param('table') === '_Section_') { result = await Factory.createSection(req.body, Number(req.param('num'))); }
+      else if (req.param('table') === '_ConfSection_') { result = await Factory.createConfSection(req.body, Number(req.param('num'))); }
 
-      let json = {};
 
-      console.log(result);
-      console.log(result === 0);
-
-      if(result === 0){
-        json.message = `${req.param('num')} elementos agregados correctamente.`;
-        res.status(201).send(json);
+      if(result === 0) {
+        res.status(201).send({message: `${req.param('num')} elementos agregados correctamente.`});
       } else {
-        json.error = 'No se pudo realizar la operación';
-        res.status(400).send(json);
+        res.status(400).send({error: 'No se pudo realizar la operación'});
       }
     }
     res.status(404).send({error: 'Debes especificar una cantidad'});

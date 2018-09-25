@@ -21,7 +21,6 @@ const SectionMdl = require('./sectionMdl');
 const ConfSectionMdl = require('./confSectionMdl');
 
 
-
 module.exports = {
   UserMdl,
   WorkerMdl,
