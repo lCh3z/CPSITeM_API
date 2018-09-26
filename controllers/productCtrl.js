@@ -19,6 +19,7 @@ class productCtrl{
     return result;
   }
 
+
   async getAll(req, res){
     let data = await db.getAll('_Product_', ['id', 'id_cat', 'name', 'price', 'status', 'discount', 'inventory', 'description', 'specs', 'min_quan', 'date'], '', '', '');
     data = this.processResult(data);

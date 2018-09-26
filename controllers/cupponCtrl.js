@@ -1,81 +1,84 @@
+const db = require('../db');
+const { CupponMdl } = require('../models');
+
 class cupponCtrl{
   constructor(){
-    this.data = [{
-      id: 'XMAS',
-      discount: 10,
-      start: Date.now(),
-      end: Date.now(),
-      description: 'descripcion',
-    },{
-      id: 'XMAS2',
-      discount: 10,
-      start: Date.now(),
-      end: Date.now(),
-      description: 'Descripcion2'
-    }];
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.processResult = this.processResult.bind(this);
   }
-  getAll(req, res){
-    const json = {
-      response : 'OK',
-      data : this.data
-    };
-    res.send(json);
-  }
-  get(req, res){
-    const data = this.data.find(el => el.id === req.params.id);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.send(json);
-  }
-  create(req, res){
-  const data = {
-      id: req.param('id'),
-      discount: req.param('discount'),
-      start: req.param('start'),
-      end: req.param('end'),
-      description: req.param('description'),
-    };
-    this.data.push(data);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
-  }
-  update(req, res){
-    let self = this;
-    let id = req.params.id;
-    let data = this.data.find(el => el.id === id);
-    data = {
-      id: req.param('id'),
-      discount: req.param('discount') === undefined ? self.data[id-1].discount : req.param('discount'),
-      start: req.param('start') === undefined ? self.data[id-1].start : req.param('start'),
-      end: req.param('end') === undefined ? self.data[id-1].end : req.param('end'),
-      description: req.param('description') === undefined ? self.data[id-1].description : req.param('description'),
-    };
-    this.data[this.data.indexOf(req.params.id)] = data;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
 
+  processResult(data) {
+    const result = [];
+    data.forEach((res) => {
+      result.push(new CupponMdl(res));
+    });
+    return result;
   }
-  delete(req, res){
-    const data = this.data.find(el => el.id === req.params.id);
-    this.data[this.data.indexOf(data)].end = 0;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async getAll(req, res){
+    let data = await db.getAll('_Cuppon_', ['id', 'discount', 'start', 'end', 'description'], '', '', '');
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
+    } else {
+      res.status(200).send({ data });
+    }
+  }
+
+  async get(req, res){
+    let data = await db.get('_Cuppon_', ['id', 'discount', 'start', 'end', 'description'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
+    } else {
+      res.status(200).send({ data });
+    }
+  }
+
+  async create(req, res){
+    const newCuppon = new CupponMdl(req.body);
+
+    const result = await newCuppon.save();
+
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo registrar' });
+    }
+  }
+  async update(req, res){
+    const Cuppon = new CupponMdl(req.body);
+    Cuppon.id = req.param('id');
+
+    const result = await Cuppon.save();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
+    } else if (result === 1) {
+      res.status(201).send({ message: 'Registrado correctamente'});
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    }
+  }
+
+  async delete(req, res){
+    const Cuppon = new CupponMdl({
+      id: Number(req.param('id')),
+    });
+
+    const result = await Cuppon.delete();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo eliminar' });
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    }
   }
 }
 

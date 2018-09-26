@@ -1,72 +1,84 @@
+const db = require('../db');
+const { ImgStatServMdl } = require('../models');
+
 class imgStatServCtrl{
   constructor(){
-    this.data = [{
-      id_status_serv : 1,
-      photo : 'foto.png',
-    },
-    {
-      id_status_serv : 2,
-      photo : 'foto.png',
-    },
-  ];
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.processResult = this.processResult.bind(this);
   }
-  getAll(req, res){
-    const json = {
-      response : 'OK',
-      data : this.data
-    };
-    res.send(json);
-  }
-  get(req, res){
-    const data = this.data.find(el => el.id_status_serv === Number(req.params.id_status_serv));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.send(json);
-  }
-  create(req, res){
-    const data = {
-      id_status_serv : req.param('id_status_serv'),
-      photo : req.param('photo'),
-    };
-    this.data.push(data);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
 
+  processResult(data) {
+    const result = [];
+    data.forEach((res) => {
+      result.push(new ImgStatServMdl(res));
+    });
+    return result;
   }
-  update(req, res){
-    let self = this;
-    let id = Number(req.params.id_status_serv);
-    let data = this.data.find(el => el.id_status_serv === id);
-    data = {
-      id_status_serv : Number(req.param('id_status_serv')),
-      photo : req.param('photo') === undefined ? self.data[id-1].photo : req.param('photo')
-    };
-    this.data[Number(req.params.id_status_serv) -1] = data;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
 
+  async getAll(req, res){
+    let data = await db.getAll('_ImgStatServ_', ['id_status_serv', 'photo'], '', '', '');
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
+    } else {
+      res.status(200).send({ data });
+    }
   }
-  delete(req, res){
-    const data = this.data.find(el => el.id_status_serv === Number(req.params.id_status_serv));
-    this.data.splice(this.data.indexOf(data), 1);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async get(req, res){
+    let data = await db.get('_ImgStatServ_', ['id_status_serv', 'photo'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
+    } else {
+      res.status(200).send({ data });
+    }
+  }
+
+  async create(req, res){
+    const imgstatserv = new ImgStatServMdl(req.body);
+
+    const result = await imgstatserv.save();
+
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo registrar' });
+    }
+  }
+  async update(req, res){
+    const imgstatserv = new ImgStatServMdl(req.body);
+    imgstatserv.id = req.param('id');
+
+    const result = await imgstatserv.save();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
+    } else if (result === 1) {
+      res.status(201).send({ message: 'Registrado correctamente'});
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    }
+  }
+
+  async delete(req, res){
+    const imgstatserv = new ImgStatServMdl({
+      id: Number(req.param('id')),
+    });
+
+    const result = await imgstatserv.delete();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo eliminar' });
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    }
   }
 }
 

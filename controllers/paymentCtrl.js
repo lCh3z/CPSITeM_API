@@ -1,75 +1,84 @@
+const db = require('../db');
+const { PaymentMdl } = require('../models');
+
 class paymentCtrl{
   constructor(){
-    this.data = [{
-      id_client : 1,
-      account : 'cuenta',
-      token : 'token',
-    },
-    {
-      id_client : 2,
-      account : 'cuentas',
-      token : 'token'
-    },
-  ];
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.processResult = this.processResult.bind(this);
   }
-  getAll(req, res){
-    const json = {
-      response : 'OK',
-      data : this.data
-    };
-    res.send(json);
-  }
-  get(req, res){
-    const data = this.data.find(el => el.account === req.params.account);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.send(json);
-  }
-  create(req, res){
-    const data = {
-      id_client : req.param('id_client'),
-      account : req.param('account'),
-      token : req.param('token'),
-    };
-    this.data.push(data);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
-  }
-  update(req, res){
-    let self = this;
-    let id = req.params;
-    let data = this.data.find(el => el.account === id.account);
-    data = {
-      id_client: req.param('id_client') === undefined ? self.data[self.data.indexOf(id)].id_client : req.param('id_client'),
-      account: req.param('account') === undefined ? self.data[self.data.indexOf(id)].account : req.param('account'),
-      token: req.param('token') === undefined ? self.data[self.data.indexOf(id)].token : req.param('token'),
-    };
-    this.data[this.data.indexOf(id)] = data;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
 
+  processResult(data) {
+    const result = [];
+    data.forEach((res) => {
+      result.push(new PaymentMdl(res));
+    });
+    return result;
   }
-  delete(req, res){
-    const data = this.data.find(el => el.account === req.params.account);
-    this.data.splice(this.data.indexOf(data), 1);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async getAll(req, res){
+    let data = await db.getAll('_Payment_', ['id_client', 'account', 'token'], '', '', '');
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
+    } else {
+      res.status(200).send({ data });
+    }
+  }
+
+  async get(req, res){
+    let data = await db.get('_Payment_', ['id_client', 'account', 'token'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
+    } else {
+      res.status(200).send({ data });
+    }
+  }
+
+  async create(req, res){
+    const newPayment = new PaymentMdl(req.body);
+
+    const result = await newPayment.save();
+
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo registrar' });
+    }
+  }
+  async update(req, res){
+    const payment = new PaymentMdl(req.body);
+    payment.id = req.param('id');
+
+    const result = await payment.save();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
+    } else if (result === 1) {
+      res.status(201).send({ message: 'Registrado correctamente'});
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    }
+  }
+
+  async delete(req, res){
+    const payment = new PaymentMdl({
+      id: Number(req.param('id')),
+    });
+
+    const result = await payment.delete();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo eliminar' });
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    }
   }
 }
 

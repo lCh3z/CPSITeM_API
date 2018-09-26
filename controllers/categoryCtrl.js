@@ -1,87 +1,84 @@
+const db = require('../db');
+const { CategoryMdl } = require('../models');
+
 class categoryCtrl{
   constructor(){
-    this.data = [{
-      id : 1,
-      name : 'maquina',
-      description : 'maquina1',
-      photo : 'foto.jpeg',
-      date : '2018-9-20',
-      status : 1,
-    },
-    {
-      id : 1,
-      name : 'maquina',
-      description : 'maquina2',
-      photo : 'foto.jpeg',
-      date : '2018-9-20',
-      status : 1,
-    },
-  ];
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.processResult = this.processResult.bind(this);
   }
-  getAll(req, res){
-    const json = {
-      response : 'OK',
-      data : this.data
-    };
-    res.send(json);
+
+  processResult(data) {
+    const result = [];
+    data.forEach((res) => {
+      result.push(new CategoryMdl(res));
+    });
+    return result;
   }
-  get(req, res){
-    const data = this.data.find(el => el.id === Number(req.params.id));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.send(json);
+
+  async getAll(req, res){
+    let data = await db.getAll('_Category_', ['id', 'name', 'description', 'photo', 'date', 'status'], '', '', '');
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
+    } else {
+      res.status(200).send({ data });
+    }
   }
-  create(req, res){
-    const lastId = this.data[this.data.length -1].id;
-    const data = {
-      id : lastId + 1,
-      name : req.param('name'),
-      description : req.param('description'),
-      photo : req.param('photo'),
-      date : req.param('date'),
-      status : req.param('status'),
-    };
-    this.data.push(data);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async get(req, res){
+    let data = await db.get('_Category_', ['id', 'name', 'description', 'photo', 'date', 'status'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
+    } else {
+      res.status(200).send({ data });
+    }
   }
-  update(req, res){
-    let self = this;
-    let id = Number(req.params.id);
-    let data = this.data.find(el => el.id === id);
-    data = {
-      id : Number(req.param('id')),
-      name : req.param('name') === undefined ? self.data[id-1].name : req.param('name'),
-      description : req.param('description') === undefined ? self.data[id-1].description : req.param('description'),
-      photo : req.param('photo') === undefined ? self.data[id-1].photo : req.param('photo'),
-      date : req.param('date') === undefined ? self.data[id-1].date : req.param('date'),
-      status : req.param('status') === undefined ? self.data[id-1].status : req.param('status'),
-    };
-    this.data[Number(req.params.id) -1] = data;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async create(req, res){
+    const newcategory = new CategoryMdl(req.body);
+
+    const result = await newcategory.save();
+
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo registrar' });
+    }
   }
-  delete(req, res){
-    this.data[Number(req.params.id) -1].status = 0;
-    const data = this.data.find(el => el.id === Number(req.params.id));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+  async update(req, res){
+    const newcategory = new CategoryMdl(req.body);
+    newcategory.id = req.param('id');
+
+    const result = await newcategory.save();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
+    } else if (result === 1) {
+      res.status(201).send({ message: 'Registrado correctamente'});
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    }
+  }
+
+  async delete(req, res){
+    const newcategory = new CategoryMdl({
+      id: Number(req.param('id')),
+    });
+
+    const result = await newcategory.delete();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo eliminar' });
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    }
   }
 }
 
