@@ -1,107 +1,85 @@
+const db = require('../db');
+const { ProductMdl } = require('../models');
+
 class productCtrl{
   constructor(){
-    this.data = [{
-      id: 1,
-      id_cat: 1,
-      name: 'Pancho',
-      price: 12312,
-      status: 1,
-      discount: 12312,
-      inventory: 12,
-      description: 'Está chido',
-      specs: 'Tiene pantalla',
-      min_quan: 15,
-      date: Date.now(),
-    },
-    {
-      id: 2,
-      id_cat: 2,
-      name: 'Pancho',
-      price: 123,
-      status: 1,
-      discount: 12,
-      inventory: 15,
-      description: 'Está chido',
-      specs: 'Tiene pantalla',
-      min_quan: 19,
-      date: Date.now(),
-    },
-  ];
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.processResult = this.processResult.bind(this);
   }
-  getAll(req, res){
-    const json = {
-      response : 'OK',
-      data : this.data
-    };
-    res.send(json);
+
+  processResult(data) {
+    const result = [];
+    data.forEach((res) => {
+      result.push(new ProductMdl(res));
+    });
+    return result;
   }
-  get(req, res){
-    const data = this.data.find(el => el.id === Number(req.params.id));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.send(json);
+
+
+  async getAll(req, res){
+    let data = await db.getAll('_Product_', ['id', 'id_cat', 'name', 'price', 'status', 'discount', 'inventory', 'description', 'specs', 'min_quan', 'date'], '', '', '');
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
+    } else {
+      res.status(200).send({ data });
+    }
   }
-  create(req, res){
-    const lastId = this.data[this.data.length -1].id;
-    const data = {
-      id: lastId +1,
-      id_cat: req.param('id_cat'),
-      name: req.param('name'),
-      price: req.param('price'),
-      status: req.param('status'),
-      discount: req.param('discount'),
-      inventory: req.param('inventory'),
-      description: req.param('description'),
-      specs: req.param('specs'),
-      min_quan: req.param('min_quan'),
-      date: req.param('date'),
-    };
-    this.data.push(data);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async get(req, res){
+    let data = await db.get('_Product_', ['id', 'id_cat', 'name', 'price', 'status', 'discount', 'inventory', 'description', 'specs', 'min_quan', 'date'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
+    } else {
+      res.status(200).send({ data });
+    }
   }
-  update(req, res){
-    let self = this;
-    let id = Number(req.params.id);
-    let data = this.data.find(el => el.id === id);
-    data = {
+
+  async create(req, res){
+    const newProduct = new ProductMdl(req.body);
+
+    const result = await newProduct.save();
+
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo registrar' });
+    }
+  }
+  async update(req, res){
+    const Product = new ProductMdl(req.body);
+    Product.id = req.param('id');
+
+    const result = await Product.save();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
+    } else if (result === 1) {
+      res.status(201).send({ message: 'Registrado correctamente'});
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    }
+  }
+
+  async delete(req, res){
+    const Product = new ProductMdl({
       id: Number(req.param('id')),
-      id_cat: req.param('id_cat') === undefined ? self.data[id-1].id_cat : req.param('id_cat'),
-      name: req.param('name') === undefined ? self.data[id-1].name : req.param('name'),
-      price: req.param('price') === undefined ? self.data[id-1].price : req.param('price'),
-      status: req.param('status') === undefined ? self.data[id-1].status : req.param('status'),
-      discount: req.param('discount') === undefined ? self.data[id-1].discount : req.param('discount'),
-      inventory: req.param('inventory') === undefined ? self.data[id-1].inventory : req.param('inventory'),
-      description: req.param('description') === undefined ? self.data[id-1].description : req.param('description'),
-      specs: req.param('specs') === undefined ? self.data[id-1].specs : req.param('specs'),
-      min_quan: req.param('min_quan') === undefined ? self.data[id-1].min_quan : req.param('min_quan'),
-      date: req.param('date') === undefined ? self.data[id-1].date : req.param('date'),
-    };
-    this.data[Number(req.params.id) -1] = data;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
-  }
-  delete(req, res){
-    this.data[Number(req.params.id) -1].status = 0;
-    const data = this.data.find(el => el.id === Number(req.params.id));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+    });
+
+    const result = await Product.delete();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo eliminar' });
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    }
   }
 }
 

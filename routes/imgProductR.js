@@ -3,11 +3,11 @@ const { imgProductCtrl } = require('../controllers');
 
 router.get('/', imgProductCtrl.getAll);
 
-router.get('/:id', imgProductCtrl.get);
+router.get('/:id_prod', imgProductCtrl.get);
 
 router.post('/', imgProductCtrl.create);
 
-router.patch('/:id', imgProductCtrl.update);
+router.patch('/:id_prod', imgProductCtrl.update);
 
-router.delete('/:id', imgProductCtrl.delete);
+router.delete('/:id_prod', imgProductCtrl.delete);
 module.exports = router;

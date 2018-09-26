@@ -1,120 +1,83 @@
+const db = require('../db');
+const { AddressMdl } = require('../models');
+
 class addressCtrl{
   constructor(){
-    this.data = [{
-      id :1,
-      id_client :1,
-      name : 'Ulises',
-      street : 'Colon',
-      colony : 'Parques',
-      city : 'gdl',
-      state : 'Jalisco',
-      date : '2018-9-20',
-      out_num : 4684,
-      int_num : 1,
-      zip_code : '1234',
-      phone : '3322110099',
-      email : 'email1@gmail.com',
-    },
-    {
-      id :2,
-      id_client :2,
-      name : 'Marcos',
-      street : 'Colon',
-      colony : 'Parques',
-      city : 'gdl',
-      state : 'Jalisco',
-      date : '2018-9-20',
-      out_num : 4685,
-      int_num : 2,
-      zip_code : '1234',
-      phone : '3322110099',
-      email : 'email2@gmail.com',
-    },
-  ];
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-  }
-  getAll(req, res){
-    const json = {
-      response : 'OK',
-      data : this.data
-    };
-    res.send(json);
+    this.processResult = this.processResult.bind(this);
   }
 
-  get(req, res){
-    const data = this.data.find(el => el.id === Number(req.params.id));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.send(json);
+  processResult(data) {
+    const result = [];
+    data.forEach((res) => {
+      result.push(new AddressMdl(res));
+    });
+    return result;
   }
 
-  create(req, res){
-    const lastId = this.data[this.data.length - 1].id;
-    const data = {
-      id : lastId +1,
-      id_client : req.param('id_client'),
-      name : req.param('name'),
-      street : req.param('street'),
-      colony : req.param('colony'),
-      city : req.param('city'),
-      state : req.param('state'),
-      date : req.param('date'),
-      out_num : req.param('out_num'),
-      int_num : req.param('int_num'),
-      zip_code : req.param('zip_code'),
-      phone : req.param('phone'),
-      email : req.param('email'),
-    };
-    this.data.push(data);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
-
+  async getAll(req, res){
+    let data = await db.getAll('_Address_', ['id', 'id_user', 'name', 'street', 'colony', 'city', 'state', 'date', 'out_num','int_num', 'zip_code', 'phone', 'email'], '', '', '');
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
+    } else {
+      res.status(200).send({ data });
+    }
   }
 
-  update(req, res){
-    let self = this;
-    let id = Number(req.params.id);
-    let data = this.data.find(el => el.id === id);
-    data = {
-      id : Number(req.param('id')),
-      id_client : req.param('id_client') === undefined ? self.data[id-1].id_client : req.param('id_client'),
-      name : req.param('name') === undefined ? self.data[id-1].name : req.param('name'),
-      street : req.param('street') === undefined ? self.data[id-1].street : req.param('street'),
-      colony : req.param('colony') === undefined ? self.data[id-1].colony : req.param('colony'),
-      city : req.param('city') === undefined ? self.data[id-1].city : req.param('city'),
-      state : req.param('state') === undefined ? self.data[id-1].state : req.param('state'),
-      date : req.param('date') === undefined ? self.data[id-1].date : req.param('date'),
-      out_num : req.param('out_num') === undefined ? self.data[id-1].out_num : req.param('out_num'),
-      int_num : req.param('int_num') === undefined ? self.data[id-1].int_num : req.param('int_num'),
-      zip_code : req.param('zip_code') === undefined ? self.data[id-1].zip_code : req.param('zip_code'),
-      phone : req.param('phone') === undefined ? self.data[id-1].phone : req.param('phone'),
-      email : req.param('email') === undefined ? self.data[id-1].email : req.param('email'),
-    };
-    this.data[Number(req.params.id) - 1] = data;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+  async get(req, res){
+    let data = await db.get('_Address_', ['id', 'id_user', 'name', 'street', 'colony', 'city', 'state', 'date', 'out_num','int_num', 'zip_code', 'phone', 'email'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    if (data.length === 0) {
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
+    } else {
+      res.status(200).send({ data });
+    }
   }
 
-  delete(req, res){
-    const data = this.data.find(el => el.id === Number(req.params.id));
-    this.data.splice(this.data.indexOf(data), 1);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+  async create(req, res){
+    const newaddress = new AddressMdl(req.body);
+
+    const result = await newaddress.save();
+
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo registrar' });
+    }
+  }
+  async update(req, res){
+    const Address = new AddressMdl(req.body);
+    Address.id = req.param('id');
+
+    const result = await Address.save();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
+    } else if (result === 1) {
+      res.status(201).send({ message: 'Registrado correctamente'});
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    }
+  }
+
+  async delete(req, res){
+    const Address = new AddressMdl({
+      id: Number(req.param('id')),
+    });
+
+    const result = await Address.delete();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo eliminar' });
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    }
   }
 }
 
