@@ -7,7 +7,7 @@ router.get('/:id_user', workerCtrl.get);
 
 router.post('/', workerCtrl.create);
 
-router.patch('/:id_user', workerCtrl.update);
+router.put('/:id_user', workerCtrl.update);
 
 router.delete('/:id_user', workerCtrl.delete);
 module.exports = router;
