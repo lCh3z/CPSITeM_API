@@ -7,7 +7,7 @@ router.get('/:id', cupponCtrl.get);
 
 router.post('/', cupponCtrl.create);
 
-router.patch('/:id', cupponCtrl.update);
+router.put('/:id', cupponCtrl.update);
 
 router.delete('/:id', cupponCtrl.delete);
 module.exports = router;
