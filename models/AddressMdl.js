@@ -1,9 +1,9 @@
 const db = require('../db');
 
-class AddressMdl{
+class addressMdl{
 constructor(args){
   this.id = args.id;
-  this.id_client = args.id_client;
+  this.id_user = args.id_user;
   this.name = args.name;
   this.street = args.street;
   this.colony = args.colony;
@@ -14,14 +14,14 @@ constructor(args){
   this.out_num = args.out_num;
   this.int_num = args.int_num;
   this.zip_code = args.zip_code;
-  this.phone = agrs.phone;
+  this.phone = args.phone;
   this.email = args.email;
 }
 
 processResult(data) {
   const result = [];
   data.forEach((res) => {
-    result.push(new AddressMdl(res));
+    result.push(new addressMdl(res));
   });
   return result;
 }
@@ -48,4 +48,4 @@ async delete() {
 
 }
 
-module.exports = AddressMdl;
+module.exports = addressMdl;

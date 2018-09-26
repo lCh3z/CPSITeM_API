@@ -2,7 +2,7 @@ const db = require('../db');
 
 class ConfigurationMdl{
   constructor(args){
-    this.id =args.id;
+    this.id = args.id;
     this.label = args.label;
     this.value = args.value;
   }

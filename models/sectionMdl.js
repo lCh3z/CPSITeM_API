@@ -4,7 +4,7 @@ class SectionMdl{
   constructor(args){
     this.id = args.id;
     this.type = args.type;
-    this.status = agrs.status;
+    this.status = args.status;
   }
 
   processResult(data) {

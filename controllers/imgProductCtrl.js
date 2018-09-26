@@ -30,7 +30,7 @@ class imgProductCtrl{
   }
 
   async get(req, res){
-    let data = await db.get('_ImgProduct_', ['id_prod', 'photo'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    let data = await db.get('_ImgProduct_', ['id_prod', 'photo'], [{ attr: 'id_prod', oper: '=', val: Number(req.param('id_prod')) }]);
     data = this.processResult(data);
     if (data.length === 0) {
       res.status(404).send({ error: 'No se encontró el elemento solicitado' });
@@ -52,7 +52,7 @@ class imgProductCtrl{
   }
   async update(req, res){
     const imgproduct = new ImgProductMdl(req.body);
-    imgproduct.id = req.param('id');
+    imgproduct.id_prod = req.param('id_prod');
 
     const result = await imgproduct.save();
 
@@ -67,7 +67,7 @@ class imgProductCtrl{
 
   async delete(req, res){
     const imgproduct = new ImgProductMdl({
-      id: Number(req.param('id')),
+      id_prod: Number(req.param('id_prod')),
     });
 
     const result = await imgproduct.delete();

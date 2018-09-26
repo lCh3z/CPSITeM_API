@@ -30,12 +30,8 @@ class sectionCtrl{
   }
 
 
-//id : U smallint
-//type : U tinyint
-//status : boolean
-
   async get(req, res){
-    let data = await db.get('_Service_', ['id', 'type', 'status'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    let data = await db.get('_Section_', ['id', 'type', 'status'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
     data = this.processResult(data);
     if (data.length === 0) {
       res.status(404).send({ error: 'No se encontró el elemento solicitado' });

@@ -5,7 +5,7 @@ router.get('/', confSectionCtrl.getAll);
 
 router.post('/', confSectionCtrl.create);
 
-router.patch('/:id', confSectionCtrl.update);
+router.patch('/:id_section', confSectionCtrl.update);
 
-router.delete('/:id', confSectionCtrl.delete);
+router.delete('/:id_section', confSectionCtrl.delete);
 module.exports = router;

@@ -5,7 +5,7 @@ class ProductMdl{
     this.id = args.id;
     this.id_cat = args.id_cat;
     this.name = args.name;
-    this.price = args.pice;
+    this.price = args.price;
     this.status = args.status;
     this.discount = args.discount;
     this.inventory = args.inventory;

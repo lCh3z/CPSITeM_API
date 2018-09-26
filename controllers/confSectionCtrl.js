@@ -20,7 +20,7 @@ class confSectionCtrl{
   }
 
   async getAll(req, res){
-    let data = await db.getAll('_ConfSection_', ['id', 'photo', 'title', 'subtitle', 'type', 'description'], '', '', '');
+    let data = await db.getAll('_ConfSection_', ['id_section', 'photo', 'title', 'subtitle', 'type', 'description'], '', '', '');
     data = this.processResult(data);
     if (data.length === 0) {
       res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
@@ -30,7 +30,7 @@ class confSectionCtrl{
   }
 
   async get(req, res){
-    let data = await db.get('_ConfSection_', ['id', 'photo', 'title', 'subtitle', 'type', 'description'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    let data = await db.get('_ConfSection_', ['id_section', 'photo', 'title', 'subtitle', 'type', 'description'], [{ attr: 'id_section', oper: '=', val: Number(req.param('id_section')) }]);
     data = this.processResult(data);
     if (data.length === 0) {
       res.status(404).send({ error: 'No se encontró el elemento solicitado' });
@@ -52,7 +52,7 @@ class confSectionCtrl{
   }
   async update(req, res){
     const ConfSection = new ConfSectionMdl(req.body);
-    ConfSection.id = req.param('id');
+    ConfSection.id_section = req.param('id_section');
 
     const result = await ConfSection.save();
 
@@ -67,7 +67,7 @@ class confSectionCtrl{
 
   async delete(req, res){
     const ConfSection = new ConfSectionMdl({
-      id: Number(req.param('id')),
+      id_section: Number(req.param('id_section')),
     });
 
     const result = await ConfSection.delete();

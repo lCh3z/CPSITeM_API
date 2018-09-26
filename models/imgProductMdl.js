@@ -15,7 +15,7 @@ class ImgProductMdl{
   }
   async save() {
     Object.keys(this).forEach(key => this[key] === undefined && delete this[key]);
-    if (this.id_prod !== undefined && this.processResult(await db.get('_ImgProduct_', 'id_user', [{ attr: 'id_prod', oper: '=', val: this.id_prod }])).length !== 0) return this.update();
+    if (this.id_prod !== undefined && this.processResult(await db.get('_ImgProduct_', 'id_prod', [{ attr: 'id_prod', oper: '=', val: this.id_prod }])).length !== 0) return this.update();
     if (await db.create('_ImgProduct_', this)) return 0;
     return 1;
   }

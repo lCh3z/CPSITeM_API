@@ -20,7 +20,7 @@ class addressCtrl{
   }
 
   async getAll(req, res){
-    let data = await db.getAll('_Addresss_', ['id', 'id_client', 'name', 'street', 'colony', 'city', 'state', 'date', 'out_num',' int_num', 'zip_code', 'phone', 'email'], '', '', '');
+    let data = await db.getAll('_Address_', ['id', 'id_user', 'name', 'street', 'colony', 'city', 'state', 'date', 'out_num','int_num', 'zip_code', 'phone', 'email'], '', '', '');
     data = this.processResult(data);
     if (data.length === 0) {
       res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
@@ -30,8 +30,7 @@ class addressCtrl{
   }
 
   async get(req, res){
-    let data = await db.get('_Addresss_', ['id', 'id_client', 'name', 'street', 'colony', 'city', 'state', 'date', 'out_num',' int_num', 'zip_code', 'phone', 'email'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
-    data = this.processResult(data);
+    let data = await db.get('_Address_', ['id', 'id_user', 'name', 'street', 'colony', 'city', 'state', 'date', 'out_num','int_num', 'zip_code', 'phone', 'email'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
     if (data.length === 0) {
       res.status(404).send({ error: 'No se encontró el elemento solicitado' });
     } else {

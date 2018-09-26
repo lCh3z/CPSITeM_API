@@ -5,7 +5,7 @@ class NotificationMdl {
     this.id = args.id;
     this.title = args.title;
     this.cont = args.cont;
-    this.id_client = args.id_client;
+    this.id_user = args.id_user;
     this.date = args.date;
     this.prog = args.prog;
     this.status = args.status;
