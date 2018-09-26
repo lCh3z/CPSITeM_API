@@ -10,4 +10,5 @@ router.post('/', addressCtrl.create);
 router.put('/:id', addressCtrl.update);
 
 router.delete('/:id', addressCtrl.delete);
+
 module.exports = router;
