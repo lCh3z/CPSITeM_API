@@ -20,7 +20,7 @@ class imgStatServCtrl{
   }
 
   async getAll(req, res){
-    let data = await db.getAll('_ImgStatServ_', ['id_status_serv', 'photo'], '', '', '');
+    let data = await db.getAll('_ImgStatServ_', ['id_stat_serv', 'photo'], '', '', '');
     data = this.processResult(data);
     if (data.length === 0) {
       res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
@@ -30,7 +30,7 @@ class imgStatServCtrl{
   }
 
   async get(req, res){
-    let data = await db.get('_ImgStatServ_', ['id_status_serv', 'photo'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    let data = await db.get('_ImgStatServ_', ['id_stat_serv', 'photo'], [{ attr: 'id_stat_serv', oper: '=', val: Number(req.param('id_stat_serv')) }]);
     data = this.processResult(data);
     if (data.length === 0) {
       res.status(404).send({ error: 'No se encontró el elemento solicitado' });
@@ -52,7 +52,7 @@ class imgStatServCtrl{
   }
   async update(req, res){
     const imgstatserv = new ImgStatServMdl(req.body);
-    imgstatserv.id = req.param('id');
+    imgstatserv.id_stat_serv = req.param('id_stat_serv');
 
     const result = await imgstatserv.save();
 
@@ -67,7 +67,7 @@ class imgStatServCtrl{
 
   async delete(req, res){
     const imgstatserv = new ImgStatServMdl({
-      id: Number(req.param('id')),
+      id_stat_serv: Number(req.param('id_stat_serv')),
     });
 
     const result = await imgstatserv.delete();

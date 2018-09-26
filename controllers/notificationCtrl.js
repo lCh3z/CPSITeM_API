@@ -3,12 +3,12 @@ const { NotificationMdl } = require('../models');
 
 class notificationCtrl{
   constructor(){
-    this.id_section = args.id_section;
-    this.photo = args.photo;
-    this.title = args.title;
-    this.subtitle = args.subtitle;
-    this.type = args.type;
-    this.description = args.description;
+    this.getAll = this.getAll.bind(this);
+    this.get = this.get.bind(this);
+    this.create = this.create.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
+    this.processResult = this.processResult.bind(this);
   }
   processResult(data) {
     const result = [];
@@ -28,6 +28,16 @@ class notificationCtrl{
     }
   }
 
+  async get(req, res){
+    let data = await db.get('_Notification_', ['id', 'title', 'cont', 'id_user', 'date', 'prog', 'status'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
+    } else {
+      res.status(200).send({ data });
+    }
+  }
+
   async create(req, res){
     const newNotification = new NotificationMdl(req.body);
 
@@ -41,7 +51,7 @@ class notificationCtrl{
   }
   async update(req, res){
     const Notification = new NotificationMdl(req.body);
-    Notification.id_user   = req.param('id_user');
+    Notification.id = req.param('id');
 
     const result = await Notification.save();
 
@@ -56,7 +66,7 @@ class notificationCtrl{
 
   async delete(req, res){
     const Notification = new NotificationMdl({
-      id_user  : Number(req.param('id_user')),
+      id  : Number(req.param('id')),
     });
 
     const result = await Notification.delete();
