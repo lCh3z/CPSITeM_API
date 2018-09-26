@@ -7,7 +7,7 @@ router.get('/:id', categoryCtrl.get);
 
 router.post('/', categoryCtrl.create);
 
-router.patch('/:id', categoryCtrl.update);
+router.put('/:id', categoryCtrl.update);
 
 router.delete('/:id', categoryCtrl.delete);
 module.exports = router;
