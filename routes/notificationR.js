@@ -7,7 +7,7 @@ router.get('/:id', notificationCtrl.get);
 
 router.post('/', notificationCtrl.create);
 
-router.patch('/:id', notificationCtrl.update);
+router.put('/:id', notificationCtrl.update);
 
 router.delete('/:id', notificationCtrl.delete);
 module.exports = router;
