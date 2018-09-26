@@ -1,70 +1,84 @@
+const db = require('../db');
+const { ImgProductMdl } = require('../models');
+
 class imgProductCtrl{
   constructor(){
-    this.data = [{
-      id_prod : 1,
-      photo : 'foto.png',
-    },
-    {
-      id_prod : 2,
-      photo : 'foto.png',
-    },
-  ];
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.processResult = this.processResult.bind(this);
   }
-  getAll(req, res){
-    const json = {
-      response : 'OK',
-      data : this.data
-    };
-    res.send(json);
+
+  processResult(data) {
+    const result = [];
+    data.forEach((res) => {
+      result.push(new ImgProductMdl(res));
+    });
+    return result;
   }
-  get(req, res){
-    const data = this.data.find(el => el.id_prod === Number(req.params.id));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.send (json);
+
+  async getAll(req, res){
+    let data = await db.getAll('_ImgProduct_', ['id_prod', 'photo'], '', '', '');
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
+    } else {
+      res.status(200).send({ data });
+    }
   }
-  create(req, res){
-    const data = {
-      id_prod : req.param('id_prod'),
-      photo : req.param('photo')
-    };
-    this.data.push(data);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async get(req, res){
+    let data = await db.get('_ImgProduct_', ['id_prod', 'photo'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
+    } else {
+      res.status(200).send({ data });
+    }
   }
-  update(req, res){
-    let self = this;
-    let id = Number(req.params.id_prod);
-    let data = this.data.find(el => el.id_prod === id);
-    data = {
-      id_prod : Number(req.param('id_prod')),
-      photo : req.param('photo') === undefined ? self.data[id-1].photo : req.param('photo')
-    };
-    this.data[Number(req.params.id_prod) -1] = data;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async create(req, res){
+    const newimgproduct = new ImgProductMdl(req.body);
+
+    const result = await newimgproduct.save();
+
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo registrar' });
+    }
   }
-  delete(req, res){
-    const data = this.data.find(el => el.id_prod === Number(req.params.id_prod));
-    this.data.splice(this.data.indexOf(data), 1);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+  async update(req, res){
+    const imgproduct = new ImgProductMdl(req.body);
+    imgproduct.id = req.param('id');
+
+    const result = await imgproduct.save();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
+    } else if (result === 1) {
+      res.status(201).send({ message: 'Registrado correctamente'});
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    }
+  }
+
+  async delete(req, res){
+    const imgproduct = new ImgProductMdl({
+      id: Number(req.param('id')),
+    });
+
+    const result = await imgproduct.delete();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo eliminar' });
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    }
   }
 }
 

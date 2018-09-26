@@ -1,92 +1,73 @@
+const db = require('../db');
+const { NotificationMdl } = require('../models');
+
 class notificationCtrl{
   constructor(){
-    this.data = [{
-      id : 1,
-      title : 'Servicio finalizado',
-      cont : 'Ya estuvo',
-      id_user : 1,
-      date : Date.now(),
-      prog : ('prog'),
-      status : 1,
-    },
-    {
-      id : 2,
-      title : 'Servicio finalizado',
-      cont : 'Ya',
-      id_user : 2,
-      date : Date.now(),
-      prog : Date.now(),
-      status : 1,
-    },
-  ];
-    this.getAll = this.getAll.bind(this);
-    this.get = this.get.bind(this);
-    this.create = this.create.bind(this);
-    this.update = this.update.bind(this);
-    this.delete = this.delete.bind(this);
+    this.id_section = args.id_section;
+    this.photo = args.photo;
+    this.title = args.title;
+    this.subtitle = args.subtitle;
+    this.type = args.type;
+    this.description = args.description;
   }
-  getAll(req, res){
-    const json = {
-      response : 'OK',
-      data : this.data
-    };
-    res.send(json);
+  processResult(data) {
+    const result = [];
+    data.forEach((res) => {
+      result.push(new NotificationMdl(res));
+    });
+    return result;
   }
-  get(req, res){
-    const data = this.data.find(el => el.id === Number(req.params.id));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.send(json);
-  }
-  create(req, res){
-    const lastId = this.data[this.data.length -1].id;
-    const data = {
-      id : lastId +1,
-      title : req.param('title'),
-      cont : req.param('cont'),
-      id_user : req.param('id_user'),
-      date : req.param('date'),
-      prog : req.param('prog'),
-      status : req.param('status'),
-    };
-    this.data.push(data);
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
-  }
-  update(req, res){
-    let self = this;
-    let id = Number(req.params.id);
-    let data = this.data.find(el => el.id === id);
-    data = {
-      id : Number(req.param('id')),
-      title : req.param('title') === undefined ? self.data[id-1].title : req.param('title'),
-      cont : req.param('cont') === undefined ? self.data[id-1].cont : req.param('cont'),
-      id_user : req.param('id_user') === undefined ? self.data[id-1].id_user : req.param('id_user'),
-      date : req.param('date') === undefined ? self.data[id-1].date : req.param('date'),
-      prog : req.param('prog') === undefined ? self.data[id-1].prog : req.param('prog'),
-      status : req.param('status') === undefined ? self.data[id-1].status : req.param('status'),
-    };
-    this.data[Number(req.params.id) -1] = data;
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
 
+  async getAll(req, res){
+    let data = await db.getAll('_Notification_', ['id', 'title', 'cont', 'id_user', 'date', 'prog', 'status'], '', '', '');
+    data = this.processResult(data);
+    if (data.length === 0) {
+      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
+    } else {
+      res.status(200).send({ data });
+    }
   }
-  delete(req, res){
-    this.data[Number(req.params.id) -1].status = 0;
-    const data = this.data.find(el => el.id === Number(req.params.id));
-    const json = {
-      response : 'OK',
-      data : data
-    };
-    res.status(201).send(json);
+
+  async create(req, res){
+    const newNotification = new NotificationMdl(req.body);
+
+    const result = await newNotification.save();
+
+    if(result === 0){
+      res.status(201).send({ message: 'Registrado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo registrar' });
+    }
+  }
+  async update(req, res){
+    const Notification = new NotificationMdl(req.body);
+    Notification.id_user   = req.param('id_user');
+
+    const result = await Notification.save();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Actualizado correctamente' });
+    } else if (result === 1) {
+      res.status(201).send({ message: 'Registrado correctamente'});
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    }
+  }
+
+  async delete(req, res){
+    const Notification = new NotificationMdl({
+      id_user  : Number(req.param('id_user')),
+    });
+
+    const result = await Notification.delete();
+
+    if(result === 0){
+      res.status(200).send({ message: 'Eliminado correctamente' });
+    } else if (result === 1) {
+      res.status(400).send({ error: 'No se pudo eliminar' });
+    } else if (result === 2) {
+      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    }
   }
 }
 
