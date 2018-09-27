@@ -15,7 +15,7 @@ router.post('/', (req, res, next) => {
   });
 }, userCtrl.create);
 
-router.patch('/:id', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   middlewares.validator.validate(req, res, next, {
     body: {
       name: 'word,required',

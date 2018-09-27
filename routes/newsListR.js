@@ -5,6 +5,6 @@ router.get('/', newsListCtrl.getAll);
 
 router.post('/', newsListCtrl.create);
 
-router.patch('/:email', newsListCtrl.update);
+router.put('/:email', newsListCtrl.update);
 
 module.exports = router;
