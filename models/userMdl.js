@@ -48,6 +48,7 @@ class UserMdl {
     return 2;
   }
 
+//Plus
   getName() {
     let name = this.name === undefined ? '' : this.name;
     name += this.sec_name === undefined ? '' : ` ${this.sec_name}`;
