@@ -7,7 +7,7 @@ router.post('/', configurationCtrl.create);
 
 router.post('/populate', configurationCtrl.populate);
 
-router.patch('/:id', configurationCtrl.update);
+router.put('/:id', configurationCtrl.update);
 
 router.delete('/:id', configurationCtrl.delete);
 

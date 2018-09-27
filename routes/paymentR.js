@@ -7,7 +7,7 @@ router.get('/:id', paymentCtrl.get);
 
 router.post('/', paymentCtrl.create);
 
-router.patch('/:id', paymentCtrl.update);
+router.put('/:id', paymentCtrl.update);
 
 router.delete('/:id', paymentCtrl.delete);
 module.exports = router;

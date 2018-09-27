@@ -7,7 +7,7 @@ router.get('/:id', serviceCtrl.get);
 
 router.post('/', serviceCtrl.create);
 
-router.patch('/:id', serviceCtrl.update);
+router.put('/:id', serviceCtrl.update);
 
 router.delete('/:id', serviceCtrl.delete);
 module.exports = router;

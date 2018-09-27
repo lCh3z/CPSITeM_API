@@ -7,7 +7,7 @@ router.get('/:id_user', listEmailCtrl.get);
 
 router.post('/', listEmailCtrl.create);
 
-router.patch('/:id_user', listEmailCtrl.update);
+router.put('/:id_user', listEmailCtrl.update);
 
 router.delete('/:id_user', listEmailCtrl.delete);
 
