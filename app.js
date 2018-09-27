@@ -17,4 +17,4 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Load routes into app
 app.use(router);
 
-app.listen(5555, () => console.log('Example app listening on port 5555!'))
+app.listen(process.env.PORT, () => console.log(`Example app listening on port ${process.env.PORT}!`));
