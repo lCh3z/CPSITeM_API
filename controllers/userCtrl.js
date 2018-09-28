@@ -1,6 +1,7 @@
 const db = require('../db');
 const { UserMdl } = require('../models');
-
+const { Responses } = require('../models');
+const { ListEmailMdl } = require('../models');
 
 class UserCtrl {
   constructor() {
@@ -12,65 +13,83 @@ class UserCtrl {
     this.processResult = this.processResult.bind(this);
   }
 
-  processResult(data) {
+  async processResult(data) {
+    let list_email;
+    let temp;
     const result = [];
-    data.forEach((res) => {
-      result.push(new UserMdl(res));
+    const myPromises = data.map(async (res) => {
+      temp = new UserMdl(res);
+      list_email = await ListEmailMdl.select('_ListEmail_', ['email', 'status'], [{
+        attr: 'id_user',
+        oper: '=',
+        val: temp.id,
+      }], '', '');
+
+      temp.list_email = list_email
+      console.log(temp);
+      result.push(temp);
     });
+    await Promise.all(myPromises);
+
     return result;
   }
 
   async getAll(req, res) {
-    let data = await db.getAll('_User_', ['id', 'photo', 'name', 'sec_name', 'pat_surname', 'mat_surname', 'company', 'rfc', 'cfdi', 'country', 'lada', 'phone', 'status', 'main_email'], '', '', '');
-    // this.data = await db.getAll('_User_', ['name', 'sec_name'],
-    // [{ attr: 'id', oper: '<', val: 5 },
-    // { logic: 'and', attr: 'name', oper: '=', val: 'Mario' }],
-    // { by: 'name', asc: false }, { start: 0, quant: 2 }); //Example with filters, order and limit
+    const page = parseInt(req.param('page'));
+    const per_page = parseInt(req.param('per_page'));
+    const start = page * per_page;
+
+    let data = await UserMdl.select('_User_', ['id', 'photo', 'name', 'sec_name', 'pat_surname', 'mat_surname', 'company', 'rfc', 'cfdi', 'country', 'lada', 'phone', 'status', 'main_email'], '', '', { start, quant: per_page });
+
     data = this.processResult(data);
 
     if (data.length === 0) {
-      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
-    } else {
-      res.status(200).send({ data });
+      res.status(400).send(Responses.notFound('User'));
     }
+
+    let total = await UserMdl.count('_User_', '', '');
+    total = total['COUNT(*)'];
+    res.status(200).send({
+      data,
+      per_page,
+      page,
+      total,
+    });
   }
 
   async get(req, res) {
-    let data = await db.get('_User_', ['id', 'photo', 'name', 'sec_name', 'pat_surname', 'mat_surname', 'company', 'rfc', 'cfdi', 'country', 'lada', 'phone', 'status', 'main_email'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
-    data = this.processResult(data);
+    let data = await UserMdl.get('_User_', ['id', 'photo', 'name', 'sec_name', 'pat_surname', 'mat_surname', 'company', 'rfc', 'cfdi', 'country', 'lada', 'phone', 'status', 'main_email'], [{
+      attr: 'id',
+      oper: '=',
+      val: Number(req.param('id'))
+    }]);
+    data = this.processResult(data)[0];
 
-    if (data.length === 0) {
-      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
-    } else {
-      res.status(200).send({ data });
+    if(!data){
+      res.status(400).send(Responses.notFound('User'));
     }
+    res.status(201).send({ data });
   }
 
   async create(req, res) {
-    const newUser = new UserMdl({...req.body});
+    const result = await new UserMdl(req.body).save();
 
-    const result = await newUser.save();
-
-    if(result === 0){
-      res.status(201).send({ message: 'Registrado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo registrar' });
+    if(!result){
+      res.status(400).send(Responses.cantCreate('User'));
     }
+    res.status(201).send(Responses.created('User'));
   }
 
   async update(req, res) {
     const User = new UserMdl(req.body);
     User.id = req.param('id');
 
-    const result = await User.save();
+    const result = await User.update();
 
-    if(result === 0){
-      res.status(200).send({ message: 'Actualizado correctamente' });
-    } else if (result === 1) {
-      res.status(201).send({ message: 'Registrado correctamente'});
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+    if(!result){
+      res.status(400).send(Responses.cantRegister('User'));
     }
+    res.status(201).send(Responses.updated('User'));
   }
 
   async delete(req, res) {
@@ -80,14 +99,10 @@ class UserCtrl {
 
     const result = await User.delete();
 
-
-    if(result === 0){
-      res.status(200).send({ message: 'Eliminado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo eliminar' });
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+    if(!result){
+      res.status(400).send(Responses.cantDelete('User'));
     }
+    res.status(201).send(Responses.deleted('User'));
   }
 }
 

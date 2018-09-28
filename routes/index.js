@@ -3,7 +3,6 @@ const middlewares = require('../middlewares')
 
 const userRouter = require('./userR');
 const workerRouter = require('./workerR');
-const listEmailRouter = require('./listEmailR');
 const wishListRouter = require('./wishListR');
 const cartRouter = require('./cartR');
 const orderRouter = require('./orderR');
@@ -27,7 +26,6 @@ router.get('/', middlewares.addDate, (req, res) => { res.status(200).send('Hola 
 
 router.use('/user', userRouter);
 router.use('/worker',workerRouter);
-router.use('/listEmail',listEmailRouter);
 router.use('/wishlist',wishListRouter);
 router.use('/cart',cartRouter);
 router.use('/order',orderRouter);

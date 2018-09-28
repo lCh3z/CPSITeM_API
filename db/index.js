@@ -23,6 +23,7 @@ class DB {
       let extra = '';
       const adds = [columns, table];
       if (filters) {
+        console.log('ok');
         filters.forEach((i, index) => {
           if (index !== 0) extra += `${i.logic} `;
           extra += `${this.con.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} `;
@@ -34,7 +35,28 @@ class DB {
         base += `ORDER BY ${this.con.escapeId(order.by)} `;
         if (order.asc) base += 'ASC '; else base += 'DESC ';
       }
-      if (limit) base += `Limit ${this.con.escape(limit.start)}, ${limit.quant} `;
+      if (limit) base += `LIMIT ${this.con.escape(limit.start)}, ${limit.quant} `;
+      base += ';';
+      this.con.query(base, adds, (err, rows) => {
+        if (err) return reject(err);
+        return resolve(rows);
+      });
+    });
+  }
+
+  count(table, columns, filters) {
+    return new Promise((resolve, reject) => {
+      let base = 'SELECT COUNT(*) FROM ?? ';
+      let extra = '';
+      const adds = [table];
+      if (filters) {
+        filters.forEach((i, index) => {
+          if (index !== 0) extra += `${i.logic} `;
+          extra += `${this.con.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} `;
+          if (i.oper === 'LIKE') extra += `'%${this.con.escape(i.val).replace('\'', '').replace('\'', '')}%' `; else extra += `${this.con.escape(i.val)} `;
+        });
+      }
+      if (filters) { base += `WHERE ${extra} `; }
       base += ';';
       this.con.query(base, adds, (err, rows) => {
         if (err) return reject(err);
