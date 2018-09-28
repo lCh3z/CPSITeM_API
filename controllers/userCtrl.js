@@ -16,20 +16,22 @@ class UserCtrl {
   async processResult(data) {
     let list_email;
     let temp;
-    const result = [];
-    const myPromises = data.map(async (res) => {
+    let result = [];
+    let emails = [];
+    for (const res of data) {
+      emails = []
       temp = new UserMdl(res);
       list_email = await ListEmailMdl.select('_ListEmail_', ['email', 'status'], [{
         attr: 'id_user',
         oper: '=',
         val: temp.id,
       }], '', '');
-
-      temp.list_email = list_email
-      console.log(temp);
+      list_email.forEach((email) => {
+        emails.push(new ListEmailMdl(email));
+      });
+      temp.list_email = emails
       result.push(temp);
-    });
-    await Promise.all(myPromises);
+    }
 
     return result;
   }
@@ -41,7 +43,7 @@ class UserCtrl {
 
     let data = await UserMdl.select('_User_', ['id', 'photo', 'name', 'sec_name', 'pat_surname', 'mat_surname', 'company', 'rfc', 'cfdi', 'country', 'lada', 'phone', 'status', 'main_email'], '', '', { start, quant: per_page });
 
-    data = this.processResult(data);
+    data = await this.processResult(data);
 
     if (data.length === 0) {
       res.status(400).send(Responses.notFound('User'));
