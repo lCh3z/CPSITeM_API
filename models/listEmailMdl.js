@@ -21,18 +21,18 @@ class ListEmailMdl {
     return data[0];
   }
 
-  static async save() {
+  async save() {
     if (this.id_user !== undefined && this.processResult(await db.get('_ListEmail_', ['id_user'], [{ attr: 'id_user', oper: '=', val: this.id_user }])).length !== 0) return this.update();
     if (await db.create('_ListEmail_', this)) return this;
     return false;
   }
 
-  static async update() {
+  async update() {
     if (this.id_user !== undefined && await db.update('_ListEmail_', this, [{ attr: 'id_user', oper: '=', val: this.id_user }])) return this;
     return false;
   }
 
-  static async delete() {
+  async delete() {
     if (this.id_user !== undefined && this.processResult(await db.get('_ListEmail_', 'id_user', [{ attr: 'id_user', oper: '=', val: this.id_user }])).length !== 0) {
       if (this.id_user !== undefined && await db.delete('_ListEmail_', [{ attr: 'id_user', oper: '=', val: this.id_user }]) !== undefined) return this;
     }
