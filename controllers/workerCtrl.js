@@ -18,47 +18,68 @@ class workerCtrl {
     return result;
   }
 
-  async get(inputs) {
-    console.log('id', inputs.id_user);
-    let data = await WorkerMdl.select(
-      '_Worker_',
-      [
-        'position',
-        'depart',
-      ],
-      [
-        {
-          attr: 'id_user',
-          oper: '=',
-          val: inputs.id_user,
-        },
-      ],
-      null,
-      null,
-    );
-
-    console.log('D', data);
-    return this.processResult(data);
+  async get(inputs, next) {
+    try {
+      let data = await WorkerMdl.select(
+        '_Worker_',
+        [
+          'position',
+          'depart',
+          'status',
+          'date',
+          'updated',
+        ],
+        [
+          {
+            attr: 'id_user',
+            oper: '=',
+            val: inputs.id_user,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+        null,
+        null,
+      );
+      return this.processResult(data)[0];
+    } catch (e) {
+      next(e);
+    }
   }
 
-  async create(inputs) {
-    const newWorker = new WorkerMdl(inputs);
-    const result = await newWorker.save();
-    return result;
+  async create(inputs, next) {
+    try {
+      const newWorker = new WorkerMdl(inputs);
+      const result = await newWorker.save();
+      return result;
+    } catch (e) {
+      next(e);
+    }
   }
 
-  async update(inputs) {
-    const Worker = new WorkerMdl(inputs);
-    const result = await Worker.save();
-    return result;
+  async update(inputs, next) {
+    try {
+      const Worker = new WorkerMdl(inputs);
+      const result = await Worker.save();
+      return result;
+    } catch (e) {
+      next(e);
+    }
   }
 
-  async delete(inputs) {
-    const Worker = new WorkerMdl({
-      id_user: Number(inputs.id_user),
-    });
-    const result = await Worker.delete();
-    return result;
+  async delete(inputs, next) {
+    try {
+      input.status = 0;
+      const newListEmail = new ListEmailMdl(inputs);
+      const result = await newListEmail.save();
+      return result;
+    } catch (e) {
+      next(e);
+    }
   }
 }
 

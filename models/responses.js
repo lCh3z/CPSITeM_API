@@ -1,3 +1,4 @@
+
 class Responses {
   static notFound(table) {
     const error = {

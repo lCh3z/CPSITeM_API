@@ -1,4 +1,4 @@
-function errorHandler (err, req, res, next) {
+function errorHandler(err, req, res, next) {
   console.log('Error handler');
   if (err) {
     console.log('Ther is an error', err);

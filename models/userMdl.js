@@ -16,8 +16,10 @@ class UserMdl {
       country,
       lada,
       phone,
-      status,
       main_email,
+      status,
+      date,
+      updated
     },
   ) {
     this.id = id;
@@ -33,52 +35,143 @@ class UserMdl {
     this.country = country;
     this.lada = lada;
     this.phone = phone;
-    this.status = status;
     this.main_email = main_email;
+    this.status = status;
+    this.date = date;
+    this.updated = updated;
   }
 
   static async select(table, columns, filters, order, limit) {
-    const data = await db.select(table, columns, filters, order, limit);
-    const response = [];
-    data.forEach((res) => {
-      response.push(new UserMdl(res));
-    });
-    return response;
+    try {
+      const data = await db.select(table, columns, filters, order, limit);
+      const response = [];
+      data.forEach((res) => {
+        response.push(new UserMdl(res));
+      });
+      return response;
+    } catch (e) {
+      throw e;
+    }
   }
 
   static async count(table, filters) {
-    const data = await db.count(table, filters);
-    return data[0].count;
+    try {
+      const data = await db.count(table, filters);
+      return data[0].count;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async exists() {
+    try {
+      if (this.id !== undefined) {
+        const result = await db.select(
+          '_User_',
+          [
+            'id',
+          ],
+          [
+            {
+              attr: 'id',
+              oper: '=',
+              val: this.id,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
+        );
+        return result;
+      }
+      return [];
+    } catch (e) {
+      throw e;
+    }
   }
 
   async save() {
-    const exists = await db.select('_User_', 'id', [{ attr: 'id', oper: '=', val: this.id }]);
-    if (this.id !== undefined && exists.length) {
-      return this.update();
+    try {
+      const exists = await this.exists();
+      if (this.id !== undefined && exists.length) {
+        return this.update();
+      }
+      if (await db.create('_User_', this)) {
+        const id = await db.select(
+          '_User_',
+          [
+            'id',
+          ],
+          [
+            {
+              attr: 'main_email',
+              oper: '=',
+              val: this.main_email,
+            },
+          ],
+        );
+        return id[0].id;
+      }
+      return false;
+    } catch (e) {
+      throw e;
     }
-    if (await db.create('_User_', this)) {
-      const id = await db.select('_User_', 'id', [{ attr: 'main_email', oper: '=', val: this.main_email }]);
-      return id[0].id;
-    }
-    return false;
   }
 
   async update() {
-    if (this.id !== undefined && await db.update('_User_', this, [{ attr: 'id', oper: '=', val: this.id }])) {
-      return this.id;
+    try {
+      if (this.id !== undefined && await db.update(
+        '_User_',
+        this,
+        [
+          {
+            attr: 'id',
+            oper: '=',
+            val: this.id,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+      )) return this.id;
+      return false;
+    } catch (e) {
+      throw e;
     }
-    return false;
   }
 
   async delete() {
-    const exists = await db.select('_User_', 'id', [{ attr: 'id', oper: '=', val: this.id }]);
-    if (this.id !== undefined && exists.length !== 0) {
-      this.status = 0;
-      if (await this.update()) {
-        return true;
+    try {
+      const exists = await this.exists();
+      if (exists.length) {
+        if (db.update(
+          '_User_',
+          this,
+          [
+            {
+              attr: 'id',
+              oper: '=',
+              val: this.id,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
+        )) return true;
       }
+      return false;
+    } catch (e) {
+      throw e;
     }
-    return false;
   }
 
   getName() {

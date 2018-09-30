@@ -1,5 +1,4 @@
 class Validator {
-
   static get regex() {
     return {
       word: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}$/,
