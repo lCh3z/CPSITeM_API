@@ -11,7 +11,7 @@ class listEmailCtrl {
     this.delete = this.delete.bind(this);
   }
 
-  static processResult(data) {
+  processResult(data) {
     const result = [];
     data.forEach((res) => {
       result.push(new ListEmailMdl(res));
@@ -19,74 +19,92 @@ class listEmailCtrl {
     return result;
   }
 
-  async getAll(req, res) {
-    const data = await ListEmailMdl.select('_ListEmail_', ['id_user', 'email', 'status'], [{
-      attr: 'id_user',
-      oper: '=',
-      val: Number(req.param('id_user')),
-    }], '', '');
+  async getAll(inputs) {
+    const data = await ListEmailMdl.select(
+      '_ListEmail_',
+      [
+        'email',
+        'number',
+        'status',
+      ],
+      [
+        {
+          attr: 'id_user',
+          oper: '=',
+          val: inputs.id_user,
+        },
+      ],
+      '',
+      '',
+    );
     // Was not found
-    if (!data.length) {
-      res.status(204).send(Responses.notFoud('email'));
-    }
-    // Found
-    const json = {
-      data,
-    };
-    res.status(200).send(json);
+    return this.processResult(data);
   }
 
-  async get(req, res) {
-    const data = await ListEmailMdl.get('_ListEmail_', ['id_user', 'email', 'status'], [{
-      attr: 'email',
-      oper: '=',
-      val: req.param('id_user'),
-    }], '', '');
-    // Was not found
-    if (data.length === 0) {
-      res.status(204).send(Responses.notFoud('email'));
-    }
-    // Found
-    const json = {
-      data,
-    };
-    res.status(200).send(json);
+  async get(inputs) {
+    let data = await ListEmailMdl.select(
+      '_ListEmail_',
+      [
+        'email',
+        'number',
+        'status',
+      ],
+      [
+        {
+          attr: 'id_user',
+          oper: '=',
+          val: inputs.id_user,
+        },
+        {
+          logic: 'and',
+          attr: 'number',
+          oper: '=',
+          val: inputs.number,
+        },
+      ],
+      '',
+      '',
+    );
+
+    [data] = this.processResult(data);
+    return data;
   }
 
-  async create(req, res) {
-    const newListEmail = new ListEmailMdl(req.body);
-
+  async create(inputs) {
+    let last_num = await ListEmailMdl.max(
+      '_ListEmail_',
+      'number',
+      [
+        {
+          attr: 'id_user',
+          oper: '=',
+          val: inputs.id_user,
+        },
+      ],
+    );
+    console.log('NUM', last_num);
+    if (!last_num) {
+      last_num = 1;
+    } else {
+      last_num += 1;
+    }
+    inputs.number = last_num;
+    const newListEmail = new ListEmailMdl(inputs);
     const result = await newListEmail.save();
-
-    if (!result) {
-      res.status(400).send(Responses.cantCreate('email'));
-    }
-    res.status(201).send(Responses.created('email'));
+    return result;
   }
 
-  async update(req, res) {
-    const ListEmail = new ListEmailMdl(req.body);
-    ListEmail.id_user = req.param('id_user');
-
-    const result = await ListEmail.save();
-
-    if (!result) {
-      res.status(404).send(Responses.cantUpdate('email'));
-    }
-    res.status(200).send(Responses.updated());
+  async update(inputs) {
+    const newListEmail = new ListEmailMdl(inputs);
+    const result = await newListEmail.save();
+    return result;
   }
 
-  async delete(req, res) {
-    const ListEmail = new ListEmailMdl({
-      id_user: Number(req.param('id_user')),
-    });
-
-    const result = await ListEmail.delete();
-
-    if (!result) {
-      res.status(400).send(Responses.cantDelete());
-    }
-    res.status(200).send(Responses.deleted());
+  async delete(inputs) {
+    input.status = 10;
+    const newListEmail = new ListEmailMdl(inputs);
+    const result = await newListEmail.save();
+    return result;
   }
 }
 
