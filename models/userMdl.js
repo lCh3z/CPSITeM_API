@@ -1,7 +1,25 @@
 const db = require('../db');
 
 class UserMdl {
-  constructor({ id, photo, name, sec_name, pat_surname, mat_surname, company, rfc, cfdi, type, country, lada, phone, status, main_email }) {
+  constructor(
+    {
+      id,
+      photo,
+      name,
+      sec_name,
+      pat_surname,
+      mat_surname,
+      company,
+      rfc,
+      cfdi,
+      type,
+      country,
+      lada,
+      phone,
+      status,
+      main_email,
+    },
+  ) {
     this.id = id;
     this.photo = photo;
     this.name = name;
@@ -20,7 +38,7 @@ class UserMdl {
   }
 
   static async select(table, columns, filters, order, limit) {
-    const data = await db.getAll(table, columns, filters, order, limit);
+    const data = await db.select(table, columns, filters, order, limit);
     const response = [];
     data.forEach((res) => {
       response.push(new UserMdl(res));
@@ -28,32 +46,37 @@ class UserMdl {
     return response;
   }
 
-  static async count(table, columns, filters) {
-    const data = await db.count(table, ['COUNT(*)'], filters);
-    console.log(data);
-    return data[0];
-  }
-
-  static async get(table, columns, filters, order, limit) {
-    const data = db.getAll(table, columns, filters, order, limit);
-    return data;
+  static async count(table, filters) {
+    const data = await db.count(table, filters);
+    return data[0].count;
   }
 
   async save() {
-    const exists = await db.get('_User_', 'id', [{ attr: 'id', oper: '=', val: this.id }]);
-    if (this.id !== undefined && exists.length) return this.update();
-    if (await db.create('_User_', this)) return this;
+    const exists = await db.select('_User_', 'id', [{ attr: 'id', oper: '=', val: this.id }]);
+    if (this.id !== undefined && exists.length) {
+      return this.update();
+    }
+    if (await db.create('_User_', this)) {
+      const id = await db.select('_User_', 'id', [{ attr: 'main_email', oper: '=', val: this.main_email }]);
+      return id[0].id;
+    }
     return false;
   }
 
   async update() {
-    if (this.id !== undefined && await db.update('_User_', this, [{ attr: 'id', oper: '=', val: this.id }])) return this;
+    if (this.id !== undefined && await db.update('_User_', this, [{ attr: 'id', oper: '=', val: this.id }])) {
+      return this.id;
+    }
     return false;
   }
 
   async delete() {
-    if (this.id !== undefined && await db.get('_User_', 'id', [{ attr: 'id', oper: '=', val: this.id }]).length !== 0) {
-      if (await db.delete('_User_', [{ attr: 'id', oper: '=', val: this.id }]) ) return true;
+    const exists = await db.select('_User_', 'id', [{ attr: 'id', oper: '=', val: this.id }]);
+    if (this.id !== undefined && exists.length !== 0) {
+      this.status = 0;
+      if (await this.update()) {
+        return true;
+      }
     }
     return false;
   }
