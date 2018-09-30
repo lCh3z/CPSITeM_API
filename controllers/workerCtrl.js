@@ -1,9 +1,8 @@
 const db = require('../db');
 const { WorkerMdl } = require('../models');
 
-class workerCtrl{
-  constructor(){
-    this.getAll = this.getAll.bind(this);
+class workerCtrl {
+  constructor() {
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
@@ -19,66 +18,47 @@ class workerCtrl{
     return result;
   }
 
-  async getAll(req, res){
-    let data = await db.getAll('_Worker_', ['id_user', 'position', 'depart'], '', '', '');
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
-    } else {
-      res.status(200).send({ data });
-    }
+  async get(inputs) {
+    console.log('id', inputs.id_user);
+    let data = await WorkerMdl.select(
+      '_Worker_',
+      [
+        'position',
+        'depart',
+      ],
+      [
+        {
+          attr: 'id_user',
+          oper: '=',
+          val: inputs.id_user,
+        },
+      ],
+      null,
+      null,
+    );
+
+    console.log('D', data);
+    return this.processResult(data);
   }
 
-  async get(req, res){
-    let data = await db.get('_Worker_', ['id_user', 'position', 'depart'], [{ attr: 'id_user', oper: '=', val: Number(req.param('id_user')) }]);
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
-    } else {
-      res.status(200).send({ data });
-    }
-  }
-
-  async create(req, res){
-    const newWorker = new WorkerMdl(req.body);
-
+  async create(inputs) {
+    const newWorker = new WorkerMdl(inputs);
     const result = await newWorker.save();
-
-    if(result === 0){
-      res.status(201).send({ message: 'Registrado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo registrar' });
-    }
+    return result;
   }
-  async update(req, res){
-    const Worker = new WorkerMdl(req.body);
-    Worker.id_user = req.param('id_user');
 
+  async update(inputs) {
+    const Worker = new WorkerMdl(inputs);
     const result = await Worker.save();
-
-    if(result === 0){
-      res.status(200).send({ message: 'Actualizado correctamente' });
-    } else if (result === 1) {
-      res.status(201).send({ message: 'Registrado correctamente'});
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a actualizar' });
-    }
+    return result;
   }
 
-  async delete(req, res){
+  async delete(inputs) {
     const Worker = new WorkerMdl({
-      id_user: Number(req.param('id_user')),
+      id_user: Number(inputs.id_user),
     });
-
     const result = await Worker.delete();
-
-    if(result === 0){
-      res.status(200).send({ message: 'Eliminado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo eliminar' });
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a eliminar' });
-    }
+    return result;
   }
 }
 

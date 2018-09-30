@@ -1,10 +1,16 @@
 const db = require('../db');
 
 class WorkerMdl {
-  constructor(args) {
-    this.id_user =  args.id_user;
-    this.position = args.position;
-    this.depart = args.depart;
+  constructor(
+    {
+      id_user,
+      position,
+      depart,
+    },
+  ) {
+    this.id_user =  id_user;
+    this.position = position;
+    this.depart = depart;
   }
 
   processResult(data) {
@@ -15,25 +21,31 @@ class WorkerMdl {
     return result;
   }
 
+  static async select(table, columns, filters, order, limit) {
+    const data = await db.select(table, columns, filters, order, limit);
+    const response = [];
+    data.forEach((res) => {
+      response.push(new WorkerMdl(res));
+    });
+    return response;
+  }
+
   async save() {
-    // Object.keys(this).forEach(key => this[key] === undefined && key !== 'sec_name' && key !== 'photo' && key !== 'company' && delete this[key]);
-    Object.keys(this).forEach(key => this[key] === undefined && delete this[key]);
-    if (this.id_user !== undefined && this.processResult(await db.get('_Worker_', 'id_user', [{ attr: 'id_user', oper: '=', val: this.id_user }])).length !== 0) return this.update();
-    if (await db.create('_Worker_', this)) return 0;
-    return 1;
+    if (this.id_user !== undefined && this.processResult(await db.select('_Worker_', 'id_user', [{ attr: 'id_user', oper: '=', val: this.id_user }], null, null)).length !== 0) return this.update();
+    if (await db.create('_Worker_', this)) return true;
+    return false;
   }
 
   async update() {
-    if (this.id_user !== undefined && await db.update('_Worker_', this, [{ attr: 'id_user', oper: '=', val: this.id_user }])) return 0;
-    return 1;
+    if (this.id_user !== undefined && await db.update('_Worker_', this, [{ attr: 'id_user', oper: '=', val: this.id_user }])) return true;
+    return false;
   }
 
   async delete() {
-    if (this.id_user !== undefined && this.processResult(await db.get('_Worker_', 'id_user', [{ attr: 'id_user', oper: '=', val: this.id_user }])).length !== 0) {
-      if (this.id_user !== undefined && await db.delete('_Worker_', [{ attr: 'id_user', oper: '=', val: this.id_user }]) !== undefined) return 0;
-      return 1;
+    if (this.id_user !== undefined && this.processResult(await db.select('_Worker_', 'id_user', [{ attr: 'id_user', oper: '=', val: this.id_user }], null, null)).length !== 0) {
+      if (this.id_user !== undefined && await db.delete('_Worker_', [{ attr: 'id_user', oper: '=', val: this.id_user }]) !== undefined) return true;
     }
-    return 2;
+    return false;
   }
 }
 
