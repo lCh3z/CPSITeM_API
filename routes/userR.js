@@ -9,7 +9,6 @@ router.get('/:id', userCtrl.get);
 router.post('/', (req, res, next) => {
   middlewares.validator.validate(req, res, next, {
     body: {
-      name: 'word,required',
       main_email: 'email,required',
     },
   });
@@ -20,6 +19,15 @@ router.put('/:id', (req, res, next) => {
     body: {
       name: 'word,required',
       main_email: 'email,required',
+      list_email: [
+        {
+          email: 'email',
+        },
+      ],
+      worker: {
+        position: 'word',
+        depart: 'word',
+      },
     },
   });
 }, userCtrl.update);
