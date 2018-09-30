@@ -21,7 +21,7 @@ const configurationRouter = require('./configurationR');
 const sectionRouter = require('./sectionR');
 const confSectionRouter = require('./confSectionR');
 
-router.get('/', middlewares.addDate, (req, res) => { res.status(200).send('Hola mundo!'); });
+router.get('/', (req, res) => { res.status(200).send('Hola mundo!'); });
 
 router.use('/user', userRouter);
 router.use('/wishlist',wishListRouter);
