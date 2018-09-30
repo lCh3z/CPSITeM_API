@@ -8,22 +8,61 @@ class DB {
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
     });
-    this.getAll = this.getAll.bind(this);
-    this.get = this.get.bind(this);
+    this.select = this.select.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.count = this.count.bind(this);
     this.destructor = this.destructor.bind(this);
     this.con.connect();
   }
 
-  getAll(table, columns, filters, order, limit) {
+  max(table, column, filters) {
+    return new Promise((resolve, reject) => {
+      let base = `SELECT MAX(${this.con.escapeId(column).replace('`', '').replace('`', '')}) as max FROM ?? `;
+      let extra = '';
+      if (filters) {
+        filters.forEach((i, index) => {
+          if (index !== 0) extra += `${i.logic} `;
+          extra += `${this.con.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} `;
+          if (i.oper === 'LIKE') extra += `'%${this.con.escape(i.val).replace('\'', '').replace('\'', '')}%' `; else extra += `${this.con.escape(i.val)} `;
+        });
+      }
+      if (filters) { base += `WHERE ${extra} `; }
+      base += ';';
+      this.con.query(base, table, (err, rows) => {
+        if (err) return reject(err);
+        return resolve(rows);
+      });
+    });
+  }
+
+  count(table, filters) {
+    return new Promise((resolve, reject) => {
+      let base = 'SELECT COUNT(*) as count FROM ?? ';
+      let extra = '';
+      if (filters) {
+        filters.forEach((i, index) => {
+          if (index !== 0) extra += `${i.logic} `;
+          extra += `${this.con.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} `;
+          if (i.oper === 'LIKE') extra += `'%${this.con.escape(i.val).replace('\'', '').replace('\'', '')}%' `; else extra += `${this.con.escape(i.val)} `;
+        });
+      }
+      if (filters) { base += `WHERE ${extra} `; }
+      base += ';';
+      this.con.query(base, table, (err, rows) => {
+        if (err) return reject(err);
+        return resolve(rows);
+      });
+    });
+  }
+
+  select(table, columns, filters, order, limit) {
     return new Promise((resolve, reject) => {
       let base = 'SELECT ?? FROM ?? ';
       let extra = '';
       const adds = [columns, table];
       if (filters) {
-        console.log('ok');
         filters.forEach((i, index) => {
           if (index !== 0) extra += `${i.logic} `;
           extra += `${this.con.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} `;
@@ -37,45 +76,6 @@ class DB {
       }
       if (limit) base += `LIMIT ${this.con.escape(limit.start)}, ${limit.quant} `;
       base += ';';
-      this.con.query(base, adds, (err, rows) => {
-        if (err) return reject(err);
-        return resolve(rows);
-      });
-    });
-  }
-
-  count(table, columns, filters) {
-    return new Promise((resolve, reject) => {
-      let base = 'SELECT COUNT(*) FROM ?? ';
-      let extra = '';
-      const adds = [table];
-      if (filters) {
-        filters.forEach((i, index) => {
-          if (index !== 0) extra += `${i.logic} `;
-          extra += `${this.con.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} `;
-          if (i.oper === 'LIKE') extra += `'%${this.con.escape(i.val).replace('\'', '').replace('\'', '')}%' `; else extra += `${this.con.escape(i.val)} `;
-        });
-      }
-      if (filters) { base += `WHERE ${extra} `; }
-      base += ';';
-      this.con.query(base, adds, (err, rows) => {
-        if (err) return reject(err);
-        return resolve(rows);
-      });
-    });
-  }
-
-  get(table, columns, filters) {
-    return new Promise((resolve, reject) => {
-      let base = 'SELECT ?? FROM ?? ';
-      let extra = '';
-      const adds = [columns, table];
-      filters.forEach((i, index) => {
-        if (index !== 0) extra += `${i.logic} `;
-        extra += `${this.con.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} `;
-        if (i.oper === 'LIKE') extra += `'%${this.con.escape(i.val).replace('\'', '').replace('\'', '')}%' `; else extra += `${this.con.escape(i.val)} `;
-      });
-      base += `WHERE ${extra} ;`;
       this.con.query(base, adds, (err, rows) => {
         if (err) return reject(err);
         return resolve(rows);
