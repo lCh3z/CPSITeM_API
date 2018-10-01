@@ -76,7 +76,7 @@ class UserCtrl {
       data = await this.processResult(data, next);
 
       if (data.length === 0) {
-        res.status(500).send(Responses.notFound('User'));
+        res.status(409).send(Responses.notFound('user'));
       } else {
         const total = await UserMdl.count(
           '_User_',
@@ -133,7 +133,7 @@ class UserCtrl {
       [data] = await this.processResult(data, next);
 
       if (!data) {
-        res.status(500).send(Responses.notFound('User'));
+        res.status(404).send(Responses.notFound('user'));
       }
       res.status(201).send({ data });
     } catch (e) {
