@@ -86,7 +86,6 @@ class configurationCtrl {
       else if (req.param('table') === '_Section_') { result = await Factory.createSection(req.body, Number(req.param('num'))); }
       else if (req.param('table') === '_ConfSection_') { result = await Factory.createConfSection(req.body, Number(req.param('num'))); }
 
-
       if(result === 0) {
         res.status(201).send({message: `${req.param('num')} elementos agregados correctamente.`});
       } else {
