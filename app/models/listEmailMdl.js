@@ -168,14 +168,29 @@ class ListEmailMdl {
   }
 
   async delete() {
-    try {
-      if(await db.delete(this)){
-        return true;
-      }
-      return false;
-    } catch (e) {
-      throw e;
+    const exists = await this.exists();
+    if (exists.length) {
+      if (db.delete(
+        '_ListEmail_',
+        exists[0],
+        [
+          {
+            attr: 'id',
+            oper: '=',
+            val: this.id,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+      )) return true;
     }
+    return false;
+  } catch (e) {
+    throw e;
   }
 }
 
