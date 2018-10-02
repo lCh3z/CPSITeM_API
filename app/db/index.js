@@ -93,9 +93,9 @@ class DB {
   }
 
   create(table, post) {
+    delete post.date;
+    delete post.updated;
     if (!post.satatus) post.status = 1;
-    post.date = Date.now;
-    post.updated = Date.now;
     return new Promise((resolve, reject) => {
       this.connection.query('INSERT INTO ?? SET ?;', [table, post], (error, rows) => {
         if (error) return reject(this.processError(error));
@@ -106,7 +106,7 @@ class DB {
 
   update(table, post, filters) {
     delete post.date;
-    post.updated = Date.now();
+    delete post.updated;
     return new Promise((resolve, reject) => {
       const sql = `UPDATE ?? SET ? ${this.formatFilters(filters)};`;
       this.connection.query(sql, [table, post], (error, rows) => {
@@ -118,11 +118,11 @@ class DB {
 
   delete(table, post, filters) {
     delete post.date;
+    delete post.updated;
     post.status = 0;
-    post.updated = Date.now();
     return new Promise((resolve, reject) => {
       const sql = `UPDATE ?? SET ? ${this.formatFilters(filters)};`;
-      this.connection.query(sql, [table, filters], (error, rows) => {
+      this.connection.query(sql, [table, post], (error, rows) => {
         if (error) return reject(this.processError(error));
         return resolve(rows);
       });
