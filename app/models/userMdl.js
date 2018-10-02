@@ -150,9 +150,9 @@ class UserMdl {
     try {
       const exists = await this.exists();
       if (exists.length) {
-        if (db.update(
+        if (db.delete(
           '_User_',
-          this,
+          exists[0],
           [
             {
               attr: 'id',

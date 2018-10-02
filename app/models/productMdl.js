@@ -129,10 +129,11 @@ class ProductMdl{
   async delete() {
     try {
       const exists = await this.exists();
+      console.log('EXI', exists);
       if (exists.length) {
-        if (db.update(
+        if (db.delete(
           '_Product_',
-          this,
+          exists[0],
           [
             {
               attr: 'id',

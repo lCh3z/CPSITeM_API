@@ -114,7 +114,7 @@ class WorkerMdl {
       if (exists.length) {
         if (db.delete(
           '_Worker_',
-          this,
+          exists[0],
           [
             {
               attr: 'id_user',
