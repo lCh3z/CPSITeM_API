@@ -62,6 +62,46 @@ class DB {
     });
   }
 
+  /**
+   * Function to get a single or multiple rows from a Database table, coulding specify
+   * the columns that you want, the filter to apply, order type and a limit.
+   * @param  {String}         table   Required name of the database table. 'User'
+   *
+   * @param  {Array.<string>} columns Required of column names to get.  ['id', 'name']
+   *
+   * @param  {Array.<object>} filters Nullable list of filter objects to use.
+   *                        Array ->  [
+   *                Filter object ->    {
+   *                Column to use ->      attr: 'name',
+   *          Comparing operation ->      oper: '=',
+   *             Value to compare ->      val: this.name,
+   *                                    },
+   *                                    {
+   *                 Logic to use ->      logic: 'and',
+   *                Column to use ->      attr: 'age',
+   *          Comparing operation ->      oper: '>=',
+   *             Value to compare ->      val: 18,
+   *                                    },
+   *                                  ]
+   *                                  *** Except fot the first object, you need to
+   *                                  include the logic attribute ***
+   *
+   * @param  {Object}         order   Nullable definition of ORDER params
+   *                                  {
+   *                Column to use ->    by: 'age',
+   *              Ascendent order ->    asc: false,
+   *                                  }
+   *                                  *** If you put asc as false, the order will be
+   *                                  descendent ***
+   *
+   * @param  {Object}         limit   Nullable definition of LIMIT params
+   *                                  {
+   *             Initial position ->    start: 10,
+   *                Rows quantity ->    quant: 25,
+   *                                  }
+   *
+   * @return {Promise}                Promise to return the query results after database response
+   */
   select(table, columns, filters, order, limit) {
     return new Promise((resolve, reject) => {
       let base = 'SELECT ?? FROM ?? ';
