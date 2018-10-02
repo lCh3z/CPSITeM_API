@@ -131,7 +131,7 @@ class ProductMdl{
       const exists = await this.exists();
       console.log('EXI', exists);
       if (exists.length) {
-        if (db.delete(
+        if (await db.delete(
           '_Product_',
           exists[0],
           [
