@@ -1,6 +1,7 @@
 const db = require('../db');
 const { ProductMdl } = require('../models');
-
+const { Responses } = require('../models');
+const imgProductCtrl = require('./imgProductCtrl');
 class productCtrl{
   constructor(){
     this.getAll = this.getAll.bind(this);
@@ -11,74 +12,164 @@ class productCtrl{
     this.processResult = this.processResult.bind(this);
   }
 
-  processResult(data) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new ProductMdl(res));
-    });
-    return result;
-  }
-
-
-  async getAll(req, res){
-    let data = await db.getAll('_Product_', ['id', 'id_cat', 'name', 'price', 'status', 'discount', 'inventory', 'description', 'specs', 'min_quan', 'date'], '', '', '');
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
-    } else {
-      res.status(200).send({ data });
+  async processResult(data, next) {
+    try {
+      let temp;
+      let result = [];
+      for (const res of data) {
+        temp = new ProductMdl(res);
+        temp.img_product = await imgProductCtrl.getAll({ id_prod : temp.id_prod }, next);
+        if(!temp.img_product){
+          delete temp.img_product;
+        }
+        result.push(temp);
+      }
+      return result;
+    } catch (e) {
+      next(e);
     }
   }
 
-  async get(req, res){
-    let data = await db.get('_Product_', ['id', 'id_cat', 'name', 'price', 'status', 'discount', 'inventory', 'description', 'specs', 'min_quan', 'date'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
-    } else {
-      res.status(200).send({ data });
+
+  async getAll(req, res, next) {
+    try {
+      const page = parseInt(req.param('page'));
+      const per_page = parseInt(req.param('per_page'));
+      const start = page * per_page;
+
+      let data = await ProductMdl.select(
+        '_Product_',
+        [
+          'id',
+          'id_cat',
+          'name',
+          'price',
+          'status',
+          'discount',
+          'inventory',
+          'description',
+          'specs',
+          'min_quan',
+          'date',
+        ],
+        null,
+        null,
+        {
+          start,
+          quant: per_page,
+        },
+      );
+
+      data = await this.processResult(data, next);
+
+      if (data.length === 0) {
+        res.status(500).send(Responses.notFound('Product'));
+      } else {
+        const total = await ProductMdl.count(
+          '_Product_',
+          '',
+          '',
+        );
+
+        res.status(200).send({
+          data,
+          per_page,
+          page,
+          total,
+        });
+      }
+    } catch (e) {
+      next(e);
     }
   }
 
-  async create(req, res){
-    const newProduct = new ProductMdl(req.body);
+  async get(req, res, next) {
+    try {
+      let data = await ProductMdl.select(
+        '_Product_',
+        [
+          'id',
+          'id_cat',
+          'name',
+          'price',
+          'status',
+          'discount',
+          'inventory',
+          'description',
+          'specs',
+          'min_quan',
+          'date',
+        ],
+        [
+          {
+            attr: 'id',
+            oper: '=',
+            val: Number(req.param('id')),
+          },
+        ],
+        null,
+        null,
+      );
 
-    const result = await newProduct.save();
+      [data] = await this.processResult(data, next);
 
-    if(result === 0){
-      res.status(201).send({ message: 'Registrado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo registrar' });
+      if (!data) {
+        res.status(500).send(Responses.notFound('Product'));
+      }
+      res.status(201).send({ data });
+    } catch (e) {
+      next(e);
     }
   }
-  async update(req, res){
-    const Product = new ProductMdl(req.body);
-    Product.id = req.param('id');
 
-    const result = await Product.save();
+  async create(req, res, next) {
+    try {
+      let result = await new ProductMdl(req.body).save();
+      if (result) {
+        if(imgProductCtrl.create({ id_prod: result }, next)){
+          res.status(201).send(Responses.created('Product'));
+        } else{
+          res.status(500).send(Responses.cantCreate('ImgProduct'));
+        }
 
-    if(result === 0){
-      res.status(200).send({ message: 'Actualizado correctamente' });
-    } else if (result === 1) {
-      res.status(201).send({ message: 'Registrado correctamente'});
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+      } else {
+        return res.status(500).send(Responses.cantCreate('Product'));
+      }
+    } catch (e) {
+      next(e);
     }
   }
 
-  async delete(req, res){
-    const Product = new ProductMdl({
-      id: Number(req.param('id')),
-    });
+  async update(req, res, next){
+    try {
+      const Product = new ProductMdl(req.body);
+      Product.id = Number(req.param('id'));
 
-    const result = await Product.delete();
+      const result = await Product.update();
 
-    if(result === 0){
-      res.status(200).send({ message: 'Eliminado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo eliminar' });
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+      if(!result){
+        res.status(500).send(Responses.cantRegister('Product'));
+      }
+      res.status(201).send(Responses.updated('Product'));
+  } catch (e) {
+    next(e);
+  }
+}
+
+  async delete(req, res, next) {
+    try {
+      const Product = new ProductMdl({
+        id: Number(req.param('id')),
+      });
+
+      const result = await Product.delete();
+
+      if(!result){
+        res.status(500).send(Responses.cantDelete('Product'));
+      }
+      res.status(201).send(Responses.deleted('Product'));
+    } catch (e) {
+      next(e);
     }
   }
 }
