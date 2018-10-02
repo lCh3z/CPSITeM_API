@@ -1,9 +1,20 @@
 const db = require('../db');
 
 class ImgProductMdl{
-  constructor(args){
-    this.id_prod = args.id_prod;
-    this.photo = args.photo;
+  constructor(
+    {
+      id_prod,
+      photo,
+      status,
+      date,
+      updated,
+    },
+  ){
+    this.id_prod = id_prod;
+    this.photo = photo;
+    this.status = status;
+    this.date = date;
+    this.updated = updated;
   }
 
   processResult(data) {
@@ -13,24 +24,113 @@ class ImgProductMdl{
     });
     return result;
   }
+  static async select(table, columns, filters, order, limit) {
+    try {
+      const data = await db.select(table, columns, filters, order, limit);
+      const response = [];
+      data.forEach((res) => {
+        response.push(new ImgProductMdl(res));
+      });
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async exists() {
+    try {
+      if (this.id_prod !== undefined) {
+        const result = await db.select(
+          '_Imgproduct_',
+          [
+            'id_prod',
+          ],
+          [
+            {
+              attr: 'id_prod',
+              oper: '=',
+              val: this.id_prod,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
+          null,
+          null,
+        );
+        return result;
+      }
+      return [];
+    } catch (e) {
+      throw e;
+    }
+  }
+
   async save() {
-    Object.keys(this).forEach(key => this[key] === undefined && delete this[key]);
-    if (this.id_prod !== undefined && this.processResult(await db.get('_ImgProduct_', 'id_prod', [{ attr: 'id_prod', oper: '=', val: this.id_prod }])).length !== 0) return this.update();
-    if (await db.create('_ImgProduct_', this)) return 0;
-    return 1;
+    try {
+      const exists = await this.exists();
+      if (exists.length) return this.update();
+      if (await db.create('_Imgproduct_', this)) return true;
+      return false;
+    } catch (e) {
+      throw e;
+    }
   }
 
   async update() {
-    if (this.id_prod !== undefined && await db.update('_ImgProduct_', this, [{ attr: 'id_prod', oper: '=', val: this.id_prod }])) return 0;
-    return 1;
+    try {
+      if (this.id_prod !== undefined && await db.update(
+        '_Imgproduct_',
+        this,
+        [
+          {
+            attr: 'id_prod',
+            oper: '=',
+            val: this.id_prod,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+      )) return true;
+      return false;
+    } catch (e) {
+      throw e;
+    }
   }
 
   async delete() {
-    if (this.id_prod !== undefined && this.processResult(await db.get('_ImgProduct_', 'id_prod', [{ attr: 'id_prod', oper: '=', val: this.id_prod }])).length !== 0) {
-      if (this.id_prod !== undefined && await db.delete('_ImgProduct_', [{ attr: 'id_prod', oper: '=', val: this.id_prod }]) !== undefined) return 0;
-      return 1;
+    try {
+      const exists = this.exists();
+      if (exists.length) {
+        if (db.delete(
+          '_Imgproduct_',
+          this,
+          [
+            {
+              attr: 'id_prod',
+              oper: '=',
+              val: this.id_prod,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
+        )) return true;
+      }
+      return false;
+    } catch (e) {
+      throw e;
     }
-    return 2;
   }
 }
 

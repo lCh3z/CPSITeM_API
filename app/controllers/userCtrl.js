@@ -14,6 +14,12 @@ class UserCtrl {
     this.processResult = this.processResult.bind(this);
   }
 
+/**
+ * [processResult description]
+ * @param  {[type]}   data [description]
+ * @param  {Function} next [description]
+ * @return {Promise}       [description]
+ */
   async processResult(data, next) {
     try {
       let temp;

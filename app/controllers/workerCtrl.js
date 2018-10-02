@@ -72,14 +72,14 @@ class workerCtrl {
   }
 
   async delete(inputs, next) {
-    try {
-      input.status = 0;
-      const newListEmail = new ListEmailMdl(inputs);
-      const result = await newListEmail.save();
-      return result;
-    } catch (e) {
-      next(e);
-    }
+   try {
+     input.status = 0;
+     const Worker = new WorkerMdl(inputs);
+     const result = await Worker.delete();
+     return result;
+   } catch (e) {
+     next(e);
+   }
   }
 }
 

@@ -19,66 +19,101 @@ class imgProductCtrl{
     return result;
   }
 
-  async getAll(req, res){
-    let data = await db.getAll('_ImgProduct_', ['id_prod', 'photo'], '', '', '');
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
-    } else {
-      res.status(200).send({ data });
+  async getAll(inputs, next) {
+    try {
+      const data = await ImgProductMdl.select(
+        '_Imgproduct_',
+        [
+          'id_prod',
+          'photo',
+          'status',
+          'date',
+          'updated',
+        ],
+        [
+          {
+            attr: 'id_prod',
+            oper: '=',
+            val: inputs.id_prod,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+        '',
+        '',
+      );
+      return this.processResult(data);
+    } catch (e) {
+      next(e);
     }
   }
 
-  async get(req, res){
-    let data = await db.get('_ImgProduct_', ['id_prod', 'photo'], [{ attr: 'id_prod', oper: '=', val: Number(req.param('id_prod')) }]);
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
-    } else {
-      res.status(200).send({ data });
+  async get(inputs, next) {
+    try {
+      let data = await ImgProductMdl.select(
+        '_Imgproduct_',
+        [
+          'id_prod',
+          'photo',
+          'status',
+          'date',
+          'updated',
+        ],
+        [
+          {
+            attr: 'id_prod',
+            oper: '=',
+            val: inputs.id_prod,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+        null,
+        null,
+      );
+      return this.processResult(data)[0];
+    } catch (e) {
+      next(e);
     }
   }
 
-  async create(req, res){
-    const newimgproduct = new ImgProductMdl(req.body);
-
-    const result = await newimgproduct.save();
-
-    if(result === 0){
-      res.status(201).send({ message: 'Registrado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo registrar' });
-    }
-  }
-  async update(req, res){
-    const imgproduct = new ImgProductMdl(req.body);
-    imgproduct.id_prod = req.param('id_prod');
-
-    const result = await imgproduct.save();
-
-    if(result === 0){
-      res.status(200).send({ message: 'Actualizado correctamente' });
-    } else if (result === 1) {
-      res.status(201).send({ message: 'Registrado correctamente'});
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+  async create(inputs, next) {
+    try {
+      const newImgProduct = new ImgProductMdl(inputs);
+      const result = await newImgProduct.save();
+      return result;
+    } catch (e) {
+      next(e);
     }
   }
 
-  async delete(req, res){
-    const imgproduct = new ImgProductMdl({
-      id_prod: Number(req.param('id_prod')),
-    });
-
-    const result = await imgproduct.delete();
-
-    if(result === 0){
-      res.status(200).send({ message: 'Eliminado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo eliminar' });
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+  async update(inputs, next) {
+    try {
+      const ImgProduct = new ImgProductMdl(inputs);
+      const result = await ImgProduct.save();
+      return result;
+    } catch (e) {
+      next(e);
     }
+  }
+
+  async delete(inputs, next) {
+   try {
+     input.status = 0;
+     const ImgProduct = new ImgProductMdl(inputs);
+     const result = await ImgProduct.delete();
+     return result;
+   } catch (e) {
+     next(e);
+   }
   }
 }
 
