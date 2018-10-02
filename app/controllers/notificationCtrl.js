@@ -34,14 +34,7 @@ class notificationCtrl{
       let data = await NotificationMdl.select(
         '_Notification_',
         [
-          'id',
-          'title',
-          'cont',
-          'id_user',
-          'prog',
-          'status',
-          'date',
-          'updated',
+          '*',
         ],
         null,
         null,
@@ -79,14 +72,7 @@ class notificationCtrl{
       let data = await NotificationMdl.select(
         '_Notification_',
         [
-          'id',
-          'title',
-          'cont',
-          'id_user',
-          'prog',
-          'status',
-          'date',
-          'updated',
+          '*',
         ],
         [
           {
