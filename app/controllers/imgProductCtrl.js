@@ -22,7 +22,7 @@ class imgProductCtrl{
   async getAll(inputs, next) {
     try {
       const data = await ImgProductMdl.select(
-        '_Imgproduct_',
+        '_ImgProduct_',
         [
           'id_prod',
           'photo',
@@ -55,7 +55,7 @@ class imgProductCtrl{
   async get(inputs, next) {
     try {
       let data = await ImgProductMdl.select(
-        '_Imgproduct_',
+        '_ImgProduct_',
         [
           'id_prod',
           'photo',

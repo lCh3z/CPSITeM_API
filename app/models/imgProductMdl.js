@@ -41,7 +41,7 @@ class ImgProductMdl{
     try {
       if (this.id_prod !== undefined) {
         const result = await db.select(
-          '_Imgproduct_',
+          '_ImgProduct_',
           [
             'id_prod',
           ],
@@ -73,7 +73,7 @@ class ImgProductMdl{
     try {
       const exists = await this.exists();
       if (exists.length) return this.update();
-      if (await db.create('_Imgproduct_', this)) return true;
+      if (await db.create('_ImgProduct_', this)) return true;
       return false;
     } catch (e) {
       throw e;
@@ -83,7 +83,7 @@ class ImgProductMdl{
   async update() {
     try {
       if (this.id_prod !== undefined && await db.update(
-        '_Imgproduct_',
+        '_ImgProduct_',
         this,
         [
           {
@@ -110,8 +110,8 @@ class ImgProductMdl{
       const exists = this.exists();
       if (exists.length) {
         if (db.delete(
-          '_Imgproduct_',
-          this,
+          '_ImgProduct_',
+          exists[0],
           [
             {
               attr: 'id_prod',

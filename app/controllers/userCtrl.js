@@ -82,7 +82,7 @@ class UserCtrl {
       data = await this.processResult(data, next);
 
       if (data.length === 0) {
-        res.status(500).send(Responses.notFound('User'));
+        res.status(409).send(Responses.notFound('user'));
       } else {
         const total = await UserMdl.count(
           '_User_',
@@ -139,9 +139,9 @@ class UserCtrl {
       [data] = await this.processResult(data, next);
 
       if (!data) {
-        res.status(500).send(Responses.notFound('User'));
+        res.status(404).send(Responses.notFound('user'));
       }
-      res.status(201).send({ data });
+      res.status(200).send({ data });
     } catch (e) {
       next(e);
     }
@@ -218,14 +218,15 @@ class UserCtrl {
 
       if(!result){
         res.status(500).send(Responses.cantRegister('User'));
+      } else {
+        res.status(200).send(Responses.updated('User'));
       }
-      res.status(201).send(Responses.updated('User'));
     } catch (e) {
       next(e);
     }
   }
 
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
       const User = new UserMdl({
         id: Number(req.param('id')),
@@ -235,8 +236,9 @@ class UserCtrl {
 
       if(!result){
         res.status(500).send(Responses.cantDelete('User'));
+      } else {
+        res.status(200).send(Responses.deleted('User'));
       }
-      res.status(201).send(Responses.deleted('User'));
     } catch (e) {
       next(e);
     }

@@ -16,7 +16,7 @@ class DB {
     this.disconnect = this.disconnect.bind(this);
     this.connection.connect((err) => {
       if (err) {
-        console.error('error connecting', err.stack);
+        console.error('Error connecting', err.stack);
         throw err;
       }
     });
@@ -24,18 +24,8 @@ class DB {
 
   max(table, column, filters) {
     return new Promise((resolve, reject) => {
-      let base = `SELECT MAX(${this.connection.escapeId(column).replace('`', '').replace('`', '')}) as max FROM ?? `;
-      let extra = '';
-      if (filters) {
-        filters.forEach((i, index) => {
-          if (index !== 0) extra += `${i.logic} `;
-          extra += `${this.connection.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} `;
-          if (i.oper === 'LIKE') extra += `'%${this.connection.escape(i.val).replace('\'', '').replace('\'', '')}%' `; else extra += `${this.connection.escape(i.val)} `;
-        });
-      }
-      if (filters) { base += `WHERE ${extra} `; }
-      base += ';';
-      this.connection.query(base, table, (error, rows) => {
+      const sql = `SELECT MAX(${this.connection.escapeId(column).replace(/`/g, '')}) as max FROM ?? ${this.formatFilters(filters)};`;
+      this.connection.query(sql, table, (error, rows) => {
         if (error) return reject(this.processError(error));
         return resolve(rows);
       });
@@ -44,44 +34,58 @@ class DB {
 
   count(table, filters) {
     return new Promise((resolve, reject) => {
-      let base = 'SELECT COUNT(*) as count FROM ?? ';
-      let extra = '';
-      if (filters) {
-        filters.forEach((i, index) => {
-          if (index !== 0) extra += `${i.logic} `;
-          extra += `${this.connection.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} `;
-          if (i.oper === 'LIKE') extra += `'%${this.connection.escape(i.val).replace('\'', '').replace('\'', '')}%' `; else extra += `${this.connection.escape(i.val)} `;
-        });
-      }
-      if (filters) { base += `WHERE ${extra} `; }
-      base += ';';
-      this.connection.query(base, table, (error, rows) => {
+      const sql = `SELECT COUNT(*) as count FROM ?? ${this.formatFilters(filters)};`;
+      this.connection.query(sql, table, (error, rows) => {
         if (error) return reject(this.processError(error));
         return resolve(rows);
       });
     });
   }
 
+  /**
+   * Function to get a single or multiple rows from a Database table, coulding specify
+   * the columns that you want, the filter to apply, order type and a limit.
+   * @param  {String}         table   Required name of the database table. 'User'
+   *
+   * @param  {Array.<string>} columns Required of column names to get.  ['id', 'name']
+   *
+   * @param  {Array.<object>} filters Nullable list of filter objects to use.
+   *                        Array ->  [
+   *                Filter object ->    {
+   *                Column to use ->      attr: 'name',
+   *          Comparing operation ->      oper: '=',
+   *             Value to compare ->      val: this.name,
+   *                                    },
+   *                                    {
+   *                 Logic to use ->      logic: 'and',
+   *                Column to use ->      attr: 'age',
+   *          Comparing operation ->      oper: '>=',
+   *             Value to compare ->      val: 18,
+   *                                    },
+   *                                  ]
+   *                                  *** Except fot the first object, you need to
+   *                                  include the logic attribute ***
+   *
+   * @param  {Object}         order   Nullable definition of ORDER params
+   *                                  {
+   *                Column to use ->    by: 'age',
+   *             Descendent order ->    desc: false,
+   *                                  }
+   *                                  *** If you put desc as false or just omit that
+   *                                  the order will be ascendent ***
+   *
+   * @param  {Object}         limit   Nullable definition of LIMIT params
+   *                                  {
+   *             Initial position ->    start: 10,
+   *                Rows quantity ->    quant: 25,
+   *                                  }
+   *
+   * @return {Promise}                Promise to return the query results after database response
+   */
   select(table, columns, filters, order, limit) {
     return new Promise((resolve, reject) => {
-      let base = 'SELECT ?? FROM ?? ';
-      let extra = '';
-      const adds = [columns, table];
-      if (filters) {
-        filters.forEach((i, index) => {
-          if (index !== 0) extra += `${i.logic} `;
-          extra += `${this.connection.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} `;
-          if (i.oper === 'LIKE') extra += `'%${this.connection.escape(i.val).replace('\'', '').replace('\'', '')}%' `; else extra += `${this.connection.escape(i.val)} `;
-        });
-      }
-      if (filters) { base += `WHERE ${extra} `; }
-      if (order) {
-        base += `ORDER BY ${this.connection.escapeId(order.by)} `;
-        if (order.asc) base += 'ASC '; else base += 'DESC ';
-      }
-      if (limit) base += `LIMIT ${this.connection.escape(limit.start)}, ${limit.quant} `;
-      base += ';';
-      this.connection.query(base, adds, (error, rows) => {
+      const sql = `SELECT ?? FROM ?? ${this.formatFilters(filters)} ${this.formatOrder(order)} ${this.formatLimit(limit)};`;
+      this.connection.query(sql, [columns, table], (error, rows) => {
         if (error) return reject(this.processError(error));
         return resolve(rows);
       });
@@ -89,9 +93,9 @@ class DB {
   }
 
   create(table, post) {
+    delete post.date;
+    delete post.updated;
     if (!post.satatus) post.status = 1;
-    post.date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    post.updated = new Date().toISOString().slice(0, 19).replace('T', ' ');
     return new Promise((resolve, reject) => {
       this.connection.query('INSERT INTO ?? SET ?;', [table, post], (error, rows) => {
         if (error) return reject(this.processError(error));
@@ -102,17 +106,10 @@ class DB {
 
   update(table, post, filters) {
     delete post.date;
-    post.updated = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    delete post.updated;
     return new Promise((resolve, reject) => {
-      let base = 'UPDATE ?? SET ? ';
-      let extra = '';
-      const adds = [table, post];
-      filters.forEach((i, index) => {
-        if (index !== 0) extra += `${i.logic} `;
-        extra += `${this.connection.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} ${this.connection.escape(i.val)} `;
-      });
-      base += `WHERE ${extra} ;`;
-      this.connection.query(base, adds, (error, rows) => {
+      const sql = `UPDATE ?? SET ? ${this.formatFilters(filters)};`;
+      this.connection.query(sql, [table, post], (error, rows) => {
         if (error) return reject(this.processError(error));
         return resolve(rows);
       });
@@ -121,18 +118,11 @@ class DB {
 
   delete(table, post, filters) {
     delete post.date;
+    delete post.updated;
     post.status = 0;
-    post.updated = new Date().toISOString().slice(0, 19).replace('T', ' ');
     return new Promise((resolve, reject) => {
-      let base = 'UPDATE ?? SET ? ';
-      let extra = '';
-      const adds = [table, post];
-      filters.forEach((i, index) => {
-        if (index !== 0) extra += `${i.logic} `;
-        extra += `${this.connection.escapeId(i.attr).replace('`', '').replace('`', '')} ${i.oper} ${this.connection.escape(i.val)} `;
-      });
-      base += `WHERE ${extra} ;`;
-      this.connection.query(base, adds, (error, rows) => {
+      const sql = `UPDATE ?? SET ? ${this.formatFilters(filters)};`;
+      this.connection.query(sql, [table, post], (error, rows) => {
         if (error) return reject(this.processError(error));
         return resolve(rows);
       });
@@ -145,6 +135,44 @@ class DB {
 
   destroy() {
     this.connection.destroy();
+  }
+
+  formatFilters(filters) {
+    let result = ' ';
+    if (filters) {
+      filters.forEach((filter, index) => {
+        if (index !== 0) result += `${filter.logic} `;
+        result += `${this.connection.escapeId(filter.attr).replace(/`/g, '')} ${filter.oper} `;
+        if (filter.oper === 'LIKE') {
+          result += `'%${this.connection.escape(filter.val).replace(/'/g, '')}%' `;
+        } else {
+          result += `${this.connection.escape(filter.val)} `;
+        }
+      });
+      result = `WHERE ${result} `;
+    }
+    return result;
+  }
+
+  formatOrder(order) {
+    let result = ' ';
+    if (order) {
+      result += `ORDER BY ${this.connection.escapeId(order.by)} `;
+      if (order.desc) {
+        result += 'DESC ';
+      } else {
+        result += 'ASC ';
+      }
+    }
+    return result;
+  }
+
+  formatLimit(limit) {
+    let result = ' ';
+    if (limit) {
+      result += `LIMIT ${this.connection.escape(limit.start)}, ${limit.quant} `;
+    }
+    return result;
   }
 
   processError(err) {
