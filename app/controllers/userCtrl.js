@@ -225,7 +225,7 @@ class UserCtrl {
     }
   }
 
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
       const User = new UserMdl({
         id: Number(req.param('id')),
