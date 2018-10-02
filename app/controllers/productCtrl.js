@@ -2,7 +2,6 @@ const db = require('../db');
 const { ProductMdl } = require('../models');
 const { Responses } = require('../models');
 const imgProductCtrl = require('./imgProductCtrl');
-
 class productCtrl{
   constructor(){
     this.getAll = this.getAll.bind(this);
@@ -141,7 +140,7 @@ class productCtrl{
     }
   }
 
-  async update(req, res, next){
+  async update(req, res){
     try {
       const Product = new ProductMdl(req.body);
       Product.id = Number(req.param('id'));
@@ -157,7 +156,7 @@ class productCtrl{
   }
 }
 
-  async delete(req, res, next) {
+  async delete(req, res) {
     try {
       const Product = new ProductMdl({
         id: Number(req.param('id')),
