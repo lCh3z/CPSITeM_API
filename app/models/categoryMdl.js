@@ -1,41 +1,148 @@
 const db = require('../db');
 
 class CategoryMdl{
-  constructor(args){
-    this.id = args.id;
-    this.name = args.name;
-    this.description = args.description;
-    this.photo = args.photo;
-    this.date = args.date;
-    this.status = args.status;
+  constructor(
+    {
+      id,
+      name,
+      description,
+      photo,
+      status,
+      date,
+      updated,
+    }
+  ){
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.photo = photo;
+    this.date = date;
+    this.status = status;
   }
 
-  processResult(data) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new CategoryMdl(res));
-    });
-    return result;
+  static async select(table, columns, filters, order, limit) {
+    try {
+      const data = await db.select(table, columns, filters, order, limit);
+      const response = [];
+      data.forEach((res) => {
+        response.push(new CategoryMdl(res));
+      });
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  static async count(table, filters) {
+    try {
+      const data = await db.count(table, filters);
+      return data[0].count;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async exists() {
+    try {
+      if (this.id !== undefined) {
+        const result = await db.select(
+          '_Category_',
+          [
+            'id',
+          ],
+          [
+            {
+              attr: 'id',
+              oper: '=',
+              val: this.id,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
+        );
+        return result;
+      }
+      return [];
+    } catch (e) {
+      throw e;
+    }
   }
 
   async save() {
-    Object.keys(this).forEach(key => this[key] === undefined && delete this[key]);
-    if (this.id !== undefined && this.processResult(await db.get('_Category_', 'id', [{ attr: 'id', oper: '=', val: this.id }])).length !== 0) return this.update();
-    if (await db.create('_Category_', this)) return 0;
-    return 1;
+    try {
+      const exists = await this.exists();
+      if (this.id !== undefined && exists.length) {
+        return this.update();
+      }
+      if (await db.create('_Category_', this)) {
+        const id = await db.select(
+          '_Category_',
+          [
+            'id',
+          ],
+        );
+        return id[0].id;
+      }
+      return false;
+    } catch (e) {
+      throw e;
+    }
   }
-
   async update() {
-    if (this.id !== undefined && await db.update('_Category_', this, [{ attr: 'id', oper: '=', val: this.id }])) return 0;
-    return 1;
+    try {
+      if (this.id !== undefined && await db.update(
+        '_Category_',
+        this,
+        [
+          {
+            attr: 'id',
+            oper: '=',
+            val: this.id,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+      )) return this.id;
+      return false;
+    } catch (e) {
+      throw e;
+    }
   }
 
   async delete() {
-    if (this.id !== undefined && this.processResult(await db.get('_Category_', 'id', [{ attr: 'id', oper: '=', val: this.id }])).length !== 0) {
-      if (this.id !== undefined && await db.delete('_Category_', [{ attr: 'id', oper: '=', val: this.id }]) !== undefined) return 0;
-      return 1;
+    try {
+      const exists = await this.exists();
+      if (exists.length) {
+        if (db.update(
+          '_Category_',
+          this,
+          [
+            {
+              attr: 'id',
+              oper: '=',
+              val: this.id,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
+        )) return true;
+      }
+      return false;
+    } catch (e) {
+      throw e;
     }
-    return 2;
   }
 }
 

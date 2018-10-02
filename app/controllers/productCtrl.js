@@ -2,6 +2,7 @@ const db = require('../db');
 const { ProductMdl } = require('../models');
 const { Responses } = require('../models');
 const imgProductCtrl = require('./imgProductCtrl');
+
 class productCtrl{
   constructor(){
     this.getAll = this.getAll.bind(this);
