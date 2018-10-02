@@ -150,7 +150,7 @@ class UserMdl {
     try {
       const exists = await this.exists();
       if (exists.length) {
-        if (db.delete(
+        if (await db.delete(
           '_User_',
           exists[0],
           [
