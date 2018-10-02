@@ -147,9 +147,9 @@ class UserMdl {
   }
 
   async delete() {
-    try {
-      const exists = await this.exists();
-      if (exists.length) {
+    const exists = await this.exists();
+    if (exists.length) {
+      try {
         if (await db.delete(
           '_User_',
           exists[0],
@@ -167,11 +167,11 @@ class UserMdl {
             },
           ],
         )) return true;
+      } catch (e) {
+        throw e;
       }
-      return false;
-    } catch (e) {
-      throw e;
     }
+    return false;
   }
 
   getName() {
