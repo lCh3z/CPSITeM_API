@@ -141,7 +141,7 @@ class UserCtrl {
       if (!data) {
         res.status(404).send(Responses.notFound('user'));
       }
-      res.status(201).send({ data });
+      res.status(200).send({ data });
     } catch (e) {
       next(e);
     }
@@ -218,8 +218,9 @@ class UserCtrl {
 
       if(!result){
         res.status(500).send(Responses.cantRegister('User'));
+      } else {
+        res.status(200).send(Responses.updated('User'));
       }
-      res.status(201).send(Responses.updated('User'));
     } catch (e) {
       next(e);
     }
@@ -235,8 +236,9 @@ class UserCtrl {
 
       if(!result){
         res.status(500).send(Responses.cantDelete('User'));
+      } else {
+        res.status(200).send(Responses.deleted('User'));
       }
-      res.status(201).send(Responses.deleted('User'));
     } catch (e) {
       next(e);
     }
