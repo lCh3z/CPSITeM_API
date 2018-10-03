@@ -2,7 +2,6 @@ const router = require('express').Router();
 const middlewares = require('../middlewares')
 
 const userRouter = require('./userR');
-const wishListRouter = require('./wishListR');
 const orderRouter = require('./orderR');
 const listProdRouter = require('./listProdR');
 const serviceRouter = require('./serviceR');
@@ -23,7 +22,6 @@ const confSectionRouter = require('./confSectionR');
 router.get('/', (req, res) => { res.status(200).send('Hola mundo!'); });
 
 router.use('/user', userRouter);
-router.use('/wishlist',wishListRouter);
 router.use('/order',orderRouter);
 router.use('/listProd',listProdRouter);
 router.use('/service',serviceRouter);

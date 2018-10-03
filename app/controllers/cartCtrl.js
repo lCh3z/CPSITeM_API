@@ -1,7 +1,6 @@
 const db = require('../db');
 const { CartMdl, Responses } = require('../models');
 
-
 class cartCtrl {
   constructor() {
     this.getAll = this.getAll.bind(this);
@@ -90,9 +89,9 @@ class cartCtrl {
       const result = await Cart.delete();
 
       if(!result){
-        res.status(500).send(Responses.cantDelete('User'));
+        res.status(500).send(Responses.cantDelete('user'));
       } else {
-        res.status(200).send(Responses.deleted('User'));
+        res.status(200).send(Responses.deleted('user'));
       }
     } catch (e) {
       next(e);

@@ -18,6 +18,7 @@ class CartMdl {
     this.date = date;
     this.updated = updated;
   }
+
   processResult(data) {
     const result = [];
     data.forEach((res) => {
@@ -77,9 +78,7 @@ class CartMdl {
 
   async save() {
     try {
-      console.log('TH', this);
       const exists = await this.exists();
-      console.log('EX', exists);
       if (this.id_user !== undefined && exists.length) {
         return this.update();
       }
@@ -93,7 +92,6 @@ class CartMdl {
   }
 
   async update() {
-    console.log('this', this);
     try {
       if (this.id_user !== undefined && this.id_product !== undefined && await db.update(
         '_Cart_',
