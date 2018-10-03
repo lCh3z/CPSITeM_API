@@ -140,7 +140,7 @@ class productCtrl{
     }
   }
 
-  async update(req, res, next){
+  async update(req, res){
     try {
       const Product = new ProductMdl(req.body);
       Product.id = Number(req.param('id'));
@@ -156,7 +156,7 @@ class productCtrl{
   }
 }
 
-  async delete(req, res, next) {
+  async delete(req, res) {
     try {
       const Product = new ProductMdl({
         id: Number(req.param('id')),
