@@ -120,10 +120,11 @@ class CategoryMdl{
   async delete() {
     try {
       const exists = await this.exists();
+      console.log('EXI', exists);
       if (exists.length) {
-        if (db.update(
+        if (await db.delete(
           '_Category_',
-          this,
+          exists[0],
           [
             {
               attr: 'id',
