@@ -1,6 +1,4 @@
 exports.userCtrl = require('./userCtrl');
-exports.workerCtrl = require('./workerCtrl');
-exports.listEmailCtrl = require('./listEmailCtrl');
 exports.wishListCtrl = require('./wishListCtrl');
 exports.cartCtrl = require('./cartCtrl');
 exports.orderCtrl = require('./orderCtrl');
