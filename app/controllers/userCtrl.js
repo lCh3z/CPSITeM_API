@@ -136,7 +136,7 @@ class UserCtrl {
       const User = new UserMdl(req.body);
       User.id = Number(req.param('id'));
 
-      const result = await User.update(req.body.list_email, req.body.worker);
+      const result = await User.update(req.body.list_email, req.body.worker, req.body.list_addresses);
 
       if(!result){
         res.status(500).send(Responses.cantCreate('user'));

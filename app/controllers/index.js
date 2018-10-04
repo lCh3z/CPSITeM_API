@@ -12,7 +12,6 @@ exports.imgStatServCtrl = require('./imgStatServCtrl');
 exports.categoryCtrl = require('./categoryCtrl');
 exports.imgProductCtrl = require('./imgProductCtrl');
 exports.cupponCtrl = require('./cupponCtrl');
-exports.addressCtrl = require('./addressCtrl');
 exports.paymentCtrl = require('./paymentCtrl');
 exports.configurationCtrl = require('./configurationCtrl');
 exports.sectionCtrl = require('./sectionCtrl');

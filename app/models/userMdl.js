@@ -52,6 +52,7 @@ class UserMdl {
     for (const res in data) {
       const User = await new UserMdl(data[res]);
       User.list_email = await User.getListEmail();
+      User.list_addresses = await User.getAddresses();
 
       if (User.type === 'ADMIN' || User.type === 'SELLER') {
         User.worker = await User.getWorker();
@@ -159,7 +160,7 @@ class UserMdl {
     return false;
   }
 
-  async update(list_email, worker) {
+  async update(list_email, worker, list_addresses) {
     try {
       if (this.id !== undefined && await db.update(
         '_User_',
@@ -178,8 +179,9 @@ class UserMdl {
           },
         ],
       )) {
-        this.saveListEmail(list_email);
-        this.saveWorker(worker);
+        await this.saveListEmail(list_email);
+        await this.saveWorker(worker);
+        await this.saveAddresses(list_addresses);
         return true;
       }
     } catch (e) {
@@ -276,6 +278,36 @@ class UserMdl {
     return worker[0];
   }
 
+  async getAddresses() {
+    let list_addresses = []
+    try {
+      list_addresses = await db.select(
+        '_Address_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id_user',
+            oper: '=',
+            val: this.id,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+        null,
+        null,
+      );
+    } catch (e) {
+      throw e;
+    }
+    return list_addresses;
+  }
+
   async saveListEmail(new_list_email) {
     let old_list_email = [];
     try {
@@ -355,7 +387,7 @@ class UserMdl {
       try {
         await db.delete(
           '_ListEmail_',
-          old_list_email[o_email],
+          {},
           [
             {
               attr: 'id_user',
@@ -450,7 +482,107 @@ class UserMdl {
       try {
         db.delete(
           '_Worker_',
-          { status: 0 },
+          {},
+          [
+            {
+              attr: 'id_user',
+              oper: '=',
+              val: this.id,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
+        );
+      } catch (e) {
+        throw e;
+      }
+    }
+  }
+
+  async saveAddresses(new_list_addresses) {
+    let old_list_addresses = [];
+    try {
+      old_list_addresses = await db.select(
+        '_Address_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id_user',
+            oper: '=',
+            val: this.id,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+        null,
+        null,
+      );
+    } catch (e) {
+      throw e;
+    }
+
+    for (const n_addresses in new_list_addresses) {
+      new_list_addresses[n_addresses].id_user = this.id;
+      for(const o_addresses in old_list_addresses) {
+        if (new_list_addresses[n_addresses] && old_list_addresses[o_addresses] && new_list_addresses[n_addresses].id === old_list_addresses[o_addresses].id) {
+          try {
+            const tmpId = new_list_addresses[n_addresses].id;
+            delete new_list_addresses[n_addresses].id;
+            await db.update(
+              '_Address_',
+              new_list_addresses[n_addresses],
+              [
+                {
+                  attr: 'id_user',
+                  oper: '=',
+                  val: this.id,
+                },
+                {
+                  logic: 'and',
+                  attr: 'status',
+                  oper: '!=',
+                  val: 0,
+                },
+              ],
+            );
+          } catch (e) {
+            throw e;
+          }
+          delete new_list_addresses[n_addresses];
+          delete old_list_addresses[o_addresses];
+        }
+      }
+    }
+
+    for(const n_addresses in new_list_addresses) {
+      try {
+        const tmpId = new_list_addresses[n_addresses].id;
+        delete new_list_addresses[n_addresses].id;
+        await db.create(
+          '_Address_',
+          new_list_addresses[n_addresses],
+        );
+      } catch (e) {
+        throw e;
+      }
+    }
+    for(const o_addresses in old_list_addresses) {
+      try {
+        const tmpId = old_list_addresses[o_addresses].id;
+        delete old_list_addresses[o_addresses].id;
+        await db.delete(
+          '_Address_',
+          {},
           [
             {
               attr: 'id_user',
