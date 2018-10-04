@@ -1,35 +1,13 @@
 const db = require('../db');
-const { ProductMdl } = require('../models');
-const { Responses } = require('../models');
-const imgProductCtrl = require('./imgProductCtrl');
-class productCtrl{
-  constructor(){
+const { ProductMdl, Responses } = require('../models');
+class productCtrl {
+  constructor() {
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-    this.processResult = this.processResult.bind(this);
   }
-
-  async processResult(data, next) {
-    try {
-      let temp;
-      let result = [];
-      for (const res of data) {
-        temp = new ProductMdl(res);
-        temp.img_product = await imgProductCtrl.getAll({ id_prod : temp.id_prod }, next);
-        if(!temp.img_product){
-          delete temp.img_product;
-        }
-        result.push(temp);
-      }
-      return result;
-    } catch (e) {
-      next(e);
-    }
-  }
-
 
   async getAll(req, res, next) {
     try {
@@ -40,17 +18,7 @@ class productCtrl{
       let data = await ProductMdl.select(
         '_Product_',
         [
-          'id',
-          'id_cat',
-          'name',
-          'price',
-          'status',
-          'discount',
-          'inventory',
-          'description',
-          'specs',
-          'min_quan',
-          'date',
+          '*',
         ],
         null,
         null,
@@ -60,10 +28,8 @@ class productCtrl{
         },
       );
 
-      data = await this.processResult(data, next);
-
       if (data.length === 0) {
-        res.status(500).send(Responses.notFound('Product'));
+        res.status(500).send(Responses.notFound('product'));
       } else {
         const total = await ProductMdl.count(
           '_Product_',
@@ -111,10 +77,10 @@ class productCtrl{
         null,
       );
 
-      [data] = await this.processResult(data, next);
+      [data] = data;
 
       if (!data) {
-        res.status(500).send(Responses.notFound('Product'));
+        res.status(500).send(Responses.notFound('product'));
       }
       res.status(201).send({ data });
     } catch (e) {
@@ -124,16 +90,12 @@ class productCtrl{
 
   async create(req, res, next) {
     try {
-      let result = await new ProductMdl(req.body).save();
+      const Product = new ProductMdl(req.body)
+      let result = await Product.save(req.body.list_imgs);
       if (result) {
-        if(imgProductCtrl.create({ id_prod: result }, next)){
-          res.status(201).send(Responses.created('Product'));
-        } else{
-          res.status(500).send(Responses.cantCreate('ImgProduct'));
-        }
-
+        return res.status(201).send(Responses.created('product'));
       } else {
-        return res.status(500).send(Responses.cantCreate('Product'));
+        return res.status(500).send(Responses.cantCreate('product'));
       }
     } catch (e) {
       next(e);
@@ -145,12 +107,12 @@ class productCtrl{
       const Product = new ProductMdl(req.body);
       Product.id = Number(req.param('id'));
 
-      const result = await Product.update();
+      const result = await Product.update(req.body.list_imgs);
 
       if(!result){
-        res.status(500).send(Responses.cantRegister('Product'));
+        res.status(500).send(Responses.cantRegister('product'));
       }
-      res.status(201).send(Responses.updated('Product'));
+      res.status(201).send(Responses.updated('product'));
   } catch (e) {
     next(e);
   }
@@ -171,6 +133,31 @@ class productCtrl{
     } catch (e) {
       next(e);
     }
+  }
+
+  async getImgProduct() {
+    const result = await db.select(
+      '_ImgProduct_',
+      [
+        'id_prod',
+      ],
+      [
+        {
+          attr: 'id_prod',
+          oper: '=',
+          val: this.id_prod,
+        },
+        {
+          logic: 'and',
+          attr: 'status',
+          oper: '!=',
+          val: 0,
+        },
+      ],
+      null,
+      null,
+    );
+
   }
 }
 
