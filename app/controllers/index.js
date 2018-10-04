@@ -10,7 +10,6 @@ exports.newsListCtrl = require('./newsListCtrl');
 exports.statServiceCtrl = require('./statServiceCtrl');
 exports.imgStatServCtrl = require('./imgStatServCtrl');
 exports.categoryCtrl = require('./categoryCtrl');
-exports.imgProductCtrl = require('./imgProductCtrl');
 exports.cupponCtrl = require('./cupponCtrl');
 exports.paymentCtrl = require('./paymentCtrl');
 exports.configurationCtrl = require('./configurationCtrl');

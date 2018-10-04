@@ -10,7 +10,6 @@ const NewsListMdl = require('./newsListMdl');
 const StatServiceMdl = require('./statServiceMdl');
 const ImgStatServMdl = require('./imgStatServMdl');
 const CategoryMdl = require('./categoryMdl');
-const ImgProductMdl = require('./imgProductMdl');
 const CupponMdl = require('./cupponMdl');
 const PaymentMdl = require('./paymentMdl');
 const ConfigurationMdl = require('./configurationMdl');
@@ -32,7 +31,6 @@ module.exports = {
   StatServiceMdl,
   ImgStatServMdl,
   CategoryMdl,
-  ImgProductMdl,
   CupponMdl,
   PaymentMdl,
   ConfigurationMdl,
