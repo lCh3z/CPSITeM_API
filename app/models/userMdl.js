@@ -127,31 +127,13 @@ class UserMdl {
             },
           ],
         );
-        let last_num = await db.max(
-          '_ListEmail_',
-          'number',
-          [
-            {
-              attr: 'id_user',
-              oper: '=',
-              val: this.id_user,
-            },
-          ],
-        );
-        last_num = last_num[0].number;
-        if (!last_num) {
-          last_num = 1;
-        } else {
-          last_num += 1;
-        }
-        await db.create(
-          '_ListEmail_',
+        this.id = id[0].id;
+        await this.saveListEmail([
           {
             id_user: id[0].id,
             email: this.main_email,
-            number: last_num,
           },
-        );
+        ]);
         return id[0].id;
       }
     } catch (e) {
@@ -375,6 +357,24 @@ class UserMdl {
     }
     for(const n_email in new_list_email) {
       try {
+        let last_num = await db.max(
+          '_ListEmail_',
+          'number',
+          [
+            {
+              attr: 'id_user',
+              oper: '=',
+              val: this.id,
+            },
+          ],
+        );
+        last_num = last_num[0].number;
+        if (!last_num) {
+          last_num = 1;
+        } else {
+          last_num += 1;
+        }
+        new_list_email[n_email].number = last_num;
         await db.create(
           '_ListEmail_',
           new_list_email[n_email],

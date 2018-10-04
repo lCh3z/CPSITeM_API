@@ -117,12 +117,6 @@ class UserCtrl {
       let result = await User.save();
       if (result) {
         res.status(201).send(Responses.created('user'));
-        result = User.saveListEmail(req.body.list_email);
-        if (result) {
-          res.status(201).send(Responses.updated('email'));
-        } else {
-          res.status(500).send(Responses.cantCreate('email'));
-        }
       } else {
         return res.status(500).send(Responses.cantCreate('user'));
       }
