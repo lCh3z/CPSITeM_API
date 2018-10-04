@@ -55,6 +55,8 @@ class UserMdl {
 
       if (User.type === 'ADMIN' || User.type === 'SELLER') {
         User.worker = await User.getWorker();
+      } else {
+        await User.saveWorker(null);
       }
       response.push(User);
     }
@@ -381,8 +383,8 @@ class UserMdl {
   }
 
   async saveWorker(worker) {
-    worker.id_user = this.id;
     if (worker && worker !== undefined && worker !== null) {
+      worker.id_user = this.id;
       let temp = [];
       try {
         temp = await db.select(
@@ -448,7 +450,20 @@ class UserMdl {
       try {
         db.delete(
           '_Worker_',
-          this.id,
+          { status: 0 },
+          [
+            {
+              attr: 'id_user',
+              oper: '=',
+              val: this.id,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
         );
       } catch (e) {
         throw e;
