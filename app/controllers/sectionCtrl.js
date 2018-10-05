@@ -1,5 +1,5 @@
 const db = require('../db');
-const { SectionMdl } = require('../models');
+const { SectionMdl, Responses } = require('../models');
 
 class sectionCtrl{
   constructor(){
@@ -8,79 +8,148 @@ class sectionCtrl{
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-    this.processResult = this.processResult.bind(this);
   }
 
-  processResult(data) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new SectionMdl(res));
-    });
-    return result;
-  }
+  async getAll(req, res, next) {
+    try {
+      const page = parseInt(req.param('page'));
+      const per_page = parseInt(req.param('per_page'));
+      const start = page * per_page;
 
-  async getAll(req, res){
-    let data = await db.getAll('_Section_', ['id', 'type', 'status'], '', '', '');
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
-    } else {
-      res.status(200).send({ data });
+      let data = await SectionMdl.select(
+        '_Section_',
+        [
+          '*',
+        ],
+        null,
+        null,
+        {
+          start,
+          quant: per_page,
+        },
+      );
+
+      if (data.length === 0) {
+        res.status(500).send(Responses.notFound('Section'));
+      } else {
+        const total = await SectionMdl.count(
+          '_Section_',
+          '',
+          '',
+        );
+
+        res.status(200).send({
+          data,
+          per_page,
+          page,
+          total,
+        });
+      }
+    } catch (e) {
+      next(e);
     }
   }
 
+  async get(req, res, next) {
+    try {
+      let data = await SectionMdl.select(
+        '_Section_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id',
+            oper: '=',
+            val: Number(req.param('id')),
+          },
+        ],
+        null,
+        null,
+      );
 
-  async get(req, res){
-    let data = await db.get('_Section_', ['id', 'type', 'status'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
-    } else {
-      res.status(200).send({ data });
+      [data] = data;
+
+      if (!data) {
+        res.status(500).send(Responses.notFound('Section'));
+      }
+      res.status(201).send({ data });
+    } catch (e) {
+      next(e);
     }
   }
 
-  async create(req, res){
-    const newSection = new SectionMdl(req.body);
-
-    const result = await newSection.save();
-
-    if(result === 0){
-      res.status(201).send({ message: 'Registrado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo registrar' });
+  async create(req, res, next) {
+    try {
+      const Section = new SectionMdl(req.body)
+      let result = await Section.save(req.body.conf_section);
+      if (result) {
+        return res.status(201).send(Responses.created('Section'));
+      } else {
+        return res.status(500).send(Responses.cantCreate('Section'));
+      }
+    } catch (e) {
+      next(e);
     }
   }
+
   async update(req, res){
-    const Section = new SectionMdl(req.body);
-    Section.id = req.param('id');
+    try {
+      const Section = new SectionMdl(req.body);
+      Section.id = Number(req.param('id'));
 
-    const result = await Section.save();
+      const result = await Section.update(req.body.conf_section);
 
-    if(result === 0){
-      res.status(200).send({ message: 'Actualizado correctamente' });
-    } else if (result === 1) {
-      res.status(201).send({ message: 'Registrado correctamente'});
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+      if(!result){
+        res.status(500).send(Responses.cantRegister('Section'));
+      }
+      res.status(201).send(Responses.updated('Section'));
+  } catch (e) {
+    next(e);
+  }
+}
+
+  async delete(req, res) {
+    try {
+      const Section = new SectionMdl({
+        id: Number(req.param('id')),
+      });
+
+      const result = await Section.delete();
+
+      if(!result){
+        res.status(500).send(Responses.cantDelete('Section'));
+      }
+      res.status(201).send(Responses.deleted('Section'));
+    } catch (e) {
+      next(e);
     }
   }
 
-  async delete(req, res){
-    const Section = new SectionMdl({
-      id: Number(req.param('id')),
-    });
+  async getConfSection() {
+    const result = await db.select(
+      '_ConfSection_',
+      [
+        'id_section',
+      ],
+      [
+        {
+          attr: 'id_section',
+          oper: '=',
+          val: this.id_section,
+        },
+        {
+          logic: 'and',
+          attr: 'status',
+          oper: '!=',
+          val: 0,
+        },
+      ],
+      null,
+      null,
+    );
 
-    const result = await Section.delete();
-
-    if(result === 0){
-      res.status(200).send({ message: 'Eliminado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo eliminar' });
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a eliminar' });
-    }
   }
-  }
+}
 
-  module.exports = new sectionCtrl();
+module.exports = new sectionCtrl();
