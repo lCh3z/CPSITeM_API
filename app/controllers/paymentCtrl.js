@@ -111,7 +111,7 @@ class paymentCtrl{
     }
   }
 
-  async update(req, res){
+  async update(req, res, next){
     try {
       const Payment = new PaymentMdl(req.body);
       Payment.id = Number(req.param('id'));
@@ -127,7 +127,7 @@ class paymentCtrl{
   }
 }
 
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
       const Payment = new PaymentMdl({
         id: Number(req.param('id')),

@@ -22,14 +22,6 @@ class PaymentMdl {
     this.updated = updated;
   }
 
-  processResult(data) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new PaymentMdl(res));
-    });
-    return result;
-  }
-
   static async select(table, columns, filters, order, limit) {
     try {
       const data = await db.select(table, columns, filters, order, limit);
@@ -130,7 +122,6 @@ class PaymentMdl {
   async delete() {
     try {
       const exists = await this.exists();
-      console.log('EXI', exists);
       if (exists.length) {
         if (await db.delete(
           '_Payment_',
