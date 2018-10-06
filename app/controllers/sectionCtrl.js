@@ -96,8 +96,7 @@ class sectionCtrl{
   async update(req, res){
     try {
       const Section = new SectionMdl(req.body);
-      Section.id = Number(req.param('id'));
-
+      Section.id =  Number(req.param('id'));
       const result = await Section.update(req.body.conf_section);
 
       if(!result){

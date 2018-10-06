@@ -16,6 +16,7 @@ class SectionMdl{
     this.date = date;
     this.updated = updated;
   }
+
   static async select(table, columns, filters, order, limit) {
     try {
       const data = await db.select(table, columns, filters, order, limit);
@@ -71,11 +72,13 @@ class SectionMdl{
   }
 
   async save(conf_section) {
+    const exists = await this.exists();
+    if (this.id !== undefined && exists.length) {
+      return this.update();
+    }
     try {
-      const exists = await this.exists();
-      if (this.id !== undefined && exists.length) {
-        return this.update();
-      }
+      console.log(conf_section[0].title);
+      console.log(this.id);
       if (await db.create('_Section_', this)) {
         const id = await db.select(
           '_Section_',
@@ -84,19 +87,22 @@ class SectionMdl{
           ],
           [
             {
-              attr: 'id',
+              attr: 'type',
               oper: '=',
-              val: this.id,
+              val: this.type,
+            },{
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
             },
           ],
         );
-
-        console.log('id', id);
-        this.id = id[0].id;
+        this.id = id[id.length-1].id;
+        console.log('ID: ', this.id);
         await this.saveConfSection(conf_section);
         return id[0].id;
       }
-      return false;
     } catch (e) {
       throw e;
     }
@@ -126,9 +132,9 @@ class SectionMdl{
         null,
       );
       console.log('id', id[0].id);
-      if (id[0].id === this.id) {
-        delete this.id;
-      }
+      // if (id[0].id === this.id) {
+      //   delete this.id;
+      // }
       if (this.id !== undefined && await db.update(
         '_Section_',
         this,
@@ -214,35 +220,63 @@ class SectionMdl{
   }
 
   async saveConfSection(conf_section){
+    let confSection = [];
+    try{
+      confSection = await db.select(
+        '_ConfSection_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr : 'id_section',
+            oper: '=',
+            val: this.id,
+          },
+        ],
+        null,
+        null,
+      );
+
+      console.log('CONFSECTION: ' , confSection);
+      console.log('conf_section: ', conf_section);
+    }catch(e){
+      throw e;
+    }
+
     try {
-      const exists = await this.exists();
-      if (this.id !== undefined && exists.length) {
-        return this.update();
-      }
-      if (await db.create('_ConfSection_', this)) {
-        const id = await db.select(
+      conf_section[0].id_section = this.id;
+      if (await db.create('_ConfSection_', conf_section[0])) {
+        await db.update(
           '_ConfSection_',
-          [
-            'id_section',
-          ],
+           conf_section[0],
           [
             {
               attr: 'id_section',
               oper: '=',
               val: this.id,
             },
+            {
+              logic: 'and',
+              attr: 'photo',
+              oper: '!=',
+              val: conf_section[0].photo,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
           ],
         );
-
-        console.log('id_section', id_section);
-        this.id = id_section[0].id_section;
-        return id_section[0].id_section;
       }
-      return false;
     } catch (e) {
       throw e;
     }
+
   }
+
 }
 
 module.exports = SectionMdl;
