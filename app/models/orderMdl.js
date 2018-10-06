@@ -28,8 +28,8 @@ class OrderMdl {
       const data = await db.select(table, columns, filters, order, limit);
       const response = [];
       for (const res in data) {
-        const Section = new OrderMdl(data[res]);
-        response.push(Section);
+        const Order = new OrderMdl(data[res]);
+        response.push(Order);
       }
       return response;
     } catch (e) {

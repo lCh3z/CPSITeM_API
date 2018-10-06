@@ -1,5 +1,5 @@
 const db = require('../db');
-const { ServiceMdl } = require('../models');
+const { ServiceMdl, Responses } = require('../models');
 
 class serviceCtrl{
   constructor(){
@@ -8,75 +8,122 @@ class serviceCtrl{
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-    this.processResult = this.processResult.bind(this);
-  }
-  processResult(data) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new ServiceMdl(res));
-    });
-    return result;
   }
 
-  async getAll(req, res){
-    let data = await db.getAll('_Service_', ['id', 'id_seller', 'id_user', 'hospital', 'status', 'date', 'type', 'equipment', 'model', 'serial_', 'location', 'contract', 'description', 'voucher'], '', '', '');
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
-    } else {
-      res.status(200).send({ data });
+
+  async getAll(req, res, next) {
+    try {
+      const page = parseInt(req.param('page'));
+      const per_page = parseInt(req.param('per_page'));
+      const start = page * per_page;
+
+      let data = await ServiceMdl.select(
+        '_Service_',
+        [
+          '*',
+        ],
+        null,
+        null,
+        {
+          start,
+          quant: per_page,
+        },
+      );
+
+      if (data.length === 0) {
+        res.status(500).send(Responses.notFound('Service'));
+      } else {
+        const total = await ServiceMdl.count(
+          '_Service_',
+          '',
+          '',
+        );
+
+        res.status(200).send({
+          data,
+          per_page,
+          page,
+          total,
+        });
+      }
+    } catch (e) {
+      next(e);
     }
   }
 
-  async get(req, res){
-    let data = await db.get('_Service_', ['id', 'id_seller', 'id_user', 'hospital', 'status', 'date', 'type', 'equipment', 'model', 'serial_', 'location', 'contract', 'description', 'voucher'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
-    } else {
-      res.status(200).send({ data });
+  async get(req, res, next) {
+    try {
+      let data = await ServiceMdl.select(
+        '_Service_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id',
+            oper: '=',
+            val: Number(req.param('id')),
+          },
+        ],
+        null,
+        null,
+      );
+
+      [data] = data;
+
+      if (!data) {
+        res.status(500).send(Responses.notFound('Service'));
+      }
+      res.status(201).send({ data });
+    } catch (e) {
+      next(e);
     }
   }
 
-  async create(req, res){
-    const newService = new ServiceMdl(req.body);
-
-    const result = await newService.save();
-
-    if(result === 0){
-      res.status(201).send({ message: 'Registrado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo registrar' });
+  async create(req, res, next) {
+    try {
+      const Service = new ServiceMdl(req.body)
+      let result = await Service.save(req.body);
+      if (result) {
+        return res.status(201).send(Responses.created('Service'));
+      } else {
+        return res.status(500).send(Responses.cantCreate('Service'));
+      }
+    } catch (e) {
+      next(e);
     }
   }
+
   async update(req, res){
-    const Service = new ServiceMdl(req.body);
-    Service.id = req.param('id');
+    try {
+      const Service = new ServiceMdl(req.body);
+      Service.id = Number(req.param('id'));
 
-    const result = await Service.save();
+      const result = await Service.update(req.body);
 
-    if(result === 0){
-      res.status(200).send({ message: 'Actualizado correctamente' });
-    } else if (result === 1) {
-      res.status(201).send({ message: 'Registrado correctamente'});
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a actualizar' });
-    }
+      if(!result){
+        res.status(500).send(Responses.cantRegister('Service'));
+      }
+      res.status(201).send(Responses.updated('Service'));
+  } catch (e) {
+    next(e);
   }
+}
 
-  async delete(req, res){
-    const Service = new ServiceMdl({
-      id: Number(req.param('id')),
-    });
+  async delete(req, res) {
+    try {
+      const Service = new ServiceMdl({
+        id: Number(req.param('id')),
+      });
 
-    const result = await Service.delete();
+      const result = await Service.delete();
 
-    if(result === 0){
-      res.status(200).send({ message: 'Eliminado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo eliminar' });
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+      if(!result){
+        res.status(500).send(Responses.cantDelete('Service'));
+      }
+      res.status(201).send(Responses.deleted('Service'));
+    } catch (e) {
+      next(e);
     }
   }
 }
