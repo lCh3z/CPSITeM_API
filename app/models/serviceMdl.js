@@ -102,21 +102,7 @@ class ServiceMdl {
           [
             'id',
           ],
-          [
-            {
-              attr: 'type',
-              oper: '=',
-              val: this.type,
-            },{
-              logic: 'and',
-              attr: 'status',
-              oper: '!=',
-              val: 0,
-            },
-          ],
         );
-        this.id = id[id.length-1].id;
-        console.log('ID: ', this.id);
         return id[0].id;
       }
     } catch (e) {

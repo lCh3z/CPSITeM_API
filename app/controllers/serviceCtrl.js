@@ -82,8 +82,8 @@ class serviceCtrl{
 
   async create(req, res, next) {
     try {
-      const Service = new ServiceMdl(req.body)
-      let result = await Service.save(req.body);
+      const Service = new ServiceMdl(req.body);
+      const result = await Service.save(req.body);
       if (result) {
         return res.status(201).send(Responses.created('Service'));
       } else {

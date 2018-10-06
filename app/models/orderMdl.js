@@ -88,17 +88,7 @@ class OrderMdl {
           [
             'id',
           ],
-          [
-            {
-              logic: 'and',
-              attr: 'status',
-              oper: '!=',
-              val: 0,
-            },
-          ],
         );
-        this.id = id[id.length-1].id;
-        console.log('ID: ', this.id);
         return id[0].id;
       }
     } catch (e) {
@@ -106,57 +96,55 @@ class OrderMdl {
     }
   }
 
-  async update(list_prod) {
-    try {
-      const id = await db.select(
-        '_Order_',
-        [
-          'id',
-        ],
-        [
-          {
-            attr: 'id',
-            oper: '=',
-            val: this.id,
-          },
-          {
-            logic: 'and',
-            attr: 'status',
-            oper: '!=',
-            val: 0,
-          },
-        ],
-        null,
-        null,
-      );
-      console.log('id', id[0].id);
-      if (id[0].id === this.id) {
-        delete this.id;
-      }
-      if (this.id !== undefined && await db.update(
-        '_Order_',
-        this,
-        [
-          {
-            attr: 'id',
-            oper: '=',
-            val: this.id,
-          },
-          {
-            logic: 'and',
-            attr: 'status',
-            oper: '!=',
-            val: 0,
-          },
-        ],
-      )) {
-        return this.id;
-      }
-      return false;
-    } catch (e) {
-      throw e;
-    }
-  }
+  async update() {
+   try {
+     const id = await db.select(
+       '_Order_',
+       [
+         'id',
+       ],
+       [
+         {
+           attr: 'id',
+           oper: '=',
+           val: this.id,
+         },
+         {
+           logic: 'and',
+           attr: 'status',
+           oper: '!=',
+           val: 0,
+         },
+       ],
+       null,
+       null,
+     );
+     console.log('id', id[0].id);
+     if (id[0].id === this.id) {
+       delete this.id;
+     }
+     if (this.id !== undefined && await db.update(
+       '_Order_',
+       this,
+       [
+         {
+           attr: 'id',
+           oper: '=',
+           val: this.id,
+         },
+         {
+           logic: 'and',
+           attr: 'status',
+           oper: '!=',
+           val: 0,
+         },
+       ],
+     )) return this.id;
+     return false;
+   } catch (e) {
+     throw e;
+   }
+ }
 
     async delete() {
       try {
