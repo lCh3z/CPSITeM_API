@@ -50,7 +50,7 @@ class orderCtrl {
     }
   }
 
-  async get(req, res, next){
+  async get(req, res, next) {
     try {
       let data = await OrderMdl.select(
         '_Order_',
@@ -94,7 +94,7 @@ class orderCtrl {
     }
   }
 
-  async update(req, res, next){
+  async update(req, res, next) {
     try {
       const Order = new OrderMdl(req.body);
       Order.id = Number(req.param('id'));
@@ -109,7 +109,7 @@ class orderCtrl {
       next(e);
     }
   }
-  async delete(req, res, next){
+  async delete(req, res, next) {
     try {
       const Order = new OrderMdl({
         id: Number(req.param('id')),
@@ -125,6 +125,7 @@ class orderCtrl {
       next(e);
     }
   }
+
 }
 
 module.exports = new orderCtrl();

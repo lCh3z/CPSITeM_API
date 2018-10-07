@@ -2,7 +2,6 @@ const UserMdl = require('./userMdl');
 const WishListMdl = require('./wishListMdl');
 const CartMdl = require('./cartMdl');
 const OrderMdl = require('./orderMdl');
-const ListProdMdl = require('./listProdMdl');
 const ServiceMdl = require('./serviceMdl');
 const ProductMdl = require('./productMdl');
 const NotificationMdl = require('./notificationMdl');
@@ -23,7 +22,6 @@ module.exports = {
   WishListMdl,
   CartMdl,
   OrderMdl,
-  ListProdMdl,
   ServiceMdl,
   ProductMdl,
   NotificationMdl,

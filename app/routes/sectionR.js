@@ -3,6 +3,8 @@ const { sectionCtrl } = require('../controllers');
 
 router.get('/', sectionCtrl.getAll);
 
+router.get('/:id', sectionCtrl.get);
+
 router.post('/', sectionCtrl.create);
 
 router.put('/:id', sectionCtrl.update);

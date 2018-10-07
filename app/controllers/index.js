@@ -2,7 +2,6 @@ exports.userCtrl = require('./userCtrl');
 exports.wishListCtrl = require('./wishListCtrl');
 exports.cartCtrl = require('./cartCtrl');
 exports.orderCtrl = require('./orderCtrl');
-exports.listProdCtrl = require('./listProdCtrl');
 exports.serviceCtrl = require('./serviceCtrl');
 exports.productCtrl = require('./productCtrl');
 exports.notificationCtrl = require('./notificationCtrl');

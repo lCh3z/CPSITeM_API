@@ -3,7 +3,6 @@ const middlewares = require('../middlewares')
 
 const userRouter = require('./userR');
 const orderRouter = require('./orderR');
-const listProdRouter = require('./listProdR');
 const serviceRouter = require('./serviceR');
 const productRouter = require('./productR');
 const notificationRouter = require('./notificationR');
@@ -21,7 +20,6 @@ router.get('/', (req, res) => { res.status(200).send('Hola mundo!'); });
 
 router.use('/user', userRouter);
 router.use('/order',orderRouter);
-router.use('/listProd',listProdRouter);
 router.use('/service',serviceRouter);
 router.use('/product',productRouter);
 router.use('/notification',notificationRouter);
