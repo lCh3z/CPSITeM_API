@@ -1,17 +1,19 @@
 const db = require('../db');
 
-class SectionMdl{
+class SectionMdl {
   constructor(
     {
       id,
+      title,
       type,
       status,
       date,
       updated,
     }
-  ){
+  ) {
     this.id = id;
     this.type = type;
+    this.title = title;
     this.status = status;
     this.date = date;
     this.updated = updated;
@@ -77,8 +79,6 @@ class SectionMdl{
       return this.update();
     }
     try {
-      console.log(conf_section[0].title);
-      console.log(this.id);
       if (await db.create('_Section_', this)) {
         const id = await db.select(
           '_Section_',
@@ -87,10 +87,11 @@ class SectionMdl{
           ],
           [
             {
-              attr: 'type',
+              attr: 'title',
               oper: '=',
-              val: this.type,
-            },{
+              val: this.title,
+            },
+            {
               logic: 'and',
               attr: 'status',
               oper: '!=',
@@ -98,10 +99,9 @@ class SectionMdl{
             },
           ],
         );
-        this.id = id[id.length-1].id;
-        console.log('ID: ', this.id);
+        this.id = id[0].id;
         await this.saveConfSection(conf_section);
-        return id[0].id;
+        return this.id;
       }
     } catch (e) {
       throw e;
@@ -110,31 +110,6 @@ class SectionMdl{
 
   async update(conf_section) {
     try {
-      const id = await db.select(
-        '_Section_',
-        [
-          'id',
-        ],
-        [
-          {
-            attr: 'id',
-            oper: '=',
-            val: this.id,
-          },
-          {
-            logic: 'and',
-            attr: 'status',
-            oper: '!=',
-            val: 0,
-          },
-        ],
-        null,
-        null,
-      );
-      console.log('id', id[0].id);
-      // if (id[0].id === this.id) {
-      //   delete this.id;
-      // }
       if (this.id !== undefined && await db.update(
         '_Section_',
         this,
@@ -219,37 +194,85 @@ class SectionMdl{
     return conf_section;
   }
 
-  async saveConfSection(conf_section){
-    let confSection = [];
-    try{
-      confSection = await db.select(
+  async saveConfSection(new_conf_section) {
+    let old_conf_section = [];
+    try {
+      old_conf_section = await db.select(
         '_ConfSection_',
         [
           '*',
         ],
         [
           {
-            attr : 'id_section',
+            attr: 'id_section',
             oper: '=',
             val: this.id,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
           },
         ],
         null,
         null,
       );
-
-      console.log('CONFSECTION: ' , confSection);
-      console.log('conf_section: ', conf_section);
-    }catch(e){
+    } catch (e) {
       throw e;
     }
 
-    try {
-      conf_section[0].id_section = this.id;
-      if (await db.create('_ConfSection_', conf_section[0])) {
-        await db.update(
+    for (const n_section in new_conf_section) {
+      new_conf_section[n_section].id_section = this.id;
+      for(const o_section in old_conf_section) {
+        if (new_conf_section[n_section] && old_conf_section[o_section] && new_conf_section[n_section].title === old_conf_section[o_section].title) {
+          try {
+            await db.update(
+              '_ConfSection_',
+              new_conf_section[n_section],
+              [
+                {
+                  attr: 'id_section',
+                  oper: '=',
+                  val: this.id,
+                },
+                {
+                  logic: 'and',
+                  attr: 'title',
+                  oper: '=',
+                  val: old_conf_section[o_section].title,
+                },
+                {
+                  logic: 'and',
+                  attr: 'status',
+                  oper: '!=',
+                  val: 0,
+                },
+              ],
+            );
+          } catch (e) {
+            throw e;
+          }
+          delete new_conf_section[n_section];
+          delete old_conf_section[o_section];
+        }
+      }
+    }
+    for(const n_section in new_conf_section) {
+      try {
+        await db.create(
           '_ConfSection_',
-           conf_section[0],
+          new_conf_section[n_section],
+        );
+      } catch (e) {
+        throw e;
+      }
+    }
+    for(const o_section in old_conf_section) {
+      try {
+        await db.delete(
+          '_ConfSection_',
+          {},
           [
             {
               attr: 'id_section',
@@ -258,9 +281,9 @@ class SectionMdl{
             },
             {
               logic: 'and',
-              attr: 'photo',
-              oper: '!=',
-              val: conf_section[0].photo,
+              attr: 'title',
+              oper: '=',
+              val: old_conf_section[o_section].title,
             },
             {
               logic: 'and',
@@ -270,13 +293,11 @@ class SectionMdl{
             },
           ],
         );
+      } catch (e) {
+        throw e;
       }
-    } catch (e) {
-      throw e;
     }
-
   }
-
 }
 
 module.exports = SectionMdl;

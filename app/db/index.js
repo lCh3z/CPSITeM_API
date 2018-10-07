@@ -197,6 +197,7 @@ class DB {
   }
 
   getDataFromErrorMsg(message) {
+    console.log('msg', message);
     let data = unescape(message).match(/'([^']+)'/g)
     return {
       field: data[1].slice(1,-1),

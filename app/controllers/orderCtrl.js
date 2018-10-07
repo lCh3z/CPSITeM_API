@@ -71,7 +71,7 @@ class orderCtrl {
       [data] = data;
 
       if (!data) {
-        res.status(500).send(Responses.notFound('order'));
+        res.status(404).send(Responses.notFound('order'));
       }
       res.status(201).send({ data });
     } catch (e) {

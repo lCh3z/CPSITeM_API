@@ -14,7 +14,6 @@ const cupponRouter = require('./cupponR');
 const paymentRouter = require('./paymentR');
 const configurationRouter = require('./configurationR');
 const sectionRouter = require('./sectionR');
-const confSectionRouter = require('./confSectionR');
 
 router.get('/', (req, res) => { res.status(200).send('Hola mundo!'); });
 
@@ -31,7 +30,6 @@ router.use('/cuppon',cupponRouter);
 router.use('/payment',paymentRouter);
 router.use('/configuration',configurationRouter);
 router.use('/section',sectionRouter);
-router.use('/confSection',confSectionRouter);
 
 
 module.exports = router;

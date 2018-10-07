@@ -63,6 +63,12 @@ class sectionCtrl{
             oper: '=',
             val: Number(req.param('id')),
           },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
         ],
         null,
         null,
@@ -93,7 +99,7 @@ class sectionCtrl{
     }
   }
 
-  async update(req, res){
+  async update(req, res, next){
     try {
       const Section = new SectionMdl(req.body);
       Section.id =  Number(req.param('id'));
@@ -108,7 +114,7 @@ class sectionCtrl{
   }
 }
 
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
       const Section = new SectionMdl({
         id: Number(req.param('id')),
