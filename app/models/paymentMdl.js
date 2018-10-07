@@ -11,7 +11,7 @@ class PaymentMdl {
       date,
       updated,
     }
-  ){
+  ) {
     this.id = id;
     this.id_user = id_user;
     this.account = account;

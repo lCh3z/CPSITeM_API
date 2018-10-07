@@ -79,9 +79,10 @@ class orderCtrl {
     }
   }
 
-  async create(req, res, next){
+  async create(req, res, next) {
     try {
-      let result = await new OrderMdl(req.body).save();
+      const Order = new OrderMdl(req.body);
+      let result = Order.save(req.body.list_prod);
       if (result) {
         res.status(201).send(Responses.created('order'));
 
@@ -98,7 +99,7 @@ class orderCtrl {
       const Order = new OrderMdl(req.body);
       Order.id = Number(req.param('id'));
 
-      const result = await Order.update();
+      const result = await Order.update(req.body.list_prod);
 
       if(!result){
         res.status(500).send(Responses.cantRegister('order'));

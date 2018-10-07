@@ -24,16 +24,18 @@ class OrderMdl {
   }
 
   static async select(table, columns, filters, order, limit) {
+    const response = [];
     try {
       const data = await db.select(table, columns, filters, order, limit);
-      const response = [];
-      data.forEach((res) => {
-        response.push(new OrderMdl(res));
-      });
-      return response;
+      for (const res of data) {
+        const Order = new OrderMdl(res);
+        Order.list_prod = await Order.getListProd();
+        response.push(Order);
+      }
     } catch (e) {
       throw e;
     }
+    return response;
   }
 
   static async count(table, filters) {
@@ -75,27 +77,40 @@ class OrderMdl {
     }
   }
 
-  async save() {
+  async save(list_prod) {
     try {
       const exists = await this.exists();
       if (this.id !== undefined && exists.length) {
         return this.update();
       }
       if (await db.create('_Order_', this)) {
-        const id = await db.select(
+        const id = await db.max(
           '_Order_',
+          'id',
           [
-            'id',
+            {
+              attr: 'id_user',
+              oper: '=',
+              val: this.id_user,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
           ],
         );
-        return id[0].id;
+        this.id = id[0].max;
+        await this.saveListProd(list_prod);
+        return this.id;
       }
       return false;
     } catch (e) {
       throw e;
     }
   }
-  async update() {
+  async update(list_prod) {
     try {
       if (this.id !== undefined && await db.update(
         '_Order_',
@@ -113,7 +128,10 @@ class OrderMdl {
             val: 0,
           },
         ],
-      )) return this.id;
+      )) {
+        await this.saveListProd(list_prod);
+        return this.id;
+      }
       return false;
     } catch (e) {
       throw e;
@@ -145,6 +163,144 @@ class OrderMdl {
       return false;
     } catch (e) {
       throw e;
+    }
+  }
+
+  async getListProd() {
+    let list_prod = []
+    try {
+      list_prod = await db.select(
+        '_ListProd_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id_order',
+            oper: '=',
+            val: this.id,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+        null,
+        null,
+      );
+    } catch (e) {
+      throw e;
+    }
+    return list_prod;
+  }
+
+  async saveListProd(new_list_prod) {
+    let old_list_prod = [];
+    try {
+      old_list_prod = await db.select(
+        '_ListProd_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id_order',
+            oper: '=',
+            val: this.id,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+        null,
+        null,
+      );
+    } catch (e) {
+      throw e;
+    }
+
+    for (const n_prod in new_list_prod) {
+      new_list_prod[n_prod].id_order = this.id;
+      for(const o_prod in old_list_prod) {
+        if (new_list_prod[n_prod] && old_list_prod[o_prod] && new_list_prod[n_prod].email === old_list_prod[o_prod].email) {
+          new_list_prod[n_prod].id_product = old_list_prod[o_prod].id_product;
+          try {
+            await db.update(
+              '_ListProd_',
+              new_list_prod[n_prod],
+              [
+                {
+                  attr: 'id_order',
+                  oper: '=',
+                  val: this.id,
+                },
+                {
+                  logic: 'and',
+                  attr: 'id_product',
+                  oper: '=',
+                  val: new_list_prod[n_prod].id_product,
+                },
+                {
+                  logic: 'and',
+                  attr: 'status',
+                  oper: '!=',
+                  val: 0,
+                },
+              ],
+            );
+          } catch (e) {
+            throw e;
+          }
+          delete new_list_prod[n_prod];
+          delete old_list_prod[o_prod];
+        }
+      }
+    }
+
+    for(const n_prod in new_list_prod) {
+      try {
+        await db.create(
+          '_ListProd_',
+          new_list_prod[n_prod],
+        );
+      } catch (e) {
+        throw e;
+      }
+    }
+
+    for(const o_prod in old_list_prod) {
+      try {
+        await db.delete(
+          '_ListProd_',
+          {},
+          [
+            {
+              attr: 'id_order',
+              oper: '=',
+              val: this.id,
+            },
+            {
+              logic: 'and',
+              attr: 'id_product',
+              oper: '=',
+              val: old_list_prod[o_prod].id_prod,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
+        );
+      } catch (e) {
+        throw e;
+      }
     }
   }
 }

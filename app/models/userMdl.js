@@ -49,8 +49,8 @@ class UserMdl {
       throw e;
     }
     const response = [];
-    for (const res in data) {
-      const User = await new UserMdl(data[res]);
+    for (const res of data) {
+      const User = await new UserMdl(res);
       User.list_email = await User.getListEmail();
       User.list_addresses = await User.getAddresses();
 
