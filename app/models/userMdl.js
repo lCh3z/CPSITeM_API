@@ -322,7 +322,6 @@ class UserMdl {
       new_list_email[n_email].id_user = this.id;
       for(const o_email in old_list_email) {
         if (new_list_email[n_email] && old_list_email[o_email] && new_list_email[n_email].email === old_list_email[o_email].email) {
-          new_list_email[n_email].number = old_list_email[o_email].number;
           try {
             await db.update(
               '_ListEmail_',
@@ -357,24 +356,6 @@ class UserMdl {
     }
     for(const n_email in new_list_email) {
       try {
-        let last_num = await db.max(
-          '_ListEmail_',
-          'number',
-          [
-            {
-              attr: 'id_user',
-              oper: '=',
-              val: this.id,
-            },
-          ],
-        );
-        last_num = last_num[0].number;
-        if (!last_num) {
-          last_num = 1;
-        } else {
-          last_num += 1;
-        }
-        new_list_email[n_email].number = last_num;
         await db.create(
           '_ListEmail_',
           new_list_email[n_email],
@@ -530,6 +511,8 @@ class UserMdl {
     } catch (e) {
       throw e;
     }
+    console.log('N', new_list_addresses);
+    console.log('O', old_list_addresses);
 
     for (const n_addresses in new_list_addresses) {
       new_list_addresses[n_addresses].id_user = this.id;
@@ -564,9 +547,11 @@ class UserMdl {
       }
     }
 
+    console.log('N', new_list_addresses);
+    console.log('O', old_list_addresses);
+
     for(const n_addresses in new_list_addresses) {
       try {
-        const tmpId = new_list_addresses[n_addresses].id;
         delete new_list_addresses[n_addresses].id;
         await db.create(
           '_Address_',
@@ -578,16 +563,14 @@ class UserMdl {
     }
     for(const o_addresses in old_list_addresses) {
       try {
-        const tmpId = old_list_addresses[o_addresses].id;
-        delete old_list_addresses[o_addresses].id;
         await db.delete(
           '_Address_',
           {},
           [
             {
-              attr: 'id_user',
+              attr: 'id',
               oper: '=',
-              val: this.id,
+              val: old_list_addresses[o_addresses].id,
             },
             {
               logic: 'and',
