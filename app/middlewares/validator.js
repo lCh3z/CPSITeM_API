@@ -3,6 +3,9 @@ class Validator {
     return {
       word: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}$/,
       email: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      integer: /^[+-]?[0-9]+$/,
+      unsignedInteger: /^\d+(\.\d+)?$/,
+      rfc: /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/,
     };
   }
 
@@ -18,6 +21,46 @@ class Validator {
     return (Validator.regex.email.test(data));
   }
 
+  static integer(data){
+    return (Validator.regex.integer.test(data));
+  }
+
+  static unsignedInteger(data){
+    return (Validator.regex.unsignedInteger.test(data));
+  }
+
+  static rfc(data){
+    return (Validator.regex.rfc.test(data));
+  }
+
+  static minNumber(min, toEval){
+    return (toEval < min);
+  }
+
+  static maxNumber(max, toEval){
+    return (toEval > max);
+  }
+
+  static minMaxNumber(min, max, toEval){
+    return (toEval < min && toEval > max);
+  }
+
+  static minLength(min, toEval){
+    return (toEval.length >= min);
+  }
+
+  static maxLength(max, toEval){
+    return (toEval.length <= max);
+  }
+
+  static minMaxLength(min, max, toEval){
+    return (toEval.length >= min && toEval.length <= max);
+  }
+
+  static equal(secret, toEval){
+    return (secret === toEval);
+  }
+  
   static validate(req, res, next, rules) {
     const error = {
       message: 'Validation Error',
