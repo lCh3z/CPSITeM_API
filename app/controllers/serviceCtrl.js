@@ -1,15 +1,13 @@
-const db = require('../db');
 const { ServiceMdl, Responses } = require('../models');
 
-class serviceCtrl{
-  constructor(){
+class serviceCtrl {
+  constructor() {
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
   }
-
 
   async getAll(req, res, next) {
     try {
@@ -64,6 +62,12 @@ class serviceCtrl{
             oper: '=',
             val: Number(req.param('id')),
           },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
         ],
         null,
         null,
@@ -73,8 +77,9 @@ class serviceCtrl{
 
       if (!data) {
         res.status(500).send(Responses.notFound('Service'));
+      } else {
+        res.status(201).send({ data });
       }
-      res.status(201).send({ data });
     } catch (e) {
       next(e);
     }
@@ -83,7 +88,7 @@ class serviceCtrl{
   async create(req, res, next) {
     try {
       const Service = new ServiceMdl(req.body);
-      const result = await Service.save(req.body);
+      const result = await Service.save(req.body.stat_service);
       if (result) {
         return res.status(201).send(Responses.created('Service'));
       } else {
@@ -94,23 +99,24 @@ class serviceCtrl{
     }
   }
 
-  async update(req, res){
+  async update(req, res, next){
     try {
       const Service = new ServiceMdl(req.body);
       Service.id = Number(req.param('id'));
 
-      const result = await Service.update(req.body);
+      const result = await Service.update(req.body.stat_service);
 
       if(!result){
-        res.status(500).send(Responses.cantRegister('Service'));
+        res.status(500).send(Responses.cantUpdate('Service'));
+      } else {
+        res.status(201).send(Responses.updated('Service'));
       }
-      res.status(201).send(Responses.updated('Service'));
   } catch (e) {
     next(e);
   }
 }
 
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
       const Service = new ServiceMdl({
         id: Number(req.param('id')),
@@ -120,8 +126,9 @@ class serviceCtrl{
 
       if(!result){
         res.status(500).send(Responses.cantDelete('Service'));
+      } else {
+        res.status(201).send(Responses.deleted('Service'));
       }
-      res.status(201).send(Responses.deleted('Service'));
     } catch (e) {
       next(e);
     }

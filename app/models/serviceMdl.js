@@ -7,10 +7,11 @@ class ServiceMdl {
       id_seller,
       id_user,
       hospital,
+      title,
       type,
       equipment,
       model,
-      serial_,
+      serial,
       location,
       contract,
       description,
@@ -25,9 +26,10 @@ class ServiceMdl {
     this.id_user = id_user;
     this.hospital = hospital;
     this.type = type;
-    this.equipment = equipment ;
+    this.title = title;
+    this.equipment = equipment;
     this.model = model;
-    this.serial_ = serial_;
+    this.serial = serial;
     this.location = location;
     this.contract = contract;
     this.description = description;
@@ -43,6 +45,10 @@ class ServiceMdl {
       const response = [];
       for (const res in data) {
         const Service = new ServiceMdl(data[res])
+        const statService = await Service.getImgStatServ(await Service.getStatServ());
+        if (statService.length) {
+          Service.stat_service = statService;
+        }
         response.push(Service);
       }
       return response;
@@ -102,8 +108,23 @@ class ServiceMdl {
           [
             'id',
           ],
+          [
+            {
+              attr: 'title',
+              oper: '=',
+              val: this.title,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
         );
-        return id[0].id;
+        this.id = id[0].id;
+        await this.saveStatServ(stat_service);
+        return this.id;
       }
     } catch (e) {
       throw e;
@@ -112,31 +133,6 @@ class ServiceMdl {
 
   async update(stat_service) {
     try {
-      const id = await db.select(
-        '_Service_',
-        [
-          'id',
-        ],
-        [
-          {
-            attr: 'id',
-            oper: '=',
-            val: this.id,
-          },
-          {
-            logic: 'and',
-            attr: 'status',
-            oper: '!=',
-            val: 0,
-          },
-        ],
-        null,
-        null,
-      );
-      console.log('id', id[0].id);
-      if (id[0].id === this.id) {
-        delete this.id;
-      }
       if (this.id !== undefined && await db.update(
         '_Service_',
         this,
@@ -154,6 +150,7 @@ class ServiceMdl {
           },
         ],
       )) {
+        await this.saveStatServ(stat_service);
         return this.id;
       }
       return false;
@@ -188,6 +185,325 @@ class ServiceMdl {
     } catch (e) {
       throw e;
     }
+  }
+
+  async getStatServ() {
+    let stat_service = []
+    try {
+      stat_service = await db.select(
+        '_StatService_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id_service',
+            oper: '=',
+            val: this.id,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+        null,
+        null,
+      );
+    } catch (e) {
+      throw e;
+    }
+    return stat_service;
+  }
+
+  async getImgStatServ(data) {
+    let img_stat_service = [];
+    for (const stat of data) {
+      try {
+        img_stat_service = await db.select(
+          '_ImgStatServ_',
+          [
+            '*',
+          ],
+          [
+            {
+              attr: 'id_stat_serv',
+              oper: '=',
+              val: stat.id,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
+          null,
+          null,
+        );
+      } catch (e) {
+        throw e;
+      }
+      if (img_stat_service.length) {
+        if (stat.imgs) {
+          stat.imgs.push(img_stat_service);
+        } else {
+          stat.imgs = [img_stat_service];
+        }
+      }
+    }
+
+    return data;
+  }
+
+  async saveImgStatServ(new_list_stat_service) {
+    let stat_service = [];
+    try {
+      stat_service = await db.select(
+        '_StatService_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id_service',
+            oper: '=',
+            val: this.id,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+        null,
+        null,
+      );
+    } catch (e) {
+      throw e;
+    }
+    for (const n_stat_service in new_list_stat_service) {
+      for (const status in stat_service) {
+        if (new_list_stat_service[n_stat_service] && stat_service[status] && new_list_stat_service[n_stat_service].title === stat_service[status].title) {
+          new_list_stat_service[n_stat_service].id_stat_serv = stat_service[status].id
+          const new_list_imgs = new_list_stat_service[n_stat_service].imgs;
+          let old_list_imgs = [];
+          try {
+            old_list_imgs = await db.select(
+              '_ImgStatServ_',
+              [
+                '*',
+              ],
+              [
+                {
+                  attr: 'id_stat_serv',
+                  oper: '=',
+                  val: stat_service[status].id,
+                },
+                {
+                  logic: 'and',
+                  attr: 'status',
+                  oper: '!=',
+                  val: 0,
+                },
+              ],
+              null,
+              null,
+            );
+          } catch (e) {
+            throw e;
+          }
+          for (const n_img in new_list_imgs) {
+            new_list_imgs[n_img].id_stat_serv = stat_service[status].id;
+            for (const o_img in old_list_imgs) {
+              if (new_list_imgs[n_img] && old_list_imgs[o_img] && new_list_imgs[n_img].photo === old_list_imgs[o_img].photo) {
+                try {
+                  await db.update(
+                    '_ImgStatServ_',
+                    new_list_imgs[n_img],
+                    [
+                      {
+                        attr: 'id_stat_serv',
+                        oper: '=',
+                        val: stat_service[status].id,
+                      },
+                      {
+                        logic: 'and',
+                        attr: 'photo',
+                        oper: '=',
+                        val: new_list_imgs[n_img].photo,
+                      },
+                      {
+                        logic: 'and',
+                        attr: 'status',
+                        oper: '!=',
+                        val: 0,
+                      },
+                    ],
+                  );
+                } catch (e) {
+                  throw e;
+                }
+                delete new_list_imgs[n_img];
+                delete old_list_imgs[o_img];
+              }
+            }
+          }
+          for (const n_img in new_list_imgs) {
+            await db.create(
+              '_ImgStatServ_',
+              new_list_imgs[n_img],
+            );
+          }
+
+          for (const o_img in old_list_imgs) {
+            await db.delete(
+              '_ImgStatServ_',
+              {},
+              [
+                {
+                  attr: 'id_stat_serv',
+                  oper: '=',
+                  val: stat_service[status].id
+                },
+                {
+                  logic: 'and',
+                  attr: 'photo',
+                  oper: '=',
+                  val: old_list_imgs[o_img].photo,
+                },
+                {
+                  logic: 'and',
+                  attr: 'status',
+                  oper: '!=',
+                  val: 0,
+                },
+              ],
+            );
+          }
+        }
+      }
+    }
+  }
+
+  async saveStatServ(new_list_stat_service) {
+    let old_list_stat_service = [];
+    try {
+      old_list_stat_service = await db.select(
+        '_StatService_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id_service',
+            oper: '=',
+            val: this.id,
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+        null,
+        null,
+      );
+    } catch (e) {
+      throw e;
+    }
+    let temp_list = new_list_stat_service.slice();
+    for (const n_stat_service in new_list_stat_service) {
+      new_list_stat_service[n_stat_service].id_service = this.id;
+      const tmpIdServ = new_list_stat_service[n_stat_service].id_service;
+      const tmpImgs = new_list_stat_service[n_stat_service].imgs.slice();
+      delete new_list_stat_service[n_stat_service].imgs;
+      delete new_list_stat_service[n_stat_service].id;
+      for(const o_stat_service in new_list_stat_service) {
+        if (new_list_stat_service[n_stat_service] && old_list_stat_service[o_stat_service] && new_list_stat_service[n_stat_service].title === old_list_stat_service[o_stat_service].title) {
+          delete new_list_stat_service[n_stat_service].id_service;
+          try {
+            await db.update(
+              '_StatService_',
+              new_list_stat_service[n_stat_service],
+              [
+                {
+                  attr: 'id_service',
+                  oper: '=',
+                  val: tmpIdServ,
+                },
+                {
+                  logic: 'and',
+                  attr: 'title',
+                  oper: '=',
+                  val: new_list_stat_service[n_stat_service].title,
+                },
+                {
+                  logic: 'and',
+                  attr: 'status',
+                  oper: '!=',
+                  val: 0,
+                },
+              ],
+            );
+          } catch (e) {
+            throw e;
+          }
+          delete new_list_stat_service[n_stat_service];
+          delete old_list_stat_service[o_stat_service];
+        }
+      }
+      temp_list[n_stat_service].imgs = tmpImgs;
+    }
+
+    for(const n_stat_service in new_list_stat_service) {
+      const tmpImgs = new_list_stat_service[n_stat_service].imgs.slice();
+      delete new_list_stat_service[n_stat_service].imgs;
+      try {
+        await db.create(
+          '_StatService_',
+          new_list_stat_service[n_stat_service],
+        );
+      } catch (e) {
+        throw e;
+      }
+      temp_list[n_stat_service].imgs = tmpImgs;
+    }
+
+    for(const o_stat_service in old_list_stat_service) {
+      try {
+        await db.delete(
+          '_StatService_',
+          {},
+          [
+            {
+              attr: 'id_service',
+              oper: '=',
+              val: this.id,
+            },
+            {
+              logic: 'and',
+              attr: 'id',
+              oper: '=',
+              val: old_list_stat_service[o_stat_service].id,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
+        );
+      } catch (e) {
+        throw e;
+      }
+    }
+
+    await this.saveImgStatServ(temp_list);
   }
 }
 
