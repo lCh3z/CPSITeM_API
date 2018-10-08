@@ -89,9 +89,9 @@ class cartCtrl {
       const result = await Cart.delete();
 
       if(!result){
-        res.status(500).send(Responses.cantDelete('user'));
+        res.status(500).send(Responses.cantDelete('cart'));
       } else {
-        res.status(200).send(Responses.deleted('user'));
+        res.status(200).send(Responses.deleted('cart'));
       }
     } catch (e) {
       next(e);
