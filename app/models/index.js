@@ -6,8 +6,6 @@ const ServiceMdl = require('./serviceMdl');
 const ProductMdl = require('./productMdl');
 const NotificationMdl = require('./notificationMdl');
 const NewsListMdl = require('./newsListMdl');
-const StatServiceMdl = require('./statServiceMdl');
-const ImgStatServMdl = require('./imgStatServMdl');
 const CategoryMdl = require('./categoryMdl');
 const CupponMdl = require('./cupponMdl');
 const PaymentMdl = require('./paymentMdl');
@@ -25,8 +23,6 @@ module.exports = {
   ProductMdl,
   NotificationMdl,
   NewsListMdl,
-  StatServiceMdl,
-  ImgStatServMdl,
   CategoryMdl,
   CupponMdl,
   PaymentMdl,

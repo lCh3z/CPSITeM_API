@@ -256,13 +256,10 @@ class ProductMdl {
     } catch (e) {
       throw e;
     }
-    console.log('N', new_list_imgs);
-    console.log('O', old_list_imgs);
+
     for (const n_img in new_list_imgs) {
       new_list_imgs[n_img].id_prod = this.id;
       for(const o_img in old_list_imgs) {
-        console.log('n', new_list_imgs[n_img]);
-        console.log('o', old_list_imgs[o_img]);
         if (new_list_imgs[n_img] && old_list_imgs[o_img] && new_list_imgs[n_img].photo === old_list_imgs[o_img].photo) {
           await db.update(
             '_ImgProduct_',
@@ -292,8 +289,7 @@ class ProductMdl {
         }
       }
     }
-    console.log('N', new_list_imgs);
-    console.log('O', old_list_imgs);
+
     for(const n_img in new_list_imgs) {
       try {
         await db.create(

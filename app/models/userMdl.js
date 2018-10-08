@@ -516,11 +516,11 @@ class UserMdl {
 
     for (const n_addresses in new_list_addresses) {
       new_list_addresses[n_addresses].id_user = this.id;
+      const tmpId = new_list_addresses[n_addresses].id;
+      delete new_list_addresses[n_addresses].id;
       for(const o_addresses in old_list_addresses) {
         if (new_list_addresses[n_addresses] && old_list_addresses[o_addresses] && new_list_addresses[n_addresses].id === old_list_addresses[o_addresses].id) {
           try {
-            const tmpId = new_list_addresses[n_addresses].id;
-            delete new_list_addresses[n_addresses].id;
             await db.update(
               '_Address_',
               new_list_addresses[n_addresses],
