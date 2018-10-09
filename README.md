@@ -75,6 +75,10 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	https://floobits.com/lCh3z/CPSITeM/file/db.sql
 - URL carpeta de documentación en Drive :
 	https://drive.google.com/drive/u/0/folders/1u_8xk6MY4cjV69JpTGguUYrdHKM514yq
+- URL postman :
+	https://www.getpostman.com/collections/e592223584344d2fe0d9
+- URL enviorment : 
+	https://www.db4free.net/
 	
 ## Colaboradores
 
@@ -85,8 +89,9 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM1Mjg4MzkwNCwxNzQ0NTM1MjEsMjEyOD
-k3ODUxMCwtOTk5NjQ2MDg3LC04MzYwNDI5MjYsMTUwMDE2NTAx
-OCwtMTc3NDQ3NTEyMCwtMTAxMDMyNTc5LC0yMTIzNzQwMzQ3LD
-UxOTYwMjgzMCwtMTQ0NDE5ODIxMl19
+eyJoaXN0b3J5IjpbLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMz
+UyODgzOTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYw
+ODcsLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC
+0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0
+MTk4MjEyXX0=
 -->
