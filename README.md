@@ -77,7 +77,11 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	https://drive.google.com/drive/u/0/folders/1u_8xk6MY4cjV69JpTGguUYrdHKM514yq
 - URL postman :
 	https://www.getpostman.com/collections/e592223584344d2fe0d9
-- URL enviorment : https://www.db4free.net/
+- URL enviorment : 
+	https://www.db4free.net/
+	user : devuser
+	pass: 12345678
+	por: 3306
 	
 	
 ## Colaboradores
@@ -89,9 +93,9 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNTUyMDA4NzksLTg2ODU0NzIxNiwxMz
-UyODgzOTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYw
-ODcsLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC
-0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0
-MTk4MjEyXX0=
+eyJoaXN0b3J5IjpbMTk1MDk4NTkyNiwtODY4NTQ3MjE2LDEzNT
+I4ODM5MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLTk5OTY0NjA4
+NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0NzUxMjAsLT
+EwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MTk2MDI4MzAsLTE0NDQx
+OTgyMTJdfQ==
 -->
