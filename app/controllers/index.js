@@ -1,0 +1,14 @@
+exports.userCtrl = require('./userCtrl');
+exports.wishListCtrl = require('./wishListCtrl');
+exports.cartCtrl = require('./cartCtrl');
+exports.orderCtrl = require('./orderCtrl');
+exports.serviceCtrl = require('./serviceCtrl');
+exports.productCtrl = require('./productCtrl');
+exports.notificationCtrl = require('./notificationCtrl');
+exports.newsListCtrl = require('./newsListCtrl');
+exports.categoryCtrl = require('./categoryCtrl');
+exports.cupponCtrl = require('./cupponCtrl');
+exports.paymentCtrl = require('./paymentCtrl');
+exports.configurationCtrl = require('./configurationCtrl');
+exports.sectionCtrl = require('./sectionCtrl');
+exports.confSectionCtrl = require('./confSectionCtrl');
