@@ -46,3 +46,6 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
  - Utilizar un sistema para la gestión de versiones.
  - Apoyarnos de *API Docs* para la documentación del código.
  - Utilizar los navegadores *Google Chrome v49, Internet Explorer 11, Mozilla Firefox v61, Safari 11 y Edege 17* para asegurarnos de que el sitio se muestra de manera correcta an la mayor cantidad de navegadores como sea posible.
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTE0NDQxOTgyMTJdfQ==
+-->
