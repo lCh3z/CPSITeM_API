@@ -59,12 +59,12 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 - URL carpeta de documentación en Drive :
 	https://drive.google.com/drive/u/0/folders/1u_8xk6MY4cjV69JpTGguUYrdHKM514yq
 - URL Postman : 
-	https://www.getpostman.com/
+	https://www.getpostman.com/collections/1213d3
 	
 	
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNz
-c0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5NjAy
-ODMwLC0xNDQ0MTk4MjEyXX0=
+eyJoaXN0b3J5IjpbMTYxNjk5NzYzOCwtODM2MDQyOTI2LDE1MD
+AxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0
+MDM0Nyw1MTk2MDI4MzAsLTE0NDQxOTgyMTJdfQ==
 -->
