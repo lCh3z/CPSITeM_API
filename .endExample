@@ -1,0 +1,6 @@
+
+  DB_HOST=https://www.db4free.net/
+  DB_USER=root
+  DB_PASS=08642
+  DB_NAME=root
+  PORT=3409
