@@ -61,7 +61,7 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   Cliente: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
 
 ## Instancias de instalación
-
+- Base de datos: Se requiere un sistema gestor de base de datos el cual sea capaz de manejar SQL, una vez en el se 
 
 ## URLs de demostración
 
@@ -83,8 +83,8 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTAwMjYwNjM1OCwyMTI4OTc4NTEwLC05OT
-k2NDYwODcsLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1
-MTIwLC0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC
-0xNDQ0MTk4MjEyXX0=
+eyJoaXN0b3J5IjpbLTEzMTMzODEzNjcsMjEyODk3ODUxMCwtOT
+k5NjQ2MDg3LC04MzYwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3
+NTEyMCwtMTAxMDMyNTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMC
+wtMTQ0NDE5ODIxMl19
 -->
