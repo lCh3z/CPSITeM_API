@@ -58,12 +58,13 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	https://floobits.com/lCh3z/CPSITeM/file/db.sql
 - URL carpeta de documentación en Drive :
 	https://drive.google.com/drive/u/0/folders/1u_8xk6MY4cjV69JpTGguUYrdHKM514yq
-- URL Postman :
+- URL Postman : 
+	https://www.getpostman.com/
 	
 	
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMT
-AxMDMyNTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5
-ODIxMl19
+eyJoaXN0b3J5IjpbLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNz
+c0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5NjAy
+ODMwLC0xNDQ0MTk4MjEyXX0=
 -->
