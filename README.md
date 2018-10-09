@@ -46,3 +46,46 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
  - Utilizar un sistema para la gestión de versiones.
  - Apoyarnos de *API Docs* para la documentación del código.
  - Utilizar los navegadores *Google Chrome v49, Internet Explorer 11, Mozilla Firefox v61, Safari 11 y Edege 17* para asegurarnos de que el sitio se muestra de manera correcta an la mayor cantidad de navegadores como sea posible.
+
+
+## Módulos y su Funcionalidad
+
+-   Carrito: Este modulo permite tener acceso a clientes previamente registrados, en donde se almacena de forma temporal, todos los artículos que se desean comprar o de alguna forma en un futuro se pretenden adquirir.
+-   Servicios: Dentro de este apartado entran dos perfiles, tanto el empleado o el usuario (cliente), ya que por una parte los empleados les permite cambiar a estatus a servicios previamente solicitados por clientes o incluso dar algun seguimiento, por otra parte a los clientes les permite verificar la gama de servicios que brinda la empresa y a los cuales se puede realizar alguna Reservacion o solicitar alguna alta.
+-   Login: En este apartado entran todos los usuarios, desde administradores, empleados, clientes, ya que es el filtro que va determinar que acciones son posibles de acuerdo a tu nivel de usuario o que acciones simplemente van a estar deshabilitadas de acuerdo a tu perfil.
+
+## Usuarios y Permisos
+
+-   Administrador: Este usuario tendrá acceso total a modificaciones dentro del sistema, cabe mencionar que también podrá realizar cambios a otros usuarios en cuanto a permisos.
+-   Empleado: Puede tener acceso a modificaciones de estatus de servicios que están pendientes o que ya fueron realizados, también pueden realizar actividades dentro de la plataforma como dar de lata un nuevo producto, actualizar el inventario o simplemente realizar modificaciones a post creados dentro de la misma pagina.
+-   Cliente: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
+
+
+## URLs de demostración
+
+- URL repositorio de GIT :
+	https://github.com/lCh3z/CPSITeM_API
+- URL para clonar o descargar repositorio :
+	https://github.com/lCh3z/CPSITeM_API.git
+- URL floobits, archivo de BD :
+	https://floobits.com/lCh3z/CPSITeM/file/db.sql
+- URL carpeta de documentación en Drive :
+	https://drive.google.com/drive/u/0/folders/1u_8xk6MY4cjV69JpTGguUYrdHKM514yq
+- URL Postman : 
+	https://www.getpostman.com/collections/1213d3c28bb54f066fd3
+	https://www.getpostman.com/
+	
+	## Colaboradores
+
+-   RUIZ ACEVEDO SAUL FRANCISCO
+-   OCHOA DE LOS ANGELES LUIS ANGEL
+-   RUELAS BUENROSTRO ULISES MARCOS
+-   MARTINEZ GONZALEZ OSCAR EDUARDO
+	
+
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC04Mz
+YwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAxMDMy
+NTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5ODIxMl
+19
+-->
