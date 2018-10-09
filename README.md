@@ -56,9 +56,11 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	https://github.com/lCh3z/CPSITeM_API.git
 - URL floobits, archivo de BD :
 	https://floobits.com/lCh3z/CPSITeM/file/db.sql
+- URL carpeta de documentación en 
 - URL Postman :
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMj
-EyMzc0MDM0Nyw1MTk2MDI4MzAsLTE0NDQxOTgyMTJdfQ==
+eyJoaXN0b3J5IjpbMTcxNjE1MjUyNywtMTc3NDQ3NTEyMCwtMT
+AxMDMyNTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5
+ODIxMl19
 -->
