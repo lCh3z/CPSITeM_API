@@ -60,12 +60,13 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	https://drive.google.com/drive/u/0/folders/1u_8xk6MY4cjV69JpTGguUYrdHKM514yq
 - URL Postman : 
 	https://www.getpostman.com/collections/1213d3c28bb54f066fd3
+	https://www.getpostman.com/
 	
 	
 	
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTcxNjIwOTk1OSwtOTk5NjQ2MDg3LC04Mz
+eyJoaXN0b3J5IjpbMTQ3Nzg1MDE5NSwtOTk5NjQ2MDg3LC04Mz
 YwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAxMDMy
 NTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5ODIxMl
 19
