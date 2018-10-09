@@ -50,7 +50,9 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 
 ## URLs de demostración
 
+- Dirección del repositorio de GIT :
+	
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xND
-Q0MTk4MjEyXX0=
+eyJoaXN0b3J5IjpbMjA5MTA3NzgxMywtMjEyMzc0MDM0Nyw1MT
+k2MDI4MzAsLTE0NDQxOTgyMTJdfQ==
 -->
