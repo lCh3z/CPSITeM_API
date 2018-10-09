@@ -63,7 +63,7 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 ## Instancias de instalación
 - Base de datos: Se requiere un sistema gestor de base de datos el cual sea capaz de manejar SQL, una vez en el se crea la base de datos CPSITeM.
 - Repositorios: Es necesario el descargar el contenido del repositorio para conseguir todos los End points.
--  
+- Postman 
 
 ## URLs de demostración
 
@@ -85,8 +85,8 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLTk5OT
-Y0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0NzUx
-MjAsLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MTk2MDI4MzAsLT
-E0NDQxOTgyMTJdfQ==
+eyJoaXN0b3J5IjpbLTg3MTYyNzgyMSwxNzQ0NTM1MjEsMjEyOD
+k3ODUxMCwtOTk5NjQ2MDg3LC04MzYwNDI5MjYsMTUwMDE2NTAx
+OCwtMTc3NDQ3NTEyMCwtMTAxMDMyNTc5LC0yMTIzNzQwMzQ3LD
+UxOTYwMjgzMCwtMTQ0NDE5ODIxMl19
 -->
