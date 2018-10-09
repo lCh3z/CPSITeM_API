@@ -60,6 +60,8 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   Empleado: Puede tener acceso a modificaciones de estatus de servicios que están pendientes o que ya fueron realizados, también pueden realizar actividades dentro de la plataforma como dar de lata un nuevo producto, actualizar el inventario o simplemente realizar modificaciones a post creados dentro de la misma pagina.
 -   Cliente: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
 
+## Instancias de instalación
+
 
 ## URLs de demostración
 
@@ -71,9 +73,6 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	https://floobits.com/lCh3z/CPSITeM/file/db.sql
 - URL carpeta de documentación en Drive :
 	https://drive.google.com/drive/u/0/folders/1u_8xk6MY4cjV69JpTGguUYrdHKM514yq
-- URL Postman : 
-	https://www.getpostman.com/collections/1213d3c28bb54f066fd3
-	https://www.getpostman.com/
 	
 	## Colaboradores
 
@@ -84,8 +83,8 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC04Mz
-YwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAxMDMy
-NTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5ODIxMl
-19
+eyJoaXN0b3J5IjpbMTAwMjYwNjM1OCwyMTI4OTc4NTEwLC05OT
+k2NDYwODcsLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1
+MTIwLC0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC
+0xNDQ0MTk4MjEyXX0=
 -->
