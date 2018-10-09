@@ -11,10 +11,6 @@ const { errorHandler } = require('./middlewares');
 
 const app = express();
 
-app.get('/', function(req, res){
-  res.send('Welcome to CPSITeM_API');
-});
-
 // Cargamos los middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
