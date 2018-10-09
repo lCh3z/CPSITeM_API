@@ -61,7 +61,6 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   Cliente: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
 
 
-
 ## URLs de demostración
 
 - URL repositorio de GIT :
@@ -76,11 +75,16 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	https://www.getpostman.com/collections/1213d3c28bb54f066fd3
 	https://www.getpostman.com/
 	
-	
+	## Colaboradores
+
+-   RUIZ ACEVEDO SAUL FRANCISCO
+-   OCHOA DE LOS ANGELES LUIS ANGEL
+-   RUELAS BUENROSTRO ULISES MARCOS
+-   MARTINEZ GONZALEZ OSCAR EDUARDO
 	
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM4MTY0NjY1MywtOTk5NjQ2MDg3LC04Mz
+eyJoaXN0b3J5IjpbMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC04Mz
 YwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAxMDMy
 NTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5ODIxMl
 19
