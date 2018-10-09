@@ -4,7 +4,7 @@ class Validator {
       word: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}$/,
       email: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       integer: /^[+-]?[0-9]+$/,
-      unsignedInteger: /^\d+(\.\d+)?$/,
+      unsigned: /^\d+(\.\d+)?$/,
       rfc: /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/,
     };
   }
@@ -25,7 +25,7 @@ class Validator {
     return (Validator.regex.integer.test(data));
   }
 
-  static unsignedInteger(data){
+  static unsigned(data){
     return (Validator.regex.unsignedInteger.test(data));
   }
 
@@ -60,7 +60,7 @@ class Validator {
   static equal(secret, toEval){
     return (secret === toEval);
   }
-  
+
   static validate(req, res, next, rules) {
     const error = {
       message: 'Validation Error',
