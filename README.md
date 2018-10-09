@@ -50,9 +50,12 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 
 ## URLs de demostración
 
-- Dirección del repositorio de GIT :
-	
+- URL repositorio de GIT :
+	https://github.com/lCh3z/CPSITeM_API
+- URL para clonar o descargar repositorio :
+	https://github.com/lCh3z/CPSITeM_API.git
+- 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA5MTA3NzgxMywtMjEyMzc0MDM0Nyw1MT
+eyJoaXN0b3J5IjpbLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MT
 k2MDI4MzAsLTE0NDQxOTgyMTJdfQ==
 -->
