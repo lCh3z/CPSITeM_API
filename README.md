@@ -54,8 +54,10 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	https://github.com/lCh3z/CPSITeM_API
 - URL para clonar o descargar repositorio :
 	https://github.com/lCh3z/CPSITeM_API.git
-- URL 
+- URL floobits, archivo de BD :
+	https://floobits.com/lCh3z/CPSITeM/file/db.sql
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTExMDQ3MTY2MCwtMTAxMDMyNTc5LC0yMT
+eyJoaXN0b3J5IjpbLTg3ODUwMjQ2MiwtMTAxMDMyNTc5LC0yMT
 IzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5ODIxMl19
 -->
