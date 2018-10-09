@@ -54,8 +54,8 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	https://github.com/lCh3z/CPSITeM_API
 - URL para clonar o descargar repositorio :
 	https://github.com/lCh3z/CPSITeM_API.git
-- 
+- URL 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MT
-k2MDI4MzAsLTE0NDQxOTgyMTJdfQ==
+eyJoaXN0b3J5IjpbMTExMDQ3MTY2MCwtMTAxMDMyNTc5LC0yMT
+IzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5ODIxMl19
 -->
