@@ -76,7 +76,7 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 - URL carpeta de documentación en Drive :
 	https://drive.google.com/drive/u/0/folders/1u_8xk6MY4cjV69JpTGguUYrdHKM514yq
 	
-	## Colaboradores
+## Colaboradores
 
 -   RUIZ ACEVEDO SAUL FRANCISCO
 -   OCHOA DE LOS ANGELES LUIS ANGEL
@@ -85,7 +85,7 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA0MjQ1MjMyOCwxNzQ0NTM1MjEsMjEyOD
+eyJoaXN0b3J5IjpbMTM1Mjg4MzkwNCwxNzQ0NTM1MjEsMjEyOD
 k3ODUxMCwtOTk5NjQ2MDg3LC04MzYwNDI5MjYsMTUwMDE2NTAx
 OCwtMTc3NDQ3NTEyMCwtMTAxMDMyNTc5LC0yMTIzNzQwMzQ3LD
 UxOTYwMjgzMCwtMTQ0NDE5ODIxMl19
