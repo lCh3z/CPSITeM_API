@@ -1,6 +1,6 @@
 const db = require('../db');
 const { NotificationMdl } = require('../models');
-
+const { Responses } = require('../models');
 class notificationCtrl{
   constructor(){
     this.getAll = this.getAll.bind(this);
@@ -10,73 +10,136 @@ class notificationCtrl{
     this.delete = this.delete.bind(this);
     this.processResult = this.processResult.bind(this);
   }
-  processResult(data) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new NotificationMdl(res));
-    });
-    return result;
-  }
-
-  async getAll(req, res){
-    let data = await db.getAll('_Notification_', ['id', 'title', 'cont', 'id_user', 'date', 'prog', 'status'], '', '', '');
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
-    } else {
-      res.status(200).send({ data });
+  async processResult(data, next) {
+    try {
+      let temp;
+      let result = [];
+      for (const res of data) {
+        temp = new NotificationMdl(res);
+        result.push(temp);
+      }
+      return result;
+    } catch (e) {
+      next(e);
     }
   }
 
-  async get(req, res){
-    let data = await db.get('_Notification_', ['id', 'title', 'cont', 'id_user', 'date', 'prog', 'status'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
-    } else {
-      res.status(200).send({ data });
+
+  async getAll(req, res, next) {
+    try {
+      const page = parseInt(req.param('page'));
+      const per_page = parseInt(req.param('per_page'));
+      const start = page * per_page;
+
+      let data = await NotificationMdl.select(
+        '_Notification_',
+        [
+          '*',
+        ],
+        null,
+        null,
+        {
+          start,
+          quant: per_page,
+        },
+      );
+
+      data = await this.processResult(data, next);
+
+      if (data.length === 0) {
+        res.status(500).send(Responses.notFound('Notification'));
+      } else {
+        const total = await NotificationMdl.count(
+          '_Notification_',
+          '',
+          '',
+        );
+
+        res.status(200).send({
+          data,
+          per_page,
+          page,
+          total,
+        });
+      }
+    } catch (e) {
+      next(e);
     }
   }
 
-  async create(req, res){
-    const newNotification = new NotificationMdl(req.body);
+  async get(req, res, next) {
+    try {
+      let data = await NotificationMdl.select(
+        '_Notification_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id',
+            oper: '=',
+            val: Number(req.param('id')),
+          },
+        ],
+        null,
+        null,
+      );
 
-    const result = await newNotification.save();
+      [data] = await this.processResult(data, next);
 
-    if(result === 0){
-      res.status(201).send({ message: 'Registrado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo registrar' });
+      if (!data) {
+        res.status(500).send(Responses.notFound('Notification'));
+      }
+      res.status(201).send({ data });
+    } catch (e) {
+      next(e);
     }
   }
+
+  async create(req, res, next) {
+    try {
+      let result = await new NotificationMdl(req.body).save();
+      if (result) {
+        res.status(201).send(Responses.created('Notification'));
+
+      } else {
+        return res.status(500).send(Responses.cantCreate('Notification'));
+      }
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async update(req, res){
-    const Notification = new NotificationMdl(req.body);
-    Notification.id = req.param('id');
+    try {
+      const Notification = new NotificationMdl(req.body);
+      Notification.id = Number(req.param('id'));
 
-    const result = await Notification.save();
+      const result = await Notification.update();
 
-    if(result === 0){
-      res.status(200).send({ message: 'Actualizado correctamente' });
-    } else if (result === 1) {
-      res.status(201).send({ message: 'Registrado correctamente'});
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a actualizar' });
-    }
+      if(!result){
+        res.status(500).send(Responses.cantRegister('Notification'));
+      }
+      res.status(201).send(Responses.updated('Notification'));
+  } catch (e) {
+    next(e);
   }
+}
 
-  async delete(req, res){
-    const Notification = new NotificationMdl({
-      id  : Number(req.param('id')),
-    });
+  async delete(req, res) {
+    try {
+      const Notification = new NotificationMdl({
+        id: Number(req.param('id')),
+      });
 
-    const result = await Notification.delete();
+      const result = await Notification.delete();
 
-    if(result === 0){
-      res.status(200).send({ message: 'Eliminado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo eliminar' });
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+      if(!result){
+        res.status(500).send(Responses.cantDelete('Notification'));
+      }
+      res.status(201).send(Responses.deleted('Notification'));
+    } catch (e) {
+      next(e);
     }
   }
 }

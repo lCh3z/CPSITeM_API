@@ -1,6 +1,6 @@
 const db = require('../db');
 const { PaymentMdl } = require('../models');
-
+const { Responses } = require('../models');
 class paymentCtrl{
   constructor(){
     this.getAll = this.getAll.bind(this);
@@ -11,73 +11,136 @@ class paymentCtrl{
     this.processResult = this.processResult.bind(this);
   }
 
-  processResult(data) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new PaymentMdl(res));
-    });
-    return result;
-  }
-
-  async getAll(req, res){
-    let data = await db.getAll('_Payment_', ['id_client', 'account', 'token'], '', '', '');
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
-    } else {
-      res.status(200).send({ data });
+  async processResult(data, next) {
+    try {
+      let temp;
+      let result = [];
+      for (const res of data) {
+        temp = new PaymentMdl(res);
+        result.push(temp);
+      }
+      return result;
+    } catch (e) {
+      next(e);
     }
   }
 
-  async get(req, res){
-    let data = await db.get('_Payment_', ['id_client', 'account', 'token'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
-    } else {
-      res.status(200).send({ data });
+
+  async getAll(req, res, next) {
+    try {
+      const page = parseInt(req.param('page'));
+      const per_page = parseInt(req.param('per_page'));
+      const start = page * per_page;
+
+      let data = await PaymentMdl.select(
+        '_Payment_',
+        [
+          '*',
+        ],
+        null,
+        null,
+        {
+          start,
+          quant: per_page,
+        },
+      );
+
+      data = await this.processResult(data, next);
+
+      if (data.length === 0) {
+        res.status(500).send(Responses.notFound('Payment'));
+      } else {
+        const total = await PaymentMdl.count(
+          '_Payment_',
+          '',
+          '',
+        );
+
+        res.status(200).send({
+          data,
+          per_page,
+          page,
+          total,
+        });
+      }
+    } catch (e) {
+      next(e);
     }
   }
 
-  async create(req, res){
-    const newPayment = new PaymentMdl(req.body);
+  async get(req, res, next) {
+    try {
+      let data = await PaymentMdl.select(
+        '_Payment_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id',
+            oper: '=',
+            val: Number(req.param('id')),
+          },
+        ],
+        null,
+        null,
+      );
 
-    const result = await newPayment.save();
+      [data] = await this.processResult(data, next);
 
-    if(result === 0){
-      res.status(201).send({ message: 'Registrado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo registrar' });
+      if (!data) {
+        res.status(500).send(Responses.notFound('Payment'));
+      }
+      res.status(201).send({ data });
+    } catch (e) {
+      next(e);
     }
   }
-  async update(req, res){
-    const payment = new PaymentMdl(req.body);
-    payment.id = req.param('id');
 
-    const result = await payment.save();
+  async create(req, res, next) {
+    try {
+      let result = await new PaymentMdl(req.body).save();
+      if (result) {
+        res.status(201).send(Responses.created('Payment'));
 
-    if(result === 0){
-      res.status(200).send({ message: 'Actualizado correctamente' });
-    } else if (result === 1) {
-      res.status(201).send({ message: 'Registrado correctamente'});
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+      } else {
+        return res.status(500).send(Responses.cantCreate('Payment'));
+      }
+    } catch (e) {
+      next(e);
     }
   }
 
-  async delete(req, res){
-    const payment = new PaymentMdl({
-      id: Number(req.param('id')),
-    });
+  async update(req, res, next){
+    try {
+      const Payment = new PaymentMdl(req.body);
+      Payment.id = Number(req.param('id'));
 
-    const result = await payment.delete();
+      const result = await Payment.update();
 
-    if(result === 0){
-      res.status(200).send({ message: 'Eliminado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo eliminar' });
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+      if(!result){
+        res.status(500).send(Responses.cantRegister('Payment'));
+      }
+      res.status(201).send(Responses.updated('Payment'));
+  } catch (e) {
+    next(e);
+  }
+}
+
+  async delete(req, res, next) {
+    try {
+      const Payment = new PaymentMdl({
+        id: Number(req.param('id')),
+      });
+
+      const result = await Payment.delete();
+
+      if(!result){
+        res.status(500).send(Responses.cantDelete('Payment'));
+      }
+      res.status(201).send(Responses.deleted('Payment'));
+    } catch (e) {
+      next(e);
     }
   }
 }

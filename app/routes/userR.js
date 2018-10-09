@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { userCtrl } = require('../controllers');
+const { userCtrl, cartCtrl, wishListCtrl } = require('../controllers');
 const middlewares = require('../middlewares');
 
 router.get('/', userCtrl.getAll);
@@ -41,4 +41,19 @@ router.put('/:id',
   userCtrl.update);
 
 router.delete('/:id', userCtrl.delete);
+
+router.get('/:id/cart', cartCtrl.getAll);
+
+router.post('/:id/cart', cartCtrl.create);
+
+router.put('/:id/cart/:id_product', cartCtrl.update);
+
+router.delete('/:id/cart/:id_product', cartCtrl.delete);
+
+router.get('/:id/wishlist', wishListCtrl.getAll);
+
+router.post('/:id/wishlist/', wishListCtrl.create);
+
+router.delete('/:id/wishlist/:id_product', wishListCtrl.delete);
+
 module.exports = router;

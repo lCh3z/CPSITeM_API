@@ -1,9 +1,8 @@
 const db = require('../db');
-const { CartMdl } = require('../models');
+const { CartMdl, Responses } = require('../models');
 
-
-class cartCtrl{
-  constructor(){
+class cartCtrl {
+  constructor() {
     this.getAll = this.getAll.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
@@ -11,7 +10,7 @@ class cartCtrl{
     this.processResult = this.processResult.bind(this);
   }
 
-  processResult(data) {
+  processResult(data, next) {
     const result = [];
     data.forEach((res) => {
       result.push(new CartMdl(res));
@@ -19,65 +18,83 @@ class cartCtrl{
     return result;
   }
 
-  async getAll(req, res){
-    let data = await db.getAll('_Cart_', ['id_user', 'id_product', 'quantity'], '', '', '');
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
-    } else {
-      res.status(200).send({ data });
+  async getAll(req, res, next) {
+    try {
+      let data = await CartMdl.select(
+        '_Cart_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id_user',
+            oper: '=',
+            val: Number(req.param('id')),
+          },
+        ],
+        null,
+        null,
+      );
+
+      data = this.processResult(data, next);
+
+      if (data.length === 0) {
+        res.status(409).send(Responses.notFound('cart'));
+      } else {
+        res.status(200).send({ data });
+      }
+    } catch (e) {
+      next(e);
     }
   }
 
-  async get(req, res){
-    let data = await db.get('_Cart_', ['id_user', 'id_product', 'quantity'], [{ attr: 'id_user', oper: '=', val: Number(req.param('id_user')) }]);
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
-    } else {
-      res.status(200).send({ data });
+  async create(req, res, next) {
+    try {
+      let Cart = new CartMdl(req.body);
+      Cart.id_user = Number(req.param('id'))
+      let result = await Cart.save();
+      if (result) {
+        res.status(201).send(Responses.created('cart'));
+      } else {
+        return res.status(500).send(Responses.cantCreate('cart'));
+      }
+    } catch (e) {
+      next(e);
     }
   }
 
-  async create(req, res){
-    const newCart = new CartMdl(req.body);
-
-    const result = await newCart.save();
-
-    if(result === 0){
-      res.status(201).send({ message: 'Registrado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo registrar' });
-    }
-  }
-  async update(req, res){
-    const Cart = new CartMdl(req.body);
-    Cart.id_user = req.param('id_user');
-
-    const result = await Cart.save();
-
-    if(result === 0){
-      res.status(200).send({ message: 'Actualizado correctamente' });
-    } else if (result === 1) {
-      res.status(201).send({ message: 'Registrado correctamente'});
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+  async update(req, res, next) {
+    try {
+      let Cart = new CartMdl(req.body);
+      Cart.id_user = Number(req.param('id'))
+      Cart.id_product = Number(req.param('id_product'))
+      const result = await Cart.save();
+      if (result) {
+        res.status(200).send(Responses.updated('cart'));
+      } else {
+        return res.status(500).send(Responses.cantUpdate('cart'));
+      }
+    } catch (e) {
+      next(e);
     }
   }
 
-  async delete(req, res){
-    const Cart = new CartMdl({
-      id_user: Number(req.param('id_user')),
-    });
+  async delete(req, res, next) {
+    try {
+      const Cart = new CartMdl({
+        id_user: Number(req.param('id')),
+        id_product: Number(req.param('id_product')),
+      });
 
-    const result = await Cart.delete();
+      const result = await Cart.delete();
 
-    if(result === 0){
-      res.status(200).send({ message: 'Eliminado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo eliminar' });
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+      if(!result){
+        res.status(500).send(Responses.cantDelete('user'));
+      } else {
+        res.status(200).send(Responses.deleted('user'));
+      }
+    } catch (e) {
+      next(e);
     }
   }
 }
