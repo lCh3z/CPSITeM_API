@@ -6,6 +6,9 @@ class Validator {
       integer: /^[+-]?[0-9]+$/,
       unsigned: /^\d+(\.\d+)?$/,
       rfc: /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/,
+      file: /([a-zA-Z0-9\s_\\.\-\(\):])+(\.xml|\.pdf)$/,
+      image: /([a-zA-Z0-9\s_\\.\-\(\):])+(\.jpg|\.jpeg|\.png)$/,
+      secret: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)([a-zA-Z\d\W]{8,})/,
     };
   }
 
@@ -31,6 +34,18 @@ class Validator {
 
   static rfc(data){
     return (Validator.regex.rfc.test(data));
+  }
+
+  static file(data){
+    return(Validator.regex.file.test(data));
+  }
+
+  static image(data){
+    return(Validator.regex.image.test(data));
+  }
+
+  static secret(data){
+    return(Validator.regex.secret.test(data));
   }
 
   static minNumber(min, toEval){
