@@ -38,8 +38,8 @@ class cupponCtrl{
         [
           '*',
         ],
-        null,
-        null,
+        filters,
+        order,
         {
           start,
           quant: per_page,
