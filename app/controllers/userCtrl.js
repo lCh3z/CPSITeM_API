@@ -12,7 +12,6 @@ class UserCtrl {
 
   async getAll(req, res, next) {
     try {
-<<<<<<< HEAD
       let page = parseInt(req.param('page'));
       let per_page = parseInt(req.param('per_page'));
       if (!page) {
@@ -51,12 +50,6 @@ class UserCtrl {
         }
       }
 
-=======
-      const page = parseInt(req.param('page'));
-      const per_page = parseInt(req.param('per_page'));
-      const start = page * per_page;
-
->>>>>>> release
       let data = await UserMdl.select(
         '_User_',
         [
@@ -78,13 +71,8 @@ class UserCtrl {
           'date',
           'updated',
         ],
-<<<<<<< HEAD
         filters,
         order,
-=======
-        null,
-        null,
->>>>>>> release
         {
           start,
           quant: per_page,
