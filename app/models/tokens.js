@@ -6,7 +6,7 @@ class Token{
     expiter,
     type,
     status
-  }){
+  }) {
     try {
       await db.create(
         'tokens',

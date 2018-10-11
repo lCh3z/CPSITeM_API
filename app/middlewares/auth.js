@@ -1,14 +1,15 @@
 const bcrypt = require('bcrypt');
 
-const { UserCtrl } = require('./controllers');
+const { UserMdl} = require('./models');
 
 class Auth{
   constructor(){
     this.register = register.bind(this);
   }
 
-  register(req, res, next){
-    UserCtrl.create(req, res, next);
+  static async register(req, res, next){
+    const User = new UserMdl(req.body);
+    await User.save();
 
     const token =  bcrypt.hash('untoken', process.env.SECRET);
     const created = new Date();
@@ -16,12 +17,13 @@ class Auth{
     Token.add({
       token,
       created: created,
-      id_user: user.id,
+      id_user: User.id,
       expiter: expires,
       type: 1,
       status: 1,
-    })
+    });
+    next();
   }
 }
 
-module.exports = new Auth();
+module.exports = Auth;
