@@ -6,7 +6,7 @@ router.post('/register', (req, res)=>{
   res.send('register');
 });
 
-// router.get('/login', );
+// router.post('/login', );
 // router.get('/logout', );
 
 module.exports = router;
