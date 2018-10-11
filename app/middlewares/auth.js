@@ -12,7 +12,7 @@ class Auth{
 
     const token =  bcrypt.hash('untoken', process.env.SECRET);
     const created = new Date();
-    const expires = created + 12;
+    const expires = created + process.env.USER_TIME;
     Token.add({
       token,
       created: created,
