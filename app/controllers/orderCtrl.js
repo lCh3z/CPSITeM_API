@@ -12,17 +12,63 @@ class orderCtrl {
 
   async getAll(req, res, next) {
     try {
+<<<<<<< HEAD
+      let page = parseInt(req.param('page'));
+      let per_page = parseInt(req.param('per_page'));
+      if (!page) {
+        page = 0;
+      }
+      if (!per_page) {
+        per_page = 20;
+      }
+      const start = page * per_page;
+
+      let find = parseInt(req.param('find'));
+      let f_col = parseInt(req.param('f_col'));
+      const filters = null;
+      if (find && f_col) {
+        filters = [];
+        filters.push(
+          {
+            attr: f_col,
+            oper: 'LIKE',
+            val: find,
+          },
+        );
+      }
+
+      let order = null;
+      let ord = parseInt(req.param('order'));
+      let ord_by = parseInt(req.param('ord_by'));
+      let des = parseInt(req.param('desc'));
+      if (ord && ord_by) {
+        order = {};
+        order.by =  ord_by;
+        if (des) {
+          order.desc = true;
+        } else {
+          order.desc = false;
+        }
+      }
+
+=======
       const page = parseInt(req.param('page'));
       const per_page = parseInt(req.param('per_page'));
       const start = page * per_page;
 
+>>>>>>> release
       let data = await OrderMdl.select(
         '_Order_',
         [
           '*',
         ],
+<<<<<<< HEAD
+        filters,
+        order,
+=======
         null,
         null,
+>>>>>>> release
         {
           start,
           quant: per_page,

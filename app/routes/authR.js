@@ -5,7 +5,8 @@ const middleware = require('../middlewares');
 router.post('/register', (req, res)=>{
   res.send('register');
 });
-router.get('/login', );
-router.get('/logout', );
+
+// router.get('/login', );
+// router.get('/logout', );
 
 module.exports = router;

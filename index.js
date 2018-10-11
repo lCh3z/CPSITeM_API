@@ -1,13 +1,12 @@
 require('dotenv').config();
 
-
 const express = require('express');
 
 const bodyParser = require('body-parser');
 
-const router = require('./routes');
+const router = require('./app/routes');
 
-const { errorHandler } = require('./middlewares');
+const { errorHandler } = require('./app/middlewares');
 
 const app = express();
 
@@ -19,4 +18,4 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 app.use(errorHandler);
 
-app.listen(process.env.PORT, () => console.log(`Example app listening on port ${process.env.PORT}!`));
+app.listen(process.env.PORT, () => console.log(`Application listening on port ${process.env.PORT}!`));
