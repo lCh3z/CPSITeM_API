@@ -9,6 +9,7 @@ class Validator {
       file: /([a-zA-Z0-9\s_\\.\-\(\):])+(\.xml|\.pdf)$/,
       image: /([a-zA-Z0-9\s_\\.\-\(\):])+(\.jpg|\.jpeg|\.png)$/,
       secret: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)([a-zA-Z\d\W]{8,})/,
+      string: /^[A-Za-z0-9 \-;:,._()?¿!¡@ñÑáéíóúÁÉÍÓÚ$#%&=<>{}\[\]+*\\\/|\\'|°]+$/,
     };
   }
 
@@ -46,6 +47,10 @@ class Validator {
 
   static secret(data){
     return(Validator.regex.secret.test(data));
+  }
+
+  static string(data){
+    return (Validator.regex.string.test(data));
   }
 
   static minNumber(min, toEval){
