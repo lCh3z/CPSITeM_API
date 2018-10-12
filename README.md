@@ -51,9 +51,11 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 
 ## Módulos y su Funcionalidad
 
--   Carrito: Este modulo permite tener acceso a clientes previamente registrados, en donde se almacena de forma temporal, todos los artículos que se desean comprar o de alguna forma en un futuro se pretenden adquirir.
--   Servicios: Dentro de este apartado entran dos perfiles, tanto el empleado o el usuario (cliente), ya que por una parte los empleados les permite cambiar a estatus a servicios previamente solicitados por clientes o incluso dar algun seguimiento, por otra parte a los clientes les permite verificar la gama de servicios que brinda la empresa y a los cuales se puede realizar alguna Reservacion o solicitar alguna alta.
--   Login: En este apartado entran todos los usuarios, desde administradores, empleados, clientes, ya que es el filtro que va determinar que acciones son posibles de acuerdo a tu nivel de usuario o que acciones simplemente van a estar deshabilitadas de acuerdo a tu perfil.
+-  **Carrito**
+Este modulo permite tener acceso a clientes previamente registrados, a un carrito de compra, donde se almacena de forma temporal, todos los artículos que se desean comprar o de alguna forma en un futuro se pretenden adquirir.
+-   **Servicios**
+Dentro de este apartado entran dos perfiles, tanto el empleado o el usuario (cliente), ya que por una parte los empleados les permite cambiar a estatus a servicios previamente solicitados por clientes o incluso dar algun seguimiento, por otra parte a los clientes les permite verificar la gama de servicios que brinda la empresa y a los cuales se puede realizar alguna Reservacion o solicitar alguna alta.
+-   **Login**: En este apartado entran todos los usuarios, desde administradores, empleados, clientes, ya que es el filtro que va determinar que acciones son posibles de acuerdo a tu nivel de usuario o que acciones simplemente van a estar deshabilitadas de acuerdo a tu perfil.
 
 ## Usuarios y Permisos
 
@@ -132,10 +134,10 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE3Nzk0MzQxOSwtMTAwMTMzMjA5LC0xNT
-I3MDgxMDMzLDI5MDczNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3
-MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLT
-k5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0
-NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MTk2MDI4Mz
-AsLTE0NDQxOTgyMTJdfQ==
+eyJoaXN0b3J5IjpbLTUyMDEwOTExMywxMTc3OTQzNDE5LC0xMD
+AxMzMyMDksLTE1MjcwODEwMzMsMjkwNzM0MTk3LC0xOTcxMzk1
+MTgzLC04Njg1NDcyMTYsMTM1Mjg4MzkwNCwxNzQ0NTM1MjEsMj
+EyODk3ODUxMCwtOTk5NjQ2MDg3LC04MzYwNDI5MjYsMTUwMDE2
+NTAxOCwtMTc3NDQ3NTEyMCwtMTAxMDMyNTc5LC0yMTIzNzQwMz
+Q3LDUxOTYwMjgzMCwtMTQ0NDE5ODIxMl19
 -->
