@@ -73,6 +73,13 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	git clone https://github.com/lCh3z/CPSITeM_API.git
 #### Instalar dependencias
 	npm install
+#### Instalar MySQL
+	sudo apt-get update
+	sudo apt-get install mysql-server mysql-client
+	sudo mysql_secure_installation
+##### Instalar MySQL Workbench (Recomendado)
+	sudo apt-get install mysql-workbench
+### Inicializar la base de datos
 #### Definir variables de entoro
 En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tienes que renombrarlo por _.env_. Este archivo contiene las variables de entorno, donde cada una de estas representa algo distinto:
 | Variable | Descripción |
@@ -88,13 +95,6 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 | USER_TIME | tiempo de expiración de sesión de usuario |
 |  |  |
 Una vez que sabes que representa cada una, deberás reasignar los valores por los necesarios para tu proyecto.
-#### Instalar MySQL
-	sudo apt-get update
-	sudo apt-get install mysql-server mysql-client
-	sudo mysql_secure_installation
-##### Instalar MySQL Workbench (Recomendado)
-	sudo apt-get install mysql-workbench
-	
 -  : 
 -  : 
 -  : 
@@ -128,10 +128,10 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2Mzg2ODI5MjUsLTE1MjcwODEwMzMsMj
-kwNzM0MTk3LC0xOTcxMzk1MTgzLC04Njg1NDcyMTYsMTM1Mjg4
-MzkwNCwxNzQ0NTM1MjEsMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC
-04MzYwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAx
-MDMyNTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5OD
-IxMl19
+eyJoaXN0b3J5IjpbNzEwNjIyNTk3LC0xNTI3MDgxMDMzLDI5MD
+czNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5
+MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLTk5OTY0NjA4NywtOD
+M2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAz
+MjU3OSwtMjEyMzc0MDM0Nyw1MTk2MDI4MzAsLTE0NDQxOTgyMT
+JdfQ==
 -->
