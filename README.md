@@ -88,7 +88,15 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 | USER_TIME | tiempo de expiración de sesión de usuario |
 |  |  |
 **_Ejemplo:_**
-	`a`
+	`DB_HOST=db4free.net
+	
+DB_USER=user
+DB_PASS=11112222
+DB_NAME=mydb
+DB_PORT=3306
+PORT=1234
+SECRET=ExAmPlE
+USER_TIME=15`
 
 -  : 
 -  : 
@@ -123,10 +131,10 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc1ODQyMjczNiwtMTUyNzA4MTAzMywyOT
-A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
-OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
-gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
-MzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0MTk4Mj
-EyXX0=
+eyJoaXN0b3J5IjpbMTY0OTQxMzAyLC0xNTI3MDgxMDMzLDI5MD
+czNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5
+MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLTk5OTY0NjA4NywtOD
+M2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAz
+MjU3OSwtMjEyMzc0MDM0Nyw1MTk2MDI4MzAsLTE0NDQxOTgyMT
+JdfQ==
 -->
