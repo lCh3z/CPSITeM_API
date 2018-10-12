@@ -83,7 +83,7 @@ Si se te dificulta algo con esta parte de la instalación, puedes consultar esta
 ### Inicializar la base de datos
 Si al instalar workbech o cualquier SGBD que utilices, este no crea una conexión por defecto, tendrás que crearla y conectarte a la misma con el usuario root que definiste en la instalación de mysql.
 Bien, una vez estés dentro, ejecutar las siguientes líneas:
-#### Crear usuario
+#### Crear usuario para la aplicación
 	CREATE USER 'nombre_usuario'@'localhost' IDENTIFIED BY 'tu_contrasena';
 	CREATE DATABASE MyDataBase;
 	GRANT ALL PRIVILEGES ON MyDataBase. * TO 'nombre_usuario'@'localhost';
@@ -138,7 +138,7 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjE0NDEyMzQ1MiwtMTUyNzA4MTAzMywyOT
+eyJoaXN0b3J5IjpbMTIwMDc0Mjk0NCwtMTUyNzA4MTAzMywyOT
 A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
 OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
 gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
