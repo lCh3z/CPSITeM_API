@@ -1,29 +1,30 @@
 
 # Tienda en Línea
-
 <table>
-    <tr>
-        <td align="center" valign="top" width="23%">
-            <a href="https://github.com/lCh3z">
-            <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
-            <sub>Luis Angel (lCh3z)</sub></a>
-        </td>
-        <td align="center" valign="top" width="23%">
-            <a href="https://github.com/lCh3z">
-            <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
-            <sub>Luis Angel (lCh3z)</sub></a>
-        </td>
-        <td align="center" valign="top" width="23%">
-            <a href="https://github.com/lCh3z">
-            <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
-            <sub>Luis Angel (lCh3z)</sub></a>
-        </td>
-        <td align="center" valign="top" width="23%">
-            <a href="https://github.com/lCh3z">
-            <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
-            <sub>Luis Angel (lCh3z)</sub></a>
-        </td>
-    </tr>
+    <tbody>
+        <tr>
+            <td align="center" valign="top" width="23%">
+                <a href="https://github.com/lCh3z">
+                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
+                <sub>Luis Angel (lCh3z)</sub></a>
+            </td>
+            <td align="center" valign="top" width="23%">
+                <a href="https://github.com/lCh3z">
+                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
+                <sub>Luis Angel (lCh3z)</sub></a>
+            </td>
+            <td align="center" valign="top" width="23%">
+                <a href="https://github.com/lCh3z">
+                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
+                <sub>Luis Angel (lCh3z)</sub></a>
+            </td>
+            <td align="center" valign="top" width="23%">
+                <a href="https://github.com/lCh3z">
+                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
+                <sub>Luis Angel (lCh3z)</sub></a>
+            </td>
+        </tr>
+    </tbody>
 </table>
 
 ## Definición del problema
@@ -156,11 +157,11 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQzNDA3MTI5MywxMjQ0OTU3MTg3LC01Mz
-cyNTY4MjksNTQ1MzQ3MjkxLDExNzc5NDM0MTksLTEwMDEzMzIw
-OSwtMTUyNzA4MTAzMywyOTA3MzQxOTcsLTE5NzEzOTUxODMsLT
-g2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUyMSwyMTI4OTc4
-NTEwLC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC
-0xNzc0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5
-NjAyODMwXX0=
+eyJoaXN0b3J5IjpbNDYyNzg3NDQ0LDEyNDQ5NTcxODcsLTUzNz
+I1NjgyOSw1NDUzNDcyOTEsMTE3Nzk0MzQxOSwtMTAwMTMzMjA5
+LC0xNTI3MDgxMDMzLDI5MDczNDE5NywtMTk3MTM5NTE4MywtOD
+Y4NTQ3MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLDIxMjg5Nzg1
+MTAsLTk5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLT
+E3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MTk2
+MDI4MzBdfQ==
 -->
