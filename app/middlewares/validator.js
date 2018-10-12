@@ -72,10 +72,6 @@ class Validator {
   }
 
   static recValidation(req, res, next, input, error) {
-    console.log('\nR', typeof (req));
-    console.log('I', typeof (input));
-    console.log('req', req);
-    console.log('in', input);
     if (input && req) {
       if (Array.isArray(input) && Array.isArray(req)) {
         for (const element in input) {
@@ -85,8 +81,6 @@ class Validator {
         Object.keys(input).forEach((k) => {
           let missing = true;
           Object.keys(req).forEach((l) => {
-            console.log('\nK', k);
-            console.log('L', l);
             if (k === l) {
               missing = false;
               if (!this.recValidation(req[l], res, next, input[k], error)) {
