@@ -119,8 +119,10 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 
 - **Repositorio de GIT** [\[Acceder\]](https://github.com/lCh3z/CPSITeM_API)
 - **GitHub Page** [\[Acceder\]](https://lch3z.github.io/CPSITeM_API/)
-- **Colección de POSTMAN** : [\[Acceder\]](https://www.getpostman.com/collections/e592223584344d2fe0d9)
-- **Hosting gratuito d** : 
+- 
+- **Colección de POSTMAN** [\[Acceder\]](https://www.getpostman.com/collections/e592223584344d2fe0d9)
+- **Hosting gratuito de DB** [\[Acceder\]](https://www.db4free.net/)
+- 
 ## Licencia
 Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir a  [LICENSE](LICENSE.md) para más información.
 ## Colaboradores
@@ -130,7 +132,7 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgxNTczNjU2MywxMTc3OTQzNDE5LC0xMD
+eyJoaXN0b3J5IjpbLTcyNzY5MTgyOCwxMTc3OTQzNDE5LC0xMD
 AxMzMyMDksLTE1MjcwODEwMzMsMjkwNzM0MTk3LC0xOTcxMzk1
 MTgzLC04Njg1NDcyMTYsMTM1Mjg4MzkwNCwxNzQ0NTM1MjEsMj
 EyODk3ODUxMCwtOTk5NjQ2MDg3LC04MzYwNDI5MjYsMTUwMDE2
