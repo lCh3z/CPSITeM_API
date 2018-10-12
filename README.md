@@ -115,13 +115,11 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 ### Ejecutar Aplicación
 	node index.js
 
-## URLs de demostración
+## Enlaces relacionados
 
 - **Repositorio de GIT** :	https://github.com/lCh3z/CPSITeM_API
-- **** :
-	https://drive.google.com/drive/u/0/folders/1u_8xk6MY4cjV69JpTGguUYrdHKM514yq
-- URL postman :
-	https://www.getpostman.com/collections/e592223584344d2fe0d9
+- **GitHub Page** : https://lch3z.github.io/CPSITeM_API/
+- **Colección de POSTMAN** : https://www.getpostman.com/collections/e592223584344d2fe0d9
 - URL enviorment : 
 	https://www.db4free.net/
 ## Licencia
@@ -133,7 +131,7 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzA3NDAwNzI2LDExNzc5NDM0MTksLTEwMD
+eyJoaXN0b3J5IjpbOTY1ODc4MDQ0LDExNzc5NDM0MTksLTEwMD
 EzMzIwOSwtMTUyNzA4MTAzMywyOTA3MzQxOTcsLTE5NzEzOTUx
 ODMsLTg2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUyMSwyMT
 I4OTc4NTEwLC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNTAwMTY1
