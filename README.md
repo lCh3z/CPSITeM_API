@@ -69,6 +69,8 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	curl -sL https://deb.nodesource.com/setup_10.11.0 | sudo -E bash -
 	sudo apt-get install -y nodejs
 #### Clonar proyecto
+	git init
+	git clone https://github.com/lCh3z/CPSITeM_API.git
 	
 	
 - **Base de datos**: Se requiere un sistema gestor de base de datos el cual sea capaz de manejar SQL, una vez en el se crea la base de datos CPSITeM.
@@ -97,10 +99,10 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMTcwMTI1NSwtMTUyNzA4MTAzMywyOT
-A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
-OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
-gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
-MzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0MTk4Mj
-EyXX0=
+eyJoaXN0b3J5IjpbNTIwOTgzNzk1LC0xNTI3MDgxMDMzLDI5MD
+czNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5
+MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLTk5OTY0NjA4NywtOD
+M2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAz
+MjU3OSwtMjEyMzc0MDM0Nyw1MTk2MDI4MzAsLTE0NDQxOTgyMT
+JdfQ==
 -->
