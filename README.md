@@ -74,7 +74,7 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 #### Instalar dependencias
 	npm install
 #### Definir variables de entoro
-En el directorio donde clonaste el proyecto hay un archivo .env_example, tienes que renombrarlo por .env. Este archivo contiene  con las siguientes variables:
+En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tienes que renombrarlo por _.env_. Este archivo contiene las variables de entorno, donde cada una de estas representa algo distinto:
 | Variable | Descripción |
 |--|--|
 | DB_USER | dirección de la base de datos |
@@ -123,10 +123,10 @@ En el directorio donde clonaste el proyecto hay un archivo .env_example, tienes 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExOTc1NTM2ODAsLTE1MjcwODEwMzMsMj
-kwNzM0MTk3LC0xOTcxMzk1MTgzLC04Njg1NDcyMTYsMTM1Mjg4
-MzkwNCwxNzQ0NTM1MjEsMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC
-04MzYwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAx
-MDMyNTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5OD
-IxMl19
+eyJoaXN0b3J5IjpbMTc1ODQyMjczNiwtMTUyNzA4MTAzMywyOT
+A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
+OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
+gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
+MzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0MTk4Mj
+EyXX0=
 -->
