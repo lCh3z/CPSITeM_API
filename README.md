@@ -1,6 +1,7 @@
 
 # Tienda en Línea
-|![enter image description here](https://pbs.twimg.com/profile_images/630899626925625344/2qdAWg4Z_bigger.jpg)|  |
+|![enter image description here](https://media.licdn.com/dms/image/C4E03AQExuzsRuMu3wA/profile-displayphoto-shrink_100_100/0?e=1544659200&v=beta&t=Am-IBkfY4U4rG9_ysirBp6K2R0wepoR4d0CEZN4lQ4w)
+|  |
 |--|--|
 |  |  |
 
@@ -135,11 +136,11 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI0NDk1NzE4NywtNTM3MjU2ODI5LDU0NT
-M0NzI5MSwxMTc3OTQzNDE5LC0xMDAxMzMyMDksLTE1MjcwODEw
-MzMsMjkwNzM0MTk3LC0xOTcxMzk1MTgzLC04Njg1NDcyMTYsMT
-M1Mjg4MzkwNCwxNzQ0NTM1MjEsMjEyODk3ODUxMCwtOTk5NjQ2
-MDg3LC04MzYwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMC
-wtMTAxMDMyNTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0
-NDE5ODIxMl19
+eyJoaXN0b3J5IjpbODYyNDkxOTM2LDEyNDQ5NTcxODcsLTUzNz
+I1NjgyOSw1NDUzNDcyOTEsMTE3Nzk0MzQxOSwtMTAwMTMzMjA5
+LC0xNTI3MDgxMDMzLDI5MDczNDE5NywtMTk3MTM5NTE4MywtOD
+Y4NTQ3MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLDIxMjg5Nzg1
+MTAsLTk5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLT
+E3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MTk2
+MDI4MzBdfQ==
 -->
