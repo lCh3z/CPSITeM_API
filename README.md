@@ -1,3 +1,4 @@
+
 # Plan de proyecto
 
 ## Definición del problema
@@ -56,9 +57,9 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 
 ## Usuarios y Permisos
 
--   Administrador: Este usuario tendrá acceso total a modificaciones dentro del sistema, cabe mencionar que también podrá realizar cambios a otros usuarios en cuanto a permisos.
--   Empleado: Puede tener acceso a modificaciones de estatus de servicios que están pendientes o que ya fueron realizados, también pueden realizar actividades dentro de la plataforma como dar de lata un nuevo producto, actualizar el inventario o simplemente realizar modificaciones a post creados dentro de la misma pagina.
--   Cliente: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
+-   **Administrador**: Este usuario tendrá acceso total a modificaciones dentro del sistema, cabe mencionar que también podrá realizar cambios a otros usuarios en cuanto a permisos.
+-   **Empleado**: Puede tener acceso a modificaciones de estatus de servicios que están pendientes o que ya fueron realizados, también pueden realizar actividades dentro de la plataforma como dar de lata un nuevo producto, actualizar el inventario o simplemente realizar modificaciones a post creados dentro de la misma pagina.
+-   **Cliente**: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
 
 ## Instancias de instalación
 - Base de datos: Se requiere un sistema gestor de base de datos el cual sea capaz de manejar SQL, una vez en el se crea la base de datos CPSITeM.
@@ -86,12 +87,10 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   OCHOA DE LOS ANGELES LUIS ANGEL
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
-	
-
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMz
-UyODgzOTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYw
-ODcsLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC
-0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0
-MTk4MjEyXX0=
+eyJoaXN0b3J5IjpbLTc3MDI4ODk2NSwtMTk3MTM5NTE4MywtOD
+Y4NTQ3MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLDIxMjg5Nzg1
+MTAsLTk5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLT
+E3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MTk2
+MDI4MzAsLTE0NDQxOTgyMTJdfQ==
 -->
