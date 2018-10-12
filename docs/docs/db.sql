@@ -1,4 +1,4 @@
-USE CPSITeM;
+USE MyDataBase;
 
 CREATE TABLE _User_(
   id integer unsigned not null,
