@@ -152,7 +152,7 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 Una vez que sabes que representa cada una, deberás reasignar los valores por los necesarios para tu proyecto.
 
 ### Ejecutar Aplicación
-	`node index.js`
+	node index.js
 
 ## Enlaces relacionados
 
