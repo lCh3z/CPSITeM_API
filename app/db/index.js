@@ -182,7 +182,7 @@ class DB {
     switch (err.code) {
       case 'ER_DUP_ENTRY':
         error['Duplicated'] = {
-          message: `${data[1]} already exists on the system`,
+          message: `${data[0]} already exists on the system`,
           field: data.field,
         };
         break;
@@ -197,7 +197,7 @@ class DB {
   }
 
   getDataFromErrorMsg(message) {
-    data = unescape(message).match(/'([^']+)'/g);
+    const data = unescape(message).match(/'([^']+)'/g);
     if (data) {
       return data;
     } else {
