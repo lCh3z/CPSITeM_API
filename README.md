@@ -124,7 +124,7 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 - URL enviorment : 
 	https://www.db4free.net/
 ## Licencia
-Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3.  [LICENSE.md](LICENSE.md) para más información.
+Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir a  [LICENSE](LICENSE.md) para más información.
 ## Colaboradores
 
 -   RUIZ ACEVEDO SAUL FRANCISCO
@@ -132,7 +132,7 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3.  [L
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYyMDE0MjM5MCwtMTAwMTMzMjA5LC0xNT
+eyJoaXN0b3J5IjpbMTE3Nzk0MzQxOSwtMTAwMTMzMjA5LC0xNT
 I3MDgxMDMzLDI5MDczNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3
 MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLT
 k5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0
