@@ -1,20 +1,29 @@
 
 # Tienda en Línea
+
 <table>
-    <tbody>
-        <tr>
-            <td align="center" valign="top" width="23%">
-                <a href="https://github.com/lCh3z">
-                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
-                <sub>Luis Angel (lCh3z)</sub></a>
-            </td>
-            <td align="center" valign="top" width="11%">
-                <a href="https://github.com/xjamundx">
-                <img src="https://github.com/xjamundx.png?s=75" width="75px" height="75px"><br/>
-                <sub>Jamund Ferguson</sub></a>
-            </td>
-        </tr>
-    </tbody>
+    <tr>
+        <td align="center" valign="top" width="23%">
+            <a href="https://github.com/lCh3z">
+            <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
+            <sub>Luis Angel (lCh3z)</sub></a>
+        </td>
+        <td align="center" valign="top" width="23%">
+            <a href="https://github.com/lCh3z">
+            <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
+            <sub>Luis Angel (lCh3z)</sub></a>
+        </td>
+        <td align="center" valign="top" width="23%">
+            <a href="https://github.com/lCh3z">
+            <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
+            <sub>Luis Angel (lCh3z)</sub></a>
+        </td>
+        <td align="center" valign="top" width="23%">
+            <a href="https://github.com/lCh3z">
+            <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
+            <sub>Luis Angel (lCh3z)</sub></a>
+        </td>
+    </tr>
 </table>
 
 ## Definición del problema
@@ -147,7 +156,7 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTAyODU3Mzg1NCwxMjQ0OTU3MTg3LC01Mz
+eyJoaXN0b3J5IjpbMTQzNDA3MTI5MywxMjQ0OTU3MTg3LC01Mz
 cyNTY4MjksNTQ1MzQ3MjkxLDExNzc5NDM0MTksLTEwMDEzMzIw
 OSwtMTUyNzA4MTAzMywyOTA3MzQxOTcsLTE5NzEzOTUxODMsLT
 g2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUyMSwyMTI4OTc4
