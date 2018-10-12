@@ -62,12 +62,13 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   **Cliente**: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
 
 ## Proceso de instalación local (Linux)
-### 1. Debian-based distribution.
+### 1. Debian-based distribution (like Ubuntu).
 #### Instalar Git
 	sudo apt-get install git-all
 #### Instalar Node JS y npm
 	curl -sL https://deb.nodesource.com/setup_10.11.0 | sudo -E bash -
 	sudo apt-get install -y nodejs
+#### 
 	
 - **Base de datos**: Se requiere un sistema gestor de base de datos el cual sea capaz de manejar SQL, una vez en el se crea la base de datos CPSITeM.
 - **Repositorios**: Es necesario el descargar el contenido del repositorio para conseguir todos los End points.
@@ -95,9 +96,9 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkxNzQxMDYyOCwyOTA3MzQxOTcsLTE5Nz
-EzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUy
-MSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNT
-AwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3
-NDAzNDcsNTE5NjAyODMwLC0xNDQ0MTk4MjEyXX0=
+eyJoaXN0b3J5IjpbLTE1MjcwODEwMzMsMjkwNzM0MTk3LC0xOT
+cxMzk1MTgzLC04Njg1NDcyMTYsMTM1Mjg4MzkwNCwxNzQ0NTM1
+MjEsMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC04MzYwNDI5MjYsMT
+UwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAxMDMyNTc5LC0yMTIz
+NzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5ODIxMl19
 -->
