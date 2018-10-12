@@ -87,17 +87,8 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 | SECRET | cadena para cifrado |
 | USER_TIME | tiempo de expiración de sesión de usuario |
 |  |  |
-**_Ejemplo:_**
-	`DB_HOST=db4free.net
-	
-DB_USER=user
-DB_PASS=11112222
-DB_NAME=mydb
-DB_PORT=3306
-PORT=1234
-SECRET=ExAmPlE
-USER_TIME=15`
-
+Una vez que sabes que representa cada una, deberás reasignar los valores por los necesarios para tu proyecto.
+#### Instalar MySQL
 -  : 
 -  : 
 -  : 
@@ -131,7 +122,7 @@ USER_TIME=15`
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY0OTQxMzAyLC0xNTI3MDgxMDMzLDI5MD
+eyJoaXN0b3J5IjpbLTY5Njc0NDQ3LC0xNTI3MDgxMDMzLDI5MD
 czNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5
 MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLTk5OTY0NjA4NywtOD
 M2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAz
