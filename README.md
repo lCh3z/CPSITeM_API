@@ -63,19 +63,12 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 
 ## Proceso de instalación local (Linux)
 ### 1. Debian-based distribution.
-####  - Inst
+#### Instalar Git
 	`sudo apt-get install git-all`
- 2. Instalar Node JS y npm
-	Debian-based distribution:
+#### Instalar Node JS y npm
 	`curl -sL https://deb.nodesource.com/setup_10.11.0 | sudo -E bash -`
 	`sudo apt-get install -y nodejs`
- 3. 
- 4. a
- 5. a
- 6. a
- 7. a
- 8. a
- 9. 
+
 - **Base de datos**: Se requiere un sistema gestor de base de datos el cual sea capaz de manejar SQL, una vez en el se crea la base de datos CPSITeM.
 - **Repositorios**: Es necesario el descargar el contenido del repositorio para conseguir todos los End points.
 
@@ -102,9 +95,9 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzIwMzQwNDY1LDI5MDczNDE5NywtMTk3MT
-M5NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIx
-LDIxMjg5Nzg1MTAsLTk5OTY0NjA4NywtODM2MDQyOTI2LDE1MD
-AxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0
-MDM0Nyw1MTk2MDI4MzAsLTE0NDQxOTgyMTJdfQ==
+eyJoaXN0b3J5IjpbLTQ5NTI2NTgzMCwyOTA3MzQxOTcsLTE5Nz
+EzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUy
+MSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNT
+AwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3
+NDAzNDcsNTE5NjAyODMwLC0xNDQ0MTk4MjEyXX0=
 -->
