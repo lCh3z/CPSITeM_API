@@ -123,7 +123,8 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 	https://www.getpostman.com/collections/e592223584344d2fe0d9
 - URL enviorment : 
 	https://www.db4free.net/
-	
+## Licencia
+Este p MIT License - see the [LICENSE.md](LICENSE.md) file for details
 ## Colaboradores
 
 -   RUIZ ACEVEDO SAUL FRANCISCO
@@ -131,10 +132,10 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMDEzMzIwOSwtMTUyNzA4MTAzMywyOT
-A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
-OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
-gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
-MzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0MTk4Mj
-EyXX0=
+eyJoaXN0b3J5IjpbMTM4MjczOTM3MiwtMTAwMTMzMjA5LC0xNT
+I3MDgxMDMzLDI5MDczNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3
+MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLT
+k5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0
+NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MTk2MDI4Mz
+AsLTE0NDQxOTgyMTJdfQ==
 -->
