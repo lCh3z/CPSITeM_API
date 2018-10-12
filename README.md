@@ -61,26 +61,26 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   **Vendedor**: Puede tener acceso a modificaciones de estatus de servicios que están pendientes o que ya fueron realizados, también pueden realizar actividades dentro de la plataforma como dar de lata un nuevo producto, actualizar el inventario o simplemente realizar modificaciones a post creados dentro de la misma pagina.
 -   **Cliente**: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
 
-## Proceso de instalación local (Debian-based distribution)
-### 1. Debian-based distribution (like Ubuntu).
-#### Instalar Git
+## Proceso de instalación local (Linux)
+>_**Debian-based distribution like Ubuntu**_
+### Instalar Git
 	sudo apt-get install git-all
-#### Instalar Node.js y npm
+### Instalar Node.js y npm
 	curl -sL https://deb.nodesource.com/setup_10.11.0 | sudo -E bash -
 	sudo apt-get install -y nodejs
-#### Clonar proyecto
+### Clonar proyecto
 	git init
 	git clone https://github.com/lCh3z/CPSITeM_API.git
-#### Instalar dependencias
+### Instalar dependencias
 	npm install --only=prod
-#### Instalar MySQL
+### Instalar MySQL
 	sudo apt-get update
 	sudo apt-get install mysql-server mysql-client
 	sudo mysql_secure_installation
-##### Instalar MySQL Workbench (Recomendado)
+#### Instalar MySQL Workbench (Recomendado)
 	sudo apt-get install mysql-workbench
 Si se te dificulta algo con esta parte de la instalación, puedes consultar esta [guía de instalación](https://platzi.com/java-basico-2015/tutoriales/instalar-mysql-y-workbench-en-linux-ubuntu-1404/).
-#### Inicializar la base de datos
+### Inicializar la base de datos
 Si al instalar workbech o cualquier SGBD que utilices, este no crea una conexión por defecto, tendrás que crearla y conectarte a la misma con el usuario root que definiste en la instalación de mysql.
 Bien, una vez estés dentro, ejecutar las siguientes líneas:
 ##### Crear usuario para la aplicación
@@ -132,10 +132,10 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIyODYyOTMyNywtMTUyNzA4MTAzMywyOT
-A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
-OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
-gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
-MzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0MTk4Mj
-EyXX0=
+eyJoaXN0b3J5IjpbNTU5MTgzMTE2LC0xNTI3MDgxMDMzLDI5MD
+czNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5
+MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLTk5OTY0NjA4NywtOD
+M2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAz
+MjU3OSwtMjEyMzc0MDM0Nyw1MTk2MDI4MzAsLTE0NDQxOTgyMT
+JdfQ==
 -->
