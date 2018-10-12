@@ -82,7 +82,10 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 Si se te dificulta algo con esta parte de la instalación, puedes consultar esta [guía de instalación](https://platzi.com/java-basico-2015/tutoriales/instalar-mysql-y-workbench-en-linux-ubuntu-1404/).
 ### Inicializar la base de datos
 Si al instalar workbech o cualquier SGBD que utilices, este no crea una conexión por defecto, tendrás que crearla y conectarte a la misma con el usuario root que definiste en la instalación de mysql.
-Bien, una vez estés dentro, tendrás que crear
+Bien, una vez estés dentro, ejecutar las siguientes líneas:
+#### Crear usuario
+	CREATE USER 'nombre_usuario'@'localhost' IDENTIFIED BY 'tu_contrasena';
+	
 #### Definir variables de entoro
 En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tienes que renombrarlo por _.env_. Este archivo contiene las variables de entorno, donde cada una de estas representa algo distinto:
 | Variable | Descripción |
@@ -131,10 +134,10 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NDU4MDEwOSwtMTUyNzA4MTAzMywyOT
-A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
-OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
-gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
-MzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0MTk4Mj
-EyXX0=
+eyJoaXN0b3J5IjpbNDkwMzU5ODMsLTE1MjcwODEwMzMsMjkwNz
+M0MTk3LC0xOTcxMzk1MTgzLC04Njg1NDcyMTYsMTM1Mjg4Mzkw
+NCwxNzQ0NTM1MjEsMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC04Mz
+YwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAxMDMy
+NTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5ODIxMl
+19
 -->
