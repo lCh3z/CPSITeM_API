@@ -131,33 +131,33 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
             <td align="center" valign="top" width="23%">
                 <a href="https://github.com/lCh3z">
                 <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
-                <sub>Luis Angel (lCh3z)</sub></a>
+                <sub>Luis Angel</sub></a>
             </td>
             <td align="center" valign="top" width="23%">
                 <a href="https://github.com/dartrox21">
                 <img src="https://avatars2.githubusercontent.com/u/39166989?s=460&v=4" width="75px" height="75px"><br/>
-                <sub># Saúl Ruiz (dartrox21)</sub></a>
+                <sub>Saúl Ruiz</sub></a>
             </td>
             <td align="center" valign="top" width="23%">
-                <a href="https://github.com/lCh3z">
-                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
-                <sub>Luis Angel (lCh3z)</sub></a>
+                <a href="https://github.com/UlisesMarcos">
+                <img src="https://avatars2.githubusercontent.com/u/32921038?s=460&v=4" width="75px" height="75px"><br/>
+                <sub>Ulises Marcos</sub></a>
             </td>
             <td align="center" valign="top" width="23%">
-                <a href="https://github.com/lCh3z">
-                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
-                <sub>Luis Angel (lCh3z)</sub></a>
+                <a href="https://github.com/Oscar98">
+                <img src="https://avatars3.githubusercontent.com/u/22420263?s=460&v=4" width="75px" height="75px"><br/>
+                <sub>Oscar Eduardo</sub></a>
             </td>
         </tr>
     </tbody>
 </table>
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjExNzU2OTg0OSw0NjI3ODc0NDQsMTI0ND
-k1NzE4NywtNTM3MjU2ODI5LDU0NTM0NzI5MSwxMTc3OTQzNDE5
-LC0xMDAxMzMyMDksLTE1MjcwODEwMzMsMjkwNzM0MTk3LC0xOT
-cxMzk1MTgzLC04Njg1NDcyMTYsMTM1Mjg4MzkwNCwxNzQ0NTM1
-MjEsMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC04MzYwNDI5MjYsMT
-UwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAxMDMyNTc5LC0yMTIz
-NzQwMzQ3XX0=
+eyJoaXN0b3J5IjpbMzkxNDY3MjY4LDQ2Mjc4NzQ0NCwxMjQ0OT
+U3MTg3LC01MzcyNTY4MjksNTQ1MzQ3MjkxLDExNzc5NDM0MTks
+LTEwMDEzMzIwOSwtMTUyNzA4MTAzMywyOTA3MzQxOTcsLTE5Nz
+EzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUy
+MSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNT
+AwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3
+NDAzNDddfQ==
 -->
