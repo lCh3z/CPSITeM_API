@@ -72,7 +72,10 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	git init
 	git clone https://github.com/lCh3z/CPSITeM_API.git
 #### Instalar dependencias
-	npm install
+Desarrolador
+	`npm install`
+Poducción
+	npm install --only=prod
 #### Instalar MySQL
 	sudo apt-get update
 	sudo apt-get install mysql-server mysql-client
@@ -137,7 +140,7 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM2Mzk2MTY3MSwtMTUyNzA4MTAzMywyOT
+eyJoaXN0b3J5IjpbMTU4Mzk5ODU4MSwtMTUyNzA4MTAzMywyOT
 A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
 OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
 gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
