@@ -63,7 +63,7 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 
 ## Proceso de instalación local
  1. Instalar git.
-	 Linux:
+	Debian-based distribution:
 	 
 
     sudo apt-get install 
@@ -94,9 +94,9 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTc1NTY1MjcsLTE5NzEzOTUxODMsLTg2OD
-U0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEw
-LC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNz
-c0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5NjAy
-ODMwLC0xNDQ0MTk4MjEyXX0=
+eyJoaXN0b3J5IjpbMTc1MjU4NDIyOCwtMTk3MTM5NTE4MywtOD
+Y4NTQ3MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLDIxMjg5Nzg1
+MTAsLTk5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLT
+E3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MTk2
+MDI4MzAsLTE0NDQxOTgyMTJdfQ==
 -->
