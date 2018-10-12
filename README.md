@@ -91,6 +91,9 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 #### Instalar MySQL
 	sudo apt-get update
 	sudo apt-get install mysql-server mysql-client
+	sudo mysql_secure_installation
+##### Instalar MySQL Workbench (Recomendado)
+	sudo apt-get install mysql-workbench
 	
 -  : 
 -  : 
@@ -125,10 +128,10 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTQ0Nzc5MDE1LC0xNTI3MDgxMDMzLDI5MD
-czNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5
-MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLTk5OTY0NjA4NywtOD
-M2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAz
-MjU3OSwtMjEyMzc0MDM0Nyw1MTk2MDI4MzAsLTE0NDQxOTgyMT
-JdfQ==
+eyJoaXN0b3J5IjpbLTE2Mzg2ODI5MjUsLTE1MjcwODEwMzMsMj
+kwNzM0MTk3LC0xOTcxMzk1MTgzLC04Njg1NDcyMTYsMTM1Mjg4
+MzkwNCwxNzQ0NTM1MjEsMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC
+04MzYwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAx
+MDMyNTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5OD
+IxMl19
 -->
