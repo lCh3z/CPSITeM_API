@@ -65,7 +65,7 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 ### 1. Debian-based distribution (like Ubuntu).
 #### Instalar Git
 	sudo apt-get install git-all
-#### Instalar Node JS y npm
+#### Instalar Node.js y npm
 	curl -sL https://deb.nodesource.com/setup_10.11.0 | sudo -E bash -
 	sudo apt-get install -y nodejs
 #### 
@@ -96,9 +96,10 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1MjcwODEwMzMsMjkwNzM0MTk3LC0xOT
-cxMzk1MTgzLC04Njg1NDcyMTYsMTM1Mjg4MzkwNCwxNzQ0NTM1
-MjEsMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC04MzYwNDI5MjYsMT
-UwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAxMDMyNTc5LC0yMTIz
-NzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5ODIxMl19
+eyJoaXN0b3J5IjpbNjIwNDAwMzYxLC0xNTI3MDgxMDMzLDI5MD
+czNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5
+MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLTk5OTY0NjA4NywtOD
+M2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAz
+MjU3OSwtMjEyMzc0MDM0Nyw1MTk2MDI4MzAsLTE0NDQxOTgyMT
+JdfQ==
 -->
