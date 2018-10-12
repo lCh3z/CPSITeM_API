@@ -64,6 +64,12 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 - Base de datos: Se requiere un sistema gestor de base de datos el cual sea capaz de manejar SQL, una vez en el se crea la base de datos CPSITeM.
 - Repositorios: Es necesario el descargar el contenido del repositorio para conseguir todos los End points.
 - Postman: Utilizando postman se realizan las pruebas de funcionalidad. 
+- NodeJs :
+
+	-versión 10.9.0.
+	
+	-express
+	
 
 ## URLs de demostración
 
@@ -77,12 +83,20 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	https://drive.google.com/drive/u/0/folders/1u_8xk6MY4cjV69JpTGguUYrdHKM514yq
 - URL postman :
 	https://www.getpostman.com/collections/e592223584344d2fe0d9
-- URL enviorment : 
-	https://www.db4free.net/
+	
+## Enviorment
+- DB_HOST
+- DB_USER
+- DB_PASS
+- DB_NAME
+- PORT
+- SECRET
+- USER_TIME
+
 	
 ## Colaboradores
 
--   RUIZ ACEVEDO SAUL FRANCISCO
+-   RUIZ ACEVEDO SAÚL FRANCISCO
 -   OCHOA DE LOS ANGELES LUIS ANGEL
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
