@@ -75,11 +75,12 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	npm install
 #### Definir variables de entoro
 En el directorio donde clonaste el proyecto crea un archivo .env con las siguientes variables:
-- DB_HOST
-- DB_USER
-- DB_PASS
-- DB_NAME
-- PORT
+- DB_HOST : dirección de la base de datos
+- DB_USER : usuario de la base de datos
+- DB_PASS : contraseña del usuario
+- DB_NAME : nombre de la base de datos
+- DB_PORT : puerto de la base de datos
+- PORT : puesto
 - SECRET
 - USER_TIME
 - **Base de datos**: Se requiere un sistema gestor de base de datos el cual sea capaz de manejar SQL, una vez en el se crea la base de datos CPSITeM.
@@ -108,10 +109,10 @@ En el directorio donde clonaste el proyecto crea un archivo .env con las siguien
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjQ2NjIwMzcxLC0xNTI3MDgxMDMzLDI5MD
-czNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5
-MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLTk5OTY0NjA4NywtOD
-M2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAz
-MjU3OSwtMjEyMzc0MDM0Nyw1MTk2MDI4MzAsLTE0NDQxOTgyMT
-JdfQ==
+eyJoaXN0b3J5IjpbLTEwOTQzNDE0ODAsLTE1MjcwODEwMzMsMj
+kwNzM0MTk3LC0xOTcxMzk1MTgzLC04Njg1NDcyMTYsMTM1Mjg4
+MzkwNCwxNzQ0NTM1MjEsMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC
+04MzYwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAx
+MDMyNTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5OD
+IxMl19
 -->
