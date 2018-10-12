@@ -1,10 +1,96 @@
 
 # Tienda en Línea
-|![enter image description here](https://media.licdn.com/dms/image/C4E03AQExuzsRuMu3wA/profile-displayphoto-shrink_100_100/0?e=1544659200&v=beta&t=Am-IBkfY4U4rG9_ysirBp6K2R0wepoR4d0CEZN4lQ4w)
-|  |
+| ![enter image description here](https://media.licdn.com/dms/image/C4E03AQExuzsRuMu3wA/profile-displayphoto-shrink_100_100/0?e=1544659200&v=beta&t=Am-IBkfY4U4rG9_ysirBp6K2R0wepoR4d0CEZN4lQ4w) |  |
 |--|--|
 |  |  |
-
+<table>
+    <tbody>
+        <tr>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/lo1tuma">
+                <img src="https://github.com/lo1tuma.png?s=75" width="75px" height="75px"><br/>
+                <sub>Mathias Schreck</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/xjamundx">
+                <img src="https://github.com/xjamundx.png?s=75" width="75px" height="75px"><br/>
+                <sub>Jamund Ferguson</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/ianvs">
+                <img src="https://github.com/ianvs.png?s=75" width="75px" height="75px"><br/>
+                <sub>Ian VanSchooten</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/byk">
+                <img src="https://github.com/byk.png?s=75" width="75px" height="75px"><br/>
+                <sub>Burak Yiğit Kaya</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/michaelficarra">
+                <img src="https://github.com/michaelficarra.png?s=75" width="75px" height="75px"><br/>
+                <sub>Michael Ficarra</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/pedrottimark">
+                <img src="https://github.com/pedrottimark.png?s=75" width="75px" height="75px"><br/>
+                <sub>Mark Pedrotti</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/markelog">
+                <img src="https://github.com/markelog.png?s=75" width="75px" height="75px"><br/>
+                <sub>Oleg Gaidarenko</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/mikesherov">
+                <img src="https://github.com/mikesherov.png?s=75" width="75px" height="75px"><br/>
+                <sub>Mike Sherov</sub></a>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/hzoo">
+                <img src="https://github.com/hzoo.png?s=75" width="75px" height="75px"><br/>
+                <sub>Henry Zhu</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/mdevils">
+                <img src="https://github.com/mdevils.png?s=75" width="75px" height="75px"><br/>
+                <sub>Marat Dulin</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/zxqfox">
+                <img src="https://github.com/zxqfox.png?s=75" width="75px" height="75px"><br/>
+                <sub>Alexej Yaroshevich</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/vitorbal">
+                <img src="https://github.com/vitorbal.png?s=75" width="75px" height="75px"><br/>
+                <sub>Vitor Balocco</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/JamesHenry">
+                <img src="https://github.com/JamesHenry.png?s=75" width="75px" height="75px"><br/>
+                <sub>James Henry</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/soda0289">
+                <img src="https://github.com/soda0289.png?s=75" width="75px" height="75px"><br/>
+                <sub>Reyad Attiyat</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/Aladdin-ADD">
+                <img src="https://github.com/Aladdin-ADD.png?s=75" width="75px" height="75px"><br/>
+                <sub>薛定谔的猫</sub></a>
+            </td>
+            <td align="center" valign="top" width="11%">
+                <a href="https://github.com/VictorHom">
+                <img src="https://github.com/VictorHom.png?s=75" width="75px" height="75px"><br/>
+                <sub>Victor Hom</sub></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 ## Definición del problema
 
@@ -136,11 +222,11 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODYyNDkxOTM2LDEyNDQ5NTcxODcsLTUzNz
-I1NjgyOSw1NDUzNDcyOTEsMTE3Nzk0MzQxOSwtMTAwMTMzMjA5
-LC0xNTI3MDgxMDMzLDI5MDczNDE5NywtMTk3MTM5NTE4MywtOD
-Y4NTQ3MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLDIxMjg5Nzg1
-MTAsLTk5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLT
-E3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MTk2
-MDI4MzBdfQ==
+eyJoaXN0b3J5IjpbLTIyNzE2ODk2MCwxMjQ0OTU3MTg3LC01Mz
+cyNTY4MjksNTQ1MzQ3MjkxLDExNzc5NDM0MTksLTEwMDEzMzIw
+OSwtMTUyNzA4MTAzMywyOTA3MzQxOTcsLTE5NzEzOTUxODMsLT
+g2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUyMSwyMTI4OTc4
+NTEwLC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC
+0xNzc0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5
+NjAyODMwXX0=
 -->
