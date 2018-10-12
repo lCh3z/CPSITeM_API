@@ -79,8 +79,9 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	sudo mysql_secure_installation
 ##### Instalar MySQL Workbench (Recomendado)
 	sudo apt-get install mysql-workbench
+Si se te dificulta algo con esta parte de la instalación, puedes consultar esta guía de instalación.
 ### Inicializar la base de datos
-	
+Tendrás que iniciar una 
 #### Definir variables de entoro
 En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tienes que renombrarlo por _.env_. Este archivo contiene las variables de entorno, donde cada una de estas representa algo distinto:
 | Variable | Descripción |
@@ -129,7 +130,7 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTg1MTYyMTM5LC0xNTI3MDgxMDMzLDI5MD
+eyJoaXN0b3J5IjpbODk0MDEwNDc1LC0xNTI3MDgxMDMzLDI5MD
 czNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5
 MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLTk5OTY0NjA4NywtOD
 M2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAz
