@@ -61,7 +61,7 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   **Vendedor**: Puede tener acceso a modificaciones de estatus de servicios que están pendientes o que ya fueron realizados, también pueden realizar actividades dentro de la plataforma como dar de lata un nuevo producto, actualizar el inventario o simplemente realizar modificaciones a post creados dentro de la misma pagina.
 -   **Cliente**: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
 
-## Proceso de instalación local (Linux)
+## Proceso de instalación local (Debian-based distribution)
 ### 1. Debian-based distribution (like Ubuntu).
 #### Instalar Git
 	sudo apt-get install git-all
@@ -72,9 +72,6 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	git init
 	git clone https://github.com/lCh3z/CPSITeM_API.git
 #### Instalar dependencias
-Desarrolador
-	`npm install`
-Poducción
 	npm install --only=prod
 #### Instalar MySQL
 	sudo apt-get update
@@ -108,13 +105,8 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 | USER_TIME | tiempo de expiración de sesión de usuario |
 |  |  |
 Una vez que sabes que representa cada una, deberás reasignar los valores por los necesarios para tu proyecto.
--  : 
--  : 
--  : 
--  : 
--  : 
-- 
-- 
+#### Ejecutar Aplicación
+
 - **Repositorios**: Es necesario el descargar el contenido del repositorio para conseguir todos los End points.
 
 
@@ -140,7 +132,7 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU4Mzk5ODU4MSwtMTUyNzA4MTAzMywyOT
+eyJoaXN0b3J5IjpbMTIyODYyOTMyNywtMTUyNzA4MTAzMywyOT
 A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
 OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
 gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
