@@ -190,13 +190,3 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
         </tr>
     </tbody>
 </table>
-
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbNTcyNDc4MTU2LDQ2Mjc4NzQ0NCwxMjQ0OT
-U3MTg3LC01MzcyNTY4MjksNTQ1MzQ3MjkxLDExNzc5NDM0MTks
-LTEwMDEzMzIwOSwtMTUyNzA4MTAzMywyOTA3MzQxOTcsLTE5Nz
-EzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUy
-MSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNT
-AwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3
-NDAzNDddfQ==
--->
