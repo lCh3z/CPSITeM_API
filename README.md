@@ -89,7 +89,7 @@ Bien, una vez estés dentro, ejecutar las siguientes líneas:
 	GRANT ALL PRIVILEGES ON MyDataBase. * TO 'nombre_usuario'@'localhost';
 	FLUSH PRIVILEGES;
 #### Creación de tablas, disparadores y procedimientos almacenados
-Para esto, simplemente tendrás que copiar todo el contenido 
+Para esto, simplemente tendrás que copiar todo el contenido del archivo db.sql, pegarlo en MySQL Workbench y ejecutarlo.
 #### Definir variables de entoro
 En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tienes que renombrarlo por _.env_. Este archivo contiene las variables de entorno, donde cada una de estas representa algo distinto:
 | Variable | Descripción |
@@ -138,7 +138,7 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE1MDA1NDUwOCwtMTUyNzA4MTAzMywyOT
+eyJoaXN0b3J5IjpbMjE0NDEyMzQ1MiwtMTUyNzA4MTAzMywyOT
 A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
 OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
 gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
