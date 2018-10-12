@@ -64,7 +64,15 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 ## Proceso de instalación local (Linux)
  1. Instalar git.
 	Debian-based distribution:
-	`sudo apt-get install`
+	`sudo apt-get install git-all`
+ 2. L
+ 3. a
+ 4. a
+ 5. a
+ 6. a
+ 7. a
+ 8. a
+ 9. 
 - **Base de datos**: Se requiere un sistema gestor de base de datos el cual sea capaz de manejar SQL, una vez en el se crea la base de datos CPSITeM.
 - **Repositorios**: Es necesario el descargar el contenido del repositorio para conseguir todos los End points.
 
@@ -91,9 +99,9 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA0OTcyNjAwOSwtMTk3MTM5NTE4MywtOD
-Y4NTQ3MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLDIxMjg5Nzg1
-MTAsLTk5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLT
-E3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MTk2
-MDI4MzAsLTE0NDQxOTgyMTJdfQ==
+eyJoaXN0b3J5IjpbMjkwNzM0MTk3LC0xOTcxMzk1MTgzLC04Nj
+g1NDcyMTYsMTM1Mjg4MzkwNCwxNzQ0NTM1MjEsMjEyODk3ODUx
+MCwtOTk5NjQ2MDg3LC04MzYwNDI5MjYsMTUwMDE2NTAxOCwtMT
+c3NDQ3NTEyMCwtMTAxMDMyNTc5LC0yMTIzNzQwMzQ3LDUxOTYw
+MjgzMCwtMTQ0NDE5ODIxMl19
 -->
