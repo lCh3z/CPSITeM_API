@@ -60,7 +60,6 @@ Dentro de este apartado entran dos perfiles, tanto el empleado o el usuario (cli
 En este apartado entran todos los usuarios, desde administradores, empleados, clientes, ya que es el filtro que va determinar que acciones son posibles de acuerdo a tu nivel de usuario o que acciones simplemente van a estar deshabilitadas de acuerdo a tu perfil.
 
 ## Usuarios y Permisos
-
 -   **Administrador**
 Este usuario tendrá acceso total a modificaciones dentro del sistema, cabe mencionar que también podrá realizar cambios a otros usuarios en cuanto a permisos.
 -   **Vendedor**
