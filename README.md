@@ -73,7 +73,8 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	git clone https://github.com/lCh3z/CPSITeM_API.git
 #### Instalar dependencias
 	npm install
-#### 
+#### Definir variables de entoro
+En el directorio donde clonaste el proyecto crea un archivo .env con las siguientes
 	
 - **Base de datos**: Se requiere un sistema gestor de base de datos el cual sea capaz de manejar SQL, una vez en el se crea la base de datos CPSITeM.
 - **Repositorios**: Es necesario el descargar el contenido del repositorio para conseguir todos los End points.
@@ -101,7 +102,7 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM3NzAzNDYwMCwtMTUyNzA4MTAzMywyOT
+eyJoaXN0b3J5IjpbMTg4MTQxOTU0OCwtMTUyNzA4MTAzMywyOT
 A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
 OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
 gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
