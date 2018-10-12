@@ -96,7 +96,7 @@ Bien, una vez estés dentro, ejecutar las siguientes líneas:
 	GRANT ALL PRIVILEGES ON MyDataBase. * TO 'nombre_usuario'@'localhost';
 	FLUSH PRIVILEGES;
 #### Creación de tablas, disparadores y procedimientos almacenados
-Para esto, simplemente tendrás que copiar todo el contenido del archivo [db.sql](https://lch3z.github.io/CPSITeM_API/docs/db.sql), pegarlo en MySQL Workbench y ejecutarlo.
+Para esto, simplemente tendrás que copiar todo el contenido del archivo [db.sql](docs/db.sql), pegarlo en MySQL Workbench y ejecutarlo.
 ### Definir variables de entoro
 En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tienes que renombrarlo por _.env_. Este archivo contiene las variables de entorno, donde cada una de estas representa algo distinto:
 <table>
@@ -162,7 +162,7 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 - **Colección de POSTMAN** [\[Acceder\]](https://www.getpostman.com/collections/e592223584344d2fe0d9)
 - **Hosting gratuito de DB** [\[Acceder\]](https://www.db4free.net/)
 ## Licencia
-Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir a  [LICENSE](LICENSE.md) para más información.
+Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir a  [LICENSE](LICENSE) para más información.
 ## Colaboradores
 <table>
     <tbody>
