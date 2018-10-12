@@ -62,7 +62,12 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   **Cliente**: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
 
 ## Proceso de instalación local
- 1. Instalar git
+ 1. Instalar git.
+	 Linux:
+	 
+
+    sudo apt-get install 
+
 - **Base de datos**: Se requiere un sistema gestor de base de datos el cual sea capaz de manejar SQL, una vez en el se crea la base de datos CPSITeM.
 - **Repositorios**: Es necesario el descargar el contenido del repositorio para conseguir todos los End points.
 
@@ -89,9 +94,9 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2ODY5NTU0ODksLTE5NzEzOTUxODMsLT
-g2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUyMSwyMTI4OTc4
-NTEwLC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC
-0xNzc0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5
-NjAyODMwLC0xNDQ0MTk4MjEyXX0=
+eyJoaXN0b3J5IjpbNTc1NTY1MjcsLTE5NzEzOTUxODMsLTg2OD
+U0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEw
+LC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNz
+c0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5NjAy
+ODMwLC0xNDQ0MTk4MjEyXX0=
 -->
