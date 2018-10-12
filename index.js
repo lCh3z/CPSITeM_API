@@ -10,7 +10,6 @@ const { errorHandler } = require('./app/middlewares');
 
 const app = express();
 
-
 // Cargamos los middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

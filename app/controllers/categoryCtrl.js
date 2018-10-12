@@ -28,7 +28,6 @@ class categoryCtrl{
 
   async getAll(req, res, next) {
     try {
-<<<<<<< HEAD
       let page = parseInt(req.param('page'));
       let per_page = parseInt(req.param('per_page'));
       if (!page) {
@@ -66,13 +65,6 @@ class categoryCtrl{
           order.desc = false;
         }
       }
-
-=======
-      const page = parseInt(req.param('page'));
-      const per_page = parseInt(req.param('per_page'));
-      const start = page * per_page;
-
->>>>>>> release
       let data = await CategoryMdl.select(
         '_Category_',
         [
@@ -84,13 +76,8 @@ class categoryCtrl{
           'date',
           'updated',
         ],
-<<<<<<< HEAD
         filters,
         order,
-=======
-        null,
-        null,
->>>>>>> release
         {
           start,
           quant: per_page,
