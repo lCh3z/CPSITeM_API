@@ -85,9 +85,10 @@ En el directorio donde clonaste el proyecto crea un archivo .env con las siguien
 | DB_PORT | puerto de la base de datos |
 | PORT | puerto de la aplicación |
 | SECRET | cadena para cifrado |
-| USER_TIME | tiem |
+| USER_TIME | tiempo de expiración de sesión de usuario |
 |  |  |
-
+**_Ejemplo:_**
+	`a`
 
 -  : 
 -  : 
@@ -122,10 +123,10 @@ En el directorio donde clonaste el proyecto crea un archivo .env con las siguien
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NzUxNzk3OTIsLTE1MjcwODEwMzMsMj
-kwNzM0MTk3LC0xOTcxMzk1MTgzLC04Njg1NDcyMTYsMTM1Mjg4
-MzkwNCwxNzQ0NTM1MjEsMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC
-04MzYwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAx
-MDMyNTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5OD
-IxMl19
+eyJoaXN0b3J5IjpbMTgzODUxNjU2NCwtMTUyNzA4MTAzMywyOT
+A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
+OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
+gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
+MzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0MTk4Mj
+EyXX0=
 -->
