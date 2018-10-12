@@ -117,9 +117,9 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 
 ## Enlaces relacionados
 
-- **Sitio DEMO** [\[Acceder\]](https://cpsitem.herokuapp.com/)
-- **Repositorio de GIT** [\[Acceder\]](https://github.com/lCh3z/CPSITeM_API)
+- **Sitio demostrativo** [\[Acceder\]](https://cpsitem.herokuapp.com/)
 - **GitHub Page** [\[Acceder\]](https://lch3z.github.io/CPSITeM_API/)
+- **Repositorio de GIT** [\[Acceder\]](https://github.com/lCh3z/CPSITeM_API)
 - **Colección de POSTMAN** [\[Acceder\]](https://www.getpostman.com/collections/e592223584344d2fe0d9)
 - **Hosting gratuito de DB** [\[Acceder\]](https://www.db4free.net/)
 - 
@@ -132,10 +132,10 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTkwMTQ5ODQ4LDExNzc5NDM0MTksLTEwMD
-EzMzIwOSwtMTUyNzA4MTAzMywyOTA3MzQxOTcsLTE5NzEzOTUx
-ODMsLTg2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUyMSwyMT
-I4OTc4NTEwLC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNTAwMTY1
-MDE4LC0xNzc0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3NDAzND
-csNTE5NjAyODMwLC0xNDQ0MTk4MjEyXX0=
+eyJoaXN0b3J5IjpbLTExMzA1Mzc4OTgsMTE3Nzk0MzQxOSwtMT
+AwMTMzMjA5LC0xNTI3MDgxMDMzLDI5MDczNDE5NywtMTk3MTM5
+NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLD
+IxMjg5Nzg1MTAsLTk5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAx
+NjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0MD
+M0Nyw1MTk2MDI4MzAsLTE0NDQxOTgyMTJdfQ==
 -->
