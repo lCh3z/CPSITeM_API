@@ -1,31 +1,5 @@
 
 # Tienda en Línea
-<table>
-    <tbody>
-        <tr>
-            <td align="center" valign="top" width="23%">
-                <a href="https://github.com/lCh3z">
-                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
-                <sub>Luis Angel (lCh3z)</sub></a>
-            </td>
-            <td align="center" valign="top" width="23%">
-                <a href="https://github.com/lCh3z">
-                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
-                <sub>Luis Angel (lCh3z)</sub></a>
-            </td>
-            <td align="center" valign="top" width="23%">
-                <a href="https://github.com/lCh3z">
-                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
-                <sub>Luis Angel (lCh3z)</sub></a>
-            </td>
-            <td align="center" valign="top" width="23%">
-                <a href="https://github.com/lCh3z">
-                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
-                <sub>Luis Angel (lCh3z)</sub></a>
-            </td>
-        </tr>
-    </tbody>
-</table>
 
 ## Definición del problema
 
@@ -151,17 +125,39 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 ## Licencia
 Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir a  [LICENSE](LICENSE.md) para más información.
 ## Colaboradores
+<table>
+    <tbody>
+        <tr>
+            <td align="center" valign="top" width="23%">
+                <a href="https://github.com/lCh3z">
+                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
+                <sub>Luis Angel (lCh3z)</sub></a>
+            </td>
+            <td align="center" valign="top" width="23%">
+                <a href="https://github.com/dartrox21">
+                <img src="https://avatars2.githubusercontent.com/u/39166989?s=460&v=4" width="75px" height="75px"><br/>
+                <sub># Saúl Ruiz (dartrox21)</sub></a>
+            </td>
+            <td align="center" valign="top" width="23%">
+                <a href="https://github.com/lCh3z">
+                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
+                <sub>Luis Angel (lCh3z)</sub></a>
+            </td>
+            <td align="center" valign="top" width="23%">
+                <a href="https://github.com/lCh3z">
+                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
+                <sub>Luis Angel (lCh3z)</sub></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
--   RUIZ ACEVEDO SAUL FRANCISCO
--   OCHOA DE LOS ANGELES LUIS ANGEL
--   RUELAS BUENROSTRO ULISES MARCOS
--   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDYyNzg3NDQ0LDEyNDQ5NTcxODcsLTUzNz
-I1NjgyOSw1NDUzNDcyOTEsMTE3Nzk0MzQxOSwtMTAwMTMzMjA5
-LC0xNTI3MDgxMDMzLDI5MDczNDE5NywtMTk3MTM5NTE4MywtOD
-Y4NTQ3MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLDIxMjg5Nzg1
-MTAsLTk5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLT
-E3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MTk2
-MDI4MzBdfQ==
+eyJoaXN0b3J5IjpbMjExNzU2OTg0OSw0NjI3ODc0NDQsMTI0ND
+k1NzE4NywtNTM3MjU2ODI5LDU0NTM0NzI5MSwxMTc3OTQzNDE5
+LC0xMDAxMzMyMDksLTE1MjcwODEwMzMsMjkwNzM0MTk3LC0xOT
+cxMzk1MTgzLC04Njg1NDcyMTYsMTM1Mjg4MzkwNCwxNzQ0NTM1
+MjEsMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC04MzYwNDI5MjYsMT
+UwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAxMDMyNTc5LC0yMTIz
+NzQwMzQ3XX0=
 -->
