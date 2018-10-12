@@ -73,6 +73,7 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	git clone https://github.com/lCh3z/CPSITeM_API.git
 ### Instalar dependencias
 	npm install --only=prod
+>If you are developer, use 
 ### Instalar MySQL
 	sudo apt-get update
 	sudo apt-get install mysql-server mysql-client
@@ -83,14 +84,14 @@ Si se te dificulta algo con esta parte de la instalación, puedes consultar esta
 ### Inicializar la base de datos
 Si al instalar workbech o cualquier SGBD que utilices, este no crea una conexión por defecto, tendrás que crearla y conectarte a la misma con el usuario root que definiste en la instalación de mysql.
 Bien, una vez estés dentro, ejecutar las siguientes líneas:
-##### Crear usuario para la aplicación
+#### Crear usuario para la aplicación
 	CREATE USER 'nombre_usuario'@'localhost' IDENTIFIED BY 'tu_contrasena';
 	CREATE DATABASE MyDataBase;
 	GRANT ALL PRIVILEGES ON MyDataBase. * TO 'nombre_usuario'@'localhost';
 	FLUSH PRIVILEGES;
-##### Creación de tablas, disparadores y procedimientos almacenados
+#### Creación de tablas, disparadores y procedimientos almacenados
 Para esto, simplemente tendrás que copiar todo el contenido del archivo [db.sql](https://lch3z.github.io/CPSITeM_API/docs/db.sql), pegarlo en MySQL Workbench y ejecutarlo.
-#### Definir variables de entoro
+### Definir variables de entoro
 En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tienes que renombrarlo por _.env_. Este archivo contiene las variables de entorno, donde cada una de estas representa algo distinto:
 | Variable | Descripción |
 |--|--|
@@ -105,10 +106,8 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 | USER_TIME | tiempo de expiración de sesión de usuario |
 |  |  |
 Una vez que sabes que representa cada una, deberás reasignar los valores por los necesarios para tu proyecto.
-#### Ejecutar Aplicación
-
-- **Repositorios**: Es necesario el descargar el contenido del repositorio para conseguir todos los End points.
-
+### Ejecutar Aplicación
+	node index.js
 
 ## URLs de demostración
 
@@ -132,7 +131,7 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTU5MTgzMTE2LC0xNTI3MDgxMDMzLDI5MD
+eyJoaXN0b3J5IjpbMTI0OTg1MTQxLC0xNTI3MDgxMDMzLDI5MD
 czNDE5NywtMTk3MTM5NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5
 MDQsMTc0NDUzNTIxLDIxMjg5Nzg1MTAsLTk5OTY0NjA4NywtOD
 M2MDQyOTI2LDE1MDAxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAz
