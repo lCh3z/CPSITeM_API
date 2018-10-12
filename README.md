@@ -117,13 +117,8 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 
 ## URLs de demostración
 
-- URL repositorio de GIT :
-	https://github.com/lCh3z/CPSITeM_API
-- URL para clonar o descargar repositorio :
-	https://github.com/lCh3z/CPSITeM_API.git
-- URL floobits, archivo de BD :
-	https://floobits.com/lCh3z/CPSITeM/file/db.sql
-- URL carpeta de documentación en Drive :
+- **Repositorio de GIT** :	https://github.com/lCh3z/CPSITeM_API
+- **** :
 	https://drive.google.com/drive/u/0/folders/1u_8xk6MY4cjV69JpTGguUYrdHKM514yq
 - URL postman :
 	https://www.getpostman.com/collections/e592223584344d2fe0d9
@@ -138,10 +133,10 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTEzMDM3NTksMTE3Nzk0MzQxOSwtMTAwMT
-MzMjA5LC0xNTI3MDgxMDMzLDI5MDczNDE5NywtMTk3MTM5NTE4
-MywtODY4NTQ3MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLDIxMj
-g5Nzg1MTAsLTk5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUw
-MTgsLTE3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0MDM0Ny
-w1MTk2MDI4MzAsLTE0NDQxOTgyMTJdfQ==
+eyJoaXN0b3J5IjpbNzA3NDAwNzI2LDExNzc5NDM0MTksLTEwMD
+EzMzIwOSwtMTUyNzA4MTAzMywyOTA3MzQxOTcsLTE5NzEzOTUx
+ODMsLTg2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUyMSwyMT
+I4OTc4NTEwLC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNTAwMTY1
+MDE4LC0xNzc0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3NDAzND
+csNTE5NjAyODMwLC0xNDQ0MTk4MjEyXX0=
 -->
