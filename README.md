@@ -99,18 +99,56 @@ Bien, una vez estés dentro, ejecutar las siguientes líneas:
 Para esto, simplemente tendrás que copiar todo el contenido del archivo [db.sql](https://lch3z.github.io/CPSITeM_API/docs/db.sql), pegarlo en MySQL Workbench y ejecutarlo.
 ### Definir variables de entoro
 En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tienes que renombrarlo por _.env_. Este archivo contiene las variables de entorno, donde cada una de estas representa algo distinto:
-| Variable | Descripción |
-|--|--|
-| DB_USER | dirección de la base de datos |
-| DB_HOST | dirección de la base de datos |
-| DB_USER | usuario de la base de datos |
-| DB_PASS | contraseña del usuario |
-| DB_NAME | nombre de la base de datos |
-| DB_PORT | puerto de la base de datos |
-| PORT | puerto de la aplicación |
-| SECRET | cadena para cifrado |
-| USER_TIME | tiempo de expiración de sesión de usuario |
-|  |  |
+<table>
+	<thead>
+		<tr>
+			<th>Variable</th>
+			<th>Descripción</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>DB_USER</td>
+			<td>dirección de la base de datos</td>
+		</tr>
+		<tr>
+			<td>DB_HOST</td>
+			<td>dirección de la base de datos</td>
+		</tr>
+		<tr>
+			<td>DB_USER</td>
+			<td>usuario de la base de datos</td>
+		</tr>
+		<tr>
+			<td>DB_PASS</td>
+			<td>contraseña del usuario</td>
+		</tr>
+		<tr>
+			<td>DB_NAME</td>
+			<td>nombre de la base de datos</td>
+		</tr>
+		<tr>
+			<td>DB_PORT</td>
+			<td>puerto de la base de datos</td>
+		</tr>
+		<tr>
+			<td>PORT</td>
+			<td>puerto de la aplicación</td>
+		</tr>
+		<tr>
+			<td>SECRET</td>
+			<td>cadena para cifrado</td>
+		</tr>
+		<tr>
+			<td>USER_TIME</td>
+			<td>tiempo de expiración de sesión de usuario</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 Una vez que sabes que representa cada una, deberás reasignar los valores por los necesarios para tu proyecto.
 ### Ejecutar Aplicación
 	node index.js
@@ -153,7 +191,7 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
 </table>
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzkxNDY3MjY4LDQ2Mjc4NzQ0NCwxMjQ0OT
+eyJoaXN0b3J5IjpbNzA2MjY4MTU0LDQ2Mjc4NzQ0NCwxMjQ0OT
 U3MTg3LC01MzcyNTY4MjksNTQ1MzQ3MjkxLDExNzc5NDM0MTks
 LTEwMDEzMzIwOSwtMTUyNzA4MTAzMywyOTA3MzQxOTcsLTE5Nz
 EzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUy
