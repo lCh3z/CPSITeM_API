@@ -61,13 +61,10 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   **Vendedor**: Puede tener acceso a modificaciones de estatus de servicios que están pendientes o que ya fueron realizados, también pueden realizar actividades dentro de la plataforma como dar de lata un nuevo producto, actualizar el inventario o simplemente realizar modificaciones a post creados dentro de la misma pagina.
 -   **Cliente**: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
 
-## Proceso de instalación local
+## Proceso de instalación local (Linux)
  1. Instalar git.
 	Debian-based distribution:
-	 
-
-    sudo apt-get install 
-
+	`sudo apt-get install`
 - **Base de datos**: Se requiere un sistema gestor de base de datos el cual sea capaz de manejar SQL, una vez en el se crea la base de datos CPSITeM.
 - **Repositorios**: Es necesario el descargar el contenido del repositorio para conseguir todos los End points.
 
@@ -94,7 +91,7 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc1MjU4NDIyOCwtMTk3MTM5NTE4MywtOD
+eyJoaXN0b3J5IjpbMTA0OTcyNjAwOSwtMTk3MTM5NTE4MywtOD
 Y4NTQ3MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIxLDIxMjg5Nzg1
 MTAsLTk5OTY0NjA4NywtODM2MDQyOTI2LDE1MDAxNjUwMTgsLT
 E3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0MDM0Nyw1MTk2
