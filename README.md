@@ -62,10 +62,11 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   **Cliente**: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
 
 ## Proceso de instalación local (Linux)
- 1. Instalar git.
-	Debian-based distribution:
+### 1. Debian-based distribution.
+####  - Inst
 	`sudo apt-get install git-all`
  2. Instalar Node JS y npm
+	Debian-based distribution:
 	`curl -sL https://deb.nodesource.com/setup_10.11.0 | sudo -E bash -`
 	`sudo apt-get install -y nodejs`
  3. 
@@ -101,9 +102,9 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MTc3NjI0MCwyOTA3MzQxOTcsLTE5Nz
-EzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUy
-MSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNT
-AwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3
-NDAzNDcsNTE5NjAyODMwLC0xNDQ0MTk4MjEyXX0=
+eyJoaXN0b3J5IjpbNzIwMzQwNDY1LDI5MDczNDE5NywtMTk3MT
+M5NTE4MywtODY4NTQ3MjE2LDEzNTI4ODM5MDQsMTc0NDUzNTIx
+LDIxMjg5Nzg1MTAsLTk5OTY0NjA4NywtODM2MDQyOTI2LDE1MD
+AxNjUwMTgsLTE3NzQ0NzUxMjAsLTEwMTAzMjU3OSwtMjEyMzc0
+MDM0Nyw1MTk2MDI4MzAsLTE0NDQxOTgyMTJdfQ==
 -->
