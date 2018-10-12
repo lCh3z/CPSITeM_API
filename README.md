@@ -85,6 +85,8 @@ Si al instalar workbech o cualquier SGBD que utilices, este no crea una conexió
 Bien, una vez estés dentro, ejecutar las siguientes líneas:
 #### Crear usuario
 	CREATE USER 'nombre_usuario'@'localhost' IDENTIFIED BY 'tu_contrasena';
+	CREATE DATABASE CPSITeM;
+	GRANT ALL PRIVILEGES ON * . * TO 'nombre_usuario'@'localhost';
 	
 #### Definir variables de entoro
 En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tienes que renombrarlo por _.env_. Este archivo contiene las variables de entorno, donde cada una de estas representa algo distinto:
@@ -134,10 +136,10 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDkwMzU5ODMsLTE1MjcwODEwMzMsMjkwNz
-M0MTk3LC0xOTcxMzk1MTgzLC04Njg1NDcyMTYsMTM1Mjg4Mzkw
-NCwxNzQ0NTM1MjEsMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC04Mz
-YwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAxMDMy
-NTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5ODIxMl
-19
+eyJoaXN0b3J5IjpbMjExNjQxNjIyNSwtMTUyNzA4MTAzMywyOT
+A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
+OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
+gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
+MzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0MTk4Mj
+EyXX0=
 -->
