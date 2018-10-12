@@ -75,6 +75,11 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 	npm install
 #### Definir variables de entoro
 En el directorio donde clonaste el proyecto crea un archivo .env con las siguientes variables:
+|DB_HOST|dirección de la base de datos|
+|DB_USER|usuario de la base de datos|
+|  |  |
+
+
 - DB_HOST : dirección de la base de datos
 - DB_USER : usuario de la base de datos
 - DB_PASS : contraseña del usuario
@@ -109,10 +114,10 @@ En el directorio donde clonaste el proyecto crea un archivo .env con las siguien
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwOTQzNDE0ODAsLTE1MjcwODEwMzMsMj
-kwNzM0MTk3LC0xOTcxMzk1MTgzLC04Njg1NDcyMTYsMTM1Mjg4
-MzkwNCwxNzQ0NTM1MjEsMjEyODk3ODUxMCwtOTk5NjQ2MDg3LC
-04MzYwNDI5MjYsMTUwMDE2NTAxOCwtMTc3NDQ3NTEyMCwtMTAx
-MDMyNTc5LC0yMTIzNzQwMzQ3LDUxOTYwMjgzMCwtMTQ0NDE5OD
-IxMl19
+eyJoaXN0b3J5IjpbMTIyMTU2MzUwNSwtMTUyNzA4MTAzMywyOT
+A3MzQxOTcsLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgz
+OTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLT
+gzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEw
+MzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0MTk4Mj
+EyXX0=
 -->
