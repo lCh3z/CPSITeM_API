@@ -3,10 +3,10 @@
 <table>
     <tbody>
         <tr>
-            <td align="center" valign="top" width="11%">
-                <a href="https://github.com/lo1tuma">
-                <img src="https://media.licdn.com/dms/image/C4E03AQExuzsRuMu3wA/profile-displayphoto-shrink_100_100/0?e=1544659200&v=beta&t=Am-IBkfY4U4rG9_ysirBp6K2R0wepoR4d0CEZN4lQ4w" width="75px" height="75px"><br/>
-                <sub>Luis An</sub></a>
+            <td align="center" valign="top" width="23%">
+                <a href="https://github.com/lCh3z">
+                <img src="https://avatars3.githubusercontent.com/u/26315653?s=460&v=4" width="75px" height="75px"><br/>
+                <sub>Luis Angel (lCh3z)</sub></a>
             </td>
             <td align="center" valign="top" width="11%">
                 <a href="https://github.com/xjamundx">
@@ -147,7 +147,7 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
 -   RUELAS BUENROSTRO ULISES MARCOS
 -   MARTINEZ GONZALEZ OSCAR EDUARDO
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIyNjIyMzk1MSwxMjQ0OTU3MTg3LC01Mz
+eyJoaXN0b3J5IjpbMTAyODU3Mzg1NCwxMjQ0OTU3MTg3LC01Mz
 cyNTY4MjksNTQ1MzQ3MjkxLDExNzc5NDM0MTksLTEwMDEzMzIw
 OSwtMTUyNzA4MTAzMywyOTA3MzQxOTcsLTE5NzEzOTUxODMsLT
 g2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUyMSwyMTI4OTc4
