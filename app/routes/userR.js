@@ -11,6 +11,17 @@ router.post('/',
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
+          photo: 'photo',
+          name: 'word,required',
+          sec_name: 'word',
+          pat_surname: 'word',
+          mat_surname: 'word',
+          company: 'word',
+          rfc: 'rfc',
+          country: 'word',
+          lada :'unsignedInteger',
+          phone: 'unsignedInteger',
+          cdu :'secret',
           main_email: 'email,required',
         },
       });
@@ -23,7 +34,17 @@ router.put('/:id',
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
+          photo: 'photo',
           name: 'word,required',
+          sec_name: 'word',
+          pat_surname: 'word',
+          mat_surname: 'word',
+          company: 'word',
+          rfc: 'rfc',
+          country: 'word',
+          lada :'unsignedInteger',
+          phone: 'unsignedInteger',
+          cdu :'secret',
           main_email: 'email,required',
           list_email: [
             {
@@ -44,15 +65,44 @@ router.delete('/:id', userCtrl.delete);
 
 router.get('/:id/cart', cartCtrl.getAll);
 
-router.post('/:id/cart', cartCtrl.create);
+router.post('/:id/cart',
+  [
+    (req, res, next) =>{
+      middlewares.validator.validate(req, res, next,{
+        body:{
+          id_product: 'unsignedInteger, required',
+          quantity : 'unsignedInteger',
+        },
+      });
+    },
+  ], cartCtrl.create);
 
-router.put('/:id/cart/:id_product', cartCtrl.update);
+router.put('/:id/cart/:id_product',
+  [
+    (req, res, next) =>{
+      middlewares.validator.validate(req, res, next,{
+        body:{
+          quantity: 'unsignedInteger',
+          status : 'unsignedInteger',
+        },
+      });
+    },
+  ], cartCtrl.update);
 
 router.delete('/:id/cart/:id_product', cartCtrl.delete);
 
 router.get('/:id/wishlist', wishListCtrl.getAll);
 
-router.post('/:id/wishlist/', wishListCtrl.create);
+router.post('/:id/wishlist/',
+  [
+    (req, res, next) =>{
+      middlewares.validator.validate(req, res, next,{
+        body:{
+          id_product :'unsignedInteger, required',
+        },
+      });
+    },
+  ], wishListCtrl.create);
 
 router.delete('/:id/wishlist/:id_product', wishListCtrl.delete);
 
