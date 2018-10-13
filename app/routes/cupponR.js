@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { cupponCtrl } = require('../controllers');
+const middlewares = require('../middlewares');
 
 router.get('/', cupponCtrl.getAll);
 

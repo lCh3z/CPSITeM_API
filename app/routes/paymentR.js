@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { paymentCtrl } = require('../controllers');
+const middlewares = require('../middlewares');
 
 router.get('/', paymentCtrl.getAll);
 
