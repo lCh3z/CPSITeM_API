@@ -3,7 +3,16 @@ const { newsListCtrl } = require('../controllers');
 
 router.get('/', newsListCtrl.getAll);
 
-router.post('/', newsListCtrl.create);
+router.post('/',
+  [
+    (req, res, next) =>{
+      middlewares.validator.validate(req, res, next,{
+        body:{
+          email: 'email, required',
+        },
+      });
+    },
+  ], newsListCtrl.create);
 
 router.put('/:email', newsListCtrl.update);
 
