@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const { sectionCtrl } = require('../controllers');
+const { serviceCtrl } = require('../controllers');
 const middlewares = require('../middlewares');
 
-router.get('/', sectionCtrl.getAll);
+router.get('/', serviceCtrl.getAll);
 
 router.get('/:id', serviceCtrl.get);
 
