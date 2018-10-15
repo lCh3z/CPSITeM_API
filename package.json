@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/lCh3z/CPSITeM_API#readme",
   "dependencies": {
-    "bcrypt": "^3.0.1",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
