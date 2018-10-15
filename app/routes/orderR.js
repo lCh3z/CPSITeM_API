@@ -11,16 +11,16 @@ router.post('/',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          id_user: 'unsignedInteger, required',
-          id_address: 'unsignedInteger, required',
-          id_payment: 'unsignedInteger, required',
-          id_cuppon: 'unsignedInteger',
+          id_user: 'unsigned,required',
+          id_address: 'unsigned,required',
+          id_payment: 'unsigned,required',
+          id_cuppon: 'unsigned',
           list_prod:[
             {
-              id_order: 'unsignedInteger',
-              id_product: 'unsignedInteger',
-              quantity: 'unsignedInteger',
-              price: 'unsignedInteger',
+              id_order: 'unsigned',
+              id_product: 'unsigned',
+              quantity: 'unsigned',
+              price: 'unsigned',
             }
           ],
         },
@@ -33,12 +33,12 @@ router.put('/:id',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          id: 'unsignedInteger',
-          id_user: 'unsignedInteger, required',
-          id_address: 'unsignedInteger, required',
-          id_payment: 'unsignedInteger, required',
-          id_cuppon: 'unsignedInteger',
-          status: 'unsignedInteger',
+          id: 'unsigned',
+          id_user: 'unsigned,required',
+          id_address: 'unsigned,required',
+          id_payment: 'unsigned,required',
+          id_cuppon: 'unsigned',
+          status: 'unsigned',
         },
       });
     },
