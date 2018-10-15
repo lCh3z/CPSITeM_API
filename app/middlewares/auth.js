@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const { UserMdl} = require('./models');
+const { UserMdl} = require('../models');
 
 class Auth{
   constructor(){
