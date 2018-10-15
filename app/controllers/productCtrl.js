@@ -48,6 +48,7 @@ class productCtrl {
           order.desc = false;
         }
       }
+
       let data = await ProductMdl.select(
         '_Product_',
         [

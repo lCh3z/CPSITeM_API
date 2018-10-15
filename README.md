@@ -8,6 +8,7 @@ La empresa CPSITeM solicita que un equipo de desarrollo se encargue de crear un 
  - **Ventas de productos en línea**
  - **Administración de servicios**
  - **Registro de personal**
+
 Ya que actualmente cuentan con un sitio web muy básico que no les permite realizar las operaciones antes mencionadas de manera cómoda y eficiente.
 
 
@@ -189,13 +190,3 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
         </tr>
     </tbody>
 </table>
-
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbNzA2MjY4MTU0LDQ2Mjc4NzQ0NCwxMjQ0OT
-U3MTg3LC01MzcyNTY4MjksNTQ1MzQ3MjkxLDExNzc5NDM0MTks
-LTEwMDEzMzIwOSwtMTUyNzA4MTAzMywyOTA3MzQxOTcsLTE5Nz
-EzOTUxODMsLTg2ODU0NzIxNiwxMzUyODgzOTA0LDE3NDQ1MzUy
-MSwyMTI4OTc4NTEwLC05OTk2NDYwODcsLTgzNjA0MjkyNiwxNT
-AwMTY1MDE4LC0xNzc0NDc1MTIwLC0xMDEwMzI1NzksLTIxMjM3
-NDAzNDddfQ==
--->

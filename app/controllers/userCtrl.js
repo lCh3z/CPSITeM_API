@@ -20,6 +20,7 @@ class UserCtrl {
       if (!per_page) {
         per_page = 20;
       }
+
       const start = page * per_page;
 
       let find = parseInt(req.param('find'));

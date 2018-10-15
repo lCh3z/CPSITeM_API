@@ -65,7 +65,6 @@ class categoryCtrl{
           order.desc = false;
         }
       }
-
       let data = await CategoryMdl.select(
         '_Category_',
         [
