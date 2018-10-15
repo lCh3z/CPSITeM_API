@@ -19,8 +19,8 @@ router.post('/',
           company: 'word',
           rfc: 'rfc',
           country: 'word',
-          lada :'unsignedInteger',
-          phone: 'unsignedInteger',
+          lada :'unsigned',
+          phone: 'unsigned',
           cdu :'secret',
           main_email: 'email,required',
         },
@@ -42,8 +42,8 @@ router.put('/:id',
           company: 'word',
           rfc: 'rfc',
           country: 'word',
-          lada :'unsignedInteger',
-          phone: 'unsignedInteger',
+          lada :'unsigned',
+          phone: 'unsigned',
           cdu :'secret',
           main_email: 'email,required',
           list_email: [
@@ -70,8 +70,8 @@ router.post('/:id/cart',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          id_product: 'unsignedInteger, required',
-          quantity : 'unsignedInteger',
+          id_product: 'unsigned,required',
+          quantity : 'unsigned',
         },
       });
     },
@@ -82,8 +82,8 @@ router.put('/:id/cart/:id_product',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          quantity: 'unsignedInteger',
-          status : 'unsignedInteger',
+          quantity: 'unsigned',
+          status : 'unsigned',
         },
       });
     },
@@ -98,7 +98,7 @@ router.post('/:id/wishlist/',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          id_product :'unsignedInteger, required',
+          id_product :'unsigned,required',
         },
       });
     },
