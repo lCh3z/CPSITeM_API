@@ -8,8 +8,8 @@ router.post('/',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          id_user: 'unsignedInteger, required',
-          id_product: 'unsignedInteger, required',
+          id_user: 'unsigned,required',
+          id_product: 'unsigned,required',
         },
       });
     },
@@ -20,8 +20,8 @@ router.put('/:id_user',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          id_product: 'unsignedInteger, required',
-          status: 'unsignedInteger',
+          id_product: 'unsigned,required',
+          status: 'unsigned',
         },
       });
     },
