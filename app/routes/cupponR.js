@@ -11,9 +11,9 @@ router.post('/',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          code: 'word, required',
-          discount: 'unsignedInteger, required',
-          description: 'word, required',
+          code: 'word,required',
+          discount: 'unsigned,required',
+          description: 'word,required',
         },
       });
     },
@@ -24,10 +24,10 @@ router.put('/:id',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          code : 'word, required',
-          discount: 'unsignedInteger, required',
-          description: 'word, required',
-          status: 'unsignedInteger, required',
+          code : 'word,required',
+          discount: 'unsigned,required',
+          description: 'word,required',
+          status: 'unsigned,required',
         },
       });
     },
