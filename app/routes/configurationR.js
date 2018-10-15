@@ -9,7 +9,7 @@ router.post('/',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          label: 'string, required',
+          label: 'string,required',
           value: 'string',
         },
       });
@@ -23,9 +23,9 @@ router.put('/:id',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          label: 'string, required',
+          label: 'string,required',
           value: 'string',
-          status: 'unsignedInteger',
+          status: 'unsigned',
         },
       });
     },
