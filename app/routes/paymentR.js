@@ -11,9 +11,9 @@ router.post('/',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          id_user: 'unsignedInteger, required',
-          account: 'string, required',
-          token: 'string, required',
+          id_user: 'unsigned,required',
+          account: 'string,required',
+          token: 'string,required',
         },
       });
     },
@@ -24,9 +24,9 @@ router.put('/:id',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          id_user: 'unsignedInteger, required',
-          account: 'string, required',
-          token: 'string, required',
+          id_user: 'unsigned,required',
+          account: 'string,required',
+          token: 'string,required',
         },
       });
     },
