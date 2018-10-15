@@ -11,11 +11,11 @@ router.post('/',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          type: 'unsignedInteger',
-          status: 'unsignedInteger',
+          type: 'unsigned',
+          status: 'unsigned',
           conf_section:[
             {
-              title: 'string, required',
+              title: 'string,required',
               subtitle: 'string',
               description: 'string',
             }
@@ -30,11 +30,11 @@ router.put('/:id',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          type: 'unsignedInteger',
-          status: 'unsignedInteger',
+          type: 'unsigned',
+          status: 'unsigned',
           conf_section:[
             {
-              title: 'string, required',
+              title: 'string,required',
               subtitle: 'string',
               description: 'string',
             }
