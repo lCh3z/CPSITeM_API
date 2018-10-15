@@ -25,7 +25,24 @@ router.post('/', [
   },
 ], productCtrl.create);
 
-router.put('/:id', productCtrl.update);
+router.put('/:id',
+  [
+    (req, res, next) => {
+      middlewares.validator.validate(req, res, next, {
+        body: {
+          name: 'required',
+          inventory: 'required',
+          price: 'required',
+          description: 'required',
+          list_imgs: [
+            {
+              photo: 'required',
+            },
+          ],
+        },
+      });
+    },
+  ], productCtrl.update);
 
 router.delete('/:id', productCtrl.delete);
 module.exports = router;
