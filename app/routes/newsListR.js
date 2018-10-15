@@ -9,7 +9,7 @@ router.post('/',
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
-          email: 'email, required',
+          email: 'email,required',
         },
       });
     },
