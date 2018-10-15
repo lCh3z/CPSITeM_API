@@ -74,9 +74,13 @@ class Validator {
   static recValidation(req, res, next, input, error) {
     if (input && req) {
       if (Array.isArray(input) && Array.isArray(req)) {
+        let missing = false;
         for (const element in input) {
-          this.recValidation(req[element], res, next, input[element], error);
+          if (!this.recValidation(req[element], res, next, input[element], error)) {
+            missing = true;
+          }
         }
+        return missing;
       } else if (typeof (input) === 'object' && typeof (req) === 'object' && !Array.isArray(input) && !Array.isArray(req)) {
         Object.keys(input).forEach((k) => {
           let missing = true;
@@ -118,6 +122,26 @@ class Validator {
         return false;
       }
     } else if (input) {
+      if (Array.isArray(input) && Array.isArray(req)) {
+        for (const element in input) {
+          this.recValidation(req, res, next, input[element], error);
+        }
+      } else if (typeof (input) === 'object' && !Array.isArray(input)) {
+        let required = false;
+        Object.keys(input).forEach((l) => {
+          if (typeof (input[l]) === 'string') {
+            const validators = input[l].split(',');
+            validators.forEach((rule) => {
+              if (rule === 'required') {
+                required = true;
+              }
+            });
+          } else {
+            required = this.recValidation(req, res, next, input[l], error);
+          }
+        });
+        return required;
+      }
       return false;
     }
     return true;
