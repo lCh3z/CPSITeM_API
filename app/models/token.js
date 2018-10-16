@@ -1,18 +1,24 @@
-class Token{
+const db = require('../db');
+class Token {
   static async add({
     token,
-    created,
     id_user,
     expiter,
     type,
     status
-  }) {
+  }, next) {
     try {
-      await db.create(
+      console.log('TOKEN',{
+        token,
+        id_user,
+        expiter,
+        type,
+        status
+      });
+      return await db.create(
         'tokens',
         {
           token,
-          created,
           id_user,
           expiter,
           type,
@@ -20,8 +26,9 @@ class Token{
         }
       );
     } catch (e) {
-      next(e);
+      throw (e);
     }
-    next();
   }
 }
+
+module.exports = Token;

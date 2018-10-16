@@ -6,9 +6,9 @@ router.get('/', configurationCtrl.getAll);
 
 router.post('/',
   [
-    (req, res, next) =>{
-      middlewares.validator.validate(req, res, next,{
-        body:{
+    (req, res, next) => {
+      middlewares.validator.validate(req, res, next, {
+        body: {
           label: 'string,required',
           value: 'string',
         },
@@ -20,9 +20,9 @@ router.post('/populate', configurationCtrl.populate);
 
 router.put('/:id',
   [
-    (req, res, next) =>{
-      middlewares.validator.validate(req, res, next,{
-        body:{
+    (req, res, next) => {
+      middlewares.validator.validate(req, res, next, {
+        body: {
           label: 'string,required',
           value: 'string',
           status: 'unsigned',
