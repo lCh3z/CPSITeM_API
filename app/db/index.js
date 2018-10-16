@@ -4,6 +4,7 @@ class DB {
   constructor() {
     this.connection = mysql.createConnection({
       host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
@@ -180,15 +181,14 @@ class DB {
     const data = this.getDataFromErrorMsg(err.sqlMessage);
     switch (err.code) {
       case 'ER_DUP_ENTRY':
-        error['duplicated'] = {
-          message: `The ${data.field} ${data.data} already exists on the system`,
+        error['Duplicated'] = {
+          message: `${data[0]} already exists on the system`,
           field: data.field,
         };
         break;
       default:
         error['BAD'] = {
-          message: `The ${data.field} ${data.data} already exists on the system`,
-          field: data.field,
+          message: err.sqlMessage,
         };
         break;
     }
@@ -197,11 +197,11 @@ class DB {
   }
 
   getDataFromErrorMsg(message) {
-    console.log('msg', message);
-    let data = unescape(message).match(/'([^']+)'/g)
-    return {
-      field: data[1].slice(1,-1),
-      data: data[0].slice(1,-1),
+    const data = unescape(message).match(/'([^']+)'/g);
+    if (data) {
+      return data;
+    } else {
+      return [];
     }
   }
 }
