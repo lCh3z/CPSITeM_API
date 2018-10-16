@@ -1,27 +1,54 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 
-const { UserCtrl } = require('./controllers');
+const { UserMdl, Token } = require('../models');
 
-class Auth{
-  constructor(){
-    this.register = register.bind(this);
+class Auth {
+  constructor() {
+    this.register = this.register.bind(this);
   }
 
-  register(req, res, next){
-    UserCtrl.create(req, res, next);
-
-    const token =  bcrypt.hash('untoken', process.env.SECRET);
-    const created = new Date();
-    const expires = created + 12;
-    Token.add({
-      token,
-      created: created,
-      id_user: user.id,
-      expiter: expires,
-      type: 1,
-      status: 1,
-    })
+  static async register(req, res, next) {
+    const User = new UserMdl(req.body);
+    try {
+      await User.save();
+    } catch (e) {
+      next(e);
+    }
+    console.log('USER', User);
+    console.log('A');
+    try {
+      bcrypt.hash(req.cdu, null, null, async (err, hash) => {
+        if (!err) {
+          console.log('B');
+          let expires = Date.now();
+          expires += process.env.USER_TIME * 60000;
+          expires = new Date(expires).toISOString().slice(0, 19).replace('T', ' ');
+          try {
+            console.log('TOKEN', {
+              token: hash,
+              id_user: User.id,
+              expiter: expires,
+              type: 1,
+              status: 1,
+            });
+            await Token.add({
+              token: hash,
+              id_user: User.id,
+              expiter: expires,
+              type: 1,
+              status: 1,
+            }, next);
+          } catch (e) {
+            throw (e);
+          }
+        }
+        throw (err);
+      });
+    } catch (e) {
+      throw (e);
+    }
+    res.status(500).send('HOLA')
   }
 }
 
-module.exports = new Auth();
+module.exports = Auth;

@@ -8,9 +8,9 @@ router.get('/:id', categoryCtrl.get);
 
 router.post('/',
   [
-    (req, res, next) =>{
-      middlewares.validator.validate(req, res, next,{
-        body:{
+    (req, res, next) => {
+      middlewares.validator.validate(req, res, next, {
+        body: {
           name: 'word,required',
           description: 'string,required',
           photo: 'photo',
@@ -21,9 +21,9 @@ router.post('/',
 
 router.put('/:id',
   [
-    (req, res, next) =>{
-      middlewares.validator.validate(req, res, next,{
-        body:{
+    (req, res, next) => {
+      middlewares.validator.validate(req, res, next, {
+        body: {
           name: 'word,required',
           description: 'string,required',
           photo: 'photo',
