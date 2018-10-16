@@ -1,85 +1,163 @@
 const db = require('../db');
-const { ProductMdl } = require('../models');
-
-class productCtrl{
-  constructor(){
+const { ProductMdl, Responses } = require('../models');
+class productCtrl {
+  constructor() {
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-    this.processResult = this.processResult.bind(this);
   }
 
-  processResult(data) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new ProductMdl(res));
-    });
-    return result;
-  }
+  async getAll(req, res, next) {
+    try {
+      const page = parseInt(req.param('page'));
+      const per_page = parseInt(req.param('per_page'));
+      const start = page * per_page;
 
+      let data = await ProductMdl.select(
+        '_Product_',
+        [
+          '*',
+        ],
+        null,
+        null,
+        {
+          start,
+          quant: per_page,
+        },
+      );
 
-  async getAll(req, res){
-    let data = await db.getAll('_Product_', ['id', 'id_cat', 'name', 'price', 'status', 'discount', 'inventory', 'description', 'specs', 'min_quan', 'date'], '', '', '');
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
-    } else {
-      res.status(200).send({ data });
+      if (data.length === 0) {
+        res.status(500).send(Responses.notFound('product'));
+      } else {
+        const total = await ProductMdl.count(
+          '_Product_',
+          '',
+          '',
+        );
+
+        res.status(200).send({
+          data,
+          per_page,
+          page,
+          total,
+        });
+      }
+    } catch (e) {
+      next(e);
     }
   }
 
-  async get(req, res){
-    let data = await db.get('_Product_', ['id', 'id_cat', 'name', 'price', 'status', 'discount', 'inventory', 'description', 'specs', 'min_quan', 'date'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
-    } else {
-      res.status(200).send({ data });
+  async get(req, res, next) {
+    try {
+      let data = await ProductMdl.select(
+        '_Product_',
+        [
+          'id',
+          'id_cat',
+          'name',
+          'price',
+          'status',
+          'discount',
+          'inventory',
+          'description',
+          'specs',
+          'min_quan',
+          'date',
+        ],
+        [
+          {
+            attr: 'id',
+            oper: '=',
+            val: Number(req.param('id')),
+          },
+        ],
+        null,
+        null,
+      );
+
+      [data] = data;
+
+      if (!data) {
+        res.status(500).send(Responses.notFound('product'));
+      }
+      res.status(201).send({ data });
+    } catch (e) {
+      next(e);
     }
   }
 
-  async create(req, res){
-    const newProduct = new ProductMdl(req.body);
-
-    const result = await newProduct.save();
-
-    if(result === 0){
-      res.status(201).send({ message: 'Registrado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo registrar' });
+  async create(req, res, next) {
+    try {
+      const Product = new ProductMdl(req.body)
+      let result = await Product.save(req.body.list_imgs);
+      if (result) {
+        return res.status(201).send(Responses.created('product'));
+      } else {
+        return res.status(500).send(Responses.cantCreate('product'));
+      }
+    } catch (e) {
+      next(e);
     }
   }
+
   async update(req, res){
-    const Product = new ProductMdl(req.body);
-    Product.id = req.param('id');
+    try {
+      const Product = new ProductMdl(req.body);
+      Product.id = Number(req.param('id'));
 
-    const result = await Product.save();
+      const result = await Product.update(req.body.list_imgs);
 
-    if(result === 0){
-      res.status(200).send({ message: 'Actualizado correctamente' });
-    } else if (result === 1) {
-      res.status(201).send({ message: 'Registrado correctamente'});
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+      if(!result){
+        res.status(500).send(Responses.cantRegister('product'));
+      }
+      res.status(201).send(Responses.updated('product'));
+  } catch (e) {
+    next(e);
+  }
+}
+
+  async delete(req, res) {
+    try {
+      const Product = new ProductMdl({
+        id: Number(req.param('id')),
+      });
+
+      const result = await Product.delete();
+
+      if(!result){
+        res.status(500).send(Responses.cantDelete('Product'));
+      }
+      res.status(201).send(Responses.deleted('Product'));
+    } catch (e) {
+      next(e);
     }
   }
 
-  async delete(req, res){
-    const Product = new ProductMdl({
-      id: Number(req.param('id')),
-    });
+  async getImgProduct() {
+    const result = await db.select(
+      '_ImgProduct_',
+      [
+        'id_prod',
+      ],
+      [
+        {
+          attr: 'id_prod',
+          oper: '=',
+          val: this.id_prod,
+        },
+        {
+          logic: 'and',
+          attr: 'status',
+          oper: '!=',
+          val: 0,
+        },
+      ],
+      null,
+      null,
+    );
 
-    const result = await Product.delete();
-
-    if(result === 0){
-      res.status(200).send({ message: 'Eliminado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo eliminar' });
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a eliminar' });
-    }
   }
 }
 

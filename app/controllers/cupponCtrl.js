@@ -1,5 +1,6 @@
-  const db = require('../db');
+const db = require('../db');
 const { CupponMdl } = require('../models');
+const { Responses } = require('../models');
 
 class cupponCtrl{
   constructor(){
@@ -11,73 +12,135 @@ class cupponCtrl{
     this.processResult = this.processResult.bind(this);
   }
 
-  processResult(data) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new CupponMdl(res));
-    });
-    return result;
-  }
-
-  async getAll(req, res){
-    let data = await db.getAll('_Cuppon_', ['id', 'discount', 'start', 'end', 'description'], '', '', '');
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
-    } else {
-      res.status(200).send({ data });
+  async processResult(data, next) {
+    try {
+      let temp;
+      let result = [];
+      for (const res of data) {
+        temp = new CupponMdl(res);
+        result.push(temp);
+      }
+      return result;
+    } catch (e) {
+      next(e);
     }
   }
 
-  async get(req, res){
-    let data = await db.get('_Cuppon_', ['id', 'discount', 'start', 'end', 'description'], [{ attr: 'id', oper: '=', val: Number(req.param('id')) }]);
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(404).send({ error: 'No se encontró el elemento solicitado' });
-    } else {
-      res.status(200).send({ data });
+
+  async getAll(req, res, next) {
+    try {
+      const page = parseInt(req.param('page'));
+      const per_page = parseInt(req.param('per_page'));
+      const start = page * per_page;
+
+      let data = await CupponMdl.select(
+        '_Cuppon_',
+        [
+          '*',
+        ],
+        null,
+        null,
+        {
+          start,
+          quant: per_page,
+        },
+      );
+
+      data = await this.processResult(data, next);
+
+      if (data.length === 0) {
+        res.status(500).send(Responses.notFound('Cuppon'));
+      } else {
+        const total = await CupponMdl.count(
+          '_Cuppon_',
+          '',
+          '',
+        );
+
+        res.status(200).send({
+          data,
+          per_page,
+          page,
+          total,
+        });
+      }
+    } catch (e) {
+      next(e);
     }
   }
 
-  async create(req, res){
-    const newCuppon = new CupponMdl(req.body);
+  async get(req, res, next) {
+    try {
+      let data = await CupponMdl.select(
+        '_Cuppon_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'id',
+            oper: '=',
+            val: Number(req.param('id')),
+          },
+        ],
+        null,
+        null,
+      );
 
-    const result = await newCuppon.save();
+      [data] = await this.processResult(data, next);
 
-    if(result === 0){
-      res.status(201).send({ message: 'Registrado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo registrar' });
+      if (!data) {
+        res.status(500).send(Responses.notFound('Cuppon'));
+      }
+      res.status(201).send({ data });
+    } catch (e) {
+      next(e);
     }
   }
+
+  async create(req, res, next) {
+    try {
+      let result = await new CupponMdl(req.body).save();
+      if (result) {
+        res.status(201).send(Responses.created('Cuppon'));
+      } else {
+        return res.status(500).send(Responses.cantCreate('Cuppon'));
+      }
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async update(req, res){
-    const Cuppon = new CupponMdl(req.body);
-    Cuppon.id = req.param('id');
+    try {
+      const Cuppon = new CupponMdl(req.body);
+      Cuppon.id = Number(req.param('id'));
 
-    const result = await Cuppon.save();
+      const result = await Cuppon.update();
 
-    if(result === 0){
-      res.status(200).send({ message: 'Actualizado correctamente' });
-    } else if (result === 1) {
-      res.status(201).send({ message: 'Registrado correctamente'});
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a actualizar' });
-    }
+      if(!result){
+        res.status(500).send(Responses.cantRegister('Cuppon'));
+      }
+      res.status(201).send(Responses.updated('Cuppon'));
+  } catch (e) {
+    next(e);
   }
+}
 
-  async delete(req, res){
-    const Cuppon = new CupponMdl({
-      id: Number(req.param('id')),
-    });
+  async delete(req, res) {
+    try {
+      const Cuppon = new CupponMdl({
+        id: Number(req.param('id')),
+      });
 
-    const result = await Cuppon.delete();
+      const result = await Cuppon.delete();
 
-    if(result === 0){
-      res.status(200).send({ message: 'Eliminado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo eliminar' });
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+      if(!result){
+        res.status(500).send(Responses.cantDelete('Cuppon'));
+      }
+      res.status(201).send(Responses.deleted('Cuppon'));
+    } catch (e) {
+      next(e);
     }
   }
 }
