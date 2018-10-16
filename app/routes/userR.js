@@ -11,17 +11,7 @@ router.post('/',
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
-          photo: 'photo',
-          name: 'word,required',
-          sec_name: 'word',
-          pat_surname: 'word',
-          mat_surname: 'word',
-          company: 'word',
-          rfc: 'rfc',
-          country: 'word',
-          lada :'unsigned',
-          phone: 'unsigned',
-          cdu :'secret',
+          cdu: 'required,secret',
           main_email: 'email,required',
         },
       });
@@ -81,7 +71,7 @@ router.put('/:id/cart/:id_product',
   [
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
-        body:{
+        body: {
           quantity: 'unsigned',
           status : 'unsigned',
         },

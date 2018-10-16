@@ -12,6 +12,7 @@ const PaymentMdl = require('./paymentMdl');
 const ConfigurationMdl = require('./configurationMdl');
 const SectionMdl = require('./sectionMdl');
 const Responses = require('./responses');
+const Token = require('./token');
 
 
 module.exports = {
@@ -29,4 +30,5 @@ module.exports = {
   ConfigurationMdl,
   SectionMdl,
   Responses,
+  Token,
 }
