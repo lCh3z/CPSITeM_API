@@ -1,13 +1,36 @@
 const router = require('express').Router();
 const { paymentCtrl } = require('../controllers');
+const middlewares = require('../middlewares');
 
 router.get('/', paymentCtrl.getAll);
 
 router.get('/:id', paymentCtrl.get);
 
-router.post('/', paymentCtrl.create);
+router.post('/',
+  [
+    (req, res, next) =>{
+      middlewares.validator.validate(req, res, next,{
+        body:{
+          id_user: 'unsigned,required',
+          account: 'string,required',
+          token: 'string,required',
+        },
+      });
+    },
+  ], paymentCtrl.create);
 
-router.put('/:id', paymentCtrl.update);
+router.put('/:id',
+  [
+    (req, res, next) =>{
+      middlewares.validator.validate(req, res, next,{
+        body:{
+          id_user: 'unsigned,required',
+          account: 'string,required',
+          token: 'string,required',
+        },
+      });
+    },
+  ], paymentCtrl.update);
 
 router.delete('/:id', paymentCtrl.delete);
 module.exports = router;
