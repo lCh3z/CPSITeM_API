@@ -229,6 +229,14 @@ class OrderMdl {
     }
   }
 
+  /**
+   * @async
+   * Async fucntion that searchs for a list of products in an order
+   * Will look for in the table _ListProd_ from the dataBase with the
+   * method select
+   * @return {Promise} Returns a Promise
+   *                  - Return an array with the list of products
+   */
   async getListProd() {
     let list_prod = []
     try {
@@ -259,6 +267,21 @@ class OrderMdl {
     return list_prod;
   }
 
+  /**
+   * @async
+   * Async function that saves the list of products in the table _ListProd_
+   * from the data base.
+   * It will create an array with the old list of products that will be compared
+   * with the new one. The list of product that are no longer available will be
+   * deleted from the array.
+   * The old list of products will be deleted from the database and will be
+   * replaced with the new one
+   *
+   * @param  {Object}  new_list_prod object that contains the new list of products
+   *                                 that wil be saved in the database
+   * @return {Promise}               Returns a Promise if the process is completed
+   *                                 satisfatory
+   */
   async saveListProd(new_list_prod) {
     let old_list_prod = [];
     try {
