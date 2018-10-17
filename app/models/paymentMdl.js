@@ -139,6 +139,15 @@ class PaymentMdl {
       throw e;
     }
   }
+
+  /**
+   * @async
+   * Async function that updates a cart from the table _Payment_ in the Database
+   * @return {Promise} Returns a Promise
+   *                   - Returns true if it could be updated
+   *                   - Returns false if it could not be updated
+   * @version 15/10/2018
+   */
   async update() {
     try {
       if (this.id !== undefined && await db.update(
