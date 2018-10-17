@@ -46,6 +46,14 @@ class NewsListMdl{
     return 1;
   }
 
+  /**
+   * @async
+   * Async funciton that updates a newsList from the table _NewsList_ in the Database
+   * @return {Promise} Returns a Promise
+   *                   - Returns true if it could be updated
+   *                   - Returns false if it could not be updated
+   * @version 15/10/2018
+   */
   async update() {
     if (this.email !== undefined && await db.update('_NewsList_', this, [{ attr: 'email', oper: '=', val: this.email }])) return 0;
     return 1;
