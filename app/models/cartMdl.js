@@ -180,6 +180,7 @@ class CartMdl {
    *
    * @return {Promise} Returns a Promise
    *                   - Return true if it could be deleted
+   * @version 15/10/2018
    */
   async delete() {
     const exists = await this.exists();
