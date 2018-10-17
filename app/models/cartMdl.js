@@ -2,6 +2,7 @@ const db = require('../db');
 /**
  * @classdesc Class model of cart.contains methods such as select, save, exists
  * save, update, delete and processResult
+ * @version 15/10/2018
  */
 class CartMdl {
   constructor(
@@ -29,6 +30,8 @@ class CartMdl {
    * @param  {Array.<object>} data Array object that contains all the information
    *                                to create a nre Cart Model
    * @return {Array.<object>}      returns an array of objects type CartMdl
+   *
+   * @version 15/10/2018
    */
   processResult(data) {
     const result = [];
