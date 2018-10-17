@@ -70,6 +70,7 @@ class CartMdl {
    * Async funciton that checks if a cart already exists in the
    *  table _Cart_ of the Database
    * @return {Promise} Return a promise with the information from the database.
+   * @version 15/10/2018
    */
   async exists() {
     try {
