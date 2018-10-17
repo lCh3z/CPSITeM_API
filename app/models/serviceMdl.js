@@ -43,6 +43,17 @@ class ServiceMdl {
     this.updated = updated;
   }
 
+  /**
+   * @async
+   * Async function that from the table _Service_ select all the posible tuples
+   * with the designated params and returns a promise
+   * @param  {string}  table   Table required (_Service_) of the database
+   * @param  {Array.<string>}  columns Required columns of de table _Service_ from the database
+   * @param  {Array.<object>}  filters list of filter objects to use.
+   * @param  {Object}  order   Nullable definition of ORDER paramns.
+   * @param  {Object}  limit   Nullable definition of LIMIT params.
+   * @return {Promise}         Return a promise with the information from the database.
+   */
   static async select(table, columns, filters, order, limit) {
     try {
       const data = await db.select(table, columns, filters, order, limit);
@@ -60,7 +71,18 @@ class ServiceMdl {
       throw e;
     }
   }
-
+  /**
+   * @async
+   * Async function that reciebes two parameters.
+   * The first one is the table (_Service_) to look for in the Database
+   * The second parameter are the filters to aply to the search
+   * It will return a promise with the total count
+   * @param  {string}  table   Table to look for in the database
+   * @param  {Array.<object>}  filters filters to be applied to the search
+   * @return {Promise}         Returns a promise with the total count of tuples
+   *                           found
+   * @version 15/10/2018
+   */
   static async count(table, filters) {
     try {
       const data = await db.count(table, filters);
