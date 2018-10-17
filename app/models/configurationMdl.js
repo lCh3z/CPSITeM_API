@@ -1,5 +1,9 @@
 const db = require('../db');
-
+/**
+ * @classdesc Class model of configuration.contains methods such as select, save, exists
+ * save, update, delete and processResult
+ * @version 15/10/2018
+ */
 class ConfigurationMdl{
   constructor(args){
     this.id = args.id;
