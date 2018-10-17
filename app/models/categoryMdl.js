@@ -58,6 +58,7 @@ class CategoryMdl{
    * @param  {Array.<object>}  filters filters to be applied to the search
    * @return {Promise}         Returns a promise with the total count of tuples
    *                           found
+   * @version 15/10/2018
    */
   static async count(table, filters) {
     try {
