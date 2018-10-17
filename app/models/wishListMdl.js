@@ -107,6 +107,17 @@ class WishlistMdl {
     }
   }
 
+  /**
+   * @async
+   *Async funcitonthat checks if a wishlist already exists, it will be updated, if not
+   * it will be created in the table _WishList_ in the database
+   *
+   * @return {Promise} Returns a promise,
+   *                    - updated if it already exists
+   *                    - true if it is created a new one
+   *                    - false if it could not be created
+   * @version 15/10/2018
+   */
   async save() {
     try {
       const exists = await this.exists();
