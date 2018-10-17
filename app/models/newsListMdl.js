@@ -28,6 +28,17 @@ class NewsListMdl{
     return result;
   }
 
+  /**
+   * @async
+   * Async funcitonthat checks if a newsList already exists, it will be updated, if not
+   * it will be created in the table _NewsList_ in the database
+   *
+   * @return {Promise} Returns a promise,
+   *                    - updated if it already exists
+   *                    - true if it is created a new one
+   *                    - false if it could not be created
+   * @version 15/10/2018
+   */
   async save() {
     Object.keys(this).forEach(key => this[key] === undefined && delete this[key]);
     if (this.email !== undefined && this.processResult(await db.get('_NewsList_', 'email', [{ attr: 'email', oper: '=', val: this.email }])).length !== 0) return this.update();
