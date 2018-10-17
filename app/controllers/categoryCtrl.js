@@ -20,8 +20,8 @@ class categoryCtrl{
 
   /**
    * @async
-   * Function than recibes two params, used a array to save a Model of CategoryMdl,
-   * iterate on a forEach of the first param to push the model, can catch a error
+   * Async Function than recibes two params, used a array to save a Model of CategoryMdl,
+   * iterate on a for of the first param to push the model, can catch a error
    * and calls the next with error
    * @param  {Await Object}     data  Required the data from CategoryMdl.select to get
    *                                  all the data from database.
@@ -46,8 +46,8 @@ class categoryCtrl{
 
   /**
    * @async
-   * Async function to get all the data from the model of CategoryMdl (DB), depending
-   * the recived response with a error of notFound or send the got data, catch a error
+   * Async function to get all the data from the model of CategoryMdl, depending
+   * the recived response with a error of notFound or send the got data,can catch a error
    * and calls the next with the error
    * @param  {Request Object}     req   Request to the function, includes information in params
    * @param  {Response Object}    res   Response than will give the function
@@ -139,9 +139,9 @@ class categoryCtrl{
 
   /**
    * @async
-   * Async function to get a specific category used model of category with a select to the
+   * Async function to get a specific Category used model of category with a select to the
    * database, depending the recived from the model response with a error or send the got
-   * data, catch a error and calls the next with error
+   * data, can catch a error and calls the next with error
    * @param  {Request Object}     req   Request to the function, includes information in params
    * @param  {Response Object}    res   Response than will give the function
    * @param  {Next Object}        next  In case of be necessary go by a other the work or
@@ -186,7 +186,7 @@ class categoryCtrl{
 
   /**
    * @async
-   * Async function to create a new category, the controller response depending if
+   * Async function to create a new Category, the controller response depending if
    * a promise of Category.save() responses sending a especific response of created a
    * category, can catch a error and calls the next whit the error
    * @param  {Request Object}     req   Request to the function, includes information in params
@@ -214,7 +214,7 @@ class categoryCtrl{
    * @async
    * Async function to update data from the model of category, the controller update
    * the data from CategoryMdl with the request information, depending a result of save
-   * data it indicates if the data was updated of not, can catch a error and calls
+   * data it indicates if the data was updated or not, can catch a error and calls
    * the next with the error
    * @param  {Request Object}     req   Request to the function, includes information in params
    * @param  {Response Object}    res   Response than will give the function
@@ -242,7 +242,7 @@ class categoryCtrl{
 
 /**
  * @async
- * Async function to delete data from the model of category, the controller delete data from
+ * Async function to delete data from the model of Category, the controller delete data from
  * the model of category with the request information, next to it indicates to category the delete that data,
  * depending the result if can be deleted response if data was or not deleted, can catch a error
  * and calls next with error
