@@ -97,7 +97,13 @@ class CartMdl {
     }
   }
 
-
+  /**
+   * @async
+   * Async funciton that updates a cart from the table _Cart_ in the Database
+   * @return {Promise} Returns a Promise
+   *                   - Returns true if it could be updated
+   *                   - Returns false if it could not be updated
+   */
   async update() {
     try {
       if (this.id_user !== undefined && this.id_product !== undefined && await db.update(
