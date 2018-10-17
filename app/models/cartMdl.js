@@ -117,6 +117,7 @@ class CartMdl {
    *                    - updated if it already exists
    *                    - true if it is created a new one
    *                    - false if it could not be created
+   * @version 15/10/2018
    */
   async save() {
     try {
