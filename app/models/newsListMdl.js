@@ -59,6 +59,15 @@ class NewsListMdl{
     return 1;
   }
 
+  /**
+   * @async
+   * Async function that deletes a newsList from the table _NewsList_ in the database .
+   * It will check first if the tuple to delete exists
+   *
+   * @return {Promise} Returns a Promise
+   *                   - Return true if it could be deleted
+   * @version 15/10/2018
+   */
   async delete() {
     if (this.email !== undefined && this.processResult(await db.get('_NewsList_', 'email', [{ attr: 'email', oper: '=', val: this.email }])).length !== 0) {
       if (this.email !== undefined && await db.delete('_NewsList_', [{ attr: 'email', oper: '=', val: this.email }]) !== undefined) return 0;
