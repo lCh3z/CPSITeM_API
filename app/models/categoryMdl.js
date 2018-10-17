@@ -48,6 +48,17 @@ class CategoryMdl{
     }
   }
 
+  /**
+   * @async
+   * Async function that reciebes two parameters.
+   * The first one is the table (_Category_) to look for in the Database
+   * The second parameter are the filters to aply to the search
+   * It will return a promise with the total count
+   * @param  {string}  table   Table to look for in the database
+   * @param  {Array.<object>}  filters filters to be applied to the search
+   * @return {Promise}         Returns a promise with the total count of tuples
+   *                           found
+   */
   static async count(table, filters) {
     try {
       const data = await db.count(table, filters);
