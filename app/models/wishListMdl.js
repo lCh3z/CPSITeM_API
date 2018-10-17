@@ -21,6 +21,16 @@ class WishlistMdl {
       this.updated = updated;
     }
 
+    /**
+     * Function that reciebes one param.
+     * it will be iterated on a foEach to create new objects type wishlistMdl
+     * and will be pushed to a new constant variable that will ber returned.
+     * @param  {Array.<object>} data Array object that contains all the information
+     *                                to create a new wishlist Model
+     * @return {Array.<object>}      returns an array of objects type wishlistMdl
+     *
+     * @version 15/10/2018
+     */
   processResult(data) {
     const result = [];
     data.forEach((res) => {
