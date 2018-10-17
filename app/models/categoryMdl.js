@@ -140,7 +140,7 @@ class CategoryMdl{
 
   /**
    * @async
-   * Async funciton that updates a cart from the table _Category_ in the Database
+   * Async function that updates a cart from the table _Category_ in the Database
    * @return {Promise} Returns a Promise
    *                   - Returns true if it could be updated
    *                   - Returns false if it could not be updated
