@@ -28,7 +28,7 @@ class CartMdl {
    * it will be iterated on a foEach to create new objects type CartMdl
    * and will be pushed to a new constant variable that will ber returned.
    * @param  {Array.<object>} data Array object that contains all the information
-   *                                to create a nre Cart Model
+   *                                to create a new Cart Model
    * @return {Array.<object>}      returns an array of objects type CartMdl
    *
    * @version 15/10/2018
