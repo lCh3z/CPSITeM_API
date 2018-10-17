@@ -192,6 +192,15 @@ class OrderMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that deletes a order from the table _Order_ in the database .
+   * It will check first if the tuple to delete exists
+   *
+   * @return {Promise} Returns a Promise
+   *                   - Return true if it could be deleted
+   * @version 15/10/2018
+   */
   async delete() {
     try {
       const exists = await this.exists();
