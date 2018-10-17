@@ -22,6 +22,13 @@ class CartMdl {
     this.updated = updated;
   }
 
+  /**
+   * Function that reciebes one param. It will be turned into new CartMdl
+   * and added to a result that will be returned
+   * @param  {Array.<object>} data Array object that contains all the information
+   *                                to create a nre Cart Model
+   * @return {Array.<object>}      returns an array of objects type CartMdl
+   */
   processResult(data) {
     const result = [];
     data.forEach((res) => {
