@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { notificationCtrl } = require('../controllers');
 
+// FIXME Falta validar los params y el cuerpo del request
+
 router.get('/', notificationCtrl.getAll);
 
 router.get('/:id', notificationCtrl.get);

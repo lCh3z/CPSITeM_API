@@ -1,6 +1,11 @@
 const Factory = require('../factory');
+// FIXME puedes cargar ambos modelos en una sola linea
 const { OrderMdl } = require('../models');
 const { ConfigurationMdl } = require('../models');
+
+// FIXME Todos los metodos deben estar documentados
+// FIXME En todos los casos de error, el codigo 500 no es adecuado
+// FIXME Los mensajes de respuestas deberian estar en ingles y  usar los responses que armaron
 
 class configurationCtrl {
   constructor() {

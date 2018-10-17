@@ -1,5 +1,8 @@
 const { ServiceMdl, Responses } = require('../models');
 
+// FIXME Todos los metodos deben estar documentados
+// FIXME En todos los casos de error, el codigo 500 no es adecuado
+
 class serviceCtrl {
   constructor() {
     this.getAll = this.getAll.bind(this);
@@ -11,6 +14,7 @@ class serviceCtrl {
 
   async getAll(req, res, next) {
     try {
+      // FIXME Toda la logica para definir los parametros para filtros, paginado y ordenado se puede meter en un middleware
       let page = parseInt(req.param('page'));
       let per_page = parseInt(req.param('per_page'));
       if (!page) {
@@ -48,7 +52,7 @@ class serviceCtrl {
           order.desc = false;
         }
       }
-      
+
       let data = await ServiceMdl.select(
         '_Service_',
         [

@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { paymentCtrl } = require('../controllers');
 
+// FIXME Falta validar los params y el cuerpo del request
+
 router.get('/', paymentCtrl.getAll);
 
 router.get('/:id', paymentCtrl.get);

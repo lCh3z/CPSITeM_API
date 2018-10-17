@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { configurationCtrl } = require('../controllers');
 
+// FIXME Falta validar los params y el cuerpo del request
+
 router.get('/', configurationCtrl.getAll);
 
 router.post('/', configurationCtrl.create);
