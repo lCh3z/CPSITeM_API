@@ -305,8 +305,8 @@ class ProductMdl {
    * one.
    * The old list of images will be deleted from the table _ImgProduct_ from
    * the database and will be substituted with the new one
-   * @param  {[type]}  new_list_imgs [description]
-   * @return {Promise}               [description]
+   * @param  {Array.<object>}  new_list_imgs array object with all the new images
+   * @return {Promise}                       Returns a Promise
    */
   async saveImgProduct(new_list_imgs) {
     let old_list_imgs = [];

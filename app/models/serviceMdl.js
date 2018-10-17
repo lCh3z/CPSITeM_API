@@ -286,6 +286,14 @@ class ServiceMdl {
     return stat_service;
   }
 
+  /**
+   * @async
+   * Async function that reciebes one param.
+   * Will look for all the images for the actual service
+   * @param  {Object}  data Object type service
+   * @return {Promise}      Returns a promise
+   *                        - returns an array
+   */
   async getImgStatServ(data) {
     let img_stat_service = [];
     for (const stat of data) {
@@ -326,6 +334,18 @@ class ServiceMdl {
     return data;
   }
 
+  /**
+   * Async function that reciebes one param with the new array of status services for
+   * the service.
+   * It will obtain the old list of status and then will be compared with the new
+   * one.
+   * The old list of status will be deleted from the table _StatService_ from
+   * the database and will be substituted with the new one
+   * @param  {Array.<object>}  new_list_stat_service array object with all the new status service
+   * @return {Promise}                       Returns a Promise
+   *
+   * @version 15/10/2018
+   */
   async saveImgStatServ(new_list_stat_service) {
     let stat_service = [];
     try {
