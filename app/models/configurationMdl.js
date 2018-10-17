@@ -47,6 +47,14 @@ class ConfigurationMdl{
     return 1;
   }
 
+  /**
+   * @async
+   * Async funciton that updates a configuration from the table _Configuration_ in the Database
+   * @return {Promise} Returns a Promise
+   *                   - Returns true if it could be updated
+   *                   - Returns false if it could not be updated
+   * @version 15/10/2018
+   */
   async update() {
     if (this.id !== undefined && await db.update('_Configuration_', this, [{ attr: 'id', oper: '=', val: this.id }])) return 0;
     return 1;
