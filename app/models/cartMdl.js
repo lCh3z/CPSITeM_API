@@ -23,8 +23,9 @@ class CartMdl {
   }
 
   /**
-   * Function that reciebes one param. It will be turned into new CartMdl
-   * and added to a result that will be returned
+   * Function that reciebes one param.
+   * it will be iterated on a foEach to create new objects type CartMdl
+   * and will be pushed to a new constant variable that will ber returned.
    * @param  {Array.<object>} data Array object that contains all the information
    *                                to create a nre Cart Model
    * @return {Array.<object>}      returns an array of objects type CartMdl
