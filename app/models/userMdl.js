@@ -1,5 +1,7 @@
 const db = require('../db');
 
+este tambien falta
+
 class UserMdl {
   constructor(
     {
