@@ -261,6 +261,12 @@ class ProductMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that gets an array of images from an specific product
+   * @return {Promise} Return a Promise
+   *                   - Returns an array with the list of images
+   */
   async getImgProduct() {
     let list_imgs = []
     try {
