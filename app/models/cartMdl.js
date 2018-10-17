@@ -81,7 +81,16 @@ class CartMdl {
     }
   }
 
-
+  /**
+   * @async
+   *Async funcitonthat checks if a cart already exists, it will be updated, if not
+   * it will be created in the table _Cart_ in the database
+   *
+   * @return {Promise} Returns a promise,
+   *                    - updated if it already exists
+   *                    - true if it is created a new one
+   *                    - false if it could not be created
+   */
   async save() {
     try {
       const exists = await this.exists();
