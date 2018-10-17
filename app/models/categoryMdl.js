@@ -59,7 +59,7 @@ class CategoryMdl{
 
   /**
    * @async
-   * Async funciton that checks if a cart already exists in the
+   * Async funciton that checks if a category already exists in the
    *  table _Category_ of the Database
    * @return {Promise} Return a promise with the information from the database.
    * @version 15/10/2018
