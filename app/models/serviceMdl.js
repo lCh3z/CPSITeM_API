@@ -248,6 +248,14 @@ class ServiceMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that gets the status and updates of a service.
+   * It will look for the status and updates in the table _StatService_ from
+   * the database with the method select
+   * @return {Promise} Returns a promise
+   *                   - Array with status and updates from a service
+   */
   async getStatServ() {
     let stat_service = []
     try {

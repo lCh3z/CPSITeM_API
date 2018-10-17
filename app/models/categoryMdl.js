@@ -108,7 +108,7 @@ class CategoryMdl{
 
   /**
    * @async
-   * Async funcitonthat checks if a category already exists, it will be updated, if not
+   * Async funciton that checks if a category already exists, it will be updated, if not
    * it will be created in the table _Category_ in the database
    *
    * @return {Promise} Returns a promise,
