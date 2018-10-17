@@ -264,6 +264,18 @@ class SectionMdl {
     return conf_section;
   }
 
+  /**
+   * @async
+   * Async function that reciebes one param.
+   *  Will search for the old configuration of the corrsponding Section
+   *  in the table _ConfSection_ of the database.
+   *  It will store that information in an array and will compare with the new
+   *  param. deleteting the old ones and updating the new ones.
+   *  If theres nothing it will create a new configuration
+   * @param  {Array.<object>}  new_conf_section Object with the new configuration
+   * @return {Promise}                          Returns a Promise
+   *                                            - returns an array with the new configuration  
+   */
   async saveConfSection(new_conf_section) {
     let old_conf_section = [];
     try {
