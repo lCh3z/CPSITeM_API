@@ -29,7 +29,7 @@ class CategoryMdl{
    * Async function that from the table _Category_ select all the posible tuples
    * with the designated params and returns a promise
    * @param  {string}  table   Table required (_Category_) of the database
-   * @param  {Array.<string>}  columns Required columns of de table _Cart_ from the database
+   * @param  {Array.<string>}  columns Required columns of de table _Category_ from the database
    * @param  {Array.<object>}  filters list of filter objects to use.
    * @param  {Object}  order   Nullable definition of ORDER paramns.
    * @param  {Object}  limit   Nullable definition of LIMIT params.
