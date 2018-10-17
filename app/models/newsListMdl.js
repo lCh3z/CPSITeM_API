@@ -10,6 +10,16 @@ class NewsListMdl{
     this.status = args.status;
   }
 
+  /**
+   * Function that reciebes one param.
+   * it will be iterated on a foEach to create new objects type newsListMdl
+   * and will be pushed to a new constant variable that will ber returned.
+   * @param  {Array.<object>} data Array object that contains all the information
+   *                                to create a new newsList Model
+   * @return {Array.<object>}      returns an array of objects type newsListMdl
+   *
+   * @version 15/10/2018
+   */
   processResult(data) {
     const result = [];
     data.forEach((res) => {
