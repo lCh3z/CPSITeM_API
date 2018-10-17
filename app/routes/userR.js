@@ -2,6 +2,8 @@ const router = require('express').Router();
 const { userCtrl, cartCtrl, wishListCtrl } = require('../controllers');
 const middlewares = require('../middlewares');
 
+// FIXME Falta validar los params y el cuerpo del request
+
 router.get('/', userCtrl.getAll);
 
 router.get('/:id', userCtrl.get);
