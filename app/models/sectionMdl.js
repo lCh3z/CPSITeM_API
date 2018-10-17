@@ -70,6 +70,13 @@ class SectionMdl {
     }
   }
 
+  /**
+   * @async
+   * Async funciton that checks if a category already exists in the
+   * table _Section_ of the Database
+   * @return {Promise} Return a promise with the information from the database.
+   * @version 15/10/2018
+   */
   async exists() {
     try {
       if (this.id !== undefined) {
