@@ -1,9 +1,19 @@
 const mysql = require('mysql');
 
+/**
+ * @classdesc Class of DateBase, contain the host, port, user, password, database
+ *            initialize from the environment, all in the connection, the functions
+ *            select, create, update, delete, count, disconnect and all are initialize
+ *            with his '.bind', also connects the connection of data base. Including
+ *            other functions as max, destroy, formatFilters, formatOrder, formatLimit,
+ *            processError and getDataFromErrorMsg
+ * @version   15/10/2018
+ */
 class DB {
   constructor() {
     this.connection = mysql.createConnection({
       host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
@@ -22,6 +32,31 @@ class DB {
     });
   }
 
+  /**
+   * Function to get the maximum from a Database table and his the filter to apply.
+   * @param  {String}         table   Required name of the database table. 'User'
+   *
+   * @param  {Array.<string>} columns Required of column names to get.  ['id', 'name']
+   *
+   * @param  {Array.<object>} filters Nullable list of filter objects to use.
+   *                        Array ->  [
+   *                Filter object ->    {
+   *                Column to use ->      attr: 'name',
+   *          Comparing operation ->      oper: '=',
+   *             Value to compare ->      val: this.name,
+   *                                    },
+   *                                    {
+   *                 Logic to use ->      logic: 'and',
+   *                Column to use ->      attr: 'age',
+   *          Comparing operation ->      oper: '>=',
+   *             Value to compare ->      val: 18,
+   *                                    },
+   *                                  ]
+   *                                  *** Except fot the first object, you need to
+   *                                  include the logic attribute ***
+   *
+   * @return {Promise}                Promise to return the query results after database response
+   */
   max(table, column, filters) {
     return new Promise((resolve, reject) => {
       const sql = `SELECT MAX(${this.connection.escapeId(column).replace(/`/g, '')}) as max FROM ?? ${this.formatFilters(filters)};`;
@@ -32,6 +67,29 @@ class DB {
     });
   }
 
+  /**
+   * Function to get the count from a Database table and his the filter to apply.
+   * @param  {String}         table   Required name of the database table. 'User'
+   *
+   * @param  {Array.<object>} filters Nullable list of filter objects to use.
+   *                        Array ->  [
+   *                Filter object ->    {
+   *                Column to use ->      attr: 'name',
+   *          Comparing operation ->      oper: '=',
+   *             Value to compare ->      val: this.name,
+   *                                    },
+   *                                    {
+   *                 Logic to use ->      logic: 'and',
+   *                Column to use ->      attr: 'age',
+   *          Comparing operation ->      oper: '>=',
+   *             Value to compare ->      val: 18,
+   *                                    },
+   *                                  ]
+   *                                  *** Except fot the first object, you need to
+   *                                  include the logic attribute ***
+   *
+   * @return {Promise}                Promise to return the query results after database response
+   */
   count(table, filters) {
     return new Promise((resolve, reject) => {
       const sql = `SELECT COUNT(*) as count FROM ?? ${this.formatFilters(filters)};`;
@@ -180,15 +238,14 @@ class DB {
     const data = this.getDataFromErrorMsg(err.sqlMessage);
     switch (err.code) {
       case 'ER_DUP_ENTRY':
-        error['duplicated'] = {
-          message: `The ${data.field} ${data.data} already exists on the system`,
+        error['Duplicated'] = {
+          message: `${data[0]} already exists on the system`,
           field: data.field,
         };
         break;
       default:
         error['BAD'] = {
-          message: `The ${data.field} ${data.data} already exists on the system`,
-          field: data.field,
+          message: err.sqlMessage,
         };
         break;
     }
@@ -197,11 +254,11 @@ class DB {
   }
 
   getDataFromErrorMsg(message) {
-    console.log('msg', message);
-    let data = unescape(message).match(/'([^']+)'/g)
-    return {
-      field: data[1].slice(1,-1),
-      data: data[0].slice(1,-1),
+    const data = unescape(message).match(/'([^']+)'/g);
+    if (data) {
+      return data;
+    } else {
+      return [];
     }
   }
 }
