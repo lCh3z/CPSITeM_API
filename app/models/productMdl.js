@@ -266,6 +266,7 @@ class ProductMdl {
    * Async function that gets an array of images from an specific product
    * @return {Promise} Return a Promise
    *                   - Returns an array with the list of images
+   * @version 15/10/2018
    */
   async getImgProduct() {
     let list_imgs = []
@@ -296,6 +297,7 @@ class ProductMdl {
     }
     return list_imgs;
   }
+
 
   async saveImgProduct(new_list_imgs) {
     let old_list_imgs = [];
