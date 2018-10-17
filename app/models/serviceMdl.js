@@ -175,6 +175,14 @@ class ServiceMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that updates a service from the table _Service_ in the Database
+   * @return {Promise} Returns a Promise
+   *                   - Returns true if it could be updated
+   *                   - Returns false if it could not be updated
+   * @version 15/10/2018
+   */
   async update(stat_service) {
     try {
       if (this.id !== undefined && await db.update(
