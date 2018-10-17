@@ -60,6 +60,15 @@ class ConfigurationMdl{
     return 1;
   }
 
+  /**
+   * @async
+   * Async function that deletes a configuration from the table _Configuration_ in the database .
+   * It will check first if the tuple to delete exists
+   *
+   * @return {Promise} Returns a Promise
+   *                   - Return true if it could be deleted
+   * @version 15/10/2018
+   */
   async delete() {
     if (this.id !== undefined && this.processResult(await db.get('_Configuration_', 'id', [{ attr: 'id', oper: '=', val: this.id }])).length !== 0) {
       if (this.id !== undefined && await db.delete('_Configuration_', [{ attr: 'id', oper: '=', val: this.id }]) !== undefined) return 0;
