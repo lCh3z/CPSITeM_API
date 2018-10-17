@@ -163,6 +163,14 @@ class ProductMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that updates a cart from the table _Product_ in the Database
+   * @return {Promise} Returns a Promise
+   *                   - Returns true if it could be updated
+   *                   - Returns false if it could not be updated
+   * @version 15/10/2018
+   */
   async update(list_imgs) {
     try {
       const old_name = await db.select(
