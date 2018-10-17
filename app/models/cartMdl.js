@@ -140,6 +140,7 @@ class CartMdl {
    * @return {Promise} Returns a Promise
    *                   - Returns true if it could be updated
    *                   - Returns false if it could not be updated
+   * @version 15/10/2018
    */
   async update() {
     try {
