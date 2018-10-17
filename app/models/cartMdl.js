@@ -30,7 +30,17 @@ class CartMdl {
     return result;
   }
 
-
+  /**
+   * @async
+   * Async function that from the table _Cart_ select all the posible tuples
+   * with the designated params and returns a promise
+   * @param  {string}  table   Table required (_Cart_) of the database
+   * @param  {Array.<string>}  columns Required columns of de table _Cart_ from the database
+   * @param  {Array.<object>}  filters list of filter objects to use.
+   * @param  {Object}  order   Nullable definition of ORDER paramns.
+   * @param  {Object}  limit   Nullable definition of LIMIT params.
+   * @return {Promise}         Return a promise with the information from the database.
+   */
   static async select(table, columns, filters, order, limit) {
     try {
       const data = await db.select(table, columns, filters, order, limit);
