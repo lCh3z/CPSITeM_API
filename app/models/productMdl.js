@@ -298,7 +298,16 @@ class ProductMdl {
     return list_imgs;
   }
 
-
+  /**
+   * Async function that reciebes one param with the new array of images for
+   * the product.
+   * It will obtain the old list of images and then will be compared ith the new
+   * one.
+   * The old list of images will be deleted from the table _ImgProduct_ from
+   * the database and will be substituted with the new one
+   * @param  {[type]}  new_list_imgs [description]
+   * @return {Promise}               [description]
+   */
   async saveImgProduct(new_list_imgs) {
     let old_list_imgs = [];
     try {
