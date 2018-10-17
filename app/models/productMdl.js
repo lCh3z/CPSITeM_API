@@ -83,6 +83,13 @@ class ProductMdl {
     }
   }
 
+  /**
+   * @async
+   * Async funciton that checks if a product already exists in the
+   * table _Product_ of the Database
+   * @return {Promise} Return a promise with the information from the database.
+   * @version 15/10/2018
+   */
   async exists() {
     try {
       if (this.id !== undefined) {
