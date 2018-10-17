@@ -133,6 +133,15 @@ class WishlistMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that deletes a wishlist from the table _WishList_ in the database .
+   * It will check first if the tuple to delete exists
+   *
+   * @return {Promise} Returns a Promise
+   *                   - Return true if it could be deleted
+   * @version 15/10/2018
+   */
   async delete() {
     const exists = await this.exists();
     if (exists.length) {
