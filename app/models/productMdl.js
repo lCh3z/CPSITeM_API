@@ -307,6 +307,8 @@ class ProductMdl {
    * the database and will be substituted with the new one
    * @param  {Array.<object>}  new_list_imgs array object with all the new images
    * @return {Promise}                       Returns a Promise
+   *
+   * @version 15/10/2018
    */
   async saveImgProduct(new_list_imgs) {
     let old_list_imgs = [];
