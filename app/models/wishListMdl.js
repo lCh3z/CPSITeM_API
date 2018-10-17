@@ -64,6 +64,13 @@ class WishlistMdl {
     }
   }
 
+  /**
+   * @async
+   * Async funciton that checks if a wishlist already exists in the
+   *  table _WishList_ of the Database
+   * @return {Promise} Return a promise with the information from the database.
+   * @version 15/10/2018
+   */
   async exists() {
     try {
       if (this.id_user !== undefined && this.id_product !== undefined) {
