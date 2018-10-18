@@ -4,7 +4,11 @@ const { userCtrl } = require('../controllers');
 
 router.post('/register', (req, res, next) => {
   middleware.auth.register(req, res, next);
-}, (req, res, next) => { console.log(req.body); console.log(res); res.status(200).send({ message: req.body.message }); });
+}, (req, res) => {
+  res.header('Authorization', `Bearer ${req.body.message.token}`);
+  res.status(200).send({ message: req.body.message });
+  console.log('RES', res);
+});
 
 // router.post('/login', );
 // router.get('/logout', );

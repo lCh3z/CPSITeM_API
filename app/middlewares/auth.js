@@ -6,36 +6,43 @@ class Auth {
     this.register = this.register.bind(this);
   }
 
+  generateHash(text, next) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await bcrypt.genSalt(process.env.SALT_ROUND, async (err, salt) => {
+          if (salt) {
+            await bcrypt.hash(text, salt, null, (err, hash) => {
+              if (hash) {
+                return resolve(hash);
+              }
+              return reject(err);
+            });
+          }
+          return reject(err);
+        });
+      } catch (e) {
+        return next (err);
+      }
+    });
+  }
+
   async register(req, res, next) {
     const User = new UserMdl(req.body);
     try {
+      User.cdu = await this.generateHash(req.body.cdu, next);
       await User.save();
-    } catch (e) {
-      return next(e);
-    }
-    try {
-      bcrypt.genSalt(Number(process.env.SALT_ROUND), (err, salt) => {
-        if (err) {
-            return next(err);
-        }
-        bcrypt.hash(req.body.cdu, salt, null, async (err, hash) => {
-          if (err) {
-            return next(err);
-          }
-          let expires = Date.now() + Number(process.env.USER_TIME) * 60000;
-          expires = new Date(expires).toISOString().slice(0, 19).replace('T', ' ');
-          await Token.add({
-            token: hash,
-            id_user: User.id,
-            expiter: expires,
-            type: 1,
-            status: 1,
-          }, next);
-          req.body.message = { token: hash };
-          res.status(200).send('hola')
-          next();
-        });
-      });
+      const hash = await this.generateHash(new Date(), next);
+      let expires = Date.now() + Number(process.env.USER_TIME) * 60000;
+      expires = new Date(expires).toISOString().slice(0, 19).replace('T', ' ');
+      if (await Token.add({
+        token: hash,
+        id_user: User.id,
+        expiter: expires,
+        type: 1,
+        status: 1,
+      })) {
+        req.body.message = { token: hash };
+      }
     } catch (e) {
       return next(e);
     }
