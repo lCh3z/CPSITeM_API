@@ -1,4 +1,15 @@
+/**
+ * @classdesc Class to validate parameters that could be send in the routes
+ *
+ * @version 15/10/2018
+ */
 class Validator {
+
+  /**
+   * Function that contains all the posible regex that are needed
+   *
+   * @return {regex} Returns the specific regex that wants to be used
+   */
   static get regex() {
     return {
       word: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}$/,
@@ -12,6 +23,12 @@ class Validator {
     };
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it is a word
+   * or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is a word
+   */
   static word(data) {
     return (Validator.regex.word.test(data));
   }
