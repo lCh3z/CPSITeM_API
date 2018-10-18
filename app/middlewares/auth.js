@@ -14,23 +14,25 @@ class Auth {
       return next(e);
     }
     try {
-      bcrypt.genSalt(Number(process.env.SALT_ROUND), function (err, salt) {
+      bcrypt.genSalt(Number(process.env.SALT_ROUND), (err, salt) => {
         if (err) {
             return next(err);
         }
-        bcrypt.hash(req.body.cdu, salt, null, (err, hash) => {
+        bcrypt.hash(req.body.cdu, salt, null, async (err, hash) => {
           if (err) {
             return next(err);
           }
           let expires = Date.now() + Number(process.env.USER_TIME) * 60000;
           expires = new Date(expires).toISOString().slice(0, 19).replace('T', ' ');
-          return Token.add({
+          await Token.add({
             token: hash,
             id_user: User.id,
             expiter: expires,
             type: 1,
             status: 1,
           }, next);
+          req.body.message = { token: hash };
+          res.status(200).send('hola')
           next();
         });
       });

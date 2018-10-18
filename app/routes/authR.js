@@ -4,7 +4,7 @@ const { userCtrl } = require('../controllers');
 
 router.post('/register', (req, res, next) => {
   middleware.auth.register(req, res, next);
-}, (req, res) => { res.send('Cuando esté bien implementado, se redireccionará al perfil'); });
+}, (req, res, next) => { console.log(req.body); console.log(res); res.status(200).send({ message: req.body.message }); });
 
 // router.post('/login', );
 // router.get('/logout', );

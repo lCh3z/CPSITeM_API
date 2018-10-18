@@ -79,13 +79,12 @@ class Validator {
   static recValidation(req, res, next, input, error) {
     if (input && req) {
       if (Array.isArray(input) && Array.isArray(req)) {
-        let missing = false;
         for (const element in input) {
           if (!this.recValidation(req[element], res, next, input[element], error)) {
-            missing = true;
+            return true;
           }
         }
-        return missing;
+        return false;
       } else if (typeof (input) === 'object' && typeof (req) === 'object' && !Array.isArray(input) && !Array.isArray(req)) {
         Object.keys(input).forEach((k) => {
           let missing = true;
