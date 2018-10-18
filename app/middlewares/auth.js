@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt-nodejs');
-
 const { UserMdl, Token } = require('../models');
 
 class Auth {
@@ -7,48 +6,42 @@ class Auth {
     this.register = this.register.bind(this);
   }
 
-  static async register(req, res, next) {
+  async register(req, res, next) {
     const User = new UserMdl(req.body);
     try {
       await User.save();
     } catch (e) {
-      next(e);
+      return next(e);
     }
     console.log('USER', User);
     console.log('A');
     try {
-      bcrypt.hash(req.cdu, null, null, async (err, hash) => {
-        if (!err) {
-          console.log('B');
-          let expires = Date.now();
-          expires += process.env.USER_TIME * 60000;
-          expires = new Date(expires).toISOString().slice(0, 19).replace('T', ' ');
-          try {
-            console.log('TOKEN', {
-              token: hash,
-              id_user: User.id,
-              expiter: expires,
-              type: 1,
-              status: 1,
-            });
-            await Token.add({
-              token: hash,
-              id_user: User.id,
-              expiter: expires,
-              type: 1,
-              status: 1,
-            }, next);
-          } catch (e) {
-            throw (e);
-          }
+      bcrypt.genSalt(Number(process.env.SALT_ROUND), function (err, salt) {
+        if (err) {
+            return next(err);
         }
-        throw (err);
+        bcrypt.hash(req.body.cdu, salt, null, (err, hash) => {
+          if (err) {
+            return next(err);
+          }
+          console.log('B');
+          let expires = Date.now() + Number(process.env.USER_TIME) * 60000;
+          expires = new Date(expires).toISOString().slice(0, 19).replace('T', ' ');
+          return Token.add({
+            token: hash,
+            id_user: User.id,
+            expiter: expires,
+            type: 1,
+            status: 1,
+          }, next);
+          next();
+        });
       });
     } catch (e) {
-      throw (e);
+      return next(e);
     }
-    res.status(500).send('HOLA')
+    return next();
   }
 }
 
-module.exports = Auth;
+module.exports = new Auth();
