@@ -13,8 +13,6 @@ class Auth {
     } catch (e) {
       return next(e);
     }
-    console.log('USER', User);
-    console.log('A');
     try {
       bcrypt.genSalt(Number(process.env.SALT_ROUND), function (err, salt) {
         if (err) {
@@ -24,7 +22,6 @@ class Auth {
           if (err) {
             return next(err);
           }
-          console.log('B');
           let expires = Date.now() + Number(process.env.USER_TIME) * 60000;
           expires = new Date(expires).toISOString().slice(0, 19).replace('T', ' ');
           return Token.add({
