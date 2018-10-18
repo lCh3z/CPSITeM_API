@@ -37,10 +37,22 @@ class Validator {
     return data !== undefined && data !== null && String(data).length;
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it is a email
+   * or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is an email
+   */
   static email(data) {
     return (Validator.regex.email.test(data));
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it is a integer
+   * or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is an integer
+   */
   static integer(data) {
     try {
       return parseInt(data);
@@ -49,26 +61,57 @@ class Validator {
     }
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it is an unsigned
+   * integer or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is an unsigned integer
+   */
   static unsigned(data) {
     return (Validator.regex.unsignedInteger.test(data));
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it is a rfc
+   * or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is a rfc
+   */
   static rfc(data) {
     return (Validator.regex.rfc.test(data));
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it has a file
+   * format or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param has a file format
+   */
   static file(data) {
     return(Validator.regex.file.test(data));
   }
 
+   /**
+    * Function that reciebes one parameter that will be evaled if it has an image
+    * format or not
+    * @param  {string} data string to ve evaluated
+    * @return {bool}        returns true if the evaluated param has an image format
+    */
   static image(data) {
     return(Validator.regex.image.test(data));
   }
+
 
   static secret(data) {
     return (Validator.regex.secret.test(data));
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it is a string
+   * or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is a string
+   */
   static string(data) {
     return (Validator.regex.string.test(data));
   }
