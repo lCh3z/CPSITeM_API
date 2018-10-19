@@ -6,7 +6,7 @@ class Auth {
     this.register = this.register.bind(this);
   }
 
-  generateHash(text, next) {
+  generateHash(text) {
     return new Promise(async (resolve, reject) => {
       try {
         await bcrypt.genSalt(process.env.SALT_ROUND, async (err, salt) => {
@@ -21,7 +21,7 @@ class Auth {
           return reject(err);
         });
       } catch (e) {
-        return next (err);
+        return reject (err);
       }
     });
   }
