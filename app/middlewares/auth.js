@@ -44,10 +44,10 @@ class Auth {
     } catch (e) {
       return next(e);
     }
-    return next();
+    next();
   }
 
-  async login(req, res, next){
+  async login(req, res, next) {
     const User = {
       main_email: req.body.main_email,
       cdu: req.body.cdu
@@ -75,25 +75,26 @@ class Auth {
         null,
         null
       );
-      if (!data) {
-        res.status(404).send(Responses.notFound('user'));
+      if (!data.length) {
+        req.body.message = { main_email: 'This email doesn\'t exists in our database' };
+        next();
       } else {
         let hash = data[0].cdu;
-        bcrypt.compare(User.cdu, hash, function(err, res) {
-          if(res == true){
+        await bcrypt.compare(User.cdu, hash, (err, res) => {
+          if (err) {
+            return next(err);
+          }
+          if (res) {
             req.body.message = { token: hash };
-            next();
+          } else {
+            req.body.message = { password: 'Passwords doesn\'t match' };
           }
-          else{
-            next(err);
-          }
+          next();
         });
       }
-    }catch(e){
+    } catch(e) {
       return next(e);
     }
-
-
   }
 }
 
