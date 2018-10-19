@@ -81,7 +81,7 @@ class Auth {
         let hash = data[0].cdu;
         bcrypt.compare(User.cdu, hash, function(err, res) {
           if(res == true){
-            console.log('Iguales');
+            req.body.message = { token: hash };
             next();
           }
           else{
