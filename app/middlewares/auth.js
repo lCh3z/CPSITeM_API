@@ -32,15 +32,13 @@ class Auth {
       User.cdu = await this.generateHash(req.body.cdu, next);
       await User.save();
       const hash = await this.generateHash(new Date(), next);
-      let expires = Date.now() + Number(process.env.USER_TIME) * 60000;
-      expires = new Date(expires).toISOString().slice(0, 19).replace('T', ' ');
-      if (await Token.add({
+      const token = new Token({
         token: hash,
         id_user: User.id,
-        expiter: expires,
-        type: 1,
+        type: 'USER_SESSION',
         status: 1,
-      })) {
+      });
+      if (await token.save()) {
         req.body.message = { token: hash };
       }
     } catch (e) {
