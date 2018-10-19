@@ -76,7 +76,7 @@ class Auth {
         null
       );
     }catch(e){
-      console.log(e);
+      return next(e);
     }
 
     if (!data) {
