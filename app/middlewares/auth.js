@@ -75,23 +75,24 @@ class Auth {
         null,
         null
       );
+      if (!data) {
+        res.status(404).send(Responses.notFound('user'));
+      } else {
+        let hash = data[0].cdu;
+        bcrypt.compare(User.cdu, hash, function(err, res) {
+          if(res == true){
+            console.log('Iguales');
+            next();
+          }
+          else{
+            next(err);
+          }
+        });
+      }
     }catch(e){
       return next(e);
     }
 
-    if (!data) {
-      res.status(404).send(Responses.notFound('user'));
-    } else {
-      let hash = data[0].cdu;
-      bcrypt.compare(User.cdu, hash, function(err, res) {
-        if(res == true){
-          return next();
-        }
-        else{
-          return next(err);
-        }
-      });
-    }
 
   }
 }
