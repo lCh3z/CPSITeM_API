@@ -46,6 +46,54 @@ class Auth {
     }
     return next();
   }
+
+  async login(req, res, next){
+    const User = {
+      main_email: req.body.main_email,
+      cdu: req.body.cdu
+    };
+    try{
+      let data = await UserMdl.login(
+        '_User_',
+        [
+          'main_email',
+          'cdu'
+        ],
+        [
+          {
+            attr: 'main_email',
+            oper: '=',
+            val: User.main_email
+          },
+          {
+            logic: 'and',
+            attr: 'status',
+            oper: '!=',
+            val: 0
+          }
+        ],
+        null,
+        null
+      );
+    }catch(e){
+      console.log(e);
+    }
+
+    if (!data) {
+      res.status(404).send(Responses.notFound('user'));
+    } else {
+      let hash = data[0].cdu;
+      bcrypt.compare(User.cdu, hash, function(err, res) {
+        if(res == true){
+          return next();
+        }
+        else{
+          return next(err);
+        }
+      });
+    }
+
+  }
 }
 
 module.exports = new Auth();

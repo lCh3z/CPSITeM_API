@@ -9,7 +9,14 @@ router.post('/register', (req, res, next) => {
   res.status(200).send({ message: req.body.message });
 });
 
-// router.post('/login', );
+router.post('/login', (req, res, next)=>{
+  middleware.auth.login(req, res, next);
+}, (req, res)=>{
+  console.log('HI');
+});
+
+
+
 // router.get('/logout', );
 
 module.exports = router;
