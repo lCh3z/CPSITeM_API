@@ -81,10 +81,11 @@ class Auth {
         let hash = data[0].cdu;
         bcrypt.compare(User.cdu, hash, function(err, res) {
           if(res == true){
-            return next();
+            console.log('Iguales');
+            next();
           }
           else{
-            return next(err);
+            next(err);
           }
         });
       }
