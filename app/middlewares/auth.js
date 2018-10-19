@@ -37,8 +37,8 @@ class Auth {
       if (await Token.add({
         token: hash,
         id_user: User.id,
-        expiter: expires,
-        type: 1,
+        expires,
+        type: 'SESSION',
         status: 1,
       })) {
         req.body.message = { token: hash };
