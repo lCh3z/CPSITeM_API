@@ -41,6 +41,17 @@ class UserMdl {
     this.updated = updated;
   }
 
+
+  static async login(table, columns, filters, order, limit) {
+    let data = [];
+    try {
+      data = await db.select(table, columns, filters, order, limit);
+    } catch (e) {
+      throw e;
+    }
+    return data;
+  }
+
   static async select(table, columns, filters, order, limit) {
     let data = [];
     try {
