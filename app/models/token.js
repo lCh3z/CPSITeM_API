@@ -33,7 +33,7 @@ class Token {
     return null;
   }
 
-  async exists() {
+  async get(token) {
     try {
       if (this.token !== undefined) {
         return await db.select(
@@ -45,7 +45,7 @@ class Token {
             {
               attr: 'token',
               oper: '=',
-              val: this.token,
+              val: token,
             },
             {
               logic: 'and',
@@ -56,17 +56,17 @@ class Token {
           ],
         );
       }
-      return [];
     } catch (e) {
       throw e;
     }
+    return [];
   }
 
   async save() {
-    const tempToken = await this.exists();
+    const tempToken = await this.get(this.token);
     if (tempToken.length && this.id !== undefined) {
       try {
-        tempToken.expires = this.expires;
+        tempToken[0].expires = this.expires;
         return db.update(
           '_Token_',
           this,
@@ -91,6 +91,11 @@ class Token {
         throw e;
       }
     }
+  }
+
+  async deactive() {
+    this.active = false;
+    this.save();
   }
 }
 
