@@ -81,9 +81,9 @@ class UserCtrl {
         },
       );
 
-      if (data.length === 0) {
+      if (!data.length) {
         response.bad()
-          .setStatus(409)
+          .setStatus(204)
           .notFound(this.table);
       } else {
         const total = await UserMdl.count(
@@ -97,10 +97,10 @@ class UserCtrl {
           .setPlus('page', page)
           .setPlus('total', total);
       }
-      res.status(response.status).send(response);
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   async get(req, res, next) {
@@ -138,7 +138,7 @@ class UserCtrl {
         null,
       );
 
-      if (!data) {
+      if (!data.length) {
         response.bad()
           .setStatus(404)
           .notFound(this.table);
@@ -148,31 +148,33 @@ class UserCtrl {
           .setStatus(200)
           .setData(data);
       }
-      res.status(response.status).send(response);
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   async create(req, res, next) {
     const response = new Response();
     try {
       const User = new UserMdl(req.body);
-      if (await User.save(
+      if (!await User.save(
         req.body.list_email,
         req.body.worker,
         req.body.list_addresses,
       )) {
         response.bad()
-          .setStatus(500)
+          .setStatus(409)
           .cantCreate(this.table);
       } else {
-        response.ok().setStatus(201).created(this.table);
+        response.ok()
+          .setStatus(201)
+          .registered(this.table);
       }
-      res.status(response.status).send(response);
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   async update(req, res, next) {
@@ -180,24 +182,23 @@ class UserCtrl {
     try {
       const User = new UserMdl(req.body);
       User.id = Number(req.param('id'));
-      const result = await User.save(
+      if (!await User.save(
         req.body.list_email,
         req.body.worker,
         req.body.list_addresses,
-      );
-      if (!result) {
+      )) {
         response.bad()
-          .setStatus(500)
+          .setStatus(409)
           .cantUpdate(this.table);
       } else {
         response.ok()
           .setStatus(200)
           .updated(this.table);
       }
-      res.status(response.status).send(response);
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   async delete(req, res, next) {
@@ -207,21 +208,19 @@ class UserCtrl {
         id: Number(req.param('id')),
       });
 
-      const result = await User.delete();
-
-      if (!result) {
+      if (!await User.delete()) {
         response.bad()
-          .setStatus(500)
+          .setStatus(404)
           .cantDelete(this.table);
       } else {
         response.ok()
           .setStatus(200)
           .deleted(this.table);
       }
-      res.status(response.status).send(response);
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 }
 
