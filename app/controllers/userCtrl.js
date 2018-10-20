@@ -122,10 +122,10 @@ class UserCtrl {
           'country',
           'lada',
           'phone',
-          'status',
           'main_email',
           'date',
           'updated',
+          'status',
         ],
         [
           {
