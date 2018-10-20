@@ -19,14 +19,6 @@ class CartMdl {
     this.updated = updated;
   }
 
-  processResult(data) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new CartMdl(res));
-    });
-    return result;
-  }
-
   static async select(table, columns, filters, order, limit) {
     try {
       const data = await db.select(table, columns, filters, order, limit);
@@ -38,6 +30,24 @@ class CartMdl {
     } catch (e) {
       throw e;
     }
+  }
+
+  selectAll(id_user) {
+    return this.select(
+      '_Cart_',
+      [
+        '*',
+      ],
+      [
+        {
+          attr: 'id_user',
+          oper: '=',
+          val: id_user,
+        },
+      ],
+      null,
+      null,
+    );
   }
 
   async exists() {
