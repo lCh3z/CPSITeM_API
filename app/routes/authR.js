@@ -20,6 +20,12 @@ router.post('/login', (req, res, next) => {
   res.status(200).send({ message: req.body.message });
 });
 
+router.get('/logout', (req, res, next) => {
+  middleware.auth.logout(req, res, next);
+}, (req, res) => {
+  res.status(200).send({ message: req.body.message });
+});
+
 
 
 // router.get('/logout', );

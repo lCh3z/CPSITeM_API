@@ -64,12 +64,15 @@ class Token {
 
   async save() {
     const tempToken = await this.get(this.token);
-    if (tempToken.length && this.id !== undefined) {
+    if (tempToken.length) {
+      this.id = tempToken[0].id;
       try {
-        tempToken[0].expires = this.expires;
         return db.update(
           '_Token_',
-          this,
+          {
+            expires: this.expires,
+            status: this.status,
+          },
           [
             {
               attr: 'id',
@@ -81,7 +84,7 @@ class Token {
       } catch (e) {
         throw e;
       }
-    } else {
+    } else if (this.id_user) {
       try {
         return db.create(
           '_Token_',
@@ -90,12 +93,20 @@ class Token {
       } catch (e) {
         throw e;
       }
+    } else {
+      return false;
     }
   }
 
-  async deactive() {
-    this.active = false;
-    this.save();
+  async close() {
+    Object.keys(this).forEach((key) => {
+      if (key !== 'token' && key !== 'expires') {
+        delete this[key];
+      }
+    });
+    this.status = 0;
+    const result = await this.save()
+    return result;
   }
 }
 

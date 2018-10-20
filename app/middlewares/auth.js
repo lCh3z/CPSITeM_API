@@ -80,8 +80,6 @@ class Auth {
         req.body.message = { main_email: 'This email doesn\'t exists in our database' };
         next();
       } else {
-        console.log('sigue data');
-        console.log(data);
         const hash = data[0].cdu;
         await bcrypt.compare(User.cdu, hash, async (err, result) => {
           if (err) {
@@ -111,7 +109,19 @@ class Auth {
   }
 
   async logout(req, res, next) {
-
+    let token = req.headers['authorization'];
+    token = token.split(' ')[1];
+    token = new Token({ token });
+    try {
+      if (await token.close()) {
+        req.body.message = { session: 'Session was closed' };
+      } else {
+        req.body.message = { session: 'Session is already closed' };
+      }
+      next();
+    } catch (e) {
+      return next(e);
+    }
   }
 }
 
