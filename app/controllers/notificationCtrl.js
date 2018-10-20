@@ -20,7 +20,7 @@ class notificationCtrl{
       }
       return result;
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -97,7 +97,7 @@ class notificationCtrl{
         });
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -126,7 +126,7 @@ class notificationCtrl{
       }
       res.status(201).send({ data });
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -140,7 +140,7 @@ class notificationCtrl{
         return res.status(500).send(Responses.cantCreate('Notification'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -156,7 +156,7 @@ class notificationCtrl{
       }
       res.status(201).send(Responses.updated('Notification'));
   } catch (e) {
-    next(e);
+    return next(e);
   }
 }
 
@@ -173,7 +173,7 @@ class notificationCtrl{
       }
       res.status(201).send(Responses.deleted('Notification'));
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 }

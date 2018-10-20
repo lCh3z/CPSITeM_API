@@ -79,7 +79,7 @@ class serviceCtrl {
         });
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -115,7 +115,7 @@ class serviceCtrl {
         res.status(201).send({ data });
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -129,7 +129,7 @@ class serviceCtrl {
         return res.status(500).send(Responses.cantCreate('Service'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -146,7 +146,7 @@ class serviceCtrl {
         res.status(201).send(Responses.updated('Service'));
       }
   } catch (e) {
-    next(e);
+    return next(e);
   }
 }
 
@@ -164,7 +164,7 @@ class serviceCtrl {
         res.status(201).send(Responses.deleted('Service'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 }

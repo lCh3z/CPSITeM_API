@@ -43,7 +43,7 @@ class wishListCtrl{
         res.status(200).send({ data });
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -58,7 +58,7 @@ class wishListCtrl{
         return res.status(500).send(Responses.cantCreate('wishlist'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -77,7 +77,7 @@ class wishListCtrl{
         res.status(200).send(Responses.deleted('wishlist'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 }

@@ -22,7 +22,7 @@ class categoryCtrl{
       }
       return result;
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -103,7 +103,7 @@ class categoryCtrl{
         });
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -138,7 +138,7 @@ class categoryCtrl{
       }
       res.status(201).send({ data });
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -151,7 +151,7 @@ class categoryCtrl{
         return res.status(500).send(Responses.cantCreate('Category'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -167,7 +167,7 @@ class categoryCtrl{
       }
       res.status(201).send(Responses.updated('Category'));
   } catch (e) {
-    next(e);
+    return next(e);
   }
 }
 
@@ -184,7 +184,7 @@ class categoryCtrl{
       }
       res.status(201).send(Responses.deleted('Category'));
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 }

@@ -22,7 +22,7 @@ class cupponCtrl{
       }
       return result;
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -65,7 +65,7 @@ class cupponCtrl{
         });
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -94,7 +94,7 @@ class cupponCtrl{
       }
       res.status(201).send({ data });
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -107,7 +107,7 @@ class cupponCtrl{
         return res.status(500).send(Responses.cantCreate('Cuppon'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -123,7 +123,7 @@ class cupponCtrl{
       }
       res.status(201).send(Responses.updated('Cuppon'));
   } catch (e) {
-    next(e);
+    return next(e);
   }
 }
 
@@ -140,7 +140,7 @@ class cupponCtrl{
       }
       res.status(201).send(Responses.deleted('Cuppon'));
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 }

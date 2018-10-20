@@ -21,7 +21,7 @@ class paymentCtrl{
       }
       return result;
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -98,7 +98,7 @@ class paymentCtrl{
         });
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -127,7 +127,7 @@ class paymentCtrl{
       }
       res.status(201).send({ data });
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -141,7 +141,7 @@ class paymentCtrl{
         return res.status(500).send(Responses.cantCreate('Payment'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -157,7 +157,7 @@ class paymentCtrl{
       }
       res.status(201).send(Responses.updated('Payment'));
   } catch (e) {
-    next(e);
+    return next(e);
   }
 }
 
@@ -174,7 +174,7 @@ class paymentCtrl{
       }
       res.status(201).send(Responses.deleted('Payment'));
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 }

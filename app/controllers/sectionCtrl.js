@@ -80,7 +80,7 @@ class sectionCtrl{
         });
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -115,7 +115,7 @@ class sectionCtrl{
       }
       res.status(201).send({ data });
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -129,7 +129,7 @@ class sectionCtrl{
         return res.status(500).send(Responses.cantCreate('Section'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -144,7 +144,7 @@ class sectionCtrl{
       }
       res.status(201).send(Responses.updated('Section'));
   } catch (e) {
-    next(e);
+    return next(e);
   }
 }
 
@@ -161,7 +161,7 @@ class sectionCtrl{
       }
       res.status(201).send(Responses.deleted('Section'));
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 

@@ -80,7 +80,7 @@ class orderCtrl {
         });
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -109,7 +109,7 @@ class orderCtrl {
       }
       res.status(201).send({ data });
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -124,7 +124,7 @@ class orderCtrl {
         return res.status(500).send(Responses.cantCreate('order'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -140,7 +140,7 @@ class orderCtrl {
       }
       res.status(201).send(Responses.updated('order'));
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
   async delete(req, res, next) {
@@ -156,7 +156,7 @@ class orderCtrl {
       }
       res.status(201).send(Responses.deleted('order'));
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 

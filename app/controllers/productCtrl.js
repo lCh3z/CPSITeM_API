@@ -79,7 +79,7 @@ class productCtrl {
         });
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -118,7 +118,7 @@ class productCtrl {
       }
       res.status(201).send({ data });
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -132,7 +132,7 @@ class productCtrl {
         return res.status(500).send(Responses.cantCreate('product'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -148,7 +148,7 @@ class productCtrl {
       }
       res.status(201).send(Responses.updated('product'));
   } catch (e) {
-    next(e);
+    return next(e);
   }
 }
 
@@ -165,7 +165,7 @@ class productCtrl {
       }
       res.status(201).send(Responses.deleted('Product'));
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 

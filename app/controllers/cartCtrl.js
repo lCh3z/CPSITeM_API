@@ -44,7 +44,7 @@ class cartCtrl {
         res.status(200).send({ data });
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -59,7 +59,7 @@ class cartCtrl {
         return res.status(500).send(Responses.cantCreate('cart'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -75,7 +75,7 @@ class cartCtrl {
         return res.status(500).send(Responses.cantUpdate('cart'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 
@@ -94,7 +94,7 @@ class cartCtrl {
         res.status(200).send(Responses.deleted('cart'));
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
   }
 }
