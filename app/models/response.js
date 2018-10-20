@@ -3,6 +3,7 @@ class Response {
     this.title = 'Internal server error';
     this.status = 500;
     this.details = {};
+    this.data = null
   }
 
   ok() {
@@ -15,8 +16,18 @@ class Response {
     return this;
   }
 
-  status(num) {
+  setStatus(num) {
     this.status = num;
+    return this;
+  }
+
+  setData(data) {
+    this.data = data;
+    return this;
+  }
+
+  setPlus(attr, value) {
+    this[attr] = value;
     return this;
   }
 
@@ -25,7 +36,7 @@ class Response {
     if (plus) {
       detail += `: ${plus}`;
     }
-    if (this.details[table]) {
+    if (!this.details[table]) {
       this.details[table] = [detail];
     } else {
       this.details[table].push(detail);
@@ -38,7 +49,7 @@ class Response {
     if (plus) {
       detail += `: ${plus}`;
     }
-    if (this.details[table]) {
+    if (!this.details[table]) {
       this.details[table] = [detail];
     } else {
       this.details[table].push(detail);
@@ -51,7 +62,7 @@ class Response {
     if (plus) {
       detail += `: ${plus}`;
     }
-    if (this.details[table]) {
+    if (!this.details[table]) {
       this.details[table] = [detail];
     } else {
       this.details[table].push(detail);
@@ -64,7 +75,7 @@ class Response {
     if (plus) {
       detail += `: ${plus}`;
     }
-    if (this.details[table]) {
+    if (!this.details[table]) {
       this.details[table] = [detail];
     } else {
       this.details[table].push(detail);
@@ -77,7 +88,7 @@ class Response {
     if (plus) {
       detail += `: ${plus}`;
     }
-    if (this.details[table]) {
+    if (!this.details[table]) {
       this.details[table] = [detail];
     } else {
       this.details[table].push(detail);
@@ -90,7 +101,7 @@ class Response {
     if (plus) {
       detail += `: ${plus}`;
     }
-    if (this.details[table]) {
+    if (!this.details[table]) {
       this.details[table] = [detail];
     } else {
       this.details[table].push(detail);
@@ -103,7 +114,7 @@ class Response {
     if (plus) {
       detail += `: ${plus}`;
     }
-    if (this.details[table]) {
+    if (!this.details[table]) {
       this.details[table] = [detail];
     } else {
       this.details[table].push(detail);
