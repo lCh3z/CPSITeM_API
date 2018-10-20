@@ -47,14 +47,12 @@ class Auth {
     next();
   }
 
-
-
   async login(req, res, next) {
     const User = {
       main_email: req.body.main_email,
       cdu: req.body.cdu
     };
-    try{
+    try {
       let data = await UserMdl.login(
         '_User_',
         [
@@ -84,21 +82,21 @@ class Auth {
       } else {
         console.log('sigue data');
         console.log(data);
-        let hash = data[0].cdu;
-        await bcrypt.compare(User.cdu, hash, async (err, res) => {
+        const hash = data[0].cdu;
+        await bcrypt.compare(User.cdu, hash, async (err, result) => {
           if (err) {
             return next(err);
           }
-          if (res) {
-            const hash = await this.generateHash(new Date());
+          if (result) {
+            const hashTemp = await this.generateHash(new Date());
             const token = new Token({
-              token: hash,
+              token: hashTemp,
               id_user: data[0].id,
               type: 'USER_SESSION',
               status: 1,
             });
             if (await token.save()) {
-              req.body.message = { token: hash };
+              req.body.message = { token: hashTemp };
             }
             //req.body.message = { token: hash };
           } else {
@@ -107,9 +105,13 @@ class Auth {
           next();
         });
       }
-    } catch(e) {
+    } catch (e) {
       return next(e);
     }
+  }
+
+  async logout(req, res, next) {
+
   }
 }
 
