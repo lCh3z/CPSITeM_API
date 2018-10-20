@@ -47,6 +47,8 @@ class Auth {
     next();
   }
 
+
+
   async login(req, res, next) {
     const User = {
       main_email: req.body.main_email,
@@ -56,6 +58,7 @@ class Auth {
       let data = await UserMdl.login(
         '_User_',
         [
+          'id',
           'main_email',
           'cdu'
         ],
@@ -79,13 +82,26 @@ class Auth {
         req.body.message = { main_email: 'This email doesn\'t exists in our database' };
         next();
       } else {
+        console.log('sigue data');
+        console.log(data);
         let hash = data[0].cdu;
-        await bcrypt.compare(User.cdu, hash, (err, res) => {
+        await bcrypt.compare(User.cdu, hash, async (err, res) => {
           if (err) {
             return next(err);
           }
           if (res) {
-            req.body.message = { token: hash };
+
+            const hash = await this.generateHash(new Date(), next);
+            const token = new Token({
+              token: hash,
+              id_user: data[0].id,
+              type: 'USER_SESSION',
+              status: 1,
+            });
+            if (await token.save()) {
+              req.body.message = { token: hash };
+            }
+            //req.body.message = { token: hash };
           } else {
             req.body.message = { password: 'Passwords doesn\'t match' };
           }
