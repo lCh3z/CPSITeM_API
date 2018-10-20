@@ -31,7 +31,7 @@ class Auth {
     try {
       User.cdu = await this.generateHash(req.body.cdu, next);
       await User.save();
-      const hash = await this.generateHash(new Date(), next);
+      const hash = await this.generateHash(new Date());
       const token = new Token({
         token: hash,
         id_user: User.id,
@@ -90,8 +90,7 @@ class Auth {
             return next(err);
           }
           if (res) {
-
-            const hash = await this.generateHash(new Date(), next);
+            const hash = await this.generateHash(new Date());
             const token = new Token({
               token: hash,
               id_user: data[0].id,
