@@ -11,7 +11,7 @@ router.post('/',
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
-          cdu: 'required,secret',
+          cdu: 'required,password',
           main_email: 'email,required',
         },
       });
@@ -24,17 +24,17 @@ router.put('/:id',
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
-          photo: 'photo',
+          photo: 'image',
           name: 'word,required',
           sec_name: 'word',
           pat_surname: 'word',
           mat_surname: 'word',
           company: 'word',
           rfc: 'rfc',
-          country: 'word',
-          lada: 'unsigned',
-          phone: 'unsigned',
-          cdu: 'secret',
+          country: 'string',
+          lada: 'string',
+          phone: 'string',
+          cdu: 'password',
           main_email: 'email,required',
           list_email: [
             {
