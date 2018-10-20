@@ -96,9 +96,7 @@ class wishListCtrl{
     const response = new Response();
     try {
       const WishList = new WishListMdl(req.body);
-      if (!await WishList.save(
-        req.body.products,
-      )) {
+      if (!await WishList.save()) {
         response.bad()
         .setStatus(409)
         .cantCreate(this.table);
