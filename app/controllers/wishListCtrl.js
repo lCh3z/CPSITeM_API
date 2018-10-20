@@ -1,84 +1,138 @@
-const db = require('../db');
 const { WishListMdl, Responses } = require('../models');
 
 class wishListCtrl{
   constructor(){
+    this.table = 'wishlist';
     this.getAll = this.getAll.bind(this);
     this.create = this.create.bind(this);
     this.delete = this.delete.bind(this);
-    this.processResult = this.processResult.bind(this);
-  }
-
-  processResult(data, next) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new WishListMdl(res));
-    });
-    return result;
   }
 
   async getAll(req, res, next) {
-    try {
-      let data = await WishListMdl.select(
+    const response = new Response();
+    try{
+      let page = Number(req.param('page'));
+      let per_page = Number(req.param('per_page'));
+      if (!page) {
+        page = 0;
+      }
+      if (!per_page) {
+        per_page = 20;
+      }
+
+      const start = page * per_page;
+
+      let find = Number(req.param('find'));
+      let f_col = Number(req.param('f_col'));
+      let filters = null;
+      if (find && f_col) {
+        filters = [];
+        filters.push(
+          {
+            attr: f_col,
+            oper: 'LIKE',
+            val: find,
+          },
+        );
+      }
+
+
+      let order = null;
+      let ord = Number(req.param('order'));
+      let ord_by = Number(req.param('ord_by'));
+      let des = Number(req.param('desc'));
+      if (ord && ord_by) {
+        order = {};
+        order.by =  ord_by;
+        if (des) {
+          order.desc = true;
+        } else {
+          order.desc = false;
+        }
+      }
+
+      const data = await WishListMdl.select(
         '_WishList_',
         [
-          '*',
+          'id_user',
+          'id_product',
+          'status',
+          'date',
+          'updated',
         ],
-        [
-          {
-            attr: 'id_user',
-            oper: '=',
-            val: Number(req.param('id')),
-          },
-        ],
-        null,
-        null,
+        filters,
+        order,
+        {
+          start,
+          quant: per_page,
+        },
       );
 
-      data = this.processResult(data, next);
-
-      if (data.length === 0) {
-        res.status(409).send(Responses.notFound('wishlist'));
-      } else {
-        res.status(200).send({ data });
+      if (!data.length) {
+        response.bad()
+        .setStatus(204)
+        .notFound(this.table);
+      } else{
+        const total = await WishListMdl.count(
+          '_WishList_',
+          filters,
+        );
+        response.ok()
+        .setStatus(200)
+        .setData(data)
+        .setPlus('per_page', per_page)
+        .setPlus('page', page)
+        .setPlus('total', total);
       }
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
+
   }
 
-  async create(req, res, next) {
+
+  async create(req, res, next){
+    const response = new Response();
     try {
-      let WishList = new WishListMdl(req.body);
-      WishList.id_user = Number(req.param('id'))
-      let result = await WishList.save();
-      if (result) {
-        res.status(201).send(Responses.created('wishlist'));
+      const WishList = new WishListMdl(req.body);
+      if (!await WishList.save(
+        req.body.products,
+      )) {
+        response.bad()
+        .setStatus(409)
+        .cantCreate(this.table);
       } else {
-        return res.status(500).send(Responses.cantCreate('wishlist'));
+        response.ok()
+        .setStatus(201)
+        .registered(this.table);
       }
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   async delete(req, res, next) {
+    const response = new Response();
     try {
       const WishList = new WishListMdl({
-        id_user: Number(req.param('id')),
-        id_product: Number(req.param('id_product')),
+        id_user: Number(req.param('id_user')),
       });
 
-      const result = await WishList.delete();
-
-      if(!result){
-        res.status(500).send(Responses.cantDelete('wishlist'));
+      if (!await WishList.delete()) {
+        response.bad()
+          .setStatus(404)
+          .cantDelete(this.table);
       } else {
-        res.status(200).send(Responses.deleted('wishlist'));
+        response.ok()
+          .setStatus(200)
+          .deleted(this.table);
       }
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 }
 
