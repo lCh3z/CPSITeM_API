@@ -1,46 +1,32 @@
-const db = require('../db');
-const { PaymentMdl } = require('../models');
-const { Responses } = require('../models');
+const { PaymentMdl, Responses } = require('../models');
+
 class paymentCtrl{
   constructor(){
+    this.table = 'payment';
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-    this.processResult = this.processResult.bind(this);
   }
-
-  async processResult(data, next) {
-    try {
-      let temp;
-      let result = [];
-      for (const res of data) {
-        temp = new PaymentMdl(res);
-        result.push(temp);
-      }
-      return result;
-    } catch (e) {
-      return next(e);
-    }
-  }
-
 
   async getAll(req, res, next) {
+    const response = new Response();
     try {
-      let page = parseInt(req.param('page'));
-      let per_page = parseInt(req.param('per_page'));
+      let page = Number(req.param('page'));
+      let per_page = Number(req.param('per_page'));
       if (!page) {
         page = 0;
       }
       if (!per_page) {
         per_page = 20;
       }
+
       const start = page * per_page;
 
-      let find = parseInt(req.param('find'));
-      let f_col = parseInt(req.param('f_col'));
-      const filters = null;
+      let find = Number(req.param('find'));
+      let f_col = Number(req.param('f_col'));
+      let filters = null;
       if (find && f_col) {
         filters = [];
         filters.push(
@@ -53,9 +39,9 @@ class paymentCtrl{
       }
 
       let order = null;
-      let ord = parseInt(req.param('order'));
-      let ord_by = parseInt(req.param('ord_by'));
-      let des = parseInt(req.param('desc'));
+      let ord = Number(req.param('order'));
+      let ord_by = Number(req.param('ord_by'));
+      let des = Number(req.param('desc'));
       if (ord && ord_by) {
         order = {};
         order.by =  ord_by;
@@ -66,10 +52,16 @@ class paymentCtrl{
         }
       }
 
-      let data = await PaymentMdl.select(
+      const data = await PaymentMdl.select(
         '_Payment_',
         [
-          '*',
+          'id',
+          'id_user',
+          'account',
+          'token',
+          'status',
+          'date',
+          'updated',
         ],
         filters,
         order,
@@ -79,35 +71,41 @@ class paymentCtrl{
         },
       );
 
-      data = await this.processResult(data, next);
-
-      if (data.length === 0) {
-        res.status(500).send(Responses.notFound('Payment'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(204)
+          .notFound(this.table);
       } else {
         const total = await PaymentMdl.count(
           '_Payment_',
-          '',
-          '',
+          filters,
         );
-
-        res.status(200).send({
-          data,
-          per_page,
-          page,
-          total,
-        });
+        response.ok()
+          .setStatus(200)
+          .setData(data)
+          .setPlus('per_page', per_page)
+          .setPlus('page', page)
+          .setPlus('total', total);
       }
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   async get(req, res, next) {
+    const response = new Response();
     try {
       let data = await PaymentMdl.select(
         '_Payment_',
         [
-          '*',
+          'id',
+          'id_user',
+          'account',
+          'token',
+          'status',
+          'date',
+          'updated',
         ],
         [
           {
@@ -120,62 +118,81 @@ class paymentCtrl{
         null,
       );
 
-      [data] = await this.processResult(data, next);
-
-      if (!data) {
-        res.status(500).send(Responses.notFound('Payment'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(404)
+          .notFound(this.table);
+      } else {
+        [data] = data;
+        response.ok()
+          .setStatus(200)
+          .setData(data);
       }
-      res.status(201).send({ data });
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   async create(req, res, next) {
+    const response = new Response();
     try {
-      let result = await new PaymentMdl(req.body).save();
-      if (result) {
-        res.status(201).send(Responses.created('Payment'));
-
+      const Payment = new PaymentMdl(req.body);
+      if (!await Payment.save()) {
+        response.bad()
+          .setStatus(409)
+          .cantCreate(this.table);
       } else {
-        return res.status(500).send(Responses.cantCreate('Payment'));
+        response.ok()
+          .setStatus(201)
+          .registered(this.table);
       }
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
-  async update(req, res, next){
+  async update(req, res, next) {
+    const response = new Response();
     try {
       const Payment = new PaymentMdl(req.body);
       Payment.id = Number(req.param('id'));
-
-      const result = await Payment.update();
-
-      if(!result){
-        res.status(500).send(Responses.cantRegister('Payment'));
+      if (!await Payment.save()) {
+        response.bad()
+          .setStatus(409)
+          .cantUpdate(this.table);
+      } else {
+        response.ok()
+          .setStatus(200)
+          .updated(this.table);
       }
-      res.status(201).send(Responses.updated('Payment'));
-  } catch (e) {
-    return next(e);
+    } catch (e) {
+      return next(e);
+    }
+    return res.status(response.status).send(response);
   }
-}
 
   async delete(req, res, next) {
+    const response = new Response();
     try {
       const Payment = new PaymentMdl({
         id: Number(req.param('id')),
       });
 
-      const result = await Payment.delete();
-
-      if(!result){
-        res.status(500).send(Responses.cantDelete('Payment'));
+      if (!await Payment.delete()) {
+        response.bad()
+          .setStatus(404)
+          .cantDelete(this.table);
+      } else {
+        response.ok()
+          .setStatus(200)
+          .deleted(this.table);
       }
-      res.status(201).send(Responses.deleted('Payment'));
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 }
 
