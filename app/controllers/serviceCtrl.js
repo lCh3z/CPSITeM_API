@@ -108,22 +108,21 @@ class serviceCtrl {
         '_Service_',
         [
           'id',
-          'photo',
-          'name',
-          'sec_name',
-          'pat_surname',
-          'mat_surname',
-          'company',
+          'id_seller',
+          'id_user',
+          'title',
+          'hospital',
           'type',
-          'rfc',
-          'cfdi',
-          'country',
-          'lada',
-          'phone',
-          'main_email',
+          'equipment',
+          'model',
+          'serial',
+          'location',
+          'contract',
+          'description',
+          'voucher',
+          'status',
           'date',
           'updated',
-          'status',
         ],
         [
           {
@@ -156,11 +155,7 @@ class serviceCtrl {
     const response = new Response();
     try {
       const Service = new ServiceMdl(req.body);
-      if (!await Service.save(
-        req.body.list_email,
-        req.body.worker,
-        req.body.list_addresses,
-      )) {
+      if (!await Service.save()) {
         response.bad()
           .setStatus(409)
           .cantCreate(this.table);
