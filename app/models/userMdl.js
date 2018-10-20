@@ -118,10 +118,10 @@ class UserMdl {
     return [];
   }
 
-  async save() {
+  async save(list_email, worker, list_addresses) {
     const exists = await this.exists();
     if (this.id !== undefined && exists.length) {
-      return this.update();
+      return this.update(list_email, worker, list_addresses);
     }
     try {
       if (await db.create('_User_', this)) {
@@ -153,34 +153,43 @@ class UserMdl {
     return false;
   }
 
-  async update(list_email, worker, list_addresses) {
-    try {
-      if (this.id !== undefined && await db.update(
-        '_User_',
-        this,
-        [
-          {
-            attr: 'id',
-            oper: '=',
-            val: this.id,
-          },
-          {
-            logic: 'and',
-            attr: 'status',
-            oper: '!=',
-            val: 0,
-          },
-        ],
-      )) {
-        await this.saveListEmail(list_email);
-        await this.saveWorker(worker);
-        await this.saveAddresses(list_addresses);
-        return true;
+  update(list_email, worker, list_addresses) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        console.log('TRUENA');
+        if (this.id !== undefined && await db.update(
+          '_User_',
+          this,
+          [
+            {
+              attr: 'id',
+              oper: '=',
+              val: this.id,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
+        )) {
+          console.log('Ok');
+          if (await this.saveListEmail(list_email)) {
+            console.log('Ok2');
+            if (await this.saveWorker(worker)) {
+              console.log('Ok3');
+              if (await this.saveAddresses(list_addresses)) {
+                return resolve(true);
+              }
+            }
+          }
+          return resolve(false);
+        }
+      } catch (e) {
+        return reject(e);
       }
-    } catch (e) {
-      throw e;
-    }
-    return false;
+    });
   }
 
   async delete() {
@@ -404,6 +413,7 @@ class UserMdl {
         throw e;
       }
     }
+    return true;
   }
 
   async saveWorker(worker) {
@@ -493,6 +503,7 @@ class UserMdl {
         throw e;
       }
     }
+    return true;
   }
 
   async saveAddresses(new_list_addresses) {
@@ -522,8 +533,6 @@ class UserMdl {
     } catch (e) {
       throw e;
     }
-    console.log('N', new_list_addresses);
-    console.log('O', old_list_addresses);
 
     for (const n_addresses in new_list_addresses) {
       new_list_addresses[n_addresses].id_user = this.id;
@@ -557,9 +566,6 @@ class UserMdl {
         }
       }
     }
-
-    console.log('N', new_list_addresses);
-    console.log('O', old_list_addresses);
 
     for(const n_addresses in new_list_addresses) {
       try {
@@ -595,6 +601,7 @@ class UserMdl {
         throw e;
       }
     }
+    return true;
   }
 
   getName() {
