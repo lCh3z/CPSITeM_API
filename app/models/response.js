@@ -41,41 +41,35 @@ class Response {
     } else {
       this.details[table].push(detail);
     }
+    return this;
   }
 
   notFound(table, plus) {
-    this.setDetail(table, 'Not items found', plus);
-    return this;
+    return this.setDetail(table, 'Not items found', plus);
   }
 
   registered(table, plus) {
-    this.setDetail(table, 'Successful registration', plus);
-    return this;
+    return this.setDetail(table, 'Successful registration', plus);
   }
 
   cantRegister(table, plus) {
-    this.setDetail(table, 'Could not register', plus);
-    return this;
+    return this.setDetail(table, 'Could not register', plus);
   }
 
   updated(table, plus) {
     this.setDetail(table, 'Successful update', plus);
-    return this;
   }
 
   cantUpdate(table, plus) {
-    this.setDetail(table, 'Could not update', plus);
-    return this;
+    return this.setDetail(table, 'Could not update', plus);
   }
 
   deleted(table, plus) {
-    this.setDetail(table, 'Successful deletion', plus);
-    return this;
+    return this.setDetail(table, 'Successful deletion', plus);
   }
 
   cantDelete(table, plus) {
-    this.setDetail(table, 'Could not delete', plus);
-    return this;
+    return this.setDetail(table, 'Could not delete', plus);
   }
 }
 
