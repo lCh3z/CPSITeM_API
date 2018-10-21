@@ -33,8 +33,8 @@ class Response {
 
   setDetail(table, det, plus) {
     const detail = plus ? `${det} : ${plus}` : det;
-    if (!this.detail) {
-      this.detail = {};
+    if (!this.details) {
+      this.details = {};
     }
     if (!this.details[table]) {
       this.details[table] = [detail];
