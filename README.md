@@ -108,12 +108,16 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 	</thead>
 	<tbody>
 		<tr>
-			<td>DB_USER</td>
-			<td>dirección de la base de datos</td>
+			<td>DB_HOST</td>
+			<td>dirección del servidor de base de datos</td>
 		</tr>
 		<tr>
-			<td>DB_HOST</td>
-			<td>dirección de la base de datos</td>
+			<td>DB_PORT</td>
+			<td>puerto de acceso al servidor base de datos</td>
+		</tr>
+		<tr>
+			<td>DB_NAME</td>
+			<td>nombre de la base de datos</td>
 		</tr>
 		<tr>
 			<td>DB_USER</td>
@@ -124,24 +128,16 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 			<td>contraseña del usuario</td>
 		</tr>
 		<tr>
-			<td>DB_NAME</td>
-			<td>nombre de la base de datos</td>
-		</tr>
-		<tr>
-			<td>DB_PORT</td>
-			<td>puerto de la base de datos</td>
-		</tr>
-		<tr>
 			<td>PORT</td>
-			<td>puerto de la aplicación</td>
+			<td>puerto para lanzar la aplicación</td>
 		</tr>
 		<tr>
-			<td>SECRET</td>
-			<td>cadena para cifrado</td>
+			<td>SALT_ROUND</td>
+			<td>Factor costo para generar un hash. Mientras mas grande sea, más seguras será la encriptación pero tardará más tiempo en realizarse.</td>
 		</tr>
 		<tr>
-			<td>USER_TIME</td>
-			<td>tiempo de expiración de sesión de usuario</td>
+			<td>USER_SESSION</td>
+			<td>tiempo de expiración de sesión de usuario (en minutos)</td>
 		</tr>
 		<tr>
 			<td></td>
