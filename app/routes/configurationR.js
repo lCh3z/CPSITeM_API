@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { configurationCtrl } = require('../controllers');
 const middlewares = require('../middlewares');
 
+// FIXME Falta validar los params y el cuerpo del request
 router.get('/', configurationCtrl.get);
 
 router.post('/',

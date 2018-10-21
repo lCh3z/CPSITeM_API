@@ -1,5 +1,8 @@
 const { NotificationMdl, Responses } = require('../models');
 
+// FIXME Todos los metodos deben estar documentados
+// FIXME En todos los casos de error, el codigo 500 no es adecuado
+
 class notificationCtrl{
   constructor(){
     this.table = 'notification';
@@ -12,6 +15,7 @@ class notificationCtrl{
   async getAll(req, res, next) {
     const response = new Response();
     try {
+      // FIXME Toda la logica para definir los parametros para filtros, paginado y ordenado se puede meter en un middleware
       let page = Number(req.param('page'));
       let per_page = Number(req.param('per_page'));
       if (!page) {

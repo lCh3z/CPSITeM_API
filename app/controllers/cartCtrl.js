@@ -1,6 +1,9 @@
 const db = require('../db');
 const { CartMdl, Response } = require('../models');
 
+// FIXME Todos los metodos deben estar documentados
+// FIXME En todos los casos de error, el codigo 500 no es adecuado
+
 class cartCtrl {
   constructor() {
     this.table = 'cart';

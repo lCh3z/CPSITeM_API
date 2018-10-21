@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { wishListCtrl } = require('../controllers');
 
+// FIXME Falta validar los params y el cuerpo del request
+
 router.get('/', wishListCtrl.getAll);
 
 router.post('/',

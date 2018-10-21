@@ -1,5 +1,6 @@
 const db = require('../db');
 
+// FIXME Todos los metodos deben estar documentados
 class ConfigurationMdl {
   constructor({
     id,

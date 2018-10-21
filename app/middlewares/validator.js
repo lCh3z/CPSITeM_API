@@ -26,7 +26,7 @@ class Validator {
 
   static integer(data) {
     try {
-      return parseInt(data);
+      return Number(data);
     } catch (e) {
       return false;
     }
