@@ -1,6 +1,10 @@
 const db = require('../db');
 const { NewsListMdl } = require('../models');
 
+// FIXME Todos los metodos deben estar documentados
+// FIXME En todos los casos de error, el codigo 500 no es adecuado
+// FIXME Los mensajes de respuestas deberian estar en ingles y  usar los responses que armaron
+
 class newsListCtrl{
   constructor(){
     this.create = this.create.bind(this);
@@ -44,6 +48,7 @@ class newsListCtrl{
 
     const result = await newList.save();
 
+    // FIXME Evitar codigos numericos que no son claros
     if(result === 0){
       res.status(200).send({ message: 'Actualizado correctamente' });
     } else if (result === 1) {

@@ -1,3 +1,5 @@
+// FIXME Todos los metodos deben estar documentados
+// FIXME Creo  que pudo ser simplemente un objeto error y agregarle datos en el constructor para regresar la instancia
 
 class Responses {
   static notFound(table) {

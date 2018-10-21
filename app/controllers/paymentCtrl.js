@@ -1,6 +1,11 @@
 const db = require('../db');
+// FIXME puedes cargar ambos modelos en una sola linea const { PaymentMdl, Responses } = require('../models');
 const { PaymentMdl } = require('../models');
 const { Responses } = require('../models');
+
+// FIXME Todos los metodos deben estar documentados
+// FIXME En todos los casos de error, el codigo 500 no es adecuado
+
 class paymentCtrl{
   constructor(){
     this.getAll = this.getAll.bind(this);
@@ -28,6 +33,7 @@ class paymentCtrl{
 
   async getAll(req, res, next) {
     try {
+      // FIXME Toda la logica para definir los parametros para filtros, paginado y ordenado se puede meter en un middleware
       let page = parseInt(req.param('page'));
       let per_page = parseInt(req.param('per_page'));
       if (!page) {

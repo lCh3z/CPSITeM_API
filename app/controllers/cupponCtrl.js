@@ -1,6 +1,10 @@
 const db = require('../db');
+// FIXME puedes cargar ambos modelos en una sola linea
 const { CupponMdl } = require('../models');
 const { Responses } = require('../models');
+
+// FIXME Todos los metodos deben estar documentados
+// FIXME En todos los casos de error, el codigo 500 no es adecuado
 
 class cupponCtrl{
   constructor(){
@@ -29,6 +33,7 @@ class cupponCtrl{
 
   async getAll(req, res, next) {
     try {
+      // FIXME Toda la logica para definir los parametros para filtros, paginado y ordenado se puede meter en un middleware
       const page = parseInt(req.param('page'));
       const per_page = parseInt(req.param('per_page'));
       const start = page * per_page;
