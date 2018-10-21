@@ -12,14 +12,16 @@ router.post('/', [
   (req, res, next) => {
     middlewares.validator.validate(req, res, next, {
       body: {
-        id_cat: 'required',
-        name: 'required',
-        inventory: 'required',
-        price: 'required',
-        description: 'required',
+        id_cat: 'required,unsigned',
+        name: 'required,string',
+        inventory: 'required,unsigned',
+        price: 'required,unsigned',
+        description: 'required,string',
+        specs: 'required,string',
+        min_quan: 'required,unsigned',
         list_imgs: [
           {
-            photo: 'required',
+            photo: 'required,image',
           },
         ],
       },
@@ -32,13 +34,16 @@ router.put('/:id',
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
-          name: 'required',
-          inventory: 'required',
-          price: 'required',
-          description: 'required',
+          id_cat: 'required,unsigned',
+          name: 'required,string',
+          inventory: 'required,unsigned',
+          price: 'required,unsigned',
+          description: 'required,string',
+          specs: 'required,string',
+          min_quan: 'required,unsigned',
           list_imgs: [
             {
-              photo: 'required',
+              photo: 'required,image',
             },
           ],
         },
