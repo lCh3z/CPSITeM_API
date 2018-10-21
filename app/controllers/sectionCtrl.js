@@ -126,7 +126,7 @@ class sectionCtrl{
       if (result) {
         return res.status(201).send(Responses.created('Section'));
       } else {
-        return res.status(500).send(Responses.cantCreate('Section'));
+        return res.status(500).send(Responses.cantRegister('Section'));
       }
     } catch (e) {
       return next(e);

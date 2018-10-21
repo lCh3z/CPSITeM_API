@@ -132,7 +132,7 @@ class categoryCtrl {
       if(!await new CategoryMdl(req.body).save()) {
         response.bad()
           .setStatus(409)
-          .cantCreate(this.table);
+          .cantRegister(this.table);
       } else {
         response.ok()
           .setStatus(201)

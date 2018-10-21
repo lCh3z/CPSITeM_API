@@ -104,7 +104,7 @@ class cupponCtrl{
       if (result) {
         res.status(201).send(Responses.created('Cuppon'));
       } else {
-        return res.status(500).send(Responses.cantCreate('Cuppon'));
+        return res.status(500).send(Responses.cantRegister('Cuppon'));
       }
     } catch (e) {
       return next(e);

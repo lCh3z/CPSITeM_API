@@ -137,7 +137,7 @@ class notificationCtrl{
         res.status(201).send(Responses.created('Notification'));
 
       } else {
-        return res.status(500).send(Responses.cantCreate('Notification'));
+        return res.status(500).send(Responses.cantRegister('Notification'));
       }
     } catch (e) {
       return next(e);

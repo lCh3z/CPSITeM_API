@@ -55,7 +55,7 @@ class wishListCtrl{
       if (result) {
         res.status(201).send(Responses.created('wishlist'));
       } else {
-        return res.status(500).send(Responses.cantCreate('wishlist'));
+        return res.status(500).send(Responses.cantRegister('wishlist'));
       }
     } catch (e) {
       return next(e);

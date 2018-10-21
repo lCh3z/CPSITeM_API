@@ -126,7 +126,7 @@ class serviceCtrl {
       if (result) {
         return res.status(201).send(Responses.created('Service'));
       } else {
-        return res.status(500).send(Responses.cantCreate('Service'));
+        return res.status(500).send(Responses.cantRegister('Service'));
       }
     } catch (e) {
       return next(e);

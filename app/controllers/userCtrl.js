@@ -165,7 +165,7 @@ class UserCtrl {
       )) {
         response.bad()
           .setStatus(409)
-          .cantCreate(this.table);
+          .cantRegister(this.table);
       } else {
         response.ok()
           .setStatus(201)

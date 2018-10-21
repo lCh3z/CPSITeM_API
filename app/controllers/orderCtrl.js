@@ -121,7 +121,7 @@ class orderCtrl {
         res.status(201).send(Responses.created('order'));
 
       } else {
-        return res.status(500).send(Responses.cantCreate('order'));
+        return res.status(500).send(Responses.cantRegister('order'));
       }
     } catch (e) {
       return next(e);

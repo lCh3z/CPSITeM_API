@@ -129,7 +129,7 @@ class productCtrl {
       if (result) {
         return res.status(201).send(Responses.created('product'));
       } else {
-        return res.status(500).send(Responses.cantCreate('product'));
+        return res.status(500).send(Responses.cantRegister('product'));
       }
     } catch (e) {
       return next(e);

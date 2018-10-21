@@ -138,7 +138,7 @@ class paymentCtrl{
         res.status(201).send(Responses.created('Payment'));
 
       } else {
-        return res.status(500).send(Responses.cantCreate('Payment'));
+        return res.status(500).send(Responses.cantRegister('Payment'));
       }
     } catch (e) {
       return next(e);
