@@ -1,4 +1,3 @@
-const db = require('../db');
 const { CartMdl, Response } = require('../models');
 
 // FIXME Todos los metodos deben estar documentados

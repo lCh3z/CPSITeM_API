@@ -1,4 +1,4 @@
-const { CupponMdl, Responses } = require('../models');
+const { CupponMdl, Response } = require('../models');
 
 // FIXME Todos los metodos deben estar documentados
 // FIXME En todos los casos de error, el codigo 500 no es adecuado
@@ -15,17 +15,6 @@ class cupponCtrl {
 
   async getAll(req, res, next) {
     const response = new Response();
-    try {
-      let page = Number(req.param('page'));
-      let per_page = Number(req.param('per_page'));
-      if (!page) {
-        page = 0;
-      }
-      if (!per_page) {
-        per_page = 20;
-      }
-
-  async getAll(req, res, next) {
     try {
       // FIXME Toda la logica para definir los parametros para filtros, paginado y ordenado se puede meter en un middleware
       const page = Number(req.param('page'));

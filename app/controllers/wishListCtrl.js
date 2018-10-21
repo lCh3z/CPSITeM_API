@@ -1,4 +1,4 @@
-const { WishListMdl, Responses } = require('../models');
+const { WishListMdl, Response } = require('../models');
 
 // FIXME Todos los metodos deben estar documentados
 // FIXME En todos los casos de error, el codigo 500 no es adecuado
