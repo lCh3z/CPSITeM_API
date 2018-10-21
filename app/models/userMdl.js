@@ -91,7 +91,7 @@ class UserMdl {
   async exists() {
     try {
       if (this.id !== undefined) {
-        const result = await db.select(
+        return await db.select(
           '_User_',
           [
             'id',
@@ -110,7 +110,6 @@ class UserMdl {
             },
           ],
         );
-        return result;
       }
     } catch (e) {
       throw e;
@@ -156,7 +155,6 @@ class UserMdl {
   update(list_email, worker, list_addresses) {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log('TRUENA');
         if (this.id !== undefined && await db.update(
           '_User_',
           this,
@@ -174,11 +172,8 @@ class UserMdl {
             },
           ],
         )) {
-          console.log('Ok');
           if (await this.saveListEmail(list_email)) {
-            console.log('Ok2');
             if (await this.saveWorker(worker)) {
-              console.log('Ok3');
               if (await this.saveAddresses(list_addresses)) {
                 return resolve(true);
               }
@@ -212,7 +207,9 @@ class UserMdl {
               val: 0,
             },
           ],
-        )) return true;
+        )) {
+          return true;
+        }
       } catch (e) {
         throw e;
       }

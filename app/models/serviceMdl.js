@@ -102,27 +102,9 @@ class ServiceMdl {
       return this.update();
     }
     try {
-      if (await db.create('_Service_', this)) {
-        const id = await db.select(
-          '_Service_',
-          [
-            'id',
-          ],
-          [
-            {
-              attr: 'title',
-              oper: '=',
-              val: this.title,
-            },
-            {
-              logic: 'and',
-              attr: 'status',
-              oper: '!=',
-              val: 0,
-            },
-          ],
-        );
-        this.id = id[0].id;
+      const result = await db.create('_Service_', this);
+      if (result) {
+        this.id = result.insertId;
         await this.saveStatServ(stat_service);
         return this.id;
       }
@@ -246,11 +228,7 @@ class ServiceMdl {
         throw e;
       }
       if (img_stat_service.length) {
-        if (stat.imgs) {
-          stat.imgs.push(img_stat_service);
-        } else {
-          stat.imgs = [img_stat_service];
-        }
+        stat.imgs = img_stat_service;
       }
     }
 
