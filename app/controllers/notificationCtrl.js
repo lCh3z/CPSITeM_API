@@ -2,6 +2,7 @@ const { NotificationMdl, Responses } = require('../models');
 
 class notificationCtrl{
   constructor(){
+    this.table = 'notification';
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
