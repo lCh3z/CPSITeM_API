@@ -209,6 +209,7 @@ create table _Payment_(
 );
 
 CREATE TABLE _Configuration_(
+  id integer unsigned not null,
   label varchar(32),
   value varchar(2048),
   status tinyint unsigned default 1,
@@ -252,6 +253,8 @@ alter table _Section_ modify column id smallint unsigned auto_increment primary 
 alter table _ConfSection_ add foreign key (id_section) references _Section_ (id);
 
 alter table _Cuppon_ modify column id integer unsigned auto_increment primary key;
+
+alter table _Configuration_ modify column id integer unsigned auto_increment primary key;
 
 alter table _Category_ modify column id integer unsigned auto_increment primary key;
 alter table _Product_ modify column id integer unsigned auto_increment primary key, add foreign key (id_cat) references _Category_ (id);
