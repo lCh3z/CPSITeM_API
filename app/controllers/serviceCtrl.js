@@ -159,7 +159,7 @@ class serviceCtrl {
     const response = new Response();
     try {
       const Service = new ServiceMdl(req.body);
-      if (!await Service.save()) {
+      if (!await Service.save(req.body.stat_service)) {
         response.bad()
           .setStatus(409)
           .cantRegister(this.table);
@@ -179,7 +179,7 @@ class serviceCtrl {
     try {
       const Service = new ServiceMdl(req.body);
       Service.id = Number(req.param('id'));
-      if (!await Service.save()) {
+      if (!await Service.save(req.body.stat_service)) {
         response.bad()
           .setStatus(409)
           .cantUpdate(this.table);
