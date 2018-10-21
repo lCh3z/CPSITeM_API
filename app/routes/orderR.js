@@ -17,9 +17,8 @@ router.post('/',
           id_address: 'unsigned,required',
           id_payment: 'unsigned,required',
           id_cuppon: 'unsigned',
-          list_prod:[
+          list_prod: [
             {
-              id_order: 'unsigned',
               id_product: 'unsigned',
               quantity: 'unsigned',
               price: 'unsigned',
@@ -41,6 +40,14 @@ router.put('/:id',
           id_payment: 'unsigned,required',
           id_cuppon: 'unsigned',
           status: 'unsigned',
+          list_prod: [
+            {
+              id_order: 'unsigned',
+              id_product: 'unsigned',
+              quantity: 'unsigned',
+              price: 'unsigned',
+            }
+          ],
         },
       });
     },
