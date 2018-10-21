@@ -1,42 +1,70 @@
-const db = require('../db');
-const { CupponMdl } = require('../models');
-const { Responses } = require('../models');
+const { CupponMdl, Responses } = require('../models');
 
-class cupponCtrl{
-  constructor(){
+class cupponCtrl {
+  constructor() {
+
+    this.table = 'cuppon';
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-    this.processResult = this.processResult.bind(this);
   }
-
-  async processResult(data, next) {
-    try {
-      let temp;
-      let result = [];
-      for (const res of data) {
-        temp = new CupponMdl(res);
-        result.push(temp);
-      }
-      return result;
-    } catch (e) {
-      return next(e);
-    }
-  }
-
 
   async getAll(req, res, next) {
+    const response = new Response();
     try {
-      const page = parseInt(req.param('page'));
-      const per_page = parseInt(req.param('per_page'));
+      let page = Number(req.param('page'));
+      let per_page = Number(req.param('per_page'));
+      if (!page) {
+        page = 0;
+      }
+      if (!per_page) {
+        per_page = 20;
+      }
+
       const start = page * per_page;
 
-      let data = await CupponMdl.select(
+      let find = Number(req.param('find'));
+      let f_col = Number(req.param('f_col'));
+      let filters = null;
+      if (find && f_col) {
+        filters = [];
+        filters.push(
+          {
+            attr: f_col,
+            oper: 'LIKE',
+            val: find,
+          },
+        );
+      }
+
+      let order = null;
+      let ord = Number(req.param('order'));
+      let ord_by = Number(req.param('ord_by'));
+      let des = Number(req.param('desc'));
+      if (ord && ord_by) {
+        order = {};
+        order.by =  ord_by;
+        if (des) {
+          order.desc = true;
+        } else {
+          order.desc = false;
+        }
+      }
+
+      const data = await CupponMdl.select(
         '_Cuppon_',
         [
-          '*',
+          'id',
+          'code',
+          'discount',
+          'start',
+          'end',
+          'description',
+          'status',
+          'date',
+          'updated',
         ],
         filters,
         order,
@@ -46,35 +74,43 @@ class cupponCtrl{
         },
       );
 
-      data = await this.processResult(data, next);
-
-      if (data.length === 0) {
-        res.status(500).send(Responses.notFound('Cuppon'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(204)
+          .notFound(this.table);
       } else {
         const total = await CupponMdl.count(
           '_Cuppon_',
-          '',
-          '',
+          filters,
         );
-
-        res.status(200).send({
-          data,
-          per_page,
-          page,
-          total,
-        });
+        response.ok()
+          .setStatus(200)
+          .setData(data)
+          .setPlus('per_page', per_page)
+          .setPlus('page', page)
+          .setPlus('total', total);
       }
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   async get(req, res, next) {
+    const response = new Response();
     try {
       let data = await CupponMdl.select(
         '_Cuppon_',
         [
-          '*',
+          'id',
+          'code',
+          'discount',
+          'start',
+          'end',
+          'description',
+          'status',
+          'date',
+          'updated',
         ],
         [
           {
@@ -87,61 +123,81 @@ class cupponCtrl{
         null,
       );
 
-      [data] = await this.processResult(data, next);
-
-      if (!data) {
-        res.status(500).send(Responses.notFound('Cuppon'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(404)
+          .notFound(this.table);
+      } else {
+        [data] = data;
+        response.ok()
+          .setStatus(200)
+          .setData(data);
       }
-      res.status(201).send({ data });
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   async create(req, res, next) {
+    const response = new Response();
     try {
-      let result = await new CupponMdl(req.body).save();
-      if (result) {
-        res.status(201).send(Responses.created('Cuppon'));
+      const Cuppon = new CupponMdl(req.body);
+      if (!await Cuppon.save()) {
+        response.bad()
+          .setStatus(409)
+          .cantRegister(this.table);
       } else {
-        return res.status(500).send(Responses.cantRegister('Cuppon'));
+        response.ok()
+          .setStatus(201)
+          .registered(this.table);
       }
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
-  async update(req, res){
+  async update(req, res, next) {
+    const response = new Response();
     try {
       const Cuppon = new CupponMdl(req.body);
       Cuppon.id = Number(req.param('id'));
-
-      const result = await Cuppon.update();
-
-      if(!result){
-        res.status(500).send(Responses.cantRegister('Cuppon'));
+      if (!await Cuppon.save()) {
+        response.bad()
+          .setStatus(409)
+          .cantUpdate(this.table);
+      } else {
+        response.ok()
+          .setStatus(200)
+          .updated(this.table);
       }
-      res.status(201).send(Responses.updated('Cuppon'));
-  } catch (e) {
-    return next(e);
+    } catch (e) {
+      return next(e);
+    }
+    return res.status(response.status).send(response);
   }
-}
 
-  async delete(req, res) {
+  async delete(req, res, next) {
+    const response = new Response();
     try {
       const Cuppon = new CupponMdl({
         id: Number(req.param('id')),
       });
 
-      const result = await Cuppon.delete();
-
-      if(!result){
-        res.status(500).send(Responses.cantDelete('Cuppon'));
+      if (!await Cuppon.delete()) {
+        response.bad()
+          .setStatus(404)
+          .cantDelete(this.table);
+      } else {
+        response.ok()
+          .setStatus(200)
+          .deleted(this.table);
       }
-      res.status(201).send(Responses.deleted('Cuppon'));
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 }
 
