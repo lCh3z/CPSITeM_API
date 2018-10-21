@@ -2,7 +2,7 @@ class Response {
   constructor() {
     this.title = 'Internal server error';
     this.status = 500;
-    this.details = {};
+    this.details = null;
     this.data = null
   }
 
@@ -33,6 +33,9 @@ class Response {
 
   setDetail(table, det, plus) {
     const detail = plus ? `${det} : ${plus}` : det;
+    if (!this.detail) {
+      this.detail = {};
+    }
     if (!this.details[table]) {
       this.details[table] = [detail];
     } else {
