@@ -61,6 +61,7 @@ class productCtrl {
         [
           'id',
           'id_cat',
+          'name',
           'price',
           'discount',
           'inventory',
@@ -109,6 +110,7 @@ class productCtrl {
         [
           'id',
           'id_cat',
+          'name',
           'price',
           'discount',
           'inventory',
