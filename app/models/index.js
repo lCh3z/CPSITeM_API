@@ -11,7 +11,7 @@ const CupponMdl = require('./cupponMdl');
 const PaymentMdl = require('./paymentMdl');
 const ConfigurationMdl = require('./configurationMdl');
 const SectionMdl = require('./sectionMdl');
-const Responses = require('./responses');
+const Response = require('./response');
 const Token = require('./token');
 
 
@@ -29,6 +29,6 @@ module.exports = {
   PaymentMdl,
   ConfigurationMdl,
   SectionMdl,
-  Responses,
+  Response,
   Token,
 }
