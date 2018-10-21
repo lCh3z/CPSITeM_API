@@ -1,4 +1,15 @@
+/**
+ * @classdesc Class to validate parameters that could be send in the routes
+ *
+ * @version 15/10/2018
+ */
 class Validator {
+
+  /**
+   * Function that contains all the posible regex that are needed
+   *
+   * @return {regex} Returns the specific regex that wants to be used
+   */
   static get regex() {
     return {
       word: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}$/,
@@ -8,9 +19,16 @@ class Validator {
       file: /([a-zA-Z0-9\s_\\.\-\(\):])+(\.xml|\.pdf)$/,
       image: /([a-zA-Z0-9\s_\\.\-\(\):])+(\.jpg|\.jpeg|\.png)$/,
       secret: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)([a-zA-Z\d\W]{8,})/,
+      string: /^[A-Za-z0-9 \-;:,._()?¿!¡@ñÑáéíóúÁÉÍÓÚ$#%&=<>{}\[\]+*\\\/|\\'|°]+$/,
     };
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it is a word
+   * or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is a word
+   */
   static word(data) {
     return (Validator.regex.word.test(data));
   }
@@ -19,10 +37,22 @@ class Validator {
     return data !== undefined && data !== null && String(data).length;
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it is a email
+   * or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is an email
+   */
   static email(data) {
     return (Validator.regex.email.test(data));
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it is a integer
+   * or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is an integer
+   */
   static integer(data) {
     try {
       return parseInt(data);
@@ -31,42 +61,105 @@ class Validator {
     }
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it is an unsigned
+   * integer or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is an unsigned integer
+   */
   static unsigned(data) {
     return (Validator.regex.unsignedInteger.test(data));
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it is a rfc
+   * or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is a rfc
+   */
   static rfc(data) {
     return (Validator.regex.rfc.test(data));
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it has a file
+   * format or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param has a file format
+   */
   static file(data) {
     return(Validator.regex.file.test(data));
   }
 
+   /**
+    * Function that reciebes one parameter that will be evaled if it has an image
+    * format or not
+    * @param  {string} data string to ve evaluated
+    * @return {bool}        returns true if the evaluated param has an image format
+    */
   static image(data) {
     return(Validator.regex.image.test(data));
   }
 
+
   static secret(data) {
-    return(Validator.regex.secret.test(data));
+    return (Validator.regex.secret.test(data));
   }
 
+  /**
+   * Function that reciebes one parameter that will be evaled if it is a string
+   * or not
+   * @param  {string} data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is a string
+   */
+  static string(data) {
+    return (Validator.regex.string.test(data));
+  }
+
+  /**
+   * function that reciebes two params, to check if a number is minimun than another
+   * @param  {Integer} min    The minimun number accepted
+   * @param  {Integer} toEval Number to be evaled against the minimun number
+   * @return {Boolean}        true or false if the condition is fulfilled
+   */
   static minNumber(min, toEval) {
-    return (toEval >= min);
+    return (toEval < min);
   }
-
+  /**
+   * function that reciebes two params, to check if a number is maximun than another
+   * @param  {Integer} max    The maximun number accepted
+   * @param  {Integer} toEval Number to be evaled against the maximun number
+   * @return {Boolean}        true or false if the condition is fulfilled
+   */
   static maxNumber(max, toEval) {
     return (toEval <= max);
   }
-
+  /**
+   * function that reciebes two params, to check if the length of a string is in
+   * the desired parameters
+   * @param  {Integer} min    The minimun number accepted
+   * @param  {string} toEval  String that will be evaled acording to its length
+   * @return {Boolean}        true or false if the condition is fulfilled
+   */
   static minLength(min, toEval) {
     return (toEval.length >= min);
   }
-
+  /**
+   * function that reciebes two params, to check if the length of a string is in
+   * the desired parameters
+   * @param  {Integer} max    The maximum number accepted
+   * @param  {string} toEval  String that will be evaled acording to its length
+   * @return {Boolean}        true or false if the condition is fulfilled
+   */
   static maxLength(max, toEval) {
     return (toEval.length <= max);
   }
-
+  /**
+   * function that reciebes to paramns and checks if both are just the same
+   * @param  {String} secret   string that will be used to compare the second param
+   * @param  {String} toEval   string to evaluate
+   * @return {Boolean}         true or false if the condition is fulfilled
+   */
   static equal(secret, toEval) {
     return (secret === toEval);
   }

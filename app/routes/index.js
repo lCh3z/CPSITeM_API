@@ -27,7 +27,7 @@ router.use('/cuppon',cupponRouter);
 router.use('/payment',paymentRouter);
 router.use('/configuration',configurationRouter);
 router.use('/section',sectionRouter);
-router.use('/auth', authRouter);
+router.use('/', authRouter);
 
 
 module.exports = router;

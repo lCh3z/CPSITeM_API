@@ -1,7 +1,9 @@
 const db = require('../db');
-
-// FIXME Todos los metodos deben estar documentados
-
+/**
+ * @classdesc Class model of section.contains methods such as select, save, exists
+ * save, update, delete and processResult
+ * @version 15/10/2018
+ */
 class SectionMdl {
   constructor(
     {
@@ -21,6 +23,17 @@ class SectionMdl {
     this.updated = updated;
   }
 
+  /**
+   * @async
+   * Async function that from the table _Section_ select all the posible tuples
+   * with the designated params and returns a promise
+   * @param  {string}  table   Table required (_Section_) of the database
+   * @param  {Array.<string>}  columns Required columns of de table _Section_ from the database
+   * @param  {Array.<object>}  filters list of filter objects to use.
+   * @param  {Object}  order   Nullable definition of ORDER paramns.
+   * @param  {Object}  limit   Nullable definition of LIMIT params.
+   * @return {Promise}         Return a promise with the information from the database.
+   */
   static async select(table, columns, filters, order, limit) {
     try {
       const data = await db.select(table, columns, filters, order, limit);
@@ -36,6 +49,18 @@ class SectionMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that reciebes two parameters.
+   * The first one is the table (_Section_) to look for in the Database
+   * The second parameter are the filters to aply to the search
+   * It will return a promise with the total count
+   * @param  {string}  table   Table to look for in the database
+   * @param  {Array.<object>}  filters filters to be applied to the search
+   * @return {Promise}         Returns a promise with the total count of tuples
+   *                           found
+   * @version 15/10/2018
+   */
   static async count(table, filters) {
     try {
       const data = await db.count(table, filters);
@@ -45,6 +70,13 @@ class SectionMdl {
     }
   }
 
+  /**
+   * @async
+   * Async funciton that checks if a section already exists in the
+   * table _Section_ of the Database
+   * @return {Promise} Return a promise with the information from the database.
+   * @version 15/10/2018
+   */
   async exists() {
     try {
       if (this.id !== undefined) {
@@ -75,6 +107,17 @@ class SectionMdl {
     }
   }
 
+  /**
+   * @async
+   * Async funcitonthat checks if a section already exists, it will be updated, if not
+   * it will be created in the table _Section_ in the database
+   *
+   * @return {Promise} Returns a promise,
+   *                    - updated if it already exists
+   *                    - true if it is created a new one
+   *                    - false if it could not be created
+   * @version 15/10/2018
+   */
   async save(conf_section) {
     const exists = await this.exists();
     if (this.id !== undefined && exists.length) {
@@ -110,6 +153,14 @@ class SectionMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that updates a section from the table _Section_ in the Database
+   * @return {Promise} Returns a Promise
+   *                   - Returns true if it could be updated
+   *                   - Returns false if it could not be updated
+   * @version 15/10/2018
+   */
   async update(conf_section) {
     try {
       if (this.id !== undefined && await db.update(
@@ -138,6 +189,16 @@ class SectionMdl {
     }
   }
 
+
+  /**
+   * @async
+   * Async function that deletes a section from the table _Section_ in the database .
+   * It will check first if the tuple to delete exists
+   *
+   * @return {Promise} Returns a Promise
+   *                   - Return true if it could be deleted
+   * @version 15/10/2018
+   */
   async delete() {
     try {
       const exists = await this.exists();
@@ -166,6 +227,13 @@ class SectionMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that searchs with the method select in the table _ConfSection_
+   * of the Database and returns an array with the configurations
+   * @return {Promise} Returns a promise
+   *                   - Array with configurations
+   */
   async getConfSection() {
     let conf_section = []
     try {
@@ -196,6 +264,18 @@ class SectionMdl {
     return conf_section;
   }
 
+  /**
+   * @async
+   * Async function that reciebes one param.
+   *  Will search for the old configuration of the corrsponding Section
+   *  in the table _ConfSection_ of the database.
+   *  It will store that information in an array and will compare with the new
+   *  param. deleteting the old ones and updating the new ones.
+   *  If theres nothing it will create a new configuration
+   * @param  {Array.<object>}  new_conf_section Object with the new configuration
+   * @return {Promise}                          Returns a Promise
+   *                                            - returns an array with the new configuration
+   */
   async saveConfSection(new_conf_section) {
     let old_conf_section = [];
     try {

@@ -52,12 +52,19 @@ Por medio del desarrollo de la plataforma web se logrará una mejora notable en 
 
 ## Módulos y su Funcionalidad
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+-   Carrito: Este modulo permite tener acceso a clientes previamente registrados, en donde se almacena de forma temporal, todos los artículos que se desean comprar o de alguna forma en un futuro se pretenden adquirir.
+-   Servicios: Dentro de este apartado entran dos perfiles, tanto el empleado o el usuario (cliente), ya que por una parte los empleados les permite cambiar a estatus a servicios previamente solicitados por clientes o incluso dar algun seguimiento, por otra parte a los clientes les permite verificar la gama de servicios que brinda la empresa y a los cuales se puede realizar alguna Reservacion o solicitar alguna alta.
+-   Login: En este apartado entran todos los usuarios, desde administradores, empleados, clientes, ya que es el filtro que va determinar que acciones son posibles de acuerdo a tu nivel de usuario o que acciones simplemente van a estar deshabilitadas de acuerdo a tu perfil.
+=======
 -  **Carrito**
 Este modulo permite tener acceso a clientes previamente registrados, a un carrito de compra, donde se almacena de forma temporal, todos los artículos que se desean comprar o de alguna forma en un futuro se pretenden adquirir.
 -   **Servicios**
 Dentro de este apartado entran dos perfiles, tanto el empleado o el usuario (cliente), ya que por una parte los empleados les permite cambiar a estatus a servicios previamente solicitados por clientes o incluso dar algun seguimiento, por otra parte a los clientes les permite verificar la gama de servicios que brinda la empresa y a los cuales se puede realizar alguna Reservacion o solicitar alguna alta.
 -   **Login**
 En este apartado entran todos los usuarios, desde administradores, empleados, clientes, ya que es el filtro que va determinar que acciones son posibles de acuerdo a tu nivel de usuario o que acciones simplemente van a estar deshabilitadas de acuerdo a tu perfil.
+>>>>>>> origin/feature/SaulRuiz
 
 ## Usuarios y Permisos
 -   **Administrador**
@@ -164,6 +171,42 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 ## Licencia
 Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir a  [LICENSE](LICENSE) para más información.
 ## Colaboradores
+<<<<<<< HEAD
+
+-   RUIZ ACEVEDO SAUL FRANCISCO
+-   OCHOA DE LOS ANGELES LUIS ANGEL
+-   RUELAS BUENROSTRO ULISES MARCOS
+-   MARTINEZ GONZALEZ OSCAR EDUARDO
+	
+
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTE5NzEzOTUxODMsLTg2ODU0NzIxNiwxMz
+UyODgzOTA0LDE3NDQ1MzUyMSwyMTI4OTc4NTEwLC05OTk2NDYw
+ODcsLTgzNjA0MjkyNiwxNTAwMTY1MDE4LC0xNzc0NDc1MTIwLC
+0xMDEwMzI1NzksLTIxMjM3NDAzNDcsNTE5NjAyODMwLC0xNDQ0
+MTk4MjEyXX0=
+-->
+=======
+  - Carrito: Este modulo permite tener acceso a clientes previamente registrados, en donde se almacena de forma temporal, todos los artículos que se desean comprar o de alguna forma en un futuro se pretenden adquirir.
+  - Servicios: Dentro de este apartado entran dos perfiles, tanto el empleado o el usuario (cliente), ya que por una parte los empleados les permite cambiar a estatus a servicios previamente solicitados por clientes o incluso dar algun seguimiento, por otra parte a los clientes les permite verificar la gama de servicios que brinda la empresa y a los cuales se puede realizar alguna Reservacion o solicitar alguna alta.
+  - Login: En este apartado entran todos los usuarios, desde administradores, empleados, clientes, ya que es el filtro que va determinar que acciones son posibles de acuerdo a tu nivel de usuario o que acciones simplemente van a estar deshabilitadas de acuerdo a tu perfil.    
+
+
+## Usuarios y Permisos
+
+  - Administrador: Este usuario tendrá acceso total a modificaciones dentro del sistema, cabe mencionar que también podrá realizar cambios a otros usuarios en cuanto a permisos.
+  - Empleado: Puede tener acceso a modificaciones de estatus de servicios que están pendientes o que ya fueron realizados, también pueden realizar actividades dentro de la plataforma como dar de lata un nuevo producto, actualizar el inventario o simplemente realizar modificaciones a post creados dentro de la misma pagina.
+  - Cliente: este usuario se agregan permisos única y exclusivamente para verificar productos y dar seguimiento a un proceso de compra, o simplemente para poder agregar artículos a su carro de compra para posteriormente poder adquirirlos.
+
+
+## Colaboradores
+
+  - RUIZ ACEVEDO SAUL FRANCISCO
+  - OCHOA DE LOS ANGELES LUIS ANGEL
+  - RUELAS BUENROSTRO ULISES MARCOS  
+  - MARTINEZ GONZALEZ OSCAR EDUARDO
+>>>>>>> feature/oscar
+=======
 <table>
     <tbody>
         <tr>
@@ -190,3 +233,4 @@ Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir 
         </tr>
     </tbody>
 </table>
+>>>>>>> origin/feature/SaulRuiz
