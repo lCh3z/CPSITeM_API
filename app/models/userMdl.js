@@ -125,7 +125,7 @@ class UserMdl {
   async exists() {
     try {
       if (this.id !== undefined) {
-        const result = await db.select(
+        return await db.select(
           '_User_',
           [
             'id',
@@ -144,7 +144,6 @@ class UserMdl {
             },
           ],
         );
-        return result;
       }
     } catch (e) {
       throw e;
@@ -163,10 +162,10 @@ class UserMdl {
    *                    - false if it could not be created
    * @version 16/10/2018
    */
-  async save() {
+  async save(list_email, worker, list_addresses) {
     const exists = await this.exists();
     if (this.id !== undefined && exists.length) {
-      return this.update();
+      return this.update(list_email, worker, list_addresses);
     }
     try {
       if (await db.create('_User_', this)) {
@@ -206,34 +205,39 @@ class UserMdl {
    *                   - Returns false if it could not be updated
    * @version 15/10/2018
    */
-  async update(list_email, worker, list_addresses) {
-    try {
-      if (this.id !== undefined && await db.update(
-        '_User_',
-        this,
-        [
-          {
-            attr: 'id',
-            oper: '=',
-            val: this.id,
-          },
-          {
-            logic: 'and',
-            attr: 'status',
-            oper: '!=',
-            val: 0,
-          },
-        ],
-      )) {
-        await this.saveListEmail(list_email);
-        await this.saveWorker(worker);
-        await this.saveAddresses(list_addresses);
-        return true;
+  update(list_email, worker, list_addresses) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (this.id !== undefined && await db.update(
+          '_User_',
+          this,
+          [
+            {
+              attr: 'id',
+              oper: '=',
+              val: this.id,
+            },
+            {
+              logic: 'and',
+              attr: 'status',
+              oper: '!=',
+              val: 0,
+            },
+          ],
+        )) {
+          if (await this.saveListEmail(list_email)) {
+            if (await this.saveWorker(worker)) {
+              if (await this.saveAddresses(list_addresses)) {
+                return resolve(true);
+              }
+            }
+          }
+          return resolve(false);
+        }
+      } catch (e) {
+        return reject(e);
       }
-    } catch (e) {
-      throw e;
-    }
-    return false;
+    });
   }
 
   /**
@@ -265,7 +269,9 @@ class UserMdl {
               val: 0,
             },
           ],
-        )) return true;
+        )) {
+          return true;
+        }
       } catch (e) {
         throw e;
       }
@@ -502,6 +508,7 @@ class UserMdl {
         throw e;
       }
     }
+    return true;
   }
 
   /**
@@ -603,6 +610,7 @@ class UserMdl {
         throw e;
       }
     }
+    return true;
   }
 
   /**
@@ -644,8 +652,6 @@ class UserMdl {
     } catch (e) {
       throw e;
     }
-    console.log('N', new_list_addresses);
-    console.log('O', old_list_addresses);
 
     for (const n_addresses in new_list_addresses) {
       new_list_addresses[n_addresses].id_user = this.id;
@@ -679,9 +685,6 @@ class UserMdl {
         }
       }
     }
-
-    console.log('N', new_list_addresses);
-    console.log('O', old_list_addresses);
 
     for(const n_addresses in new_list_addresses) {
       try {
@@ -717,6 +720,7 @@ class UserMdl {
         throw e;
       }
     }
+    return true;
   }
 
   getName() {

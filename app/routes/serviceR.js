@@ -31,11 +31,24 @@ router.post('/',
           type: 'string',
           equipment: 'string',
           model: 'string',
-          serial_ :'string',
+          serial: 'string',
           location: 'string',
           contract: 'unsigned',
           description: 'string',
           voucher: 'string',
+          stat_service: [
+            {
+              title: 'string',
+              description: 'string',
+              materials: 'string',
+              observations: 'string',
+              imgs: [
+                {
+                  photo: 'image',
+                },
+              ],
+            },
+          ],
         },
       });
     },
@@ -64,12 +77,25 @@ router.put('/:id',
           type: 'string',
           equipment: 'string',
           model: 'string',
-          serial_ :'string',
+          serial: 'string',
           location: 'string',
           contract: 'unsigned',
           description: 'string',
           voucher: 'string',
-          status:'unsigned',
+          status: 'unsigned',
+          stat_service: [
+            {
+              title: 'string',
+              description: 'string',
+              materials: 'string',
+              observations: 'string',
+              imgs: [
+                {
+                  photo: 'image',
+                },
+              ],
+            },
+          ],
         },
       });
     },

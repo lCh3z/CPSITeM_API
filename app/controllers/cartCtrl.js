@@ -1,5 +1,4 @@
-const db = require('../db');
-const { CartMdl, Responses } = require('../models');
+const { CartMdl, Response } = require('../models');
 
 /**
  *
@@ -10,29 +9,11 @@ const { CartMdl, Responses } = require('../models');
  */
 class cartCtrl {
   constructor() {
+    this.table = 'cart';
     this.getAll = this.getAll.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-    this.processResult = this.processResult.bind(this);
-  }
-
-  /**
-   * Function than recibes two params, used a array to save a Model of CartMdl,
-   * iterate on a forEach of the first param to push the model.
-   * @param  {Await Object}     data  Required the data from CartMdl.select to get
-   *                                  all the data from database.
-   * @param  {Next Object}      next  For launch the work to others, unused
-   * @return {Array}                  Return a array with iterate with the models of
-   *                                  CartMdl
-   * @version 15/10/2018
-   */
-  processResult(data, next) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new CartMdl(res));
-    });
-    return result;
   }
 
   /**
@@ -48,8 +29,9 @@ class cartCtrl {
    * @version 15/10/2018
    */
   async getAll(req, res, next) {
+    const response = new Response();
     try {
-      let data = await CartMdl.select(
+      const data = await CartMdl.select(
         '_Cart_',
         [
           '*',
@@ -65,16 +47,19 @@ class cartCtrl {
         null,
       );
 
-      data = this.processResult(data, next);
-
-      if (data.length === 0) {
-        res.status(409).send(Responses.notFound('cart'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(404)
+          .notFound(this.table);
       } else {
-        res.status(200).send({ data });
+        response.ok()
+          .setStatus(200)
+          .setData(data);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -91,18 +76,23 @@ class cartCtrl {
    * @version 15/10/2018
    */
   async create(req, res, next) {
+    const response = new Response();
     try {
-      let Cart = new CartMdl(req.body);
-      Cart.id_user = Number(req.param('id'))
-      let result = await Cart.save();
-      if (result) {
-        res.status(201).send(Responses.created('cart'));
+      const Cart = new CartMdl(req.body);
+      Cart.id_user = Number(req.param('id'));
+      if (!await Cart.save()) {
+        response.bad()
+          .setStatus(409)
+          .cantRegister(this.table);
       } else {
-        return res.status(500).send(Responses.cantCreate('cart'));
+        response.ok()
+          .setStatus(201)
+          .registered(this.table);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -120,19 +110,24 @@ class cartCtrl {
    * @version 15/10/2018
    */
   async update(req, res, next) {
+    const response = new Response();
     try {
-      let Cart = new CartMdl(req.body);
-      Cart.id_user = Number(req.param('id'))
-      Cart.id_product = Number(req.param('id_product'))
-      const result = await Cart.save();
-      if (result) {
-        res.status(200).send(Responses.updated('cart'));
+      const Cart = new CartMdl(req.body);
+      Cart.id_user = Number(req.param('id'));
+      Cart.id_product = Number(req.param('id_product'));
+      if (!await Cart.save()) {
+        response.bad()
+          .setStatus(409)
+          .cantUpdate(this.table);
       } else {
-        return res.status(500).send(Responses.cantUpdate('cart'));
+        response.ok()
+          .setStatus(200)
+          .updated(this.table);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -150,22 +145,25 @@ class cartCtrl {
    * @version 15/10/2018
    */
   async delete(req, res, next) {
+    const response = new Response();
     try {
       const Cart = new CartMdl({
         id_user: Number(req.param('id')),
         id_product: Number(req.param('id_product')),
       });
-
-      const result = await Cart.delete();
-
-      if(!result){
-        res.status(500).send(Responses.cantDelete('cart'));
+      if (!await Cart.delete()) {
+        response.bad()
+          .setStatus(404)
+          .cantDelete(this.table);
       } else {
-        res.status(200).send(Responses.deleted('cart'));
+        response.ok()
+          .setStatus(200)
+          .deleted(this.table);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 }
 

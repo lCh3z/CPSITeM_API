@@ -1,4 +1,4 @@
-const { UserMdl, Responses } = require('../models');
+const { UserMdl, Response } = require('../models');
 
 /**
  *
@@ -9,6 +9,7 @@ const { UserMdl, Responses } = require('../models');
  */
 class UserCtrl {
   constructor() {
+    this.table = 'user';
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
@@ -29,10 +30,11 @@ class UserCtrl {
    * @version 15/10/2018
    */
   async getAll(req, res, next) {
+    const response = new Response();
     try {
       // FIXME Toda la logica para definir los parametros para filtros, paginado y ordenado se puede meter en un middleware
-      let page = parseInt(req.param('page'));
-      let per_page = parseInt(req.param('per_page'));
+      let page = Number(req.param('page'));
+      let per_page = Number(req.param('per_page'));
       if (!page) {
         page = 0;
       }
@@ -42,9 +44,9 @@ class UserCtrl {
 
       const start = page * per_page;
 
-      let find = parseInt(req.param('find'));
-      let f_col = parseInt(req.param('f_col'));
-      const filters = null;
+      let find = Number(req.param('find'));
+      let f_col = Number(req.param('f_col'));
+      let filters = null;
       if (find && f_col) {
         filters = [];
         filters.push(
@@ -57,9 +59,9 @@ class UserCtrl {
       }
 
       let order = null;
-      let ord = parseInt(req.param('order'));
-      let ord_by = parseInt(req.param('ord_by'));
-      let des = parseInt(req.param('desc'));
+      let ord = Number(req.param('order'));
+      let ord_by = Number(req.param('ord_by'));
+      let des = Number(req.param('desc'));
       if (ord && ord_by) {
         order = {};
         order.by =  ord_by;
@@ -70,7 +72,7 @@ class UserCtrl {
         }
       }
 
-      let data = await UserMdl.select(
+      const data = await UserMdl.select(
         '_User_',
         [
           'id',
@@ -99,25 +101,26 @@ class UserCtrl {
         },
       );
 
-      if (data.length === 0) {
-        res.status(409).send(Responses.notFound('user'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(204)
+          .notFound(this.table);
       } else {
         const total = await UserMdl.count(
           '_User_',
-          '',
-          '',
+          filters,
         );
-
-        res.status(200).send({
-          data,
-          per_page,
-          page,
-          total,
-        });
+        response.ok()
+          .setStatus(200)
+          .setData(data)
+          .setPlus('per_page', per_page)
+          .setPlus('page', page)
+          .setPlus('total', total);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -133,6 +136,7 @@ class UserCtrl {
    * @version 15/10/2018
    */
   async get(req, res, next) {
+    const response = new Response();
     try {
       let data = await UserMdl.select(
         '_User_',
@@ -150,10 +154,10 @@ class UserCtrl {
           'country',
           'lada',
           'phone',
-          'status',
           'main_email',
           'date',
           'updated',
+          'status',
         ],
         [
           {
@@ -166,15 +170,20 @@ class UserCtrl {
         null,
       );
 
-      if (!data) {
-        res.status(404).send(Responses.notFound('user'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(404)
+          .notFound(this.table);
       } else {
         [data] = data;
-        res.status(200).send({ data });
+        response.ok()
+          .setStatus(200)
+          .setData(data);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -191,17 +200,26 @@ class UserCtrl {
    * @version 15/10/2018
    */
   async create(req, res, next) {
+    const response = new Response();
     try {
       const User = new UserMdl(req.body);
-      let result = await User.save();
-      if (result) {
-        res.status(201).send(Responses.created('user'));
+      if (!await User.save(
+        req.body.list_email,
+        req.body.worker,
+        req.body.list_addresses,
+      )) {
+        response.bad()
+          .setStatus(409)
+          .cantRegister(this.table);
       } else {
-        return res.status(500).send(Responses.cantCreate('user'));
+        response.ok()
+          .setStatus(201)
+          .registered(this.table);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -219,20 +237,27 @@ class UserCtrl {
    * @version 15/10/2018
    */
   async update(req, res, next) {
+    const response = new Response();
     try {
       const User = new UserMdl(req.body);
       User.id = Number(req.param('id'));
-
-      const result = await User.update(req.body.list_email, req.body.worker, req.body.list_addresses);
-
-      if(!result){
-        res.status(500).send(Responses.cantCreate('user'));
+      if (!await User.save(
+        req.body.list_email,
+        req.body.worker,
+        req.body.list_addresses,
+      )) {
+        response.bad()
+          .setStatus(409)
+          .cantUpdate(this.table);
       } else {
-        res.status(200).send(Responses.updated('user'));
+        response.ok()
+          .setStatus(200)
+          .updated(this.table);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -250,21 +275,25 @@ class UserCtrl {
    * @version 15/10/2018
    */
   async delete(req, res, next) {
+    const response = new Response();
     try {
       const User = new UserMdl({
         id: Number(req.param('id')),
       });
 
-      const result = await User.delete();
-
-      if(!result){
-        res.status(500).send(Responses.cantDelete('user'));
+      if (!await User.delete()) {
+        response.bad()
+          .setStatus(404)
+          .cantDelete(this.table);
       } else {
-        res.status(200).send(Responses.deleted('user'));
+        response.ok()
+          .setStatus(200)
+          .deleted(this.table);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 }
 

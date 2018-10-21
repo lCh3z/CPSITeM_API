@@ -1,4 +1,4 @@
-const { NotificationMdl, Responses } = require('../models');
+const { NotificationMdl, Response } = require('../models');
 
 /**
  *
@@ -9,38 +9,12 @@ const { NotificationMdl, Responses } = require('../models');
  */
 class notificationCtrl{
   constructor(){
+    this.table = 'notification';
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-    this.processResult = this.processResult.bind(this);
-  }
-
-  /**
-   * @async
-   * Function than recibes two params, used a array to save a Model of notificationMdl,
-   * iterate on a for of the first param to push the model, can catch a error
-   * and calls the next with error
-   * @param  {Await Object}     data  Required the data from notificationMdl.select to get
-   *                                  all the data from database.
-   * @param  {Next Object}      next  For launch the work to others
-   * @return {Array}                  Return a array with iterate with the models of
-   *                                  notificationMdl and the promise
-   * @version 15/10/2018
-   */
-  async processResult(data, next) {
-    try {
-      let temp;
-      let result = [];
-      for (const res of data) {
-        temp = new NotificationMdl(res);
-        result.push(temp);
-      }
-      return result;
-    } catch (e) {
-      next(e);
-    }
   }
 
   /**
@@ -56,21 +30,23 @@ class notificationCtrl{
    * @version 15/10/2018
    */
   async getAll(req, res, next) {
+    const response = new Response();
     try {
       // FIXME Toda la logica para definir los parametros para filtros, paginado y ordenado se puede meter en un middleware
-      let page = parseInt(req.param('page'));
-      let per_page = parseInt(req.param('per_page'));
+      let page = Number(req.param('page'));
+      let per_page = Number(req.param('per_page'));
       if (!page) {
         page = 0;
       }
       if (!per_page) {
         per_page = 20;
       }
+
       const start = page * per_page;
 
-      let find = parseInt(req.param('find'));
-      let f_col = parseInt(req.param('f_col'));
-      const filters = null;
+      let find = Number(req.param('find'));
+      let f_col = Number(req.param('f_col'));
+      let filters = null;
       if (find && f_col) {
         filters = [];
         filters.push(
@@ -83,9 +59,9 @@ class notificationCtrl{
       }
 
       let order = null;
-      let ord = parseInt(req.param('order'));
-      let ord_by = parseInt(req.param('ord_by'));
-      let des = parseInt(req.param('desc'));
+      let ord = Number(req.param('order'));
+      let ord_by = Number(req.param('ord_by'));
+      let des = Number(req.param('desc'));
       if (ord && ord_by) {
         order = {};
         order.by =  ord_by;
@@ -96,10 +72,17 @@ class notificationCtrl{
         }
       }
 
-      let data = await NotificationMdl.select(
+      const data = await NotificationMdl.select(
         '_Notification_',
         [
-          '*',
+          'id',
+          'title',
+          'cont',
+          'id_user',
+          'prog',
+          'status',
+          'date',
+          'updated',
         ],
         filters,
         order,
@@ -109,27 +92,26 @@ class notificationCtrl{
         },
       );
 
-      data = await this.processResult(data, next);
-
-      if (data.length === 0) {
-        res.status(500).send(Responses.notFound('Notification'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(204)
+          .notFound(this.table);
       } else {
         const total = await NotificationMdl.count(
           '_Notification_',
-          '',
-          '',
+          filters,
         );
-
-        res.status(200).send({
-          data,
-          per_page,
-          page,
-          total,
-        });
+        response.ok()
+          .setStatus(200)
+          .setData(data)
+          .setPlus('per_page', per_page)
+          .setPlus('page', page)
+          .setPlus('total', total);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -145,11 +127,19 @@ class notificationCtrl{
    * @version 15/10/2018
    */
   async get(req, res, next) {
+    const response = new Response();
     try {
       let data = await NotificationMdl.select(
         '_Notification_',
         [
-          '*',
+          'id',
+          'title',
+          'cont',
+          'id_user',
+          'prog',
+          'status',
+          'date',
+          'updated',
         ],
         [
           {
@@ -162,15 +152,20 @@ class notificationCtrl{
         null,
       );
 
-      [data] = await this.processResult(data, next);
-
-      if (!data) {
-        res.status(500).send(Responses.notFound('Notification'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(404)
+          .notFound(this.table);
+      } else {
+        [data] = data;
+        response.ok()
+          .setStatus(200)
+          .setData(data);
       }
-      res.status(201).send({ data });
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -187,17 +182,22 @@ class notificationCtrl{
    * @version 15/10/2018
    */
   async create(req, res, next) {
+    const response = new Response();
     try {
-      let result = await new NotificationMdl(req.body).save();
-      if (result) {
-        res.status(201).send(Responses.created('Notification'));
-
+      const Notification = new NotificationMdl(req.body);
+      if (!await Notification.save()) {
+        response.bad()
+          .setStatus(409)
+          .cantRegister(this.table);
       } else {
-        return res.status(500).send(Responses.cantCreate('Notification'));
+        response.ok()
+          .setStatus(201)
+          .registered(this.table);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -214,51 +214,60 @@ class notificationCtrl{
    *
    * @version 15/10/2018
    */
-  async update(req, res){
+  async update(req, res, next) {
+    const response = new Response();
     try {
       const Notification = new NotificationMdl(req.body);
       Notification.id = Number(req.param('id'));
-
-      const result = await Notification.update();
-
-      if(!result){
-        res.status(500).send(Responses.cantRegister('Notification'));
+      if (!await Notification.save()) {
+        response.bad()
+          .setStatus(409)
+          .cantUpdate(this.table);
+      } else {
+        response.ok()
+          .setStatus(200)
+          .updated(this.table);
       }
-      res.status(201).send(Responses.updated('Notification'));
-  } catch (e) {
-    next(e);
+    } catch (e) {
+      return next(e);
+    }
+    return res.status(response.status).send(response);
   }
-}
 
-/**
- * @async
- * Async function to delete data from the model of Notification, the controller delete data from
- * the model of Notification with the request information, next to it indicates to Notification the delete that data,
- * depending the result if can be deleted response if data was or not deleted, can catch a error
- * and calls next with error
- * @param  {Request Object}     req   Request to the function, includes information in params
- * @param  {Response Object}    res   Response than will give the function
- * @param  {Next Object}        next  In case of be necessary go by a other the work or
- *                                    if spawn a error
- * @return {Promise, Response}        Promise return a response of can´t be deleted or deleted
- *
- * @version 15/10/2018
- */
-  async delete(req, res) {
+  /**
+   * @async
+   * Async function to delete data from the model of Notification, the controller delete data from
+   * the model of Notification with the request information, next to it indicates to Notification the delete that data,
+   * depending the result if can be deleted response if data was or not deleted, can catch a error
+   * and calls next with error
+   * @param  {Request Object}     req   Request to the function, includes information in params
+   * @param  {Response Object}    res   Response than will give the function
+   * @param  {Next Object}        next  In case of be necessary go by a other the work or
+   *                                    if spawn a error
+   * @return {Promise, Response}        Promise return a response of can´t be deleted or deleted
+   *
+   * @version 15/10/2018
+   */
+  async delete(req, res, next) {
+    const response = new Response();
     try {
       const Notification = new NotificationMdl({
         id: Number(req.param('id')),
       });
 
-      const result = await Notification.delete();
-
-      if(!result){
-        res.status(500).send(Responses.cantDelete('Notification'));
+      if (!await Notification.delete()) {
+        response.bad()
+          .setStatus(404)
+          .cantDelete(this.table);
+      } else {
+        response.ok()
+          .setStatus(200)
+          .deleted(this.table);
       }
-      res.status(201).send(Responses.deleted('Notification'));
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 }
 

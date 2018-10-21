@@ -1,4 +1,4 @@
-const { WishListMdl, Responses } = require('../models');
+const { WishListMdl, Response } = require('../models');
 
 /**
  *
@@ -9,34 +9,10 @@ const { WishListMdl, Responses } = require('../models');
  */
 class wishListCtrl{
   constructor(){
+    this.table = 'wishlist';
     this.getAll = this.getAll.bind(this);
     this.create = this.create.bind(this);
     this.delete = this.delete.bind(this);
-    this.processResult = this.processResult.bind(this);
-  }
-
-  /**
-   * Function than recibes two params, used a array to save a Model of WishListMdl,
-   * iterate on a forEach of the first param to push the model, can catch a error
-   * and calls the next with error
-   * @param  {Await Object}     data  Required the data from CategoryMdl.select to get
-   *                                  all the data from database.
-   * @param  {Next Object}      next  For launch the work to others, unused
-   * @return {Array}                  Return a array with iterate with the models of
-   *                                  CategoryMdl and the promise
-   * @version 15/10/2018
-   */
-  processResult(data, next) {
-    try{
-      const result = [];
-      data.forEach((res) => {
-        result.push(new WishListMdl(res));
-      });
-      return result;
-    }
-    catch (e){
-      next(e);
-    }
   }
 
   /**
@@ -52,33 +28,86 @@ class wishListCtrl{
    * @version 15/10/2018
    */
   async getAll(req, res, next) {
-    try {
-      let data = await WishListMdl.select(
+    const response = new Response();
+    try{
+      let page = Number(req.param('page'));
+      let per_page = Number(req.param('per_page'));
+      if (!page) {
+        page = 0;
+      }
+      if (!per_page) {
+        per_page = 20;
+      }
+
+      const start = page * per_page;
+
+      let find = Number(req.param('find'));
+      let f_col = Number(req.param('f_col'));
+      let filters = null;
+      if (find && f_col) {
+        filters = [];
+        filters.push(
+          {
+            attr: f_col,
+            oper: 'LIKE',
+            val: find,
+          },
+        );
+      }
+
+
+      let order = null;
+      let ord = Number(req.param('order'));
+      let ord_by = Number(req.param('ord_by'));
+      let des = Number(req.param('desc'));
+      if (ord && ord_by) {
+        order = {};
+        order.by =  ord_by;
+        if (des) {
+          order.desc = true;
+        } else {
+          order.desc = false;
+        }
+      }
+
+      const data = await WishListMdl.select(
         '_WishList_',
         [
-          '*',
+          'id_user',
+          'id_product',
+          'status',
+          'date',
+          'updated',
         ],
-        [
-          {
-            attr: 'id_user',
-            oper: '=',
-            val: Number(req.param('id')),
-          },
-        ],
-        null,
-        null,
+        filters,
+        order,
+        {
+          start,
+          quant: per_page,
+        },
       );
 
-      data = this.processResult(data, next);
-
-      if (data.length === 0) {
-        res.status(409).send(Responses.notFound('wishlist'));
-      } else {
-        res.status(200).send({ data });
+      if (!data.length) {
+        response.bad()
+        .setStatus(204)
+        .notFound(this.table);
+      } else{
+        const total = await WishListMdl.count(
+          '_WishList_',
+          filters,
+        );
+        response.ok()
+        .setStatus(200)
+        .setData(data)
+        .setPlus('per_page', per_page)
+        .setPlus('page', page)
+        .setPlus('total', total);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
+
   }
 
   /**
@@ -94,19 +123,23 @@ class wishListCtrl{
    *
    * @version 15/10/2018
    */
-  async create(req, res, next) {
+  async create(req, res, next){
+    const response = new Response();
     try {
-      let WishList = new WishListMdl(req.body);
-      WishList.id_user = Number(req.param('id'))
-      let result = await WishList.save();
-      if (result) {
-        res.status(201).send(Responses.created('wishlist'));
+      const WishList = new WishListMdl(req.body);
+      if (!await WishList.save()) {
+        response.bad()
+        .setStatus(409)
+        .cantRegister(this.table);
       } else {
-        return res.status(500).send(Responses.cantCreate('wishlist'));
+        response.ok()
+        .setStatus(201)
+        .registered(this.table);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -124,22 +157,25 @@ class wishListCtrl{
    * @version 15/10/2018
    */
   async delete(req, res, next) {
+    const response = new Response();
     try {
       const WishList = new WishListMdl({
-        id_user: Number(req.param('id')),
-        id_product: Number(req.param('id_product')),
+        id_user: Number(req.param('id_user')),
       });
 
-      const result = await WishList.delete();
-
-      if(!result){
-        res.status(500).send(Responses.cantDelete('wishlist'));
+      if (!await WishList.delete()) {
+        response.bad()
+          .setStatus(404)
+          .cantDelete(this.table);
       } else {
-        res.status(200).send(Responses.deleted('wishlist'));
+        response.ok()
+          .setStatus(200)
+          .deleted(this.table);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 }
 

@@ -41,6 +41,7 @@ class Factory {
     }
     return status;
   }
+
   /**
    * @async
    * Async function that creates and saves certain number of services
@@ -50,22 +51,31 @@ class Factory {
    *                         could be created or not
    * @version 15/10/18
    */
-  async createService(base, num) {
-    let status = 0;
-    for(let i = 0; i < num && status === 0; i += 1) {
-      status = await new models.ServiceMdl(base).save();
+  async createService(num) {
+    let status = true;
+    for(let i = 0; i < num && status; i += 1) {
+      status = await new models.ServiceMdl({
+        id_seller: 1,
+        id_user: 2,
+        hospital: 'dummie',
+      }).save([
+        {
+          title: 'Testing status post',
+          description: null,
+          materials: null,
+          observations: null,
+          imgs: [
+            {
+              photo: 'p1.jpg',
+              status: 1,
+            },
+          ],
+        }
+      ]);
     }
     return status;
   }
-  /**
-   * @async
-   * Async function that creates and saves certain number of products
-   * @param  {Object}  base  Data that wants to be stored
-   * @param  {Integer}  num  Number of objects that want to be created
-   * @return {Promise}       Returns a promise with the status if all the objects
-   *                         could be created or not
-   * @version 15/10/18
-   */
+
   async createProduct(base, num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
@@ -91,39 +101,6 @@ class Factory {
   }
   /**
    * @async
-   * Async function that creates and saves certain number of status from a service
-   * @param  {Object}  base  Data that wants to be stored
-   * @param  {Integer}  num  Number of objects that want to be created
-   * @return {Promise}       Returns a promise with the status if all the objects
-   *                         could be created or not
-   * @version 15/10/18
-   */
-  async createStatService(base, num) {
-    let status = 0;
-    for(let i = 0; i < num && status === 0; i += 1) {
-      status = await new models.StatServiceMdl(base).save();
-    }
-    return status;
-  }
-  /**
-   * @async
-   * Async function that creates and saves certain number of images of the status
-   * of the services
-   * @param  {Object}  base  Data that wants to be stored
-   * @param  {Integer}  num  Number of objects that want to be created
-   * @return {Promise}       Returns a promise with the status if all the objects
-   *                         could be created or not
-   * @version 15/10/18
-   */
-  async createImgStatService(base, num) {
-    let status = 0;
-    for(let i = 0; i < num && status === 0; i += 1) {
-      status = await new models.ImgStatServiceMdl(base).save();
-    }
-    return status;
-  }
-  /**
-   * @async
    * Async function that creates and saves certain number of categories
    * @param  {Object}  base  Data that wants to be stored
    * @param  {Integer}  num  Number of objects that want to be created
@@ -138,37 +115,7 @@ class Factory {
     }
     return status;
   }
-  /**
-   * @async
-   * Async function that creates and saves certain number of images of products
-   * @param  {Object}  base  Data that wants to be stored
-   * @param  {Integer}  num  Number of objects that want to be created
-   * @return {Promise}       Returns a promise with the status if all the objects
-   *                         could be created or not
-   * @version 15/10/18
-   */
-  async createImgProduct(base, num) {
-    let status = 0;
-    for(let i = 0; i < num && status === 0; i += 1) {
-      status = await new models.ImgProductMdl(base).save();
-    }
-    return status;
-  }
-  /**
-   * @async
-   * Async function that creates and saves certain number of  address
-   * @param  {Object}  base  Data that wants to be stored
-   * @param  {Integer}  num  Number of objects that want to be created
-   * @return {Promise}       Returns a promise with the status if all the objects
-   *                         could be created or not
-   * @version 15/10/18
-   */  async createAddress(base, num) {
-    let status = 0;
-    for(let i = 0; i < num && status === 0; i += 1) {
-      status = await new models.AddressMdl(base).save();
-    }
-    return status;
-  }
+
   /**
    * @async
    * Async function that creates and saves certain number of payments

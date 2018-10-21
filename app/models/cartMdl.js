@@ -24,24 +24,6 @@ class CartMdl {
   }
 
   /**
-   * Function that reciebes one param.
-   * it will be iterated on a foEach to create new objects type CartMdl
-   * and will be pushed to a new constant variable that will ber returned.
-   * @param  {Array.<object>} data Array object that contains all the information
-   *                                to create a new Cart Model
-   * @return {Array.<object>}      returns an array of objects type CartMdl
-   *
-   * @version 15/10/2018
-   */
-  processResult(data) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new CartMdl(res));
-    });
-    return result;
-  }
-
-  /**
    * @async
    * Async function that from the table _Cart_ select all the posible tuples
    * with the designated params and returns a promise
@@ -63,6 +45,24 @@ class CartMdl {
     } catch (e) {
       throw e;
     }
+  }
+
+  selectAll(id_user) {
+    return this.select(
+      '_Cart_',
+      [
+        '*',
+      ],
+      [
+        {
+          attr: 'id_user',
+          oper: '=',
+          val: id_user,
+        },
+      ],
+      null,
+      null,
+    );
   }
 
   /**

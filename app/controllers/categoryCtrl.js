@@ -1,4 +1,4 @@
-const { CategoryMdl, Responses } = require('../models');
+const { CategoryMdl, Response } = require('../models');
 
 /**
  *
@@ -7,40 +7,14 @@ const { CategoryMdl, Responses } = require('../models');
  *            of his ".bind"
  * @version   15/10/2018
  */
-class categoryCtrl{
-  constructor(){
+class categoryCtrl {
+  constructor() {
+    this.table = 'category';
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-    this.processResult = this.processResult.bind(this);
-  }
-
-  /**
-   * @async
-   * Async Function than recibes two params, used a array to save a Model of CategoryMdl,
-   * iterate on a for of the first param to push the model, can catch a error
-   * and calls the next with error
-   * @param  {Await Object}     data  Required the data from CategoryMdl.select to get
-   *                                  all the data from database.
-   * @param  {Next Object}      next  For launch the work to others
-   * @return {Array}                  Return a array with iterate with the models of
-   *                                  CategoryMdl and the promise
-   * @version 15/10/2018
-   */
-  async processResult(data, next) {
-    try {
-      let temp;
-      let result = [];
-      for (const res of data) {
-        temp = new CategoryMdl(res);
-        result.push(temp);
-      }
-      return result;
-    } catch (e) {
-      next(e);
-    }
   }
 
   /**
@@ -56,10 +30,11 @@ class categoryCtrl{
    * @version 15/10/2018
    */
   async getAll(req, res, next) {
+    const response = new Response();
     try {
       // FIXME Toda la logica para definir los parametros para filtros, paginado y ordenado se puede meter en un middleware
-      let page = parseInt(req.param('page'));
-      let per_page = parseInt(req.param('per_page'));
+      let page = Number(req.param('page'));
+      let per_page = Number(req.param('per_page'));
       if (!page) {
         page = 0;
       }
@@ -68,8 +43,8 @@ class categoryCtrl{
       }
       const start = page * per_page;
 
-      let find = parseInt(req.param('find'));
-      let f_col = parseInt(req.param('f_col'));
+      let find = Number(req.param('find'));
+      let f_col = Number(req.param('f_col'));
       const filters = null;
       if (find && f_col) {
         filters = [];
@@ -83,9 +58,9 @@ class categoryCtrl{
       }
 
       let order = null;
-      let ord = parseInt(req.param('order'));
-      let ord_by = parseInt(req.param('ord_by'));
-      let des = parseInt(req.param('desc'));
+      let ord = Number(req.param('order'));
+      let ord_by = Number(req.param('ord_by'));
+      let des = Number(req.param('desc'));
       if (ord && ord_by) {
         order = {};
         order.by =  ord_by;
@@ -114,27 +89,26 @@ class categoryCtrl{
         },
       );
 
-      data = await this.processResult(data, next);
-
-      if (data.length === 0) {
-        res.status(500).send(Responses.notFound('Category'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(204)
+          .notFound(this.table);
       } else {
         const total = await CategoryMdl.count(
           '_Category_',
-          '',
-          '',
+          filters,
         );
-
-        res.status(200).send({
-          data,
-          per_page,
-          page,
-          total,
-        });
+        response.ok()
+          .setStatus(200)
+          .setData(data)
+          .setPlus('per_page', per_page)
+          .setPlus('page', page)
+          .setPlus('total', total);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -150,17 +124,12 @@ class categoryCtrl{
    * @version 15/10/2018
    */
   async get(req, res, next) {
+    const response = new Response();
     try {
       let data = await CategoryMdl.select(
         '_Category_',
         [
-          'id',
-          'name',
-          'description',
-          'photo',
-          'status',
-          'date',
-          'updated',
+          '*',
         ],
         [
           {
@@ -173,15 +142,20 @@ class categoryCtrl{
         null,
       );
 
-      [data] = await this.processResult(data, next);
-
-      if (!data) {
-        res.status(500).send(Responses.notFound('Category'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(404)
+          .notFound(this.table);
+      } else {
+        [data] = data;
+        response.ok()
+          .setStatus(200)
+          .setData(data);
       }
-      res.status(201).send({ data });
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -198,16 +172,21 @@ class categoryCtrl{
    * @version 15/10/2018
    */
   async create(req, res, next) {
+    const response = new Response();
     try {
-      let result = await new CategoryMdl(req.body).save();
-      if (result) {
-        res.status(201).send(Responses.created('Category'));
+      if(!await new CategoryMdl(req.body).save()) {
+        response.bad()
+          .setStatus(409)
+          .cantRegister(this.table);
       } else {
-        return res.status(500).send(Responses.cantCreate('Category'));
+        response.ok()
+          .setStatus(201)
+          .registered(this.table);
       }
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -224,21 +203,26 @@ class categoryCtrl{
    *
    * @version 15/10/2018
    */
-  async update(req, res){
+  async update(req, res, next) {
+    const response = new Response();
     try {
       const Category = new CategoryMdl(req.body);
       Category.id = Number(req.param('id'));
 
-      const result = await Category.update();
-
-      if(!result){
-        res.status(500).send(Responses.cantRegister('Category'));
+      if(!await Category.update()) {
+        response.bad()
+          .setStatus(409)
+          .cantUpdate(this.table);
+      } else {
+        response.ok()
+          .setStatus(200)
+          .updated(this.table);
       }
-      res.status(201).send(Responses.updated('Category'));
-  } catch (e) {
-    next(e);
+    } catch (e) {
+      return next(e);
+    }
+    return res.status(response.status).send(response);
   }
-}
 
 /**
  * @async
@@ -254,21 +238,26 @@ class categoryCtrl{
  *
  * @version 15/10/2018
  */
-  async delete(req, res) {
+  async delete(req, res, next) {
+    const response = new Response();
     try {
       const Category = new CategoryMdl({
         id: Number(req.param('id')),
       });
 
-      const result = await Category.delete();
-
-      if(!result){
-        res.status(500).send(Responses.cantDelete('Category'));
+      if (!await Category.delete()) {
+        response.bad()
+          .setStatus(404)
+          .cantDelete(this.table);
+      } else {
+        response.ok()
+          .setStatus(200)
+          .deleted(this.table);
       }
-      res.status(201).send(Responses.deleted('Category'));
     } catch (e) {
-      next(e);
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 }
 

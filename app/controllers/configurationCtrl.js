@@ -1,5 +1,5 @@
 const Factory = require('../factory');
-const { ConfigurationMdl } = require('../models');
+const { ConfigurationMdl, Response } = require('../models');
 
 /**
  *
@@ -10,27 +10,11 @@ const { ConfigurationMdl } = require('../models');
  */
 class configurationCtrl {
   constructor() {
-    this.getAll = this.getAll.bind(this);
+    this.table = 'configuration';
+    this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-  }
-
-  /**
-   * Function than recibes two params, used a array to save a Model of ConfigurationMdl,
-   * iterate on a forEach of the first param to push the model
-   * @param  {Await Object}     data  Required the data from ConfigurationMdl.select to get
-   *                                  all the data from database.
-   * @return {Array}                  Return a array with iterate with the models of
-   *                                  ConfigurationMdl
-   * @version 15/10/2018
-   */
-  processResult(data) {
-    const result = [];
-    data.forEach((res) => {
-      result.push(new ConfigurationMdl(res));
-    });
-    return result;
   }
 
   /**
@@ -42,14 +26,36 @@ class configurationCtrl {
    * @return {Promise}                  Promise to return the data results
    * @version 15/10/2018
    */
-  async getAll(req, res){
-    let data = await db.getAll('_Configuration_', ['label', 'value'], '', '', '');
-    data = this.processResult(data);
-    if (data.length === 0) {
-      res.status(400).send({ response: 'OK', data: [{ message: 'No existen elementos que cumplan con lo solicitado' }], });
-    } else {
-      res.status(200).send({ data });
+  async get(req, res, next) {
+    const response = new Response();
+    try {
+      let data = await ConfigurationMdl.select(
+        '_Configuration_',
+        [
+          '*',
+        ],
+        [
+          {
+            attr: 'status',
+            oper: '!=',
+            val: 0,
+          },
+        ],
+      );
+      if (!data.length) {
+        response.bad()
+          .setStatus(204)
+          .notFound(this.table);
+      } else {
+        [data] = data;
+        response.ok()
+          .setStatus(200)
+          .setData(data);
+      }
+    } catch (e) {
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -64,15 +70,23 @@ class configurationCtrl {
    * @version 15/10/2018
    */
   async create(req, res){
-    const newConfiguration = new ConfigurationMdl(req.body);
+    const response = new Response();
+    try {
+      const Configuration = new ConfigurationMdl(req.body);
 
-    const result = await newConfiguration.save();
-
-    if(result === 0){
-      res.status(201).send({ message: 'Registrado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo registrar' });
+      if (!await Configuration.save()) {
+        response.bad()
+          .setStatus(409)
+          .cantRegister(this.table);
+      } else {
+        response.ok()
+          .setStatus(201)
+          .registered(this.table);
+      }
+    } catch (e) {
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -87,18 +101,24 @@ class configurationCtrl {
    * @version 15/10/2018
    */
   async update(req, res){
-    const Configuration = new ConfigurationMdl(req.body);
-    Configuration.id_user = req.param('label');
+    const response = new Response();
+    try {
+      const Configuration = new ConfigurationMdl(req.body);
+      Configuration.id = req.param('id');
 
-    const result = await Configuration.save();
-
-    if(result === 0){
-      res.status(200).send({ message: 'Actualizado correctamente' });
-    } else if (result === 1) {
-      res.status(201).send({ message: 'Registrado correctamente'});
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a actualizar' });
+      if (!await Configuration.save()) {
+        response.bad()
+          .setStatus(409)
+          .cantUpdate(this.table);
+      } else {
+        response.ok()
+          .setStatus(200)
+          .updated(this.table);
+      }
+    } catch (e) {
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -112,20 +132,26 @@ class configurationCtrl {
    *
    * @version 15/10/2018
    */
-  async delete(req, res){
-    const Cart = new CartMdl({
-      id_user: Number(req.param('id_user')),
-    });
+  async delete(req, res, next) {
+    const response = new Response();
+    try {
+      const Configuration = new ConfigurationMdl({
+        id: Number(req.param('id')),
+      });
 
-    const result = await Cart.delete();
-
-    if(result === 0){
-      res.status(200).send({ message: 'Eliminado correctamente' });
-    } else if (result === 1) {
-      res.status(400).send({ error: 'No se pudo eliminar' });
-    } else if (result === 2) {
-      res.status(404).send({ error: 'No existe el elemento a eliminar' });
+      if (!await Configuration.delete()) {
+        response.bad()
+          .setStatus(404)
+          .cantDelete(this.table);
+      } else {
+        response.ok()
+          .setStatus(200)
+          .deleted(this.table);
+      }
+    } catch (e) {
+      return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   /**
@@ -137,30 +163,36 @@ class configurationCtrl {
    *
    * @version 15/10/2018
    */
-  async populate(req, res) {
-    if (Number(req.param('num')) > 0) {
-      let result = 1;
-      if (req.param('table') === '_User_') { result = await Factory.createUser(req.body, Number(req.param('num'))); }
-      else if (req.param('table') === '_Order_') { result = await Factory.createOrder(req.body, Number(req.param('num'))); }
-      else if (req.param('table') === '_Service_') { result = await Factory.createService(req.body, Number(req.param('num'))); }
-      else if (req.param('table') === '_Product_') { result = await Factory.createProduct(req.body, Number(req.param('num'))); }
-      else if (req.param('table') === '_Notification_') { result = await Factory.createNotification(req.body, Number(req.param('num'))); }
-      else if (req.param('table') === '_StatService_') { result = await Factory.createStatService(req.body, Number(req.param('num'))); }
-      else if (req.param('table') === '_ImgStatService_') { result = await Factory.createImgStatService(req.body, Number(req.param('num'))); }
-      else if (req.param('table') === '_Category_') { result = await Factory.createCategory(req.body, Number(req.param('num'))); }
-      else if (req.param('table') === '_ImgProduct_') { result = await Factory.createImgProduct(req.body, Number(req.param('num'))); }
-      else if (req.param('table') === '_Address_') { result = await Factory.createAddress(req.body, Number(req.param('num'))); }
-      else if (req.param('table') === '_Payment_') { result = await Factory.createPayment(req.body, Number(req.param('num'))); }
-      else if (req.param('table') === '_Section_') { result = await Factory.createSection(req.body, Number(req.param('num'))); }
-      else if (req.param('table') === '_ConfSection_') { result = await Factory.createConfSection(req.body, Number(req.param('num'))); }
+  async populate(req, res, next) {
+    const response = new Response();
+    try {
+      let result = false;
+      const table = req.body.table;
+      const num = req.body.num;
+      delete req.body.table;
+      delete req.body.num;
+      if (table === '_User_') { result = await Factory.createUser(Number(num)); }
+      else if (table === '_Order_') { result = await Factory.createOrder(Number(num)); }
+      else if (table === '_Service_') { result = await Factory.createService(Number(num)); }
+      else if (table === '_Product_') { result = await Factory.createProduct(Number(num)); }
+      else if (table === '_Notification_') { result = await Factory.createNotification(Number(num)); }
+      else if (table === '_Category_') { result = await Factory.createCategory(Number(num)); }
+      else if (table === '_Payment_') { result = await Factory.createPayment(Number(num)); }
+      else if (table === '_Section_') { result = await Factory.createSection(Number(num)); }
 
-      if(result === 0) {
-        res.status(201).send({message: `${req.param('num')} elementos agregados correctamente.`});
+      if (!result) {
+        response.bad()
+          .setStatus(409)
+          .cantUpdate(this.table);
       } else {
-        res.status(400).send({error: 'No se pudo realizar la operación'});
+        response.ok()
+          .setStatus(200)
+          .updated(table);
       }
+    } catch (e) {
+      return next(e);
     }
-    res.status(404).send({error: 'Debes especificar una cantidad'});
+    return res.status(response.status).send(response);
   }
 }
 

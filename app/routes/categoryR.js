@@ -28,7 +28,7 @@ router.post('/',
         body: {
           name: 'word,required',
           description: 'string,required',
-          photo: 'photo',
+          photo: 'image',
         },
       });
     },
@@ -54,7 +54,7 @@ router.put('/:id',
         body: {
           name: 'word,required',
           description: 'string,required',
-          photo: 'photo',
+          photo: 'image',
           status: 'unsigned',
         },
       });
