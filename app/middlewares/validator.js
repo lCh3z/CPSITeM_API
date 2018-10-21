@@ -116,22 +116,50 @@ class Validator {
     return (Validator.regex.string.test(data));
   }
 
+  /**
+   * function that reciebes two params, to check if a number is minimun than another
+   * @param  {Integer} min    The minimun number accepted
+   * @param  {Integer} toEval Number to be evaled against the minimun number
+   * @return {Boolean}        true or false if the condition is fulfilled
+   */
   static minNumber(min, toEval) {
     return (toEval < min);
   }
-
+  /**
+   * function that reciebes two params, to check if a number is maximun than another
+   * @param  {Integer} max    The maximun number accepted
+   * @param  {Integer} toEval Number to be evaled against the maximun number
+   * @return {Boolean}        true or false if the condition is fulfilled
+   */
   static maxNumber(max, toEval) {
     return (toEval <= max);
   }
-
+  /**
+   * function that reciebes two params, to check if the length of a string is in
+   * the desired parameters
+   * @param  {Integer} min    The minimun number accepted
+   * @param  {string} toEval  String that will be evaled acording to its length
+   * @return {Boolean}        true or false if the condition is fulfilled
+   */
   static minLength(min, toEval) {
     return (toEval.length >= min);
   }
-
+  /**
+   * function that reciebes two params, to check if the length of a string is in
+   * the desired parameters
+   * @param  {Integer} max    The maximum number accepted
+   * @param  {string} toEval  String that will be evaled acording to its length
+   * @return {Boolean}        true or false if the condition is fulfilled
+   */
   static maxLength(max, toEval) {
     return (toEval.length <= max);
   }
-
+  /**
+   * function that reciebes to paramns and checks if both are just the same
+   * @param  {String} secret   string that will be used to compare the second param
+   * @param  {String} toEval   string to evaluate
+   * @return {Boolean}         true or false if the condition is fulfilled
+   */
   static equal(secret, toEval) {
     return (secret === toEval);
   }
