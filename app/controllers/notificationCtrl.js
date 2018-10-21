@@ -1,6 +1,5 @@
-const db = require('../db');
-const { NotificationMdl } = require('../models');
-const { Responses } = require('../models');
+const { NotificationMdl, Responses } = require('../models');
+
 class notificationCtrl{
   constructor(){
     this.getAll = this.getAll.bind(this);
@@ -8,38 +7,24 @@ class notificationCtrl{
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-    this.processResult = this.processResult.bind(this);
   }
-  async processResult(data, next) {
-    try {
-      let temp;
-      let result = [];
-      for (const res of data) {
-        temp = new NotificationMdl(res);
-        result.push(temp);
-      }
-      return result;
-    } catch (e) {
-      return next(e);
-    }
-  }
-
-
   async getAll(req, res, next) {
+    const response = new Response();
     try {
-      let page = parseInt(req.param('page'));
-      let per_page = parseInt(req.param('per_page'));
+      let page = Number(req.param('page'));
+      let per_page = Number(req.param('per_page'));
       if (!page) {
         page = 0;
       }
       if (!per_page) {
         per_page = 20;
       }
+
       const start = page * per_page;
 
-      let find = parseInt(req.param('find'));
-      let f_col = parseInt(req.param('f_col'));
-      const filters = null;
+      let find = Number(req.param('find'));
+      let f_col = Number(req.param('f_col'));
+      let filters = null;
       if (find && f_col) {
         filters = [];
         filters.push(
@@ -52,9 +37,9 @@ class notificationCtrl{
       }
 
       let order = null;
-      let ord = parseInt(req.param('order'));
-      let ord_by = parseInt(req.param('ord_by'));
-      let des = parseInt(req.param('desc'));
+      let ord = Number(req.param('order'));
+      let ord_by = Number(req.param('ord_by'));
+      let des = Number(req.param('desc'));
       if (ord && ord_by) {
         order = {};
         order.by =  ord_by;
@@ -65,10 +50,17 @@ class notificationCtrl{
         }
       }
 
-      let data = await NotificationMdl.select(
+      const data = await NotificationMdl.select(
         '_Notification_',
         [
-          '*',
+          'id',
+          'title',
+          'cont',
+          'id_user',
+          'prog',
+          'status',
+          'date',
+          'updated',
         ],
         filters,
         order,
@@ -78,35 +70,42 @@ class notificationCtrl{
         },
       );
 
-      data = await this.processResult(data, next);
-
-      if (data.length === 0) {
-        res.status(500).send(Responses.notFound('Notification'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(204)
+          .notFound(this.table);
       } else {
         const total = await NotificationMdl.count(
           '_Notification_',
-          '',
-          '',
+          filters,
         );
-
-        res.status(200).send({
-          data,
-          per_page,
-          page,
-          total,
-        });
+        response.ok()
+          .setStatus(200)
+          .setData(data)
+          .setPlus('per_page', per_page)
+          .setPlus('page', page)
+          .setPlus('total', total);
       }
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   async get(req, res, next) {
+    const response = new Response();
     try {
       let data = await NotificationMdl.select(
         '_Notification_',
         [
-          '*',
+          'id',
+          'title',
+          'cont',
+          'id_user',
+          'prog',
+          'status',
+          'date',
+          'updated',
         ],
         [
           {
@@ -119,62 +118,81 @@ class notificationCtrl{
         null,
       );
 
-      [data] = await this.processResult(data, next);
-
-      if (!data) {
-        res.status(500).send(Responses.notFound('Notification'));
+      if (!data.length) {
+        response.bad()
+          .setStatus(404)
+          .notFound(this.table);
+      } else {
+        [data] = data;
+        response.ok()
+          .setStatus(200)
+          .setData(data);
       }
-      res.status(201).send({ data });
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
   async create(req, res, next) {
+    const response = new Response();
     try {
-      let result = await new NotificationMdl(req.body).save();
-      if (result) {
-        res.status(201).send(Responses.created('Notification'));
-
+      const Notification = new NotificationMdl(req.body);
+      if (!await Notification.save()) {
+        response.bad()
+          .setStatus(409)
+          .cantCreate(this.table);
       } else {
-        return res.status(500).send(Responses.cantCreate('Notification'));
+        response.ok()
+          .setStatus(201)
+          .registered(this.table);
       }
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 
-  async update(req, res){
+  async update(req, res, next) {
+    const response = new Response();
     try {
       const Notification = new NotificationMdl(req.body);
       Notification.id = Number(req.param('id'));
-
-      const result = await Notification.update();
-
-      if(!result){
-        res.status(500).send(Responses.cantRegister('Notification'));
+      if (!await Notification.save()) {
+        response.bad()
+          .setStatus(409)
+          .cantUpdate(this.table);
+      } else {
+        response.ok()
+          .setStatus(200)
+          .updated(this.table);
       }
-      res.status(201).send(Responses.updated('Notification'));
-  } catch (e) {
-    return next(e);
+    } catch (e) {
+      return next(e);
+    }
+    return res.status(response.status).send(response);
   }
-}
 
-  async delete(req, res) {
+  async delete(req, res, next) {
+    const response = new Response();
     try {
       const Notification = new NotificationMdl({
         id: Number(req.param('id')),
       });
 
-      const result = await Notification.delete();
-
-      if(!result){
-        res.status(500).send(Responses.cantDelete('Notification'));
+      if (!await Notification.delete()) {
+        response.bad()
+          .setStatus(404)
+          .cantDelete(this.table);
+      } else {
+        response.ok()
+          .setStatus(200)
+          .deleted(this.table);
       }
-      res.status(201).send(Responses.deleted('Notification'));
     } catch (e) {
       return next(e);
     }
+    return res.status(response.status).send(response);
   }
 }
 
