@@ -144,7 +144,7 @@ class orderCtrl {
     const response = new Response();
     try {
       const Order = new OrderMdl(req.body);
-      if (!await Order.save()) {
+      if (!await Order.save(req.body.list_prod)) {
         response.bad()
           .setStatus(409)
           .cantRegister(this.table);
@@ -164,7 +164,7 @@ class orderCtrl {
     try {
       const Order = new OrderMdl(req.body);
       Order.id = Number(req.param('id'));
-      if (!await Order.save()) {
+      if (!await Order.save(req.body.list_prod)) {
         response.bad()
           .setStatus(409)
           .cantUpdate(this.table);
