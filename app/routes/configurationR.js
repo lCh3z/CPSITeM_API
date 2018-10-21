@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { configurationCtrl } = require('../controllers');
 const middlewares = require('../middlewares');
 
-router.get('/', configurationCtrl.getAll);
+router.get('/', configurationCtrl.get);
 
 router.post('/',
   [
@@ -16,7 +16,17 @@ router.post('/',
     },
   ], configurationCtrl.create);
 
-router.post('/populate', configurationCtrl.populate);
+router.post('/populate',
+  [
+    (req, res, next) => {
+      middlewares.validator.validate(req, res, next, {
+        body: {
+          table: 'string,required',
+          num: 'integer,required',
+        },
+      });
+    },
+  ], configurationCtrl.populate);
 
 router.put('/:id',
   [
