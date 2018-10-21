@@ -1,4 +1,3 @@
-const db = require('../db');
 const { NewsListMdl } = require('../models');
 
 /**
@@ -100,6 +99,7 @@ class newsListCtrl{
 
     const result = await newList.save();
 
+    // FIXME Evitar codigos numericos que no son claros
     if(result === 0){
       res.status(200).send({ message: 'Actualizado correctamente' });
     } else if (result === 1) {

@@ -1,13 +1,13 @@
 const db = require('../db');
 const { CartMdl, Responses } = require('../models');
 
-  /**
-   *
-   * @classdesc Class of controller cart, contain the getAll, create, update, delete and
-   *            processResult alike a functions, all are initialize with the information
-   *            of his ".bind"
-   * @version   15/10/2018
-   */
+/**
+ *
+ * @classdesc Class of controller cart, contain the getAll, create, update, delete and
+ *            processResult alike a functions, all are initialize with the information
+ *            of his ".bind"
+ * @version   15/10/2018
+ */
 class cartCtrl {
   constructor() {
     this.getAll = this.getAll.bind(this);

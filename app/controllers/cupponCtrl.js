@@ -1,4 +1,3 @@
-const db = require('../db');
 const { CupponMdl, Responses } = require('../models');
 
 /**
@@ -58,6 +57,7 @@ class cupponCtrl{
    */
   async getAll(req, res, next) {
     try {
+      // FIXME Toda la logica para definir los parametros para filtros, paginado y ordenado se puede meter en un middleware
       const page = parseInt(req.param('page'));
       const per_page = parseInt(req.param('per_page'));
       const start = page * per_page;

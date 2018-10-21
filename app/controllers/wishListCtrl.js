@@ -1,4 +1,3 @@
-const db = require('../db');
 const { WishListMdl, Responses } = require('../models');
 
 /**

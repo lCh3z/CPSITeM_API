@@ -274,7 +274,7 @@ class SectionMdl {
    *  If theres nothing it will create a new configuration
    * @param  {Array.<object>}  new_conf_section Object with the new configuration
    * @return {Promise}                          Returns a Promise
-   *                                            - returns an array with the new configuration  
+   *                                            - returns an array with the new configuration
    */
   async saveConfSection(new_conf_section) {
     let old_conf_section = [];

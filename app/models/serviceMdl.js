@@ -484,7 +484,7 @@ class ServiceMdl {
    * one.
    * The old list of status will be deleted from the table _StatService_ from
    * the database and will be substituted with the new one
-   * 
+   *
    * @param  {Array.<object>}  new_list_stat_service array object with all the new status service
    * @return {Promise}                       Returns a Promise
    *

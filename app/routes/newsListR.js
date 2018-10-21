@@ -2,6 +2,8 @@ const router = require('express').Router();
 const { newsListCtrl } = require('../controllers');
 const middlewares = require('../middlewares');
 
+// FIXME Falta validar los params y el cuerpo del request
+
 router.get('/', newsListCtrl.getAll);
 
 /**

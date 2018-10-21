@@ -1,5 +1,5 @@
 const Factory = require('../factory');
-const { OrderMdl, ConfigurationMdl  } = require('../models');
+const { ConfigurationMdl } = require('../models');
 
 /**
  *
