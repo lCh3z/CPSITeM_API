@@ -1,19 +1,40 @@
 const models = require('../models');
 
+/**
+ * This class creates objects of a class in a masive way and then
+ * are storage in the data base
+ */
 class Factory {
   constructor() {
     this.createUser = this.createUser.bind(this);
   }
 
-  async createUser(num) {
+  /**
+   * @async
+   * Async function that creates and saves certain number of users
+   * @param  {Object}  base  Data that wants to be stored
+   * @param  {Integer}  num  Number of objects that want to be created
+   * @return {Promise}       Returns a promise with the status if all the objects
+   *                         could be created or not
+   * @version 15/10/18
+   */
+  async createUser(base, num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.UserMdl(base).save();
     }
     return status;
   }
-
-  async createOrder(num) {
+  /**
+   * @async
+   * Async function that creates and saves certain number of orders
+   * @param  {Object}  base  Data that wants to be stored
+   * @param  {Integer}  num  Number of objects that want to be created
+   * @return {Promise}       Returns a promise with the status if all the objects
+   *                         could be created or not
+   * @version 15/10/18
+   */
+  async createOrder(base, num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.OrderMdl(base).save();
@@ -21,6 +42,15 @@ class Factory {
     return status;
   }
 
+  /**
+   * @async
+   * Async function that creates and saves certain number of services
+   * @param  {Object}  base  Data that wants to be stored
+   * @param  {Integer}  num  Number of objects that want to be created
+   * @return {Promise}       Returns a promise with the status if all the objects
+   *                         could be created or not
+   * @version 15/10/18
+   */
   async createService(num) {
     let status = true;
     for(let i = 0; i < num && status; i += 1) {
@@ -46,39 +76,39 @@ class Factory {
     return status;
   }
 
-  async createProduct(num) {
+  async createProduct(base, num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.ProductMdl(base).save();
     }
     return status;
   }
-
-  async createNotification(num) {
+  /**
+   * @async
+   * Async function that creates and saves certain number of notifications
+   * @param  {Object}  base  Data that wants to be stored
+   * @param  {Integer}  num  Number of objects that want to be created
+   * @return {Promise}       Returns a promise with the status if all the objects
+   *                         could be created or not
+   * @version 15/10/18
+   */
+  async createNotification(base, num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.NotificationMdl(base).save();
     }
     return status;
   }
-
-  async createStatService(num) {
-    let status = 0;
-    for(let i = 0; i < num && status === 0; i += 1) {
-      status = await new models.StatServiceMdl(base).save();
-    }
-    return status;
-  }
-
-  async createImgStatService(num) {
-    let status = 0;
-    for(let i = 0; i < num && status === 0; i += 1) {
-      status = await new models.ImgStatServiceMdl(base).save();
-    }
-    return status;
-  }
-
-  async createCategory(num) {
+  /**
+   * @async
+   * Async function that creates and saves certain number of categories
+   * @param  {Object}  base  Data that wants to be stored
+   * @param  {Integer}  num  Number of objects that want to be created
+   * @return {Promise}       Returns a promise with the status if all the objects
+   *                         could be created or not
+   * @version 15/10/18
+   */
+  async createCategory(base, num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.CategoryMdl(base).save();
@@ -86,39 +116,48 @@ class Factory {
     return status;
   }
 
-  async createImgProduct(num) {
-    let status = 0;
-    for(let i = 0; i < num && status === 0; i += 1) {
-      status = await new models.ImgProductMdl(base).save();
-    }
-    return status;
-  }
-
-  async createAddress(num) {
-    let status = 0;
-    for(let i = 0; i < num && status === 0; i += 1) {
-      status = await new models.AddressMdl(base).save();
-    }
-    return status;
-  }
-
-  async createPayment(num) {
+  /**
+   * @async
+   * Async function that creates and saves certain number of payments
+   * @param  {Object}  base  Data that wants to be stored
+   * @param  {Integer}  num  Number of objects that want to be created
+   * @return {Promise}       Returns a promise with the status if all the objects
+   *                         could be created or not
+   * @version 15/10/18
+   */
+  async createPayment(base, num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.PaymentMdl(base).save();
     }
     return status;
   }
-
-  async createSection(num) {
+  /**
+   * @async
+   * Async function that creates and saves certain number of sections
+   * @param  {Object}  base  Data that wants to be stored
+   * @param  {Integer}  num  Number of objects that want to be created
+   * @return {Promise}       Returns a promise with the status if all the objects
+   *                         could be created or not
+   * @version 15/10/18
+   */
+  async createSection(base, num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.SectionMdl(base).save();
     }
     return status;
   }
-
-  async createConfSection(num) {
+  /**
+   * @async
+   * Async function that creates and saves certain number of configuration sections
+   * @param  {Object}  base  Data that wants to be stored
+   * @param  {Integer}  num  Number of objects that want to be created
+   * @return {Promise}       Returns a promise with the status if all the objects
+   *                         could be created or not
+   * @version 15/10/18
+   */
+  async createConfSection(base, num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.ConfSectionMdl(base).save();

@@ -1,10 +1,13 @@
 const Factory = require('../factory');
 const { ConfigurationMdl, Response } = require('../models');
 
-// FIXME Todos los metodos deben estar documentados
-// FIXME En todos los casos de error, el codigo 500 no es adecuado
-// FIXME Los mensajes de respuestas deberian estar en ingles y  usar los responses que armaron
-
+/**
+ *
+ * @classdesc Class of controller Configuration, contain the getAll, populate, create, update, delete and
+ *            processResult alike a functions, all are initialize with the information
+ *            of his ".bind", except populate and processResult
+ * @version   15/10/2018
+ */
 class configurationCtrl {
   constructor() {
     this.table = 'configuration';
@@ -14,6 +17,15 @@ class configurationCtrl {
     this.delete = this.delete.bind(this);
   }
 
+  /**
+   * @async
+   * Async function to get all the data from the model of ConfigurationMdl (DB), depending
+   * the recived response with a error of notFound or send the got data
+   * @param  {Request Object}     req   Request to the function, includes information in params
+   * @param  {Response Object}    res   Response than will give the function
+   * @return {Promise}                  Promise to return the data results
+   * @version 15/10/2018
+   */
   async get(req, res, next) {
     const response = new Response();
     try {
@@ -46,7 +58,18 @@ class configurationCtrl {
     return res.status(response.status).send(response);
   }
 
-  async create(req, res, next) {
+  /**
+   * @async
+   * Async function to create a new Configuration, the controller response depending if
+   * a promise of category.save() responses sending a especific response of created a
+   * category
+   * @param  {Request Object}     req   Request to the function, includes information in params
+   * @param  {Response Object}    res   Response than will give the function
+   * @return {Promise, Response}        Promise return a response of created or can´t be created
+   *
+   * @version 15/10/2018
+   */
+  async create(req, res){
     const response = new Response();
     try {
       const Configuration = new ConfigurationMdl(req.body);
@@ -66,7 +89,18 @@ class configurationCtrl {
     return res.status(response.status).send(response);
   }
 
-  async update(req, res, next) {
+  /**
+   * @async
+   * Async function to update data from the model of configuration, the controller update
+   * the data from ConfigurationMdl with the request information, depending a result of save
+   * data it indicates if the data was updated of not
+   * @param  {Request Object}     req   Request to the function, includes information in params
+   * @param  {Response Object}    res   Response than will give the function
+   * @return {Promise, Response}        Promise return a response of updated or can´t be registered
+   *
+   * @version 15/10/2018
+   */
+  async update(req, res){
     const response = new Response();
     try {
       const Configuration = new ConfigurationMdl(req.body);
@@ -87,6 +121,17 @@ class configurationCtrl {
     return res.status(response.status).send(response);
   }
 
+  /**
+   * @async
+   * Async function to delete data from the model of configuration, the controller delete data from
+   * the model of configuration with the request information, next to it indicates to category the delete that data,
+   * depending the result if can be deleted response if data was or not deleted
+   * @param  {Request Object}     req   Request to the function, includes information in params
+   * @param  {Response Object}    res   Response than will give the function
+   * @return {Promise, Response}        Promise return a response of can´t be deleted or deleted
+   *
+   * @version 15/10/2018
+   */
   async delete(req, res, next) {
     const response = new Response();
     try {
@@ -109,6 +154,15 @@ class configurationCtrl {
     return res.status(response.status).send(response);
   }
 
+  /**
+   * @async
+   * Async function to generate new data in others tables
+   * @param  {Request Object}     req   Request to the function, includes information in params
+   * @param  {Response Object}    res   Response than will give the function
+   * @return {Promise, Response}        Promise return a response of can´t be deleted or deleted
+   *
+   * @version 15/10/2018
+   */
   async populate(req, res, next) {
     const response = new Response();
     try {
@@ -122,14 +176,9 @@ class configurationCtrl {
       else if (table === '_Service_') { result = await Factory.createService(Number(num)); }
       else if (table === '_Product_') { result = await Factory.createProduct(Number(num)); }
       else if (table === '_Notification_') { result = await Factory.createNotification(Number(num)); }
-      else if (table === '_StatService_') { result = await Factory.createStatService(Number(num)); }
-      else if (table === '_ImgStatService_') { result = await Factory.createImgStatService(Number(num)); }
       else if (table === '_Category_') { result = await Factory.createCategory(Number(num)); }
-      else if (table === '_ImgProduct_') { result = await Factory.createImgProduct(Number(num)); }
-      else if (table === '_Address_') { result = await Factory.createAddress(Number(num)); }
       else if (table === '_Payment_') { result = await Factory.createPayment(Number(num)); }
       else if (table === '_Section_') { result = await Factory.createSection(Number(num)); }
-      else if (table === '_ConfSection_') { result = await Factory.createConfSection(Number(num)); }
 
       if (!result) {
         response.bad()
