@@ -1,5 +1,9 @@
 const db = require('../db');
-
+/**
+ * @classdesc Class model of product.contains methods such as select, save, exists
+ * save, update, delete and processResult
+ * @version 15/10/2018
+ */
 class ProductMdl {
   constructor(
     {
@@ -32,6 +36,17 @@ class ProductMdl {
     this.updated = updated;
   }
 
+  /**
+   * @async
+   * Async function that from the table _Product_ select all the posible tuples
+   * with the designated params and returns a promise
+   * @param  {string}  table   Table required (_Product_) of the database
+   * @param  {Array.<string>}  columns Required columns of de table _Product_ from the database
+   * @param  {Array.<object>}  filters list of filter objects to use.
+   * @param  {Object}  order   Nullable definition of ORDER paramns.
+   * @param  {Object}  limit   Nullable definition of LIMIT params.
+   * @return {Promise}         Return a promise with the information from the database.
+   */
   static async select(table, columns, filters, order, limit) {
     try {
       const data = await db.select(table, columns, filters, order, limit);
@@ -47,6 +62,18 @@ class ProductMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that reciebes two parameters.
+   * The first one is the table (_Product_) to look for in the Database
+   * The second parameter are the filters to aply to the search
+   * It will return a promise with the total count
+   * @param  {string}  table   Table to look for in the database
+   * @param  {Array.<object>}  filters filters to be applied to the search
+   * @return {Promise}         Returns a promise with the total count of tuples
+   *                           found
+   * @version 15/10/2018
+   */
   static async count(table, filters) {
     try {
       const data = await db.count(table, filters);
@@ -56,6 +83,13 @@ class ProductMdl {
     }
   }
 
+  /**
+   * @async
+   * Async funciton that checks if a product already exists in the
+   * table _Product_ of the Database
+   * @return {Promise} Return a promise with the information from the database.
+   * @version 15/10/2018
+   */
   async exists() {
     try {
       if (this.id !== undefined) {
@@ -86,6 +120,17 @@ class ProductMdl {
     }
   }
 
+  /**
+   * @async
+   * Async funcitonthat checks if a product already exists, it will be updated, if not
+   * it will be created in the table _Product_ in the database
+   *
+   * @return {Promise} Returns a promise,
+   *                    - updated if it already exists
+   *                    - true if it is created a new one
+   *                    - false if it could not be created
+   * @version 15/10/2018
+   */
   async save(list_imgs) {
     try {
       const exists = await this.exists();
@@ -118,6 +163,14 @@ class ProductMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that updates a cart from the table _Product_ in the Database
+   * @return {Promise} Returns a Promise
+   *                   - Returns true if it could be updated
+   *                   - Returns false if it could not be updated
+   * @version 15/10/2018
+   */
   async update(list_imgs) {
     try {
       const old_name = await db.select(
@@ -171,6 +224,15 @@ class ProductMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that deletes a cart from the table _Product_ in the database .
+   * It will check first if the tuple to delete exists
+   *
+   * @return {Promise} Returns a Promise
+   *                   - Return true if it could be deleted
+   * @version 15/10/2018
+   */
   async delete() {
     try {
       const exists = await this.exists();
@@ -199,6 +261,13 @@ class ProductMdl {
     }
   }
 
+  /**
+   * @async
+   * Async function that gets an array of images from an specific product
+   * @return {Promise} Return a Promise
+   *                   - Returns an array with the list of images
+   * @version 15/10/2018
+   */
   async getImgProduct() {
     let list_imgs = []
     try {
@@ -229,6 +298,18 @@ class ProductMdl {
     return list_imgs;
   }
 
+  /**
+   * Async function that reciebes one param with the new array of images for
+   * the product.
+   * It will obtain the old list of images and then will be compared ith the new
+   * one.
+   * The old list of images will be deleted from the table _ImgProduct_ from
+   * the database and will be substituted with the new one
+   * @param  {Array.<object>}  new_list_imgs array object with all the new images
+   * @return {Promise}                       Returns a Promise
+   *
+   * @version 15/10/2018
+   */
   async saveImgProduct(new_list_imgs) {
     let old_list_imgs = [];
     try {

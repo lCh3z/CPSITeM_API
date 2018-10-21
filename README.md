@@ -96,7 +96,7 @@ Bien, una vez estés dentro, ejecutar las siguientes líneas:
 	GRANT ALL PRIVILEGES ON MyDataBase. * TO 'nombre_usuario'@'localhost';
 	FLUSH PRIVILEGES;
 #### Creación de tablas, disparadores y procedimientos almacenados
-Para esto, simplemente tendrás que copiar todo el contenido del archivo [db.sql](https://lch3z.github.io/CPSITeM_API/docs/db.sql), pegarlo en MySQL Workbench y ejecutarlo.
+Para esto, simplemente tendrás que copiar todo el contenido del archivo [db.sql](docs/docs/db.sql), pegarlo en MySQL Workbench y ejecutarlo.
 ### Definir variables de entoro
 En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tienes que renombrarlo por _.env_. Este archivo contiene las variables de entorno, donde cada una de estas representa algo distinto:
 <table>
@@ -108,12 +108,16 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 	</thead>
 	<tbody>
 		<tr>
-			<td>DB_USER</td>
-			<td>dirección de la base de datos</td>
+			<td>DB_HOST</td>
+			<td>dirección del servidor de base de datos</td>
 		</tr>
 		<tr>
-			<td>DB_HOST</td>
-			<td>dirección de la base de datos</td>
+			<td>DB_PORT</td>
+			<td>puerto de acceso al servidor base de datos</td>
+		</tr>
+		<tr>
+			<td>DB_NAME</td>
+			<td>nombre de la base de datos</td>
 		</tr>
 		<tr>
 			<td>DB_USER</td>
@@ -124,24 +128,16 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 			<td>contraseña del usuario</td>
 		</tr>
 		<tr>
-			<td>DB_NAME</td>
-			<td>nombre de la base de datos</td>
-		</tr>
-		<tr>
-			<td>DB_PORT</td>
-			<td>puerto de la base de datos</td>
-		</tr>
-		<tr>
 			<td>PORT</td>
-			<td>puerto de la aplicación</td>
+			<td>puerto para lanzar la aplicación</td>
 		</tr>
 		<tr>
-			<td>SECRET</td>
-			<td>cadena para cifrado</td>
+			<td>SALT_ROUND</td>
+			<td>Factor costo para generar un hash. Mientras mas grande sea, más seguras será la encriptación pero tardará más tiempo en realizarse.</td>
 		</tr>
 		<tr>
-			<td>USER_TIME</td>
-			<td>tiempo de expiración de sesión de usuario</td>
+			<td>USER_SESSION</td>
+			<td>tiempo de expiración de sesión de usuario (en minutos)</td>
 		</tr>
 		<tr>
 			<td></td>
@@ -150,6 +146,7 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 	</tbody>
 </table>
 Una vez que sabes que representa cada una, deberás reasignar los valores por los necesarios para tu proyecto.
+
 ### Ejecutar Aplicación
 	node index.js
 
@@ -161,7 +158,7 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 - **Colección de POSTMAN** [\[Acceder\]](https://www.getpostman.com/collections/e592223584344d2fe0d9)
 - **Hosting gratuito de DB** [\[Acceder\]](https://www.db4free.net/)
 ## Licencia
-Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir a  [LICENSE](LICENSE.md) para más información.
+Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir a  [LICENSE](LICENSE) para más información.
 ## Colaboradores
 <table>
     <tbody>
