@@ -153,6 +153,7 @@ class DB {
   create(table, post) {
     delete post.date;
     delete post.updated;
+    delete post.id;
     if (!post.satatus) post.status = 1;
     return new Promise((resolve, reject) => {
       this.connection.query('INSERT INTO ?? SET ?;', [table, post], (error, rows) => {

@@ -58,9 +58,9 @@ router.put('/:id',
           company: 'word',
           rfc: 'rfc',
           country: 'word',
-          lada :'unsigned',
+          lada: 'unsigned',
           phone: 'unsigned',
-          cdu :'secret',
+          cdu: 'secret',
           main_email: 'email,required',
           list_email: [
             {
@@ -96,10 +96,10 @@ router.get('/:id/cart', cartCtrl.getAll);
 router.post('/:id/cart',
   [
     (req, res, next) =>{
-      middlewares.validator.validate(req, res, next,{
-        body:{
+      middlewares.validator.validate(req, res, next, {
+        body: {
           id_product: 'unsigned,required',
-          quantity : 'unsigned',
+          quantity: 'unsigned',
         },
       });
     },
@@ -119,11 +119,11 @@ router.post('/:id/cart',
    */
 router.put('/:id/cart/:id_product',
   [
-    (req, res, next) =>{
-      middlewares.validator.validate(req, res, next,{
+    (req, res, next) => {
+      middlewares.validator.validate(req, res, next, {
         body: {
           quantity: 'unsigned',
-          status : 'unsigned',
+          status: 'unsigned',
         },
       });
     },
@@ -147,10 +147,10 @@ router.get('/:id/wishlist', wishListCtrl.getAll);
  */
 router.post('/:id/wishlist/',
   [
-    (req, res, next) =>{
-      middlewares.validator.validate(req, res, next,{
-        body:{
-          id_product :'unsigned,required',
+    (req, res, next) => {
+      middlewares.validator.validate(req, res, next, {
+        body: {
+          id_product: 'unsigned,required',
         },
       });
     },

@@ -115,10 +115,6 @@ En el directorio donde clonaste el proyecto hay un archivo _.env_example_, tiene
 	</thead>
 	<tbody>
 		<tr>
-			<td>DB_USER</td>
-			<td>dirección de la base de datos</td>
-		</tr>
-		<tr>
 			<td>DB_HOST</td>
 			<td>dirección de la base de datos</td>
 		</tr>
