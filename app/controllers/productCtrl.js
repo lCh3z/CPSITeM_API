@@ -150,7 +150,7 @@ class productCtrl {
     const response = new Response();
     try {
       const Product = new ProductMdl(req.body);
-      if (!await Product.save()) {
+      if (!await Product.save(req.body.list_imgs)) {
         response.bad()
           .setStatus(409)
           .cantRegister(this.table);
@@ -170,7 +170,7 @@ class productCtrl {
     try {
       const Product = new ProductMdl(req.body);
       Product.id = Number(req.param('id'));
-      if (!await Product.save()) {
+      if (!await Product.save(req.body.list_imgs)) {
         response.bad()
           .setStatus(409)
           .cantUpdate(this.table);
