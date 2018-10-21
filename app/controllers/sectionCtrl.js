@@ -140,7 +140,7 @@ class sectionCtrl{
     const response = new Response();
     try {
       const Section = new SectionMdl(req.body);
-      if (!await Section.save()) {
+      if (!await Section.save(req.body.conf_section)) {
         response.bad()
           .setStatus(409)
           .cantRegister(this.table);
@@ -160,7 +160,7 @@ class sectionCtrl{
     try {
       const Section = new SectionMdl(req.body);
       Section.id = Number(req.param('id'));
-      if (!await Section.save()) {
+      if (!await Section.save(req.body.conf_section)) {
         response.bad()
           .setStatus(409)
           .cantUpdate(this.table);
