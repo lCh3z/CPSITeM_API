@@ -31,94 +31,47 @@ class Response {
     return this;
   }
 
-  notFound(table, plus) {
-    let detail = 'Not items found';
-    if (plus) {
-      detail += `: ${plus}`;
-    }
+  setDetail(table, det, plus) {
+    const detail = plus ? `${det} : ${plus}` : det;
     if (!this.details[table]) {
       this.details[table] = [detail];
     } else {
       this.details[table].push(detail);
     }
+  }
+
+  notFound(table, plus) {
+    this.setDetail(table, 'Not items found', plus);
     return this;
   }
 
   registered(table, plus) {
-    let detail = 'Successful registration';
-    if (plus) {
-      detail += `: ${plus}`;
-    }
-    if (!this.details[table]) {
-      this.details[table] = [detail];
-    } else {
-      this.details[table].push(detail);
-    }
+    this.setDetail(table, 'Successful registration', plus);
     return this;
   }
 
   cantRegister(table, plus) {
-    let detail = 'Could not register';
-    if (plus) {
-      detail += `: ${plus}`;
-    }
-    if (!this.details[table]) {
-      this.details[table] = [detail];
-    } else {
-      this.details[table].push(detail);
-    }
+    this.setDetail(table, 'Could not register', plus);
     return this;
   }
 
   updated(table, plus) {
-    let detail = 'Successful update';
-    if (plus) {
-      detail += `: ${plus}`;
-    }
-    if (!this.details[table]) {
-      this.details[table] = [detail];
-    } else {
-      this.details[table].push(detail);
-    }
+    this.setDetail(table, 'Successful update', plus);
     return this;
   }
 
   cantUpdate(table, plus) {
-    let detail = 'Could not update';
-    if (plus) {
-      detail += `: ${plus}`;
-    }
-    if (!this.details[table]) {
-      this.details[table] = [detail];
-    } else {
-      this.details[table].push(detail);
-    }
+    this.setDetail(table, 'Could not update', plus);
     return this;
   }
 
   deleted(table, plus) {
-    let detail = 'Successful deletion';
-    if (plus) {
-      detail += `: ${plus}`;
-    }
-    if (!this.details[table]) {
-      this.details[table] = [detail];
-    } else {
-      this.details[table].push(detail);
-    }
+    this.setDetail(table, 'Successful deletion', plus);
     return this;
   }
 
   cantDelete(table, plus) {
-    let detail = 'Could not delete';
-    if (plus) {
-      detail += `: ${plus}`;
-    }
-    if (!this.details[table]) {
-      this.details[table] = [detail];
-    } else {
-      this.details[table].push(detail);
-    }
+    this.setDetail(table, 'Could not delete', plus);
     return this;
   }
 }
