@@ -5,7 +5,7 @@ class Factory {
     this.createUser = this.createUser.bind(this);
   }
 
-  async createUser(base, num) {
+  async createUser(num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.UserMdl(base).save();
@@ -13,7 +13,7 @@ class Factory {
     return status;
   }
 
-  async createOrder(base, num) {
+  async createOrder(num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.OrderMdl(base).save();
@@ -21,15 +21,32 @@ class Factory {
     return status;
   }
 
-  async createService(base, num) {
-    let status = 0;
-    for(let i = 0; i < num && status === 0; i += 1) {
-      status = await new models.ServiceMdl(base).save();
+  async createService(num) {
+    let status = true;
+    for(let i = 0; i < num && status; i += 1) {
+      status = await new models.ServiceMdl({
+        id_seller: 1,
+        id_user: 2,
+        hospital: 'dummie',
+      }).save([
+        {
+          title: 'Testing status post',
+          description: null,
+          materials: null,
+          observations: null,
+          imgs: [
+            {
+              photo: 'p1.jpg',
+              status: 1,
+            },
+          ],
+        }
+      ]);
     }
     return status;
   }
 
-  async createProduct(base, num) {
+  async createProduct(num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.ProductMdl(base).save();
@@ -37,7 +54,7 @@ class Factory {
     return status;
   }
 
-  async createNotification(base, num) {
+  async createNotification(num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.NotificationMdl(base).save();
@@ -45,7 +62,7 @@ class Factory {
     return status;
   }
 
-  async createStatService(base, num) {
+  async createStatService(num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.StatServiceMdl(base).save();
@@ -53,7 +70,7 @@ class Factory {
     return status;
   }
 
-  async createImgStatService(base, num) {
+  async createImgStatService(num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.ImgStatServiceMdl(base).save();
@@ -61,7 +78,7 @@ class Factory {
     return status;
   }
 
-  async createCategory(base, num) {
+  async createCategory(num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.CategoryMdl(base).save();
@@ -69,7 +86,7 @@ class Factory {
     return status;
   }
 
-  async createImgProduct(base, num) {
+  async createImgProduct(num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.ImgProductMdl(base).save();
@@ -77,7 +94,7 @@ class Factory {
     return status;
   }
 
-  async createAddress(base, num) {
+  async createAddress(num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.AddressMdl(base).save();
@@ -85,7 +102,7 @@ class Factory {
     return status;
   }
 
-  async createPayment(base, num) {
+  async createPayment(num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.PaymentMdl(base).save();
@@ -93,7 +110,7 @@ class Factory {
     return status;
   }
 
-  async createSection(base, num) {
+  async createSection(num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.SectionMdl(base).save();
@@ -101,7 +118,7 @@ class Factory {
     return status;
   }
 
-  async createConfSection(base, num) {
+  async createConfSection(num) {
     let status = 0;
     for(let i = 0; i < num && status === 0; i += 1) {
       status = await new models.ConfSectionMdl(base).save();
