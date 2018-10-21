@@ -1,7 +1,8 @@
 const { CupponMdl, Responses } = require('../models');
 
-class cupponCtrl{
-  constructor(){
+class cupponCtrl {
+  constructor() {
+
     this.table = 'cuppon';
     this.getAll = this.getAll.bind(this);
     this.get = this.get.bind(this);
