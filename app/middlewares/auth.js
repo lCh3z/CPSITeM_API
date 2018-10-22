@@ -9,6 +9,7 @@ class Auth {
     this.logout = this.logout.bind(this);
     this.isLogged = this.isLogged.bind(this);
     this.getToken = this.getToken.bind(this);
+    this.isAlive = this.isAlive.bind(this);
   }
 
   generateHash(text) {
@@ -129,12 +130,19 @@ class Auth {
 
   async isLogged(req, res, next) {
     const response = new Response();
-    let token = new Token({ token: this.getToken(req.headers) });
+    const token = new Token({ token: this.getToken(req.headers) });
     try {
       if (await token.load()) {
         if (token.id) {
-          req.params.token = token;
-          next();
+          if (this.isAlive(token)) {
+            req.params.token = token;
+            next();
+          } else {
+            response.bad()
+              .setStatus(403)
+              .setDetail(token.type, 'You must be logged in', 'Session expired');
+            return next(response);
+          }
         } else {
           response.bad()
             .setStatus(403)
@@ -145,6 +153,15 @@ class Auth {
     } catch (e) {
       return next(e);
     }
+  }
+
+  isAlive(token) {
+    const now = new Date();
+    if (now > token.expires) {
+      token.close();
+      return false;
+    }
+    return true;
   }
 
   getToken(headers) {
