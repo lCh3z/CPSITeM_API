@@ -1,9 +1,14 @@
 const bcrypt = require('bcrypt-nodejs');
-const { UserMdl, Token } = require('../models');
+const { UserMdl, Token, Response } = require('../models');
 
 class Auth {
   constructor() {
     this.register = this.register.bind(this);
+    this.generateHash = this.generateHash.bind(this);
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+    this.isLogged = this.isLogged.bind(this);
+    this.getToken = this.getToken.bind(this);
   }
 
   generateHash(text) {
@@ -41,10 +46,10 @@ class Auth {
       if (await token.save()) {
         req.body.message = { token: hash };
       }
+      next();
     } catch (e) {
       return next(e);
     }
-    next();
   }
 
   async login(req, res, next) {
@@ -109,9 +114,7 @@ class Auth {
   }
 
   async logout(req, res, next) {
-    let token = req.headers['authorization'];
-    token = token.split(' ')[1];
-    token = new Token({ token });
+    const token = new Token({ token: this.getToken(req.headers) });
     try {
       if (await token.close()) {
         req.body.message = { session: 'Session was closed' };
@@ -123,6 +126,32 @@ class Auth {
       return next(e);
     }
   }
+
+  async isLogged(req, res, next) {
+    const response = new Response();
+    let token = new Token({ token: this.getToken(req.headers) });
+    try {
+      if (await token.load()) {
+        if (token.id) {
+          req.params.token = token;
+          next();
+        } else {
+          response.bad()
+            .setStatus(403)
+            .setDetail(token.type, 'You must be logged in');
+          return next(response);
+        }
+      }
+    } catch (e) {
+      return next(e);
+    }
+  }
+
+  getToken(headers) {
+    return headers.authorization
+      ? headers.authorization.split(' ')[1]
+      : false;
+  }
 }
 
-module.exports = Auth;
+module.exports = new Auth();
