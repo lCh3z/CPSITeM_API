@@ -33,9 +33,51 @@ class Token {
     return null;
   }
 
+  load() {
+    return new Promise(async(resolve, reject) => {
+      try {
+        if (this.token) {
+          let result = await db.select(
+            '_Token_',
+            [
+              '*',
+            ],
+            [
+              {
+                attr: 'token',
+                oper: '=',
+                val: this.token,
+              },
+              {
+                logic: 'and',
+                attr: 'status',
+                oper: '!=',
+                val: 0,
+              },
+            ],
+          );
+          console.log('RESULT', result);
+          if (result.length) {
+            [result] = result;
+            this.id = result.id;
+            this.id_user = result.id_user;
+            this.type = result.type;
+            this.expires = result.expires;
+            this.status = result.status;
+            this.date = result.date;
+            this.updated = result.updated;
+          }
+        }
+      } catch (e) {
+        return reject(e);
+      }
+      return resolve(this);
+    });
+  }
+
   async get(token) {
     try {
-      if (this.token !== undefined) {
+      if (this.token) {
         return await db.select(
           '_Token_',
           [
