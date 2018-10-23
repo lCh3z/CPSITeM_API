@@ -15,6 +15,17 @@ class cupponCtrl {
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.permits = this.permits.bind(this);
+  }
+
+  permits() {
+    return {
+      POST: 'ADMIN',
+      GET: 'SELLER,ADMIN',
+      UPDATE: 'ADMIN',
+      PUT: 'ADMIN',
+      DELETE: 'ADMIN',
+    }
   }
 
   /**

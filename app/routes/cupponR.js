@@ -7,6 +7,9 @@ const middlewares = require('../middlewares');
 router.get('/',
   [
     middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, cupponCtrl.permits());
+    },
   ],
   cupponCtrl.getAll);
 
