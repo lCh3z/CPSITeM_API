@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt-nodejs');
 const db = require('../db');
 
 /**
@@ -17,6 +18,7 @@ class UserMdl {
       mat_surname,
       company,
       rfc,
+      cdu,
       cfdi,
       type,
       country,
@@ -36,6 +38,7 @@ class UserMdl {
     this.mat_surname = mat_surname;
     this.company = company;
     this.rfc = rfc;
+    this.cdu = cdu;
     this.cfdi = cfdi;
     this.type = type;
     this.country = country;
@@ -45,6 +48,26 @@ class UserMdl {
     this.status = status;
     this.date = date;
     this.updated = updated;
+  }
+
+  generateHash(text) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await bcrypt.genSalt(process.env.SALT_ROUND, async (err, salt) => {
+          if (salt) {
+            await bcrypt.hash(text, salt, null, (err, hash) => {
+              if (hash) {
+                return resolve(hash);
+              }
+              return reject(err);
+            });
+          }
+          return reject(err);
+        });
+      } catch (e) {
+        return reject (e);
+      }
+    });
   }
 
   static async login(table, columns, filters, order, limit) {
@@ -84,8 +107,6 @@ class UserMdl {
 
       if (User.type === 'ADMIN' || User.type === 'SELLER') {
         User.worker = await User.getWorker();
-      } else {
-        await User.saveWorker(null);
       }
       response.push(User);
     }
@@ -122,33 +143,38 @@ class UserMdl {
    * @return {Promise} Return a promise with the information from the database.
    * @version 16/10/2018
    */
-  async exists() {
-    try {
-      if (this.id !== undefined) {
-        return await db.select(
-          '_User_',
-          [
-            'id',
-          ],
-          [
-            {
-              attr: 'id',
-              oper: '=',
-              val: this.id,
-            },
-            {
-              logic: 'and',
-              attr: 'status',
-              oper: '!=',
-              val: 0,
-            },
-          ],
-        );
+  exists() {
+    return new Promise(async(resolve, reject) => {
+      try {
+        if (this.id) {
+          const result = await db.select(
+            '_User_',
+            [
+              '*',
+            ],
+            [
+              {
+                attr: 'id',
+                oper: '=',
+                val: this.id,
+              },
+              {
+                logic: 'and',
+                attr: 'status',
+                oper: '!=',
+                val: 0,
+              },
+            ],
+          );
+          if (result.length) {
+            return resolve(result[0]);
+          }
+        }
+      } catch (e) {
+        return reject(e);
       }
-    } catch (e) {
-      throw e;
-    }
-    return [];
+      return resolve(false);
+    });
   }
 
   /**
@@ -163,38 +189,30 @@ class UserMdl {
    * @version 16/10/2018
    */
   async save(list_email, worker, list_addresses) {
-    const exists = await this.exists();
-    if (this.id !== undefined && exists.length) {
+    console.log('save', this);
+    if(await this.exists()) {
       return this.update(list_email, worker, list_addresses);
     }
-    try {
-      if (await db.create('_User_', this)) {
-        const id = await db.select(
-          '_User_',
-          [
-            'id',
-          ],
-          [
+    return new Promise(async(resolve, reject) => {
+      try {
+        this.cdu = await this.generateHash(this.cdu);
+        const result = await db.create('_User_', this);
+        console.log('OK', result);
+        if (result) {
+          this.id = result.insertId;
+          await this.saveListEmail([
             {
-              attr: 'main_email',
-              oper: '=',
-              val: this.main_email,
+              id_user: this.id,
+              email: this.main_email,
             },
-          ],
-        );
-        this.id = id[0].id;
-        await this.saveListEmail([
-          {
-            id_user: id[0].id,
-            email: this.main_email,
-          },
-        ]);
-        return id[0].id;
+          ]);
+          return resolve(this.id);
+        }
+      } catch (e) {
+        return reject(e);
       }
-    } catch (e) {
-      throw e;
-    }
-    return false;
+      return resolve(false);
+    });
   }
 
   /**
@@ -206,9 +224,15 @@ class UserMdl {
    * @version 15/10/2018
    */
   update(list_email, worker, list_addresses) {
+    console.log('UP', this);
     return new Promise(async (resolve, reject) => {
       try {
-        if (this.id !== undefined && await db.update(
+        if (this.cdu) {
+          console.log('b', this.cdu);
+          this.cdu = await this.generateHash(this.cdu);
+          console.log('a', this.cdu);
+        }
+        const result = await db.update(
           '_User_',
           this,
           [
@@ -224,7 +248,8 @@ class UserMdl {
               val: 0,
             },
           ],
-        )) {
+        );
+        if (this.id && result.affectedRows) {
           if (await this.saveListEmail(list_email)) {
             if (await this.saveWorker(worker)) {
               if (await this.saveAddresses(list_addresses)) {
@@ -234,6 +259,7 @@ class UserMdl {
           }
           return resolve(false);
         }
+        return resolve(false);
       } catch (e) {
         return reject(e);
       }
@@ -250,12 +276,11 @@ class UserMdl {
    * @version 15/10/2018
    */
   async delete() {
-    const exists = await this.exists();
-    if (exists.length) {
+    if (await this.exists()) {
       try {
         if (await db.delete(
           '_User_',
-          exists[0],
+          {},
           [
             {
               attr: 'id',
@@ -406,6 +431,7 @@ class UserMdl {
    * @version 16/10/2018
    */
   async saveListEmail(new_list_email) {
+    console.log('THIS', this);
     let old_list_email = [];
     try {
       old_list_email = await db.select(
@@ -524,6 +550,7 @@ class UserMdl {
    * @version 16/10/2018
    */
   async saveWorker(worker) {
+    console.log('THIS', this);
     if (worker && worker !== undefined && worker !== null) {
       worker.id_user = this.id;
       let temp = [];
@@ -626,6 +653,7 @@ class UserMdl {
    * @version 15/10/2018
    */
   async saveAddresses(new_list_addresses) {
+    console.log('THIS', this);
     let old_list_addresses = [];
     try {
       old_list_addresses = await db.select(

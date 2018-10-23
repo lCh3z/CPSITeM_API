@@ -61,6 +61,9 @@ router.put('/:id',
           lada: 'string',
           phone: 'string',
           cdu: 'password',
+          cfdi: 'integer',
+          type: 'string',
+          status: 'unsigned',
           main_email: 'email,required',
           list_email: [
             {
@@ -71,6 +74,11 @@ router.put('/:id',
             position: 'word',
             depart: 'word',
           },
+          list_addresses: [
+            {
+              street: 'string',
+            },
+          ],
         },
       });
     },
