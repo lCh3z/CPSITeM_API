@@ -431,6 +431,9 @@ class UserMdl {
    * @version 16/10/2018
    */
   async saveListEmail(new_list_email) {
+    if (!new_list_email) {
+      new_list_email = [];
+    }
     console.log('THIS', this);
     let old_list_email = [];
     try {
@@ -458,54 +461,54 @@ class UserMdl {
     } catch (e) {
       throw e;
     }
-
+    console.log('O', old_list_email);
     for (const n_email in new_list_email) {
+      let update = false;
       new_list_email[n_email].id_user = this.id;
       for(const o_email in old_list_email) {
-        if (new_list_email[n_email] && old_list_email[o_email] && new_list_email[n_email].email === old_list_email[o_email].email) {
-          try {
-            await db.update(
-              '_ListEmail_',
-              new_list_email[n_email],
-              [
-                {
-                  attr: 'id_user',
-                  oper: '=',
-                  val: this.id,
-                },
-                {
-                  logic: 'and',
-                  attr: 'email',
-                  oper: '=',
-                  val: new_list_email[n_email].email,
-                },
-                {
-                  logic: 'and',
-                  attr: 'status',
-                  oper: '!=',
-                  val: 0,
-                },
-              ],
-            );
-          } catch (e) {
-            throw e;
-          }
-          delete new_list_email[n_email];
+        if (new_list_email[n_email] && old_list_email[o_email] && new_list_email[n_email].email === old_list_email[o_email].email ) {
+          update = true;
           delete old_list_email[o_email];
         }
       }
-    }
-    for(const n_email in new_list_email) {
-      try {
-        await db.create(
-          '_ListEmail_',
-          new_list_email[n_email],
-        );
-      } catch (e) {
-        throw e;
+      if (update) {
+        try {
+          await db.update(
+            '_ListEmail_',
+            new_list_email[n_email],
+            [
+              {
+                attr: 'id_user',
+                oper: '=',
+                val: this.id,
+              },
+              {
+                logic: 'and',
+                attr: 'email',
+                oper: '=',
+                val: new_list_email[n_email].email,
+              },
+              {
+                logic: 'and',
+                attr: 'status',
+                oper: '!=',
+                val: 0,
+              },
+            ],
+          );
+        } catch (e) {
+          throw e;
+        }
+        delete new_list_email[n_email];
       }
     }
+
+    let myEmail = false;
     for(const o_email in old_list_email) {
+      if (old_list_email[o_email]. email === this.email) {
+        myEmail = true;
+        continue;
+      }
       try {
         await db.delete(
           '_ListEmail_',
@@ -534,6 +537,22 @@ class UserMdl {
         throw e;
       }
     }
+
+    if(!myEmail){
+      new_list_email.push({ id_user: this.id, email: this.main_email });
+    }
+    for(const n_email in new_list_email) {
+      try {
+        await db.create(
+          '_ListEmail_',
+          new_list_email[n_email],
+        );
+      } catch (e) {
+        throw e;
+      }
+    }
+
+
     return true;
   }
 
@@ -550,6 +569,9 @@ class UserMdl {
    * @version 16/10/2018
    */
   async saveWorker(worker) {
+    if (!worker) {
+      worker = {};
+    }
     console.log('THIS', this);
     if (worker && worker !== undefined && worker !== null) {
       worker.id_user = this.id;
@@ -653,6 +675,9 @@ class UserMdl {
    * @version 15/10/2018
    */
   async saveAddresses(new_list_addresses) {
+    if (!new_list_addresses) {
+      new_list_addresses = [];
+    }
     console.log('THIS', this);
     let old_list_addresses = [];
     try {
