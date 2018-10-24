@@ -203,11 +203,7 @@ class UserCtrl {
     const response = new Response();
     try {
       const User = new UserMdl(req.body);
-      if (!await User.save(
-        req.body.list_email,
-        req.body.worker,
-        req.body.list_addresses,
-      )) {
+      if (!await User.save()) {
         response.bad()
           .setStatus(409)
           .cantRegister(this.table);

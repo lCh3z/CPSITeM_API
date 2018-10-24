@@ -130,25 +130,35 @@ class Auth {
 
   async isLogged(req, res, next) {
     const response = new Response();
-    const token = new Token({ token: this.getToken(req.headers) });
+    let token = new Token({ token: this.getToken(req.headers) });
     try {
-      if (await token.load()) {
-        if (token.id) {
-          if (this.isAlive(token)) {
+      token = await token.exists();
+      if (token.id) {
+        if (this.isAlive(token)) {
+          let User = new UserMdl({ id: token.id_user });
+          User = await User.exists();
+          console.log('USER', User);
+          if (User.type) {
+            token.user = User;
             req.params.token = token;
             next();
           } else {
             response.bad()
-              .setStatus(403)
-              .setDetail(token.type, 'You must be logged in', 'Session expired');
+              .setStatus(409)
+              .setDetail(token.type, 'We could not load your information');
             return next(response);
           }
         } else {
           response.bad()
             .setStatus(403)
-            .setDetail(token.type, 'You must be logged in');
+            .setDetail(token.type, 'You must be logged in', 'Session expired');
           return next(response);
         }
+      } else {
+        response.bad()
+          .setStatus(403)
+          .setDetail(token.type, 'You must be logged in');
+        return next(response);
       }
     } catch (e) {
       return next(e);
@@ -168,6 +178,39 @@ class Auth {
     return headers.authorization
       ? headers.authorization.split(' ')[1]
       : false;
+  }
+
+  havePermit(req, res, next, permits) {
+    console.log('M', req.method);
+    console.log('PER', permits);
+    const response = new Response();
+    if (req.params.token.user.type) {
+      let permit = false;
+      Object.keys(permits).forEach((oper) => {
+        if (oper === req.method) {
+          const types = permits[oper].split(',');
+          types.forEach((type) => {
+            console.log('CMP', req.params.token.user.type, type);
+            if (type === req.params.token.user.type) {
+              permit = true;
+            }
+          });
+        }
+      });
+      if (!permit) {
+        response.bad()
+          .setStatus(401)
+          .setDetail('PERMITS', 'You have not permits');
+        return next(response);
+      }else {
+        next();
+      }
+    } else {
+      response.bad()
+        .setStatus(409)
+        .setDetail('PERMITS', 'Error loading your user type');
+      return next(response);
+    }
   }
 }
 
