@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { userCtrl, cartCtrl, wishListCtrl, fileUploadCtrl } = require('../controllers');
+const { userCtrl, cartCtrl, wishListCtrl } = require('../controllers');
 const middlewares = require('../middlewares');
 
 // FIXME Falta validar los params y el cuerpo del request
@@ -74,8 +74,8 @@ router.put('/:id',
       //   },
       // });
 
-
-      fileUploadCtrl.upload(req, res, next, 'user');
+      
+      middlewares.fileUpload.upload(req, res, next, 'user');
     },
   ],
   userCtrl.update);

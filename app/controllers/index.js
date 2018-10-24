@@ -11,4 +11,3 @@ exports.cupponCtrl = require('./cupponCtrl');
 exports.paymentCtrl = require('./paymentCtrl');
 exports.configurationCtrl = require('./configurationCtrl');
 exports.sectionCtrl = require('./sectionCtrl');
-exports.fileUploadCtrl = require('./fileUploadCtrl');

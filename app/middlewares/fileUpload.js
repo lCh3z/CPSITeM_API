@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt-nodejs');
-class fileUploadCtrl {
+class fileUpload {
   constructor() {
     this.upload = this.upload.bind(this);
   }
@@ -45,4 +45,4 @@ class fileUploadCtrl {
   }
 }
 
-module.exports = new fileUploadCtrl();
+module.exports = fileUpload;
