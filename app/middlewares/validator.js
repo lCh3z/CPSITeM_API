@@ -194,10 +194,12 @@ class Validator {
             }
           });
           if (missing) {
-            if (Array.isArray(error.details[k])) {
-              error.details[k].push(`${k} is missing or unexpected type`);
-            } else {
-              error.details[k] = [`${k} is missing or invalid type`];
+            if (this.recValidation(null, res, next, input[k], error)) {
+              if (Array.isArray(error.details[k])) {
+                error.details[k].push(`${k} is missing or unexpected type`);
+              } else {
+                error.details[k] = [`${k} is missing or invalid type`];
+              }
             }
           }
         });
@@ -225,22 +227,28 @@ class Validator {
         return false;
       }
     } else if (input) {
+      let required = false;
       if (Array.isArray(input) && Array.isArray(req)) {
         for (const element in input) {
-          this.recValidation(req, res, next, input[element], error, field);
+          if(this.recValidation(req, res, next, input[element], error, field)) {
+            required = true;
+          };
         }
-      } else if (typeof (input) === 'object' && !Array.isArray(input)) {
+        return required;
+      } if (typeof (input) === 'object' && !Array.isArray(input)) {
         let required = false;
         Object.keys(input).forEach((l) => {
-          if (typeof (input[l]) === 'string') {
-            const validators = input[l].split(',');
-            validators.forEach((rule) => {
-              if (rule === 'required') {
-                required = true;
-              }
-            });
-          } else {
-            required = this.recValidation(req, res, next, input[l], error, field);
+          if (this.recValidation(req, res, next, input[l], error, field)) {
+            required = true;
+          }
+        });
+        return required;
+      } else if (typeof(input) === 'string') {
+        let required = false;
+        const validators = input.split(',');
+        validators.forEach((rule) => {
+          if (rule === 'required') {
+            required = true;
           }
         });
         return required;

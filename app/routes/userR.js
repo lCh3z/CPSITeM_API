@@ -53,24 +53,32 @@ router.put('/:id',
           photo: 'image',
           name: 'word,required',
           sec_name: 'word',
-          pat_surname: 'word',
+          pat_surname: 'word,required',
           mat_surname: 'word',
           company: 'word',
-          rfc: 'rfc',
-          country: 'string',
-          lada: 'string',
-          phone: 'string',
+          rfc: 'rfc,required',
+          cfdi: 'unsigned,required',
+          status: 'unsigned,required',
+          type: 'string,required',
+          country: 'string,required',
+          lada: 'string,required',
+          phone: 'string,required',
           cdu: 'password',
           main_email: 'email,required',
           list_email: [
             {
-              email: 'email',
+              email: 'email,required',
             },
           ],
           worker: {
             position: 'word',
             depart: 'word',
           },
+          list_addresses: [
+            {
+              street: 'string',
+            },
+          ],
         },
       });
     },
@@ -99,7 +107,7 @@ router.post('/:id/cart',
       middlewares.validator.validate(req, res, next, {
         body: {
           id_product: 'unsigned,required',
-          quantity: 'unsigned',
+          quantity: 'unsigned,required',
         },
       });
     },
@@ -122,8 +130,8 @@ router.put('/:id/cart/:id_product',
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
-          quantity: 'unsigned',
-          status: 'unsigned',
+          quantity: 'unsigned,required',
+          status: 'unsigned,required',
         },
       });
     },
