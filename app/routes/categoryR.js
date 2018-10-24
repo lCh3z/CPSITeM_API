@@ -6,7 +6,11 @@ const middlewares = require('../middlewares');
 
 router.get('/', categoryCtrl.getAll);
 
+/*
+
+*/
 router.get('/:id', categoryCtrl.get);
+
 
   /**
    *
