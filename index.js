@@ -8,11 +8,14 @@ const router = require('./app/routes');
 
 const { errorHandler } = require('./app/middlewares');
 
+const fileUpload = require('express-fileupload');
+
 const app = express();
 
 // Cargamos los middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(fileUpload());
 
 // Load routes into app
 app.use(router);

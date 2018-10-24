@@ -7,6 +7,7 @@ class Auth {
   }
 
   generateHash(text) {
+
     return new Promise(async (resolve, reject) => {
       try {
         await bcrypt.genSalt(process.env.SALT_ROUND, async (err, salt) => {
@@ -20,7 +21,7 @@ class Auth {
           }
           return reject(err);
         });
-      } catch (e) {
+      } catch (err) {
         return reject (err);
       }
     });
