@@ -37,12 +37,9 @@ class fileUpload {
           err
         });
       }
-      res.json({
-        ok: true,
-        message: 'image uploaded'
-      });
+      next();
     });
   }
 }
 
-module.exports = fileUpload;
+module.exports = new fileUpload();
