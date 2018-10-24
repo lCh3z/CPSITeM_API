@@ -18,7 +18,7 @@ class fileUploadCtrl {
     let file = req.files.file;
     let partialName = file.mimetype.split('/');
     let extension = partialName[partialName.length - 1];
-    let extensions = ['png', 'jpg', 'gif', 'jpeg', 'XML', 'pdf', 'doc', 'docx'];
+    let extensions = ['png', 'jpg', 'gif', 'jpeg', 'xml', 'pdf', 'msword'];
     if(extensions.indexOf( extension ) < 0 ){
       return res.status(400).json({
         ok: false,
@@ -28,7 +28,7 @@ class fileUploadCtrl {
         }
       });
     }
-    const fileName = `${bcrypt.hashSync(new Date()).split('$')[1].replace(/\//g, '')}.${extension}`;
+    const fileName = `${bcrypt.hashSync(new Date()).split('$')[3].replace(/\//g, '')}.${extension}`;
     file.mv(`app/uploads/${type}/${fileName}`, (err)=>{
       if(err){
         return res.status(400)
