@@ -28,7 +28,7 @@ class fileUploadCtrl {
         }
       });
     }
-    const fileName = `${bcrypt.hashSync(new Date())}.${extension}`;
+    const fileName = `${bcrypt.hashSync(new Date()).split('$')[1].replace(/\//g, '')}.${extension}`;
     file.mv(`app/uploads/${type}/${fileName}`, (err)=>{
       if(err){
         return res.status(400)
