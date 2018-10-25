@@ -179,7 +179,7 @@ CREATE TABLE _Cuppon_(
 create table _Address_(
   id integer unsigned not null,
   id_user integer unsigned not null,
-  name varchar (48) unique,
+  name varchar (48),
   reference varchar (128),
   street varchar (48),
   colony varchar (48),
