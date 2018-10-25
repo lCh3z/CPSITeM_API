@@ -160,6 +160,10 @@ class Validator {
     return (toEval.length <= max);
   }
 
+  static length(len, toEval) {
+    return (toEval.length == len);
+  }
+
   /**
    * function that reciebes to paramns and checks if both are just the same
    * @param  {String} password   string that will be used to compare the second param
@@ -217,9 +221,9 @@ class Validator {
           }
           if (!flag) {
             if (Array.isArray(error.details[req])) {
-              error.details[field].push(`${req} is not a valid ${input}`);
+              error.details[field].push(`${req} is not a valid ${rule}`);
             } else {
-              error.details[field] = [`${req} is not a valid ${input}`];
+              error.details[field] = [`${req} is not a valid ${rule}`];
             }
           }
         });
