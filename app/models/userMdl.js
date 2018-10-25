@@ -461,7 +461,9 @@ class UserMdl {
     } catch (e) {
       throw e;
     }
-    console.log('O', old_list_email);
+
+    let myEmail = false;
+
     for (const n_email in new_list_email) {
       let update = false;
       new_list_email[n_email].id_user = this.id;
@@ -500,10 +502,11 @@ class UserMdl {
           throw e;
         }
         delete new_list_email[n_email];
+      } else if (new_list_email[n_email].email === this.main_email) {
+        delete new_list_email[n_email];
       }
     }
 
-    let myEmail = false;
     for(const o_email in old_list_email) {
       if (old_list_email[o_email]. email === this.email) {
         myEmail = true;
@@ -711,7 +714,7 @@ class UserMdl {
       const tmpId = new_list_addresses[n_addresses].id;
       delete new_list_addresses[n_addresses].id;
       for(const o_addresses in old_list_addresses) {
-        if (new_list_addresses[n_addresses] && old_list_addresses[o_addresses] && new_list_addresses[n_addresses].id === old_list_addresses[o_addresses].id) {
+        if (new_list_addresses[n_addresses] && old_list_addresses[o_addresses] && new_list_addresses[n_addresses].name === old_list_addresses[o_addresses].name) {
           try {
             await db.update(
               '_Address_',
@@ -720,7 +723,7 @@ class UserMdl {
                 {
                   attr: 'id_user',
                   oper: '=',
-                  val: this.id,
+                  val: old_list_addresses[o_addresses].id,
                 },
                 {
                   logic: 'and',
