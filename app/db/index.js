@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const { Response } = require('../models');
 
 /**
  * @classdesc Class of DateBase, contain the host, port, user, password, database
@@ -24,6 +25,12 @@ class DB {
     this.delete = this.delete.bind(this);
     this.count = this.count.bind(this);
     this.disconnect = this.disconnect.bind(this);
+    this.processError = this.processError.bind(this);
+    this.getDataFromErrorMsg = this.getDataFromErrorMsg.bind(this);
+    this.formatLimit = this.formatLimit.bind(this);
+    this.formatOrder = this.formatOrder.bind(this);
+    this.formatFilters = this.formatFilters.bind(this);
+    this.destroy = this.destroy.bind(this);
     this.connection.connect((err) => {
       if (err) {
         console.error('Error connecting', err.stack);
@@ -156,6 +163,8 @@ class DB {
     delete post.id;
     if (!post.satatus) post.status = 1;
     return new Promise((resolve, reject) => {
+      console.log('res', Response);
+      console.log('THIS', this);
       this.connection.query('INSERT INTO ?? SET ?;', [table, post], (error, rows) => {
         if (error) return reject(this.processError(error));
         return resolve(rows);
@@ -167,6 +176,7 @@ class DB {
     delete post.date;
     delete post.updated;
     return new Promise((resolve, reject) => {
+      console.log('THIS2', this);
       const sql = `UPDATE ?? SET ? ${this.formatFilters(filters)};`;
       this.connection.query(sql, [table, post], (error, rows) => {
         if (error) return reject(this.processError(error));
@@ -235,23 +245,19 @@ class DB {
   }
 
   processError(err) {
-    const error = {};
+    const response = new Response();
+    response.bad();
     const data = this.getDataFromErrorMsg(err.sqlMessage);
     switch (err.code) {
-      case 'ER_DUP_ENTRY':
-        error['Duplicated'] = {
-          message: `${data[0]} already exists on the system`,
-          field: data.field,
-        };
-        break;
-      default:
-        error['BAD'] = {
-          message: err.sqlMessage,
-        };
-        break;
+    case 'ER_DUP_ENTRY':
+      response.setDetail(data.field, `${data[0]} already exists on the system`);
+      break;
+    default:
+      response.setDetail('Unhandled exception', err.sqlMessage);
+      break;
     }
 
-    return error;
+    return response;
   }
 
   getDataFromErrorMsg(message) {
