@@ -17,6 +17,15 @@ class configurationCtrl {
     this.delete = this.delete.bind(this);
   }
 
+  permits() {
+    return {
+      POST: 'ADMIN',
+      GET: 'ADMIN',
+      PUT: 'ADMIN',
+      DELETE: 'ADMIN',
+    };
+  }
+
   /**
    * @async
    * Async function to get all the data from the model of ConfigurationMdl (DB), depending

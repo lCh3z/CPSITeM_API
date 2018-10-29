@@ -13,7 +13,13 @@ router.get('/',
   ],
   cupponCtrl.getAll);
 
-router.get('/:id', cupponCtrl.get);
+router.get('/:id',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, cupponCtrl.permits());
+    },
+  ], cupponCtrl.get);
 
 /**
  *
@@ -29,6 +35,10 @@ router.get('/:id', cupponCtrl.get);
  */
 router.post('/',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, cupponCtrl.permits());
+    },
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
@@ -54,6 +64,10 @@ router.post('/',
    */
 router.put('/:id',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, cupponCtrl.permits());
+    },
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
@@ -64,7 +78,17 @@ router.put('/:id',
         },
       });
     },
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, cupponCtrl.permits());
+    },
   ], cupponCtrl.update);
 
-router.delete('/:id', cupponCtrl.delete);
+router.delete('/:id',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, cupponCtrl.permits());
+    },
+  ], cupponCtrl.delete);
 module.exports = router;

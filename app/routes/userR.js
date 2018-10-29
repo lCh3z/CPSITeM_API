@@ -4,9 +4,21 @@ const middlewares = require('../middlewares');
 
 // FIXME Falta validar los params y el cuerpo del request
 
-router.get('/', userCtrl.getAll);
+router.get('/',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, userCtrl.permits());
+    },
+  ], userCtrl.getAll);
 
-router.get('/:id', userCtrl.get);
+router.get('/:id',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, userCtrl.permits());
+    },
+  ], userCtrl.get);
 
 /**
  *
@@ -22,6 +34,10 @@ router.get('/:id', userCtrl.get);
  */
 router.post('/',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, userCtrl.permits());
+    },
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
@@ -47,6 +63,10 @@ router.post('/',
    */
 router.put('/:id',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, userCtrl.permits());
+    },
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
@@ -85,9 +105,21 @@ router.put('/:id',
   ],
   userCtrl.update);
 
-router.delete('/:id', userCtrl.delete);
+router.delete('/:id',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, userCtrl.permits());
+    },
+  ], userCtrl.delete);
 
-router.get('/:id/cart', cartCtrl.getAll);
+router.get('/:id/cart',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, cartCtrl.permits());
+    },
+  ], cartCtrl.getAll);
 
 /**
  *
@@ -103,6 +135,10 @@ router.get('/:id/cart', cartCtrl.getAll);
  */
 router.post('/:id/cart',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, cartCtrl.permits());
+    },
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next, {
         body: {
@@ -127,6 +163,10 @@ router.post('/:id/cart',
    */
 router.put('/:id/cart/:id_product',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, cartCtrl.permits());
+    },
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
@@ -137,9 +177,21 @@ router.put('/:id/cart/:id_product',
     },
   ], cartCtrl.update);
 
-router.delete('/:id/cart/:id_product', cartCtrl.delete);
+router.delete('/:id/cart/:id_product',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, cartCtrl.permits());
+    },
+  ], cartCtrl.delete);
 
-router.get('/:id/wishlist', wishListCtrl.getAll);
+router.get('/:id/wishlist',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, wishListCtrl.permits());
+    },
+  ], wishListCtrl.getAll);
 
 /**
  *
@@ -155,6 +207,10 @@ router.get('/:id/wishlist', wishListCtrl.getAll);
  */
 router.post('/:id/wishlist/',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, wishListCtrl.permits());
+    },
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
@@ -164,6 +220,12 @@ router.post('/:id/wishlist/',
     },
   ], wishListCtrl.create);
 
-router.delete('/:id/wishlist/:id_product', wishListCtrl.delete);
+router.delete('/:id/wishlist/:id_product',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, wishListCtrl.permits());
+    },
+  ], wishListCtrl.delete);
 
 module.exports = router;

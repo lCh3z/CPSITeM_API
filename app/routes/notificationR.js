@@ -4,7 +4,13 @@ const middlewares = require('../middlewares');
 
 // FIXME Falta validar los params y el cuerpo del request
 
-router.get('/', notificationCtrl.getAll);
+router.get('/',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, notificationCtrl.permits());
+    },
+  ], notificationCtrl.getAll);
 
 router.get('/:id', notificationCtrl.get);
 
@@ -22,6 +28,10 @@ router.get('/:id', notificationCtrl.get);
  */
 router.post('/',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, notificationCtrl.permits());
+    },
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
@@ -47,6 +57,10 @@ router.post('/',
    */
 router.put('/:id',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, notificationCtrl.permits());
+    },
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
@@ -58,5 +72,11 @@ router.put('/:id',
     },
   ], notificationCtrl.update);
 
-router.delete('/:id', notificationCtrl.delete);
+router.delete('/:id',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, notificationCtrl.permits());
+    },
+  ], notificationCtrl.delete);
 module.exports = router;

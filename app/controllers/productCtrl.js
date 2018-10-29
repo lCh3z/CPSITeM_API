@@ -17,6 +17,15 @@ class productCtrl {
     this.delete = this.delete.bind(this);
   }
 
+  permits() {
+    return {
+      POST: 'ADMIN,SELLER',
+      GET: 'ADMIN,SELLER,CLIENT',
+      PUT: 'ADMIN,SELLER',
+      DELETE: 'ADMIN',
+    }
+  }
+
   /**
    * @async
    * Async function to get all the data from the model of ProductMdl, depending

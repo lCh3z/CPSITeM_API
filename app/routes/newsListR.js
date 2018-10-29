@@ -4,7 +4,13 @@ const middlewares = require('../middlewares');
 
 // FIXME Falta validar los params y el cuerpo del request
 
-router.get('/', newsListCtrl.getAll);
+router.get('/',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, newsListCtrl.permits());
+    },
+  ], newsListCtrl.getAll);
 
 /**
  *
@@ -20,6 +26,10 @@ router.get('/', newsListCtrl.getAll);
  */
 router.post('/',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, newsListCtrl.permits());
+    },
     (req, res, next) =>{
       middlewares.validator.validate(req, res, next,{
         body:{
@@ -29,6 +39,12 @@ router.post('/',
     },
   ], newsListCtrl.create);
 
-router.put('/:email', newsListCtrl.update);
+router.put('/:email',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, newsListCtrl.permits());
+    },
+  ], newsListCtrl.update);
 
 module.exports = router;

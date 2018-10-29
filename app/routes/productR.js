@@ -21,6 +21,10 @@ router.get('/:id', productCtrl.get);
  * @version 16/10/2018
  */
 router.post('/', [
+  middlewares.auth.isLogged,
+  (req, res, next) => {
+    middlewares.auth.havePermit(req, res, next, productCtrl.permits());
+  },
   (req, res, next) => {
     middlewares.validator.validate(req, res, next, {
       body: {
@@ -55,6 +59,10 @@ router.post('/', [
  */
 router.put('/:id',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, productCtrl.permits());
+    },
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
@@ -75,5 +83,11 @@ router.put('/:id',
     },
   ], productCtrl.update);
 
-router.delete('/:id', productCtrl.delete);
+router.delete('/:id',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, productCtrl.permits());
+    },
+  ], productCtrl.delete);
 module.exports = router;

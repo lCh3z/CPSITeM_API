@@ -21,11 +21,10 @@ class cupponCtrl {
   permits() {
     return {
       POST: 'ADMIN',
-      GET: 'SELLER,ADMIN',
-      UPDATE: 'ADMIN',
+      GET: 'ADMIN',
       PUT: 'ADMIN',
       DELETE: 'ADMIN',
-    }
+    };
   }
 
   /**
