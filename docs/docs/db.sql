@@ -209,6 +209,7 @@ create table _Payment_(
 );
 
 CREATE TABLE _Configuration_(
+  id integer unsigned not null,
   label varchar(32),
   value varchar(2048),
   status tinyint unsigned default 1,
@@ -236,16 +237,30 @@ create table _ConfSection_(
   updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+create table _Token_(
+  id integer unsigned not null,
+  token varchar (84),
+  id_user integer unsigned not null,
+  type varchar (36),
+  expires TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  status tinyint unsigned default 1,
+  date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 
 alter table _Section_ modify column id smallint unsigned auto_increment primary key;
 alter table _ConfSection_ add foreign key (id_section) references _Section_ (id);
 
 alter table _Cuppon_ modify column id integer unsigned auto_increment primary key;
 
+alter table _Configuration_ modify column id integer unsigned auto_increment primary key;
+
 alter table _Category_ modify column id integer unsigned auto_increment primary key;
 alter table _Product_ modify column id integer unsigned auto_increment primary key, add foreign key (id_cat) references _Category_ (id);
 
 alter table _User_ modify column id integer unsigned auto_increment primary key;
+alter table _Token_ modify column id integer unsigned auto_increment primary key, add foreign key (id_user) references _User_ (id);
 alter table _Address_ modify column id integer unsigned auto_increment primary key, add foreign key (id_user) references _User_ (id);
 alter table _ListEmail_  add foreign key(id_user) references _User_ (id);
 alter table _Payment_ modify column id integer unsigned auto_increment primary key, add foreign key (id_user) references _User_ (id);
