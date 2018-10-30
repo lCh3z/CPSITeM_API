@@ -155,7 +155,7 @@ Una vez que sabes que representa cada una, deberás reasignar los valores por lo
 - **Sitio demostrativo** [\[Acceder\]](https://cpsitem.herokuapp.com/)
 - **GitHub Page** [\[Acceder\]](https://lch3z.github.io/CPSITeM_API/)
 - **Repositorio de GIT** [\[Acceder\]](https://github.com/lCh3z/CPSITeM_API)
-- **Colección de POSTMAN** [\[Acceder\]](https://www.getpostman.com/collections/e592223584344d2fe0d9)
+- **Colección de POSTMAN** [\[Acceder\]](docs/docs/postman_library.json)
 - **Hosting gratuito de DB** [\[Acceder\]](https://www.db4free.net/)
 ## Licencia
 Este proyecto está licenciado bajo la GNU GENERAL PUBLIC LICENSE Version 3. Ir a  [LICENSE](LICENSE) para más información.
