@@ -33,9 +33,43 @@ class Token {
     return null;
   }
 
+  exists() {
+    return new Promise(async(resolve, reject) => {
+      try {
+        if (this.token) {
+          let result = await db.select(
+            '_Token_',
+            [
+              '*',
+            ],
+            [
+              {
+                attr: 'token',
+                oper: '=',
+                val: this.token,
+              },
+              {
+                logic: 'and',
+                attr: 'status',
+                oper: '!=',
+                val: 0,
+              },
+            ],
+          );
+          if (result.length) {
+            return resolve(result[0]);
+          }
+        }
+      } catch (e) {
+        return reject(e);
+      }
+      return resolve(this);
+    });
+  }
+
   async get(token) {
     try {
-      if (this.token !== undefined) {
+      if (this.token) {
         return await db.select(
           '_Token_',
           [

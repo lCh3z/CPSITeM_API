@@ -92,7 +92,7 @@ class sectionCtrl{
 
       if (!data.length) {
         response.bad()
-          .setStatus(204)
+          .setStatus(200)
           .notFound(this.table);
       } else {
         const total = await SectionMdl.count(

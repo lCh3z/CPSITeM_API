@@ -4,7 +4,14 @@ const middlewares = require('../middlewares');
 
 // FIXME Falta validar los params y el cuerpo del request
 
-router.get('/', cupponCtrl.getAll);
+router.get('/',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, cupponCtrl.permits());
+    },
+  ],
+  cupponCtrl.getAll);
 
 router.get('/:id', cupponCtrl.get);
 

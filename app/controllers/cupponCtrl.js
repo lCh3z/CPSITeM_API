@@ -15,6 +15,17 @@ class cupponCtrl {
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
+    this.permits = this.permits.bind(this);
+  }
+
+  permits() {
+    return {
+      POST: 'ADMIN',
+      GET: 'SELLER,ADMIN',
+      UPDATE: 'ADMIN',
+      PUT: 'ADMIN',
+      DELETE: 'ADMIN',
+    }
   }
 
   /**
@@ -88,7 +99,7 @@ class cupponCtrl {
 
       if (!data.length) {
         response.bad()
-          .setStatus(204)
+          .setStatus(200)
           .notFound(this.table);
       } else {
         const total = await CupponMdl.count(
