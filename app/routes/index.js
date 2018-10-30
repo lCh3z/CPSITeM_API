@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const middlewares = require('../middlewares')
 
+const mailer = require('../mail');
 const userRouter = require('./userR');
 const orderRouter = require('./orderR');
 const serviceRouter = require('./serviceR');
@@ -16,6 +17,16 @@ const authRouter = require('./authR');
 
 router.get('/', (req, res) => { res.status(200).send('Hola mundo!'); });
 
+router.get('/email', (req, res) => {
+  let mailOptions = {
+    to: 'ulisesmrb@gmail.com',
+    subject: 'Hello email ✔',
+    text: 'Hello CPSITeM',
+    html: '<b>Hello world?</b>'
+};
+  mailer.sendMail(mailOptions);
+  res.status(200).send('CPSITeM API');
+});
 router.use('/user', userRouter);
 router.use('/order',orderRouter);
 router.use('/service',serviceRouter);
