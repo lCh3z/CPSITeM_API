@@ -64,6 +64,9 @@ router.put('/:id',
           lada: 'string,required',
           phone: 'string,required',
           cdu: 'password',
+          cfdi: 'integer',
+          type: 'string',
+          status: 'unsigned',
           main_email: 'email,required',
           list_email: [
             {

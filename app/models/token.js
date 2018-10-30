@@ -33,7 +33,7 @@ class Token {
     return null;
   }
 
-  load() {
+  exists() {
     return new Promise(async(resolve, reject) => {
       try {
         if (this.token) {
@@ -56,16 +56,8 @@ class Token {
               },
             ],
           );
-          console.log('RESULT', result);
           if (result.length) {
-            [result] = result;
-            this.id = result.id;
-            this.id_user = result.id_user;
-            this.type = result.type;
-            this.expires = result.expires;
-            this.status = result.status;
-            this.date = result.date;
-            this.updated = result.updated;
+            return resolve(result[0]);
           }
         }
       } catch (e) {
