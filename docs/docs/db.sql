@@ -1,26 +1,23 @@
-USE MyDataBase;
-
 CREATE TABLE _User_(
   id integer unsigned not null,
-  photo varchar(124),
-  name varchar(16),
-  sec_name varchar(16),
-  pat_surname varchar(34),
-  mat_surname varchar(32),
+  photo varchar(128),
+  name varchar(20),
+  sec_name varchar(20),
+  pat_surname varchar(35),
+  mat_surname varchar(35),
   company varchar(84),
   rfc varchar(13) unique,
   cfdi boolean,
   country varchar(5),
   lada varchar(3),
   phone varchar(8) unique,
-  type varchar(8),
+  type varchar(12),
   cdu varchar(124),
-  main_email varchar(84) unique,
+  main_email varchar(128) unique,
   status tinyint unsigned default 1,
   date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
 
 CREATE TABLE _Worker_(
   id_user integer unsigned not null,
@@ -183,6 +180,7 @@ create table _Address_(
   id integer unsigned not null,
   id_user integer unsigned not null,
   name varchar (48),
+  reference varchar (128),
   street varchar (48),
   colony varchar (48),
   city varchar(48),
@@ -190,13 +188,13 @@ create table _Address_(
   out_numb smallint,
   int_num smallint,
   zip_code varchar(5),
-  phone varchar (17),
-  email varchar (84),
+  country varchar(5),
+  lada varchar(3),
+  phone varchar(8) unique,
   status tinyint unsigned default 1,
   date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
 
 create table _Payment_(
   id integer unsigned not null,
