@@ -1,0 +1,1678 @@
+{
+	"info": {
+		"_postman_id": "421a9bb8-2a38-421d-a419-7283957800f7",
+		"name": "CPSITeM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CART",
+			"item": [
+				{
+					"name": "Agregar carrito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id_product\" : 1,\n\t\"quantity\" : 52134\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/user/1/cart",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"user",
+								"1",
+								"cart"
+							]
+						},
+						"description": "Post request para agregar carrito\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar carrito",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"quantity\" : 44,\n\t\"status\" : 1\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/user/1/cart/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"user",
+								"1",
+								"cart",
+								"1"
+							]
+						},
+						"description": "Patch request para actualizar carrito\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener carrito",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/user/1/cart",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"user",
+								"1",
+								"cart"
+							]
+						},
+						"description": "Get request para obtener todos los carritos\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar carrito",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/user/1/cart/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"user",
+								"1",
+								"cart",
+								"1"
+							]
+						},
+						"description": "Delete request para eliminar carrito\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "NOTIFICATION",
+			"item": [
+				{
+					"name": "Obtener notificaciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/notification?page=0&per_page=70",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"notification"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "per_page",
+									"value": "70"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener notificacion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/notification/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"notification",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar notificación",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"notificacion lol\",\n\t\"cont\": \"contenido de la notificación 2\",\n\t\"id_user\": 1\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/notification",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"notification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar notificación",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"notificación\",\n\t\"cont\": \"contenido chido\",\n\t\"id_user\": 1,\n\t\"status\": 1\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/notification/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"notification",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar notificación",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/notification/3",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"notification",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CUPPON",
+			"item": [
+				{
+					"name": "Obtener cupones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/cuppon?page=0&per_page=70",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cuppon"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "per_page",
+									"value": "70"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener cupon",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/cuppon/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cuppon",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar cupon",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"discount\" : 10,\n\t\"description\" : \"DOTD Disscount 2019\",\n\t\"code\" : \"XMAS\"\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/cuppon",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cuppon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar cupon",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"discount\" : 10,\n\t\"description\" : \"XMAS Disscount 2018\",\n\t\"code\" : \"XMAS\",\n\t\"status\" : 1\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/cuppon/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cuppon",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar cupon",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/cuppon/3",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cuppon",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ORDER",
+			"item": [
+				{
+					"name": "Obtener ordenes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/order?page=0&per_page=70",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"order"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "per_page",
+									"value": "70"
+								}
+							]
+						},
+						"description": "Get request para obtener ordenes\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener orden",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/order/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"order",
+								"1"
+							]
+						},
+						"description": "Get request para obtener una orden\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar orden",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5555/order/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5555",
+							"path": [
+								"order",
+								"3"
+							]
+						},
+						"description": "Delete request para eliminar una orden\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar orden",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id_user\" : 1,\n\t\"id_address\" : 1,\n\t\"id_payment\" : 1,\n\t\"id_cuppon\" : 1,\n\t\"list_prod\" : [\n\t\t{\n\t\t\t\"id_product\" : 1,\n\t\t\t\"quantity\" : 2,\n\t\t\t\"price\" : 5000\n\t\t}\t\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/order",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"order"
+							]
+						},
+						"description": "Post request para agregar una orden\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar orden",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : 2,\n\t\"id_user\" : 1,\n\t\"id_address\" : 1,\n\t\"id_payment\" : 2,\n\t\"id_cuppon\" : 1,\n\t\"status\" : 2\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/order/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"order",
+								"2"
+							]
+						},
+						"description": "Patch request para actualizar una orden\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PAYMENT",
+			"item": [
+				{
+					"name": "Obtener payments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/payment?page=0&per_page=70",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"payment"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "per_page",
+									"value": "70"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener payment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/payment/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"payment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id_user\": 1,\n\t\"account\":\"cuenta12345\"\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/payment",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar payment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id_user\": 1,\n\t\"account\":\"cuenta2\",\n\t\"status\": 1\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/payment/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"payment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar payment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/payment/3",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"payment",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PRODUCT",
+			"item": [
+				{
+					"name": "Obtener productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/product?page=0&per_page=70",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"product"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "per_page",
+									"value": "70"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener producto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/product/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"product",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar producto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id_cat\": 1,\n\t\"price\": 1231,\n\t\"name\":\"produto33\",\n\t\"inventory\": 54,\n\t\"description\": \"producto más chido\",\n\t\"specs\": \"Specs\",\n\t\"min_quan\": 25,\n\t\"list_imgs\" : [\n\t\t{\n\t\t\t\"photo\" : \"hola2.jpg\"\n\t\t}\t\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/product",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar producto",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id_cat\": 1,\n\t\"name\":\"produto31\",\n\t\"inventory\": 54,\n\t\"price\": 123,\n\t\"description\": \"producto\",\n\t\"status\": 1,\n\t\"list_imgs\" : [\n\t\t{\n\t\t\t\"photo\" : \"hola1.jpg\",\n\t\t\t\"status\" : 1\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/product/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar producto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/product/3",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"product",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SECTION",
+			"item": [
+				{
+					"name": "Obtener secciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/section?page=0&per_page=70",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"section"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "per_page",
+									"value": "70"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar sección",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": 2,\n\t\"status\": 1,\n\t\"conf_section\":[\n\t\t{\n\t\t\t\"photo\" : \"foto1.jpeg\",\n\t\t\t\"title\" : \"titulo\"\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/section",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"section"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener sección",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/section/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"section",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar sección",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/section/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"section",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SERVICE",
+			"item": [
+				{
+					"name": "Obtener servicios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/service?page=0&per_page=70",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"service"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "per_page",
+									"value": "70"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener servicio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/service/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"service",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar servicio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id_seller\": 1,\n    \"id_user\": 2,\n    \"hospital\": \"dummie\",\n    \"type\": \"REPARACION\",\n    \"title\": \"REPARACION DE VENTILADOR\",\n    \"equipment\": \"EQUIPO TAL\",\n    \"model\": \"MODELO TAL\",\n    \"serial\": \"CHOCOCRISPIS\",\n    \"location\": \"SALA 23\",\n    \"contract\": 2,\n    \"description\": \"NO ECHA AIRE\",\n    \"voucher\": \"ESTO QUE ES\",\n    \"stat_service\": [\n        {\n            \"title\": \"Testing status post\",\n            \"description\": \"FIXING\",\n            \"materials\": \"HANDS\",\n            \"observations\": \"NOTHING\",\n            \"imgs\": [\n                {\n                    \"photo\": \"p1.jpg\"\n                },\n                {\n                    \"photo\": \"p2.jpg\"\n                },\n                {\n                    \"photo\": \"p3.jpg\"\n                }\n            ]\n        },\n        {\n            \"title\": \"Testing status post 2\",\n            \"description\": \"FIXING\",\n            \"materials\": \"HANDS\",\n            \"observations\": \"NOTHING\",\n            \"imgs\": [\n                {\n                    \"photo\": \"p1.jpg\"\n                },\n                {\n                    \"photo\": \"p2.jpg\"\n                },\n                {\n                    \"photo\": \"p3.jpg\"\n                }\n            ]\n        },\n        {\n            \"title\": \"Testing status post3\",\n            \"description\": \"FIXING\",\n            \"materials\": \"HANDS\",\n            \"observations\": \"NOTHING\",\n            \"imgs\": [\n                {\n                    \"photo\": \"p1.jpg\"\n                },\n                {\n                    \"photo\": \"p2.jpg\"\n                },\n                {\n                    \"photo\": \"p3.jpg\"\n                }\n            ]\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/service",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"service"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar servicio",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/service/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"service",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar servicio",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1,\n\t\"id_seler\":1,\n\t\"id_user\": 2,\n\t\"hospital\": \"Modificado\",\n\t\"equipment\": \"Equipo vario\"\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/service/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"service",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "Registrar usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad50e9ac-6c94-40d7-9229-a64c9a51fa8d",
+								"type": "text/javascript",
+								"exec": [
+									"var header = postman.getResponseHeader('Authorization');",
+									"if (header) {",
+									"    var token = header.split(' ')[1];",
+									"    pm.environment.set('token', token);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"cdu\":\"Panchito 1\",\n\t\"main_email\": \"si_jala000@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/register",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"register"
+							]
+						},
+						"description": "POST request para registrarun usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b90bb3fc-4f62-460a-b749-1edf682b7b9d",
+								"type": "text/javascript",
+								"exec": [
+									"var header = postman.getResponseHeader('Authorization');",
+									"if (header) {",
+									"    var token = header.split(' ')[1];",
+									"    pm.environment.set('token', token);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"cdu\":\"Panchito 1\",\n\t\"main_email\": \"si_jala041@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/login",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGOUT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "678f997b-e5d5-40c3-8e4f-26d2862e45e7",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"cdu\":\"panchito\",\n\t\"main_email\": \"orale_si_jala002@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/logout",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"logout"
+							]
+						},
+						"description": "GET request para desloguear un usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/user?page=0&per_page=70",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "per_page",
+									"value": "70"
+								}
+							]
+						},
+						"description": "Request get para obtener todos los usuarios"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/user/4",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"user",
+								"4"
+							]
+						},
+						"description": "Get request para obtener un usuario\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar usuario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Diegoso\",\n\t\"photo\" : \"foto.jpeg\",\n\t\"sec_name\" : \"Luis\",\n\t\"mat_surname\" : \"Guzmán\",\n\t\"pat_surname\" : \"Herrera\",\n\t\"company\" : \"Tacos el wero el compu\",\n\t\"country\" : \"52\",\n\t\"lada\" : \"33\",\n\t\"cfdi\" : 1,\n\t\"phone\" : \"35845100\",\n\t\"rfc\" : \"QUDL851213AR0\",\n\t\"type\" : \"SELLER\",\n\t\"status\" : 1,\n\t\"main_email\": \"si_jala041@gmail.com\",\n\t\"cdu\": \"Panchito 1\",\n\t\"worker\" : {\n\t\t\"position\" : \"secre\",\n\t\t\"depart\": \"esclavos\"\n\t},\n\t\"list_addresses\" : [\n\t\t{\n\t\t\t\"name\" : \"myhome\",\n\t\t\t\"reference\": \"A lado de una tienda\",\n\t\t\t\"street\": \"Cerro pelón\",\n\t\t\t\"colony\": \"Cerro del 4\",\n\t\t\t\"city\": \"Guadalajara\",\n\t\t\t\"state\": \"Jalisco\",\n\t\t\t\"out_num\": 1123,\n\t\t\t\"int_num\": 14,\n\t\t\t\"zip_code\": \"45666\",\n\t\t\t\"country\": \"52\",\n\t\t\t\"lada\": \"33\",\n\t\t\t\"phone\": \"33445566\"\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/user/4",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"user",
+								"4"
+							]
+						},
+						"description": "PATCH request para actualizar un usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/user/10",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"user",
+								"10"
+							]
+						},
+						"description": "DELETE request para eliminar un usuario\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WISHLIST",
+			"item": [
+				{
+					"name": "Obtener wishLists",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/user/1/wishlist",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"user",
+								"1",
+								"wishlist"
+							]
+						},
+						"description": "Get request para obtener todas las wishLists"
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar wishList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id_product\" : 3\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/user/1/wishlist",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"user",
+								"1",
+								"wishlist"
+							]
+						},
+						"description": "POST request para agregar una wishList"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar wishList",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/user/1/wishlist/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"user",
+								"1",
+								"wishlist",
+								"1"
+							]
+						},
+						"description": "DELETE request para eliminar un usuario\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CATEGORY",
+			"item": [
+				{
+					"name": "Obtener categorías",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/category",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"category"
+							]
+						},
+						"description": "GET request para obtener categorías"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener categoría",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/category/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"category",
+								"1"
+							]
+						},
+						"description": "GET request para obtener una categoría"
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar categoría",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Ventiladores\",\n    \"description\": \"some description...\",\n    \"photo\": \"testing.png\"\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/category",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"category"
+							]
+						},
+						"description": "POST request para agregar una categoría"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar categoría",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/category/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"category",
+								"2"
+							]
+						},
+						"description": "DELETE request para eliminar una categoría"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "58cb2c19-8cef-4d5a-b774-4e61ab346a43",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fbc29e06-effa-441d-8d0c-410d6e50b417",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "CONFIGURATION",
+			"item": [
+				{
+					"name": "Agregar configuraciones",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"label\": \"testing2\",\n\t\"value\": \"33\"\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/configuration",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"configuration"
+							]
+						},
+						"description": "POST request para agregar configuración"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar configuración",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/configuration/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"configuration",
+								"1"
+							]
+						},
+						"description": "DELETE request para eliminar configuración"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener configuración",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/configuration",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"configuration"
+							]
+						},
+						"description": "GET request para obtener configuración"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar configuraciones",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"label\": \"TESTING\",\n\t\"value\": \"Si jala :O\",\n\t\"status\": 1\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/configuration/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"configuration",
+								"1"
+							]
+						},
+						"description": "PUT request para editar configuración"
+					},
+					"response": []
+				},
+				{
+					"name": "Populate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"table\": \"_Service_\",\n\t\"num\": 15\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}/configuration/populate",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"configuration",
+								"populate"
+							]
+						},
+						"description": "POST request para poblar tablas"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "8b5c2d08-e88b-4eea-81ec-8b4e48dc8af9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6e43c0ef-e9ab-485f-98b7-638166990861",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
