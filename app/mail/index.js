@@ -1,5 +1,13 @@
 const nodemailer = require('nodemailer');
 
+/**
+ * @classdesc Class of index mail, used to send emails to the users, contain
+ *            transporter initialize with a nodemailer creator of transport,
+ *            mailOptions initialize with email of the proyect, sendMail like a
+ *            function
+ * @version   29/10/2018
+ */
+
 class Mailer {
   constructor(){
     this.transporter = nodemailer.createTransport({
@@ -19,9 +27,16 @@ class Mailer {
     // this.transporter.verify()
   }
 
+/**
+ * Function to send a mail to some user, recived options and join with this.mailOptions
+ * for finally send the mail used the transporter
+ *
+ * @param   {Object}       options    Options Within the him include the data of to who,
+ *                                    subject with text, text and one format in html with characteristics
+ * @return  {Error Object,Bool}       In case of error or true
+ * @version 29/10/2018
+ */
   sendMail(options){
-    console.log('Correo');
-
     let mailOptions = {
       ...this.mailOptions,
       ...options,
@@ -33,6 +48,7 @@ class Mailer {
         }
         console.log('Message sent: %s', info.messageId);
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        return true;
     });
   }
 }
