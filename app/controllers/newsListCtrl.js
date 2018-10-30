@@ -15,6 +15,14 @@ class newsListCtrl {
     this.update = this.update.bind(this);
   }
 
+  permits() {
+    return {
+      POST: 'ADMIN,SELLER,CLIENT',
+      GET: 'ADMIN',
+      DELETE: 'ADMIN,SELLER,CLIENT',
+    };
+  }
+
   /**
    * @async
    * Async function to get all the data from the model of newsListMdl (DB), depending

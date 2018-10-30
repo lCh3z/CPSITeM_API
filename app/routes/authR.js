@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const middleware = require('../middlewares');
+const middlewares = require('../middlewares');
 const { userCtrl } = require('../controllers');
 
 router.post('/register', (req, res, next) => {
-  middleware.auth.register(req, res, next);
+  middlewares.auth.register(req, res, next);
 }, (req, res) => {
   if (req.body.message.token) {
     res.header('Authorization', `Bearer ${req.body.message.token}`);
@@ -12,7 +12,7 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
-  middleware.auth.login(req, res, next);
+  middlewares.auth.login(req, res, next);
 }, (req, res) => {
   if (req.body.message.token) {
     res.header('Authorization', `Bearer ${req.body.message.token}`);
@@ -20,13 +20,15 @@ router.post('/login', (req, res, next) => {
   res.status(200).send({ message: req.body.message });
 });
 
-router.get('/logout', (req, res, next) => {
-  middleware.auth.logout(req, res, next);
-}, (req, res) => {
-  res.status(200).send({ message: req.body.message });
-});
-
-
+router.get('/logout',
+  [
+    middlewares.auth.isLogged,
+  ],
+  (req, res, next) => {
+    middlewares.auth.logout(req, res, next);
+  }, (req, res) => {
+    res.status(200).send({ message: req.body.message });
+  });
 
 // router.get('/logout', );
 

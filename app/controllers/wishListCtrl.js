@@ -7,12 +7,20 @@ const { WishListMdl, Response } = require('../models');
  *            of his ".bind"
  * @version   15/10/2018
  */
-class wishListCtrl{
-  constructor(){
+class wishListCtrl {
+  constructor() {
     this.table = 'wishlist';
     this.getAll = this.getAll.bind(this);
     this.create = this.create.bind(this);
     this.delete = this.delete.bind(this);
+  }
+
+  permits() {
+    return {
+      POST: 'ADMIN,SELLER,CLIENT',
+      GET: 'ADMIN,SELLER,CLIENT',
+      DELETE: 'ADMIN,SELLER,CLIENT',
+    };
   }
 
   /**

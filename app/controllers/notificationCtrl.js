@@ -17,6 +17,15 @@ class notificationCtrl{
     this.delete = this.delete.bind(this);
   }
 
+  permits() {
+    return {
+      POST: 'ADMIN',
+      GET: 'ADMIN,SELLER,CLIENT',
+      PUT: 'ADMIN',
+      DELETE: 'ADMIN,SELLER,CLIENT',
+    };
+  }
+
   /**
    * @async
    * Async function to get all the data from the model of notificationMdl (DB), depending

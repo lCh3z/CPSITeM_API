@@ -3,7 +3,13 @@ const { configurationCtrl } = require('../controllers');
 const middlewares = require('../middlewares');
 
 // FIXME Falta validar los params y el cuerpo del request
-router.get('/', configurationCtrl.get);
+router.get('/',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, configurationCtrl.permits());
+    },
+  ], configurationCtrl.get);
 
 /**
  *
@@ -19,6 +25,10 @@ router.get('/', configurationCtrl.get);
  */
 router.post('/',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, configurationCtrl.permits());
+    },
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
@@ -31,6 +41,10 @@ router.post('/',
 
 router.post('/populate',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, configurationCtrl.permits());
+    },
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
@@ -55,6 +69,10 @@ router.post('/populate',
  */
 router.put('/:id',
   [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, configurationCtrl.permits());
+    },
     (req, res, next) => {
       middlewares.validator.validate(req, res, next, {
         body: {
@@ -66,6 +84,12 @@ router.put('/:id',
     },
   ], configurationCtrl.update);
 
-router.delete('/:id', configurationCtrl.delete);
+router.delete('/:id',
+  [
+    middlewares.auth.isLogged,
+    (req, res, next) => {
+      middlewares.auth.havePermit(req, res, next, configurationCtrl.permits());
+    },
+  ], configurationCtrl.delete);
 
 module.exports = router;
