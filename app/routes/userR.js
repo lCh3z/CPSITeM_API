@@ -39,13 +39,6 @@ router.post('/',
           main_email: 'email,required',
         },
       });
-      const request = middlewares.validator.code(req.params.id);
-      if(request){
-        next();
-      }
-      else{
-        res.status(406).send(request);
-      }
     },
   ],
   userCtrl.create);
