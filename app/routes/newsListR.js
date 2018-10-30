@@ -2,8 +2,6 @@ const router = require('express').Router();
 const { newsListCtrl } = require('../controllers');
 const middlewares = require('../middlewares');
 
-// FIXME Falta validar los params y el cuerpo del request
-
 router.get('/', newsListCtrl.getAll);
 
 /**
@@ -29,6 +27,23 @@ router.post('/',
     },
   ], newsListCtrl.create);
 
-router.put('/:email', newsListCtrl.update);
+router.put('/:email',
+[
+  (req, res, next) => {
+    middlewares.validator.validate(req, res, next, {
+      body: {
+        email: 'email,required',
+      },
+    });
+    const request = middlewares.validator.email(req.params.email);
+    if(request){
+      next();
+    }
+    else{
+      res.status(406).send(request);
+    }
+  },
+],
+ newsListCtrl.update);
 
 module.exports = router;

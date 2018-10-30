@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { configurationCtrl } = require('../controllers');
 const middlewares = require('../middlewares');
 
-// FIXME Falta validar los params y el cuerpo del request
 router.get('/', configurationCtrl.get);
 
 /**
@@ -63,9 +62,28 @@ router.put('/:id',
           status: 'unsigned',
         },
       });
+      const request = middlewares.validator.code(req.params.id);
+      if(request){
+        next();
+      }
+      else{
+        res.status(406).send(request);
+      }
     },
   ], configurationCtrl.update);
 
-router.delete('/:id', configurationCtrl.delete);
+router.delete('/:id',
+[
+ (req, res, next) =>{
+   const request = middlewares.validator.code(req.params.id);
+   if(request){
+     next();
+   }
+   else{
+     res.status(406).send(request);
+   }
+ },
+],
+ configurationCtrl.delete);
 
 module.exports = router;

@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const { wishListCtrl } = require('../controllers');
 
-// FIXME Falta validar los params y el cuerpo del request
-
 router.get('/', wishListCtrl.getAll);
 
 /**
@@ -27,7 +25,8 @@ router.post('/',
         },
       });
     },
-  ], wishListCtrl.create);
+  ],
+  wishListCtrl.create);
 
   /**
    *
@@ -50,9 +49,29 @@ router.put('/:id_user',
           status: 'unsigned',
         },
       });
+      const request = middlewares.validator.code(req.params.id_user);
+      if(request){
+        next();
+      }
+      else{
+        res.status(406).send(request);
+      }
     },
-  ], wishListCtrl.update);
+  ],
+  wishListCtrl.update);
 
-router.delete('/:id_user', wishListCtrl.delete);
+router.delete('/:id_user',
+[
+  (req, res, next) =>{
+    const request = middlewares.validator.code(req.params.id_user);
+    if(request){
+      next();
+    }
+    else{
+      res.status(406).send(request);
+    }
+  },
+],
+wishListCtrl.delete);
 
 module.exports = router;

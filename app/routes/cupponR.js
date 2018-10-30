@@ -2,8 +2,6 @@ const router = require('express').Router();
 const { cupponCtrl } = require('../controllers');
 const middlewares = require('../middlewares');
 
-// FIXME Falta validar los params y el cuerpo del request
-
 router.get('/',
   [
     middlewares.auth.isLogged,
@@ -13,7 +11,19 @@ router.get('/',
   ],
   cupponCtrl.getAll);
 
-router.get('/:id', cupponCtrl.get);
+router.get('/:id',
+[
+  (req, res, next) =>{
+    const request = middlewares.validator.code(req.params.id);
+    if(request){
+      next();
+    }
+    else{
+      res.status(406).send(request);
+    }
+  },
+],
+ cupponCtrl.get);
 
 /**
  *
@@ -63,8 +73,27 @@ router.put('/:id',
           status: 'unsigned,required',
         },
       });
+      const request = middlewares.validator.code(req.params.id);
+      if(request){
+        next();
+      }
+      else{
+        res.status(406).send(request);
+      }
     },
   ], cupponCtrl.update);
 
-router.delete('/:id', cupponCtrl.delete);
+router.delete('/:id',
+[
+ (req, res, next) =>{
+   const request = middlewares.validator.code(req.params.id);
+   if(request){
+     next();
+   }
+   else{
+     res.status(406).send(request);
+   }
+ },
+],
+ cupponCtrl.delete);
 module.exports = router;

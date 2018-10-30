@@ -4,7 +4,19 @@ const middlewares = require('../middlewares');
 
 router.get('/', userCtrl.getAll);
 
-router.get('/:id', userCtrl.get);
+router.get('/:id',
+  [
+    (req, res, next) =>{
+      const request = middlewares.validator.code(req.params.id);
+      if(request){
+        next();
+      }
+      else{
+        res.status(406).send(request);
+      }
+    },
+  ],
+ userCtrl.get);
 
 /**
  *
@@ -27,6 +39,13 @@ router.post('/',
           main_email: 'email,required',
         },
       });
+      const request = middlewares.validator.code(req.params.id);
+      if(request){
+        next();
+      }
+      else{
+        res.status(406).send(request);
+      }
     },
   ],
   userCtrl.create);
@@ -93,11 +112,31 @@ router.put('/:id',
           ],
         },
       });
+      const request = middlewares.validator.code(req.params.id);
+      if(request){
+        next();
+      }
+      else{
+        res.status(406).send(request);
+      }
     },
   ],
   userCtrl.update);
 
-router.delete('/:id', userCtrl.delete);
+router.delete('/:id',
+  [
+    (req, res, next) =>{
+      const request = middlewares.validator.code(req.params.id);
+      if(request){
+        next();
+      }
+      else{
+        res.status(406).send(request);
+      }
+    },
+  ],
+ userCtrl.delete);
+//
 
 router.get('/:id/cart', cartCtrl.getAll);
 
@@ -146,10 +185,29 @@ router.put('/:id/cart/:id_product',
           status: 'unsigned,required',
         },
       });
+      const request = middlewares.validator.code(req.params.id_product);
+      if(request){
+        next();
+      }
+      else{
+        res.status(406).send(request);
+      }
     },
   ], cartCtrl.update);
 
-router.delete('/:id/cart/:id_product', cartCtrl.delete);
+router.delete('/:id/cart/:id_product',
+[
+ (req, res, next) =>{
+   const request = middlewares.validator.code(req.params.id_product);
+   if(request){
+     next();
+   }
+   else{
+     res.status(406).send(request);
+   }
+ },
+],
+ cartCtrl.delete);
 
 router.get('/:id/wishlist', wishListCtrl.getAll);
 
@@ -176,6 +234,18 @@ router.post('/:id/wishlist/',
     },
   ], wishListCtrl.create);
 
-router.delete('/:id/wishlist/:id_product', wishListCtrl.delete);
+router.delete('/:id/wishlist/:id_product',
+[
+ (req, res, next) =>{
+   const request = middlewares.validator.code(req.params.id_product);
+   if(request){
+     next();
+   }
+   else{
+     res.status(406).send(request);
+   }
+ },
+],
+ wishListCtrl.delete);
 
 module.exports = router;

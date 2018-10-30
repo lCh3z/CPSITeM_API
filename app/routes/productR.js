@@ -2,11 +2,21 @@ const router = require('express').Router();
 const { productCtrl } = require('../controllers');
 const middlewares = require('../middlewares');
 
-// FIXME Falta validar los params y el cuerpo del request
-
 router.get('/', productCtrl.getAll);
 
-router.get('/:id', productCtrl.get);
+router.get('/:id',
+  [
+    (req, res, next) =>{
+      const request = middlewares.validator.code(req.params.id);
+      if(request){
+        next();
+      }
+      else{
+        res.status(406).send(request);
+      }
+    },
+  ],
+ productCtrl.get);
 
 /**
  *
@@ -20,7 +30,8 @@ router.get('/:id', productCtrl.get);
  * @return {Promise}                  Promise to return the data results
  * @version 16/10/2018
  */
-router.post('/', [
+router.post('/',
+[
   (req, res, next) => {
     middlewares.validator.validate(req, res, next, {
       body: {
@@ -72,8 +83,27 @@ router.put('/:id',
           ],
         },
       });
+      const request = middlewares.validator.code(req.params.id);
+      if(request){
+        next();
+      }
+      else{
+        res.status(406).send(request);
+      }
     },
   ], productCtrl.update);
 
-router.delete('/:id', productCtrl.delete);
+router.delete('/:id',
+  [
+    (req, res, next) =>{
+      const request = middlewares.validator.code(req.params.id);
+      if(request){
+        next();
+      }
+      else{
+        res.status(406).send(request);
+      }
+    },
+  ],
+ productCtrl.delete);
 module.exports = router;
