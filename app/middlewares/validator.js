@@ -1,3 +1,4 @@
+const { Response } = require('../models');
 /**
  * @classdesc Class to validate parameters that could be send in the routes
  *
@@ -160,6 +161,10 @@ class Validator {
     return (toEval.length <= max);
   }
 
+  static length(len, toEval) {
+    return (toEval.length == len);
+  }
+
   /**
    * function that reciebes to paramns and checks if both are just the same
    * @param  {String} password   string that will be used to compare the second param
@@ -170,15 +175,12 @@ class Validator {
     return (password === toEval);
   }
 
-  static recValidation(req, res, next, input, error, field) {
+  static recValidation(req, res, next, input, response, field) {
     if (input && req) {
       if (Array.isArray(input) && Array.isArray(req)) {
         for (const element in input) {
           for (const element2 in req) {
-            const test = this.recValidation(req[element2], res, next, input[element], error, field);
-            if (!test) {
-              return true;
-            }
+            return !this.recValidation(req[element2], res, next, input[element], response, field);
           }
         }
       } else if (typeof (input) === 'object' && typeof (req) === 'object' && !Array.isArray(input) && !Array.isArray(req)) {
@@ -187,19 +189,15 @@ class Validator {
           Object.keys(req).forEach((l) => {
             if (k === l) {
               missing = false;
-              const test = this.recValidation(req[l], res, next, input[k], error, l);
+              const test = this.recValidation(req[l], res, next, input[k], response, l);
               if (!test) {
                 missing = true;
               }
             }
           });
           if (missing) {
-            if (this.recValidation(null, res, next, input[k], error)) {
-              if (Array.isArray(error.details[k])) {
-                error.details[k].push(`${k} is missing or unexpected type`);
-              } else {
-                error.details[k] = [`${k} is missing or invalid type`];
-              }
+            if (this.recValidation(null, res, next, input[k], response)) {
+              response.setDetail(k, 'Is missing or invalid type');
             }
           }
         });
@@ -216,11 +214,7 @@ class Validator {
             }
           }
           if (!flag) {
-            if (Array.isArray(error.details[req])) {
-              error.details[field].push(`${req} is not a valid ${input}`);
-            } else {
-              error.details[field] = [`${req} is not a valid ${input}`];
-            }
+            response.setDetail(field, `${req} is not a valid ${rule}`);
           }
         });
       } else {
@@ -230,7 +224,7 @@ class Validator {
       let required = false;
       if (Array.isArray(input) && Array.isArray(req)) {
         for (const element in input) {
-          if(this.recValidation(req, res, next, input[element], error, field)) {
+          if(this.recValidation(req, res, next, input[element], response, field)) {
             required = true;
           };
         }
@@ -238,7 +232,7 @@ class Validator {
       } if (typeof (input) === 'object' && !Array.isArray(input)) {
         let required = false;
         Object.keys(input).forEach((l) => {
-          if (this.recValidation(req, res, next, input[l], error, field)) {
+          if (this.recValidation(req, res, next, input[l], response, field)) {
             required = true;
           }
         });
@@ -258,11 +252,11 @@ class Validator {
     return true;
   }
 
-  static purge(req, res, next, input, error) {
+  static purge(req, res, next, input, response) {
     if (req && input) {
       if (Array.isArray(req)) {
         for (const element in req) {
-          this.purge(req[element], res, next, input[element], error);
+          this.purge(req[element], res, next, input[element], response);
         }
       } else if (typeof (req) === 'object') {
         Object.keys(req).forEach((k) => {
@@ -270,7 +264,7 @@ class Validator {
           Object.keys(input).forEach((l) => {
             if (k === l) {
               deletion = false;
-              this.purge(req[k], res, next, input[l], error);
+              this.purge(req[k], res, next, input[l], response);
             }
           });
           if (deletion) {
@@ -281,15 +275,13 @@ class Validator {
     }
   }
 
-  static  validate(req, res, next, rules, error) {
-    error = {
-      message: 'Validation Error',
-      status: 409,
-      details: {},
-    };
-    this.recValidation(req, res, next, rules, error);
+  static  validate(req, res, next, rules) {
+    const response = new Response();
+    response.bad()
+      .setStatus(409);
+    this.recValidation(req, res, next, rules, response);
     this.purge({ body: req.body, params: req.params }, res, next, rules);
-    Object.keys(error.details).length ? next(error) : next();
+    response.details ? next(response) : next();
   }
 }
 
