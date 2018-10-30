@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const { Response } = require('../models');
+const Response = require('../models/response');
 
 /**
  * @classdesc Class of DateBase, contain the host, port, user, password, database
@@ -163,8 +163,6 @@ class DB {
     delete post.id;
     if (!post.satatus) post.status = 1;
     return new Promise((resolve, reject) => {
-      console.log('res', Response);
-      console.log('THIS', this);
       this.connection.query('INSERT INTO ?? SET ?;', [table, post], (error, rows) => {
         if (error) return reject(this.processError(error));
         return resolve(rows);
@@ -176,7 +174,6 @@ class DB {
     delete post.date;
     delete post.updated;
     return new Promise((resolve, reject) => {
-      console.log('THIS2', this);
       const sql = `UPDATE ?? SET ? ${this.formatFilters(filters)};`;
       this.connection.query(sql, [table, post], (error, rows) => {
         if (error) return reject(this.processError(error));
@@ -246,11 +243,12 @@ class DB {
 
   processError(err) {
     const response = new Response();
-    response.bad();
+    response.bad()
+      .setStatus(409);
     const data = this.getDataFromErrorMsg(err.sqlMessage);
     switch (err.code) {
     case 'ER_DUP_ENTRY':
-      response.setDetail(data.field, `${data[0]} already exists on the system`);
+      response.setDetail(data[1].replace(/'/g, ''), `${data[0]} already exists on the system`);
       break;
     default:
       response.setDetail('Unhandled exception', err.sqlMessage);
