@@ -20,6 +20,7 @@ class Validator {
       image: /([a-zA-Z0-9\s_\\.\-\(\):])+(\.jpg|\.jpeg|\.png)$/,
       password: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)([a-zA-Z\d\W]{8,})/,
       string: /^[A-Za-z0-9 \-;:,._()?¿!¡@ñÑáéíóúÁÉÍÓÚ$#%&=<>{}\[\]+*\\\/|\\'|°]+$/,
+      code: /^[1-9]+[0-9]*$/,
     };
   }
 
@@ -114,11 +115,21 @@ class Validator {
   /**
    * Function that reciebes one parameter that will be evaled if it is a string
    * or not
-   * @param  {string} data string to ve evaluated
-   * @return {bool}        returns true if the evaluated param is a string
+   * @param  {string}     data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is a code
    */
   static string(data) {
     return (Validator.regex.string.test(data));
+  }
+
+  /**
+   * Function that reciebes one parameter that will be evaled if it is a code
+   * or not
+   * @param  {string}      data string to ve evaluated
+   * @return {bool}        returns true if the evaluated param is a string
+   */
+  static code(data){
+    return (Validator.regex.code.test(data));
   }
 
   /**
