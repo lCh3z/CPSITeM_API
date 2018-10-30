@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const Response = require('../models/response');
 
 /**
  * @classdesc Class of DateBase, contain the host, port, user, password, database
@@ -24,6 +25,12 @@ class DB {
     this.delete = this.delete.bind(this);
     this.count = this.count.bind(this);
     this.disconnect = this.disconnect.bind(this);
+    this.processError = this.processError.bind(this);
+    this.getDataFromErrorMsg = this.getDataFromErrorMsg.bind(this);
+    this.formatLimit = this.formatLimit.bind(this);
+    this.formatOrder = this.formatOrder.bind(this);
+    this.formatFilters = this.formatFilters.bind(this);
+    this.destroy = this.destroy.bind(this);
     this.connection.connect((err) => {
       if (err) {
         console.error('Error connecting', err.stack);
@@ -235,23 +242,20 @@ class DB {
   }
 
   processError(err) {
-    const error = {};
+    const response = new Response();
+    response.bad()
+      .setStatus(409);
     const data = this.getDataFromErrorMsg(err.sqlMessage);
     switch (err.code) {
-      case 'ER_DUP_ENTRY':
-        error['Duplicated'] = {
-          message: `${data[0]} already exists on the system`,
-          field: data.field,
-        };
-        break;
-      default:
-        error['BAD'] = {
-          message: err.sqlMessage,
-        };
-        break;
+    case 'ER_DUP_ENTRY':
+      response.setDetail(data[1].replace(/'/g, ''), `${data[0]} already exists on the system`);
+      break;
+    default:
+      response.setDetail('Unhandled exception', err.sqlMessage);
+      break;
     }
 
-    return error;
+    return response;
   }
 
   getDataFromErrorMsg(message) {
