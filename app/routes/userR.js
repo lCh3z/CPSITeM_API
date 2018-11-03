@@ -48,31 +48,31 @@ router.post('/',
 router.put('/:id',
   [
     (req, res, next) => {
-      // middlewares.validator.validate(req, res, next, {
-      //   body: {
-      //     photo: 'image',
-      //     name: 'word,required',
-      //     sec_name: 'word',
-      //     pat_surname: 'word',
-      //     mat_surname: 'word',
-      //     company: 'word',
-      //     rfc: 'rfc',
-      //     country: 'string',
-      //     lada: 'string',
-      //     phone: 'string',
-      //     cdu: 'password',
-      //     main_email: 'email,required',
-      //     list_email: [
-      //       {
-      //         email: 'email',
-      //       },
-      //     ],
-      //     worker: {
-      //       position: 'word',
-      //       depart: 'word',
-      //     },
-      //   },
-      // });
+      middlewares.validator.validate(req, res, next, {
+        body: {
+          photo: 'image',
+          name: 'word,required',
+          sec_name: 'word',
+          pat_surname: 'word',
+          mat_surname: 'word',
+          company: 'word',
+          rfc: 'rfc',
+          country: 'string',
+          lada: 'string',
+          phone: 'string',
+          cdu: 'password',
+          main_email: 'email,required',
+          list_email: [
+            {
+              email: 'email',
+            },
+          ],
+          worker: {
+            position: 'word',
+            depart: 'word',
+          },
+        },
+      });
 
 
       middlewares.fileUpload.upload(req, res, next, 'user');

@@ -72,6 +72,7 @@ router.put('/:id',
           ],
         },
       });
+      middlewares.fileUpload.upload(req, res, next, 'product');
     },
   ], productCtrl.update);
 

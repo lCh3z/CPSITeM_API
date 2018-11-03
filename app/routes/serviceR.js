@@ -51,6 +51,7 @@ router.post('/',
           ],
         },
       });
+
     },
   ], serviceCtrl.create);
 
@@ -98,6 +99,7 @@ router.put('/:id',
           ],
         },
       });
+      middlewares.fileUpload.upload(req, res, next, 'service');
     },
   ], serviceCtrl.update);
 
